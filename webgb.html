@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post GB - Serem</title>
+  <style>
+    body {
+      background: #0e0e0e;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #240024;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 0 20px blue;
+    }
+    .add-btn {
+      position: absolute;
+      top: 50px;
+      right: 30px;
+      background: #fff000;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: move;
+      resize: both;
+      overflow: auto;
+      text-decoration: none;
+    }
+    .container {
+      padding: 20px;
+    }
+    .group {
+      background: #1a1a1a;
+      border: 1px solid #800080;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px purple;
+    }
+    .group img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .group h3 {
+      color: #ff3399;
+      margin: 5px 0 0;
+    }
+    .group p {
+      color: #ccc;
+      margin: 4px 0;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background: blue;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 8px;
+      box-shadow: 0 0 6px blue;
+    }
+  </style>
+</head>
+<body>
+  <header>Selamat Datang di Post GB</header>
+<a href="add.html" class="add-btn" id="addBtn">+ Add Group</a>
+  
+  <div class="container" id="groupList"></div>
+
+  <script>
+    const list = document.getElementById("groupList");
+    const stored = JSON.parse(localStorage.getItem("gbData")) || [];
+    const expire = localStorage.getItem("gbExpire");
+
+    // Reset jika expired
+    if (expire && new Date().getTime() > parseInt(expire)) {
+      localStorage.removeItem("gbData");
+      localStorage.removeItem("gbExpire");
+    } else {
+      stored.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "group";
+        div.innerHTML = `
+          <img src="${item.foto}" alt="foto">
+          <h3>${item.nama}</h3>
+          <p>${item.deskripsi}</p>
+          <a href="${item.link}" target="_blank" class="btn">Join GB</a>
+        `;
+        list.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
