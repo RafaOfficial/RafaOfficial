@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Music Search - RafaXMods</title>
+    <title>Music Search - IndictiveCore</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
@@ -376,36 +376,21 @@
         /* Status Messages */
         .status-msg { text-align: center; padding: 30px; color: #777; font-family: 'Courier Prime'; font-size: 0.8rem; }
         .loading-spinner { font-size: 1.8rem; color: var(--primary-purple); animation: spin 1s infinite linear; }
-
-fb-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 22px;
-  background: #25D366;
-  color: white;
-  font-weight: bold;
-  border-radius: 12px;
-  text-decoration: none;
-  box-shadow: 0 0 15px rgba(37,211,102,.5);
-  transition: .3s;
-}
-
-.wa-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(37,211,102,.8);
-}
-
-.wa-icon {
-  width: 26px;
-  height: 26px;
-}
     </style>
 </head>
 <body>
 
     <div class="app-container">
         
+        <div class="overlay-backdrop" onclick="toggleSidebar()"></div>
+
+        <div class="main-content">
+        <header>
+            <a href="index.html" class="icon-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <div class="header-title">Music</div>
+            <button class="" ></button>
+        </header>
+ 
             <div class="glass-card anim-element delay-1">
                 <div class="input-group">
                     <input type="text" class="input-box" id="search-input" placeholder="Search song or artist...">
