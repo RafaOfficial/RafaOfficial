@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TikTok Downloader</title>
+    
+    <!-- Load Font: Orbitron & Share Tech Mono (sama seperti dashboard) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES SAMA SEPERTI DASHBOARD --- */
+        :root {
+            --bg-dark: #080310;       
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #080310 80%);
+            
+            --card-bg: rgba(26, 11, 46, 0.85);       
+            --accent-pink: #db2777;   
+            --accent-purple: #9333ea; 
+            
+            /* Enhanced Colors */
+            --accent-red: #ff3333;
+            --accent-red-dark: #cc0000;
+            --accent-red-glow: rgba(255, 51, 51, 0.7);
+            --card-bg-red: rgba(50, 10, 10, 0.9);
+            
+            --accent-blue: #3b82f6;
+            --accent-blue-dark: #1d4ed8;
+            --accent-blue-glow: rgba(59, 130, 246, 0.7);
+            --card-bg-blue: rgba(10, 20, 50, 0.9);
+            
+            --accent-green: #10b981;
+            --accent-green-dark: #059669;
+            --accent-green-glow: rgba(16, 185, 129, 0.7);
+            --card-bg-green: rgba(10, 40, 30, 0.9);
+            
+            --accent-purple-tool: #8b5cf6;
+            --accent-purple-dark: #7c3aed;
+            --accent-purple-glow: rgba(139, 92, 246, 0.7);
+            --card-bg-purple: rgba(30, 15, 50, 0.9);
+            
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dark: #0891b2;
+            --accent-cyan-glow: rgba(6, 182, 212, 0.7);
+            --card-bg-cyan: rgba(10, 30, 40, 0.9);
+            
+            --accent-yellow: #eab308;
+            --accent-yellow-dark: #ca8a04;
+            --accent-yellow-glow: rgba(234, 179, 8, 0.7);
+            --card-bg-yellow: rgba(50, 40, 10, 0.9);
+            
+            --text-gray: #9ca3af; 
+            
+            /* FONT DEFINITIONS (sama seperti dashboard) */
+            --font-title: 'Share Tech Mono', sans-serif;   /* KHUSUS JUDUL (Tebal) */
+            --font-code: 'Share Tech Mono', monospace;  /* KHUSUS TEXT KECIL (Terinal) */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        
+        body {
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            color: #ffffff;
+            font-family: var(--font-code); /* Default pakai font coding */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND PARTICLES (sama seperti dashboard) --- */
+        #particle-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6); 
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* --- HEADER (sama seperti dashboard) --- */
+        header {
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+            padding: 20px 25px; 
+            padding-top: 40px; 
+            padding-bottom: 20px; 
+            background: rgba(8, 3, 16, 0.95);
+            z-index: 50;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 25px; right: 25px; height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(219, 39, 119, 0.3) 20%, rgba(147, 51, 234, 0.3) 80%, transparent 100%);
+        }
+
+        .brand-title { 
+            font-family: var(--font-title); /* JUDUL HEADER PAKE FONT TEBAL */
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            color: #fff;
+            text-shadow: 0 0 10px rgba(219, 39, 119, 0.6);
+            line-height: 1.1; padding-top: 1px; 
+        }
+        
+        .header-icon { 
+            color: #fff; cursor: pointer; flex-shrink: 0; margin-top: 2px;
+            transition: transform 0.2s;
+        }
+        .header-icon:active { transform: scale(0.9); color: var(--accent-pink); }
+
+        /* --- BACK BUTTON --- */
+        .back-btn {
+            background: rgba(219, 39, 119, 0.1);
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            color: var(--accent-pink);
+            border-radius: 12px;
+            padding: 10px 15px;
+            font-family: var(--font-code);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .back-btn:active { 
+            background: rgba(219, 39, 119, 0.2); 
+            transform: scale(0.98);
+        }
+
+        /* --- MAIN CONTENT (sama seperti dashboard) --- */
+        main { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 0 20px; 
+            padding-bottom: 30px; 
+            scroll-behavior: smooth; 
+            padding-top: 0; 
+            position: relative;
+        }
+
+        /* --- TOOLS HEADER STYLE (sama seperti dashboard) --- */
+        .tools-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px;
+            margin-top: 20px;
+        }
+        .tools-title-group { display: flex; align-items: center; gap: 15px; }
+        .tools-logo { 
+            width: 50px; height: 50px; 
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(219, 39, 119, 0.5);
+            animation: pulsePink 2s infinite;
+        }
+        @keyframes pulsePink {
+            0% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(219, 39, 119, 0.7); }
+            100% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
+        }
+        .tools-text h2 { 
+            font-family: var(--font-title); /* JUDUL HALAMAN TOOLS PAKE FONT TEBAL */
+            font-size: 24px; 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            color: #fff; margin-bottom: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .tools-text p { 
+            font-family: var(--font-code);
+            font-size: 11px; 
+            color: var(--accent-pink); 
+            font-weight: 400; 
+            letter-spacing: 0px; 
+            text-shadow: 0 0 8px rgba(219, 39, 119, 0.6);
+        }
+        
+        .owner-badge {
+            border: 2px solid var(--accent-pink);
+            color: var(--accent-pink);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px; 
+            font-weight: 700; 
+            letter-spacing: 0px;
+            background: rgba(219, 39, 119, 0.15);
+            box-shadow: 0 0 10px rgba(219, 39, 119, 0.3);
+            font-family: var(--font-title);
+        }
+
+        /* --- INPUT CARD (dengan gaya dashboard) --- */
+        .input-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+            opacity: 0.7;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 20px;
+            padding-right: 50px;
+            border-radius: 15px;
+            color: white;
+            font-family: var(--font-code);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        /* --- BUTTON STYLE (sama seperti dashboard) --- */
+        .btn-process {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            color: white;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.3);
+            margin-top: 10px;
+        }
+
+        .btn-process:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.4);
+        }
+
+        .btn-process:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* --- LOADER (sama seperti dashboard) --- */
+        .loader-wrapper {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--accent-pink);
+            border-bottom: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+            font-family: var(--font-title);
+            font-size: 12px;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* --- RESULT CARD (dengan gaya dashboard) --- */
+        .result-card {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 25px;
+            animation: fadeIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin-bottom: 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .video-container {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: black;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .video-player {
+            width: 100%;
+            display: block;
+            max-height: 400px;
+        }
+
+        .video-info {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .author-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-family: var(--font-title);
+            color: var(--accent-cyan);
+            font-size: 16px;
+        }
+
+        .video-caption {
+            font-size: 14px;
+            color: var(--text-gray);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: white;
+        }
+        
+        .stat-item i {
+            color: var(--accent-pink);
+        }
+
+        /* --- ACTION BUTTONS (dengan gaya dashboard) --- */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn-download {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-family: var(--font-title);
+            font-size: 12px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-download:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .btn-download i {
+            font-size: 20px;
+            color: var(--accent-cyan);
+        }
+
+        /* --- RESET BUTTON --- */
+        .btn-reset {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 13px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-reset:hover {
+            background: rgba(255, 51, 51, 0.2);
+        }
+
+        /* --- ERROR TOAST (dengan gaya dashboard) --- */
+        .error-toast {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid var(--accent-red);
+            color: #ff9999;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-size: 13px;
+            display: none;
+            font-family: var(--font-code);
+        }
+
+        /* --- SECTION TITLE (sama seperti dashboard) --- */
+        .section-title { 
+            font-family: var(--font-title); /* JUDUL SECTION PAKE FONT TEBAL */
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #fff; 
+            margin-bottom: 12px; 
+            letter-spacing: 0.5px;
+            border-left: 3px solid var(--accent-pink);
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+
+        /* --- NOTIFICATION STYLE (sama seperti dashboard) --- */
+        .notification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 11, 46, 0.95);
+            color: var(--accent-pink);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: var(--font-title);
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            z-index: 9999;
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.2);
+            animation: slideIn 0.3s ease-out;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-15px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(-50%) translateY(0); opacity: 1; }
+            to { transform: translateX(-50%) translateY(-15px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Particles -->
+    <div id="particle-container"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="brand-title">TIKTOK DOWNLOADER</div>
+    </header>
+
+    <main>
+        <!-- Tools Header -->
+        <div class="tools-header">
+            <div class="tools-title-group">
+                <div class="tools-logo">
+                    <i class="fab fa-tiktok" style="font-size: 28px; color: white;"></i>
+                </div>
+                <div class="tools-text">
+                    <h2>TIKTOK DOWNLOADER</h2>
+                    <p>Download TikTok Video & Audio</p>
+                </div>
+            </div>
+            <div class="" id="">RafaXMods</div>
+        </div>
+
+        <!-- Input Form -->
+        <div class="section-title">PASTE TIKTOK URL</div>
+        
+        <div class="input-card">
+            <div class="input-group">
+                <input type="text" id="urlInput" class="input-field" placeholder="Paste TikTok URL here...">
+                <i class="fas fa-link input-icon"></i>
+            </div>
+            <button id="processBtn" class="btn-process">
+                <i class="fas fa-bolt"></i> EXECUTE DOWNLOAD
+            </button>
+            <div id="errorToast" class="error-toast"></div>
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" class="loader-wrapper">
+            <div class="spinner"></div>
+            <div class="loader-text">FETCHING TIKTOK DATA...</div>
+        </div>
+
+        <!-- Result Card -->
+        <div id="resultCard" class="result-card">
+            <div class="video-container">
+                <video id="videoPreview" class="video-player" controls autoplay loop muted></video>
+            </div>
+
+            <div class="video-info">
+                <div class="author-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="authorName">@username</span>
+                </div>
+                <div class="video-caption" id="videoCaption">Video caption will appear here...</div>
+                
+                <div class="stats-row">
+                    <div class="stat-item"><i class="fas fa-heart"></i> <span id="likeCount">0</span></div>
+                    <div class="stat-item"><i class="fas fa-comment"></i> <span id="commentCount">0</span></div>
+                    <div class="stat-item"><i class="fas fa-share"></i> <span id="shareCount">0</span></div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" id="dlVideo" class="btn-download" target="_blank">
+                    <i class="fas fa-video"></i>
+                    <span>VIDEO NO WATERMARK</span>
+                </a>
+                <a href="#" id="dlAudio" class="btn-download" target="_blank">
+                    <i class="fas fa-music"></i>
+                    <span>AUDIO MP3</span>
+                </a>
+            </div>
+
+            <button onclick="resetApp()" class="btn-reset">
+                <i class="fas fa-trash"></i> RESET
+            </button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Create background particles (same as dashboard)
+            const container = document.getElementById('particle-container');
+            const particleCount = 35;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particle.style.animationDelay = `-${Math.random() * 20}s`;
+
+                container.appendChild(particle);
+            }
+
+            // Check user role (simplified version from dashboard)
+            async function fetchUserData() {
+                try {
+                    // This is a simplified version - you should implement your actual user data fetching
+                    const userRole = 'user'; // Default role
+                    const badgeElement = document.getElementById('user-badge');
+                    if (badgeElement) {
+                        badgeElement.textContent = userRole.toUpperCase();
+                    }
+                    
+                    return { role: userRole };
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                    return { role: 'user' };
+                }
+            }
+
+            await fetchUserData();
+
+            // TikTok Downloader Logic
+            const processBtn = document.getElementById('processBtn');
+            const urlInput = document.getElementById('urlInput');
+            const loader = document.getElementById('loader');
+            const resultCard = document.getElementById('resultCard');
+            const errorToast = document.getElementById('errorToast');
+
+            // Output Elements
+            const videoPreview = document.getElementById('videoPreview');
+            const authorName = document.getElementById('authorName');
+            const videoCaption = document.getElementById('videoCaption');
+            const likeCount = document.getElementById('likeCount');
+            const commentCount = document.getElementById('commentCount');
+            const shareCount = document.getElementById('shareCount');
+            const dlVideo = document.getElementById('dlVideo');
+            const dlAudio = document.getElementById('dlAudio');
+
+            // Show notification function (same as dashboard)
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.innerHTML = `<span style="color:#ffffff">🚀</span> ${message}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 2000);
+            }
+
+            processBtn.addEventListener('click', async () => {
+                const url = urlInput.value.trim();
+                if (!url) {
+                    showError("⚠️ Please enter a TikTok URL first!");
+                    return;
+                }
+
+                // Validate TikTok URL
+                if (!url.includes('tiktok.com') && !url.includes('vt.tiktok.com')) {
+                    showError("❌ Please enter a valid TikTok URL!");
+                    return;
+                }
+
+                // Reset UI
+                errorToast.style.display = 'none';
+                resultCard.style.display = 'none';
+                loader.style.display = 'block';
+                processBtn.disabled = true;
+                processBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+                videoPreview.pause();
+                videoPreview.src = "";
+
+                try {
+                    // Using a public TikTok API (TikWM)
+                    const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}`;
+                    
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+
+                    if (data.code === 0) {
+                        // Success
+                        const info = data.data;
+                        
+                        // Populate Data
+                        authorName.textContent = '@' + info.author.unique_id;
+                        videoCaption.textContent = info.title || "No caption";
+                        likeCount.textContent = formatStats(info.digg_count || 0);
+                        commentCount.textContent = formatStats(info.comment_count || 0);
+                        shareCount.textContent = formatStats(info.share_count || 0);
+
+                        // Set Sources
+                        videoPreview.src = info.play; // URL video no watermark
+                        dlVideo.href = info.play;
+                        dlVideo.setAttribute('download', 'tiktok_video.mp4');
+                        
+                        // Audio source
+                        dlAudio.href = info.music || '#';
+                        dlAudio.setAttribute('download', 'tiktok_audio.mp3');
+
+                        // Show Result
+                        loader.style.display = 'none';
+                        resultCard.style.display = 'block';
+                        processBtn.disabled = false;
+                        processBtn.innerHTML = '<i class="fas fa-bolt"></i> EXECUTE DOWNLOAD';
+                        
+                        // Auto play (muted)
+                        videoPreview.play().catch(e => console.log("Autoplay blocked"));
+                        
+                        showNotification("✅ TikTok video fetched successfully!");
+
+                    } else {
+                        throw new Error("Video not found or private.");
+                    }
+
+                } catch (err) {
+                    loader.style.display = 'none';
+                    processBtn.disabled = false;
+                    processBtn.innerHTML = '<i class="fas fa-bolt"></i> EXECUTE DOWNLOAD';
+                    showError("❌ Failed to fetch data. Please check the URL.");
+                    console.error(err);
+                }
+            });
+
+            function formatStats(num) {
+                if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+                if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+                return num;
+            }
+
+            function showError(msg) {
+                errorToast.textContent = msg;
+                errorToast.style.display = 'block';
+                setTimeout(() => errorToast.style.display = 'none', 3000);
+            }
+
+            window.resetApp = function() {
+                urlInput.value = '';
+                resultCard.style.display = 'none';
+                videoPreview.pause();
+                videoPreview.src = "";
+                urlInput.focus();
+                showNotification("App reset successfully!");
+            };
+
+            // Enter key support
+            urlInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    processBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
