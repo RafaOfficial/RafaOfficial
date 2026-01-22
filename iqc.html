@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPhone Quote Generator - RafaXMods</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --secondary-purple: #4c1d95;
+            --accent-cyan: #00f3ff;
+            --glass-bg: rgba(20, 20, 30, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --sidebar-width: 300px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        body {
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 20%, #1a0b2e 0%, #000 60%);
+            background-size: 200% 200%;
+            animation: bgPulse 10s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes bgPulse {
+            0% { background-position: 50% 0%; }
+            50% { background-position: 50% 20%; }
+            100% { background-position: 50% 0%; }
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 414px;
+            height: 100vh;
+            max-height: 896px; 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+            overflow: hidden;
+            border-left: 1px solid #111;
+            border-right: 1px solid #111;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .anim-element {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            flex-shrink: 0;
+            z-index: 50;
+        }
+
+        .header-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #fff, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        .icon-btn {
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            color: #eee;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .icon-btn:active { transform: scale(0.9); }
+
+        /* --- MAIN CONTENT --- */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 10px 25px 80px 25px;
+        }
+
+        /* --- GLASS CARD --- */
+        .glass-card {
+            background: rgba(30, 30, 40, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-box {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px 45px 15px 15px;
+            color: #fff;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .input-box:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn:active { transform: scale(0.98); }
+        .action-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* --- FORM STYLES --- */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+
+        .section-title i {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        .label {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .label i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .input-hint {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        /* --- PREVIEW SECTION --- */
+        .preview-area {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            padding: 12px 25px;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .download-btn:active { 
+            transform: scale(0.95); 
+            background: linear-gradient(135deg, var(--secondary-purple), var(--primary-purple));
+        }
+
+        /* --- INFO SECTION --- */
+        .info-content {
+            line-height: 1.6;
+            font-size: 0.85rem;
+        }
+
+        .info-content h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .info-content p {
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .info-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-content li {
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .info-content .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .note-box {
+            background: rgba(173, 74, 231, 0.1);
+            border-left: 4px solid var(--primary-purple);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .note-box p {
+            margin: 0;
+            color: #e0c3fc;
+            font-size: 0.8rem;
+        }
+
+        /* --- LOADING & ERROR --- */
+        .loading-spinner {
+            text-align: center; color: var(--accent-cyan); font-size: 1.5rem; 
+            padding: 20px; display: none;
+        }
+        .loading-spinner i { animation: spin 1s infinite linear; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            color: #ff6b6b;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* --- TERMINAL LOG --- */
+        .terminal-log {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            height: 120px;
+            overflow-y: auto;
+            color: #00ff88;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .log-line { margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 2px; }
+        .log-error { color: #ff0055; }
+        .log-info { color: #aaa; }
+        .log-success { color: #00ff88; }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 414px;
+            background: #080808;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #222;
+            z-index: 1000;
+        }
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, #8A2BE2, transparent);
+            opacity: 0.6;
+        }
+        .nav-item {
+            font-size: 1.3rem;
+            color: #555;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            width: 50px; height: 40px;
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none;
+        }
+        .nav-item.active { color: #fff; }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: 0;
+            width: 4px; height: 4px; background: #fff;
+            border-radius: 50%; box-shadow: 0 0 8px #fff;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed; top: 0; left: -100%; width: var(--sidebar-width); height: 100%;
+            background: #000; z-index: 999; transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-right: 1px solid #333; display: flex; flex-direction: column;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.8);
+        }
+        .sidebar.active { left: 0; }
+        
+        .sidebar-header {
+            height: 160px;
+            background-image: url('https://files.catbox.moe/azqovg.jpg');
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            border-bottom: 2px solid #fff;
+            position: relative;
+        }
+        .sidebar-header::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 0;
+        }
+        .sidebar-title, .sidebar-subtitle { position: relative; z-index: 1; color: white; }
+        .sidebar-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; }
+        .sidebar-subtitle { font-family: 'Rajdhani'; font-size: 1.1rem; color: #ccc; }
+
+        .sidebar-menu { padding: 20px 0; }
+        .sidebar-item {
+            display: flex; align-items: center; padding: 15px 25px;
+            color: #fff; font-family: 'Courier Prime'; text-decoration: none;
+            transition: 0.2s;
+        }
+        .sidebar-item:hover { background: rgba(255,255,255,0.05); padding-left: 30px; }
+        .sidebar-item i { width: 25px; margin-right: 15px; text-align: center; }
+
+        .overlay-backdrop {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(3px);
+            z-index: 998; opacity: 0; visibility: hidden; transition: 0.3s;
+        }
+        .overlay-backdrop.active { opacity: 1; visibility: visible; }
+
+        /* --- TOAST --- */
+        .toast {
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(30, 30, 40, 0.95); 
+            border: 1px solid var(--accent-cyan);
+            padding: 12px 20px; 
+            border-radius: 50px;
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            opacity: 0; 
+            pointer-events: none; 
+            transition: 0.3s; 
+            z-index: 2000;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(10px);
+            min-width: 250px;
+            text-align: center;
+            justify-content: center;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast i { color: var(--accent-cyan); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  background: #25D366;
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(37,211,102,.5);
+  transition: .3s;
+}
+
+.wa-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(37,211,102,.8);
+}
+
+.wa-icon {
+  width: 26px;
+  height: 26px;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <div class="header-title">IPHONE QUOTE</div>
+        </header>
+
+        <div class="main-content">
+            
+            <div class="glass-card anim-element delay-1">
+                <div class="section-title">
+                    <i class="fa-solid fa-quote-right"></i>
+                    Quote Generator Panel
+                </div>
+                
+                <div class="input-group">
+                    <div class="label">
+                        <i class="fa-solid fa-clock"></i> Jam
+                    </div>
+                    <input type="text" class="input-box" id="time" placeholder="18:00" required>
+                    <div class="input-hint">Format: HH:MM</div>
+                </div>
+
+                <div class="input-group">
+                    <div class="label">
+                        <i class="fa-solid fa-battery-half"></i> Persentase Baterai
+                    </div>
+                    <input type="number" class="input-box" id="battery" placeholder="40" min="0" max="100" required>
+                    <div class="input-hint">Angka 0-100</div>
+                </div>
+
+                <div class="input-group">
+                    <div class="label">
+                        <i class="fa-solid fa-signal"></i> Nama Provider
+                    </div>
+                    <input type="text" class="input-box" id="carrier" placeholder="Telkomsel" required>
+                </div>
+
+                <div class="input-group">
+                    <div class="label">
+                        <i class="fa-solid fa-comment"></i> Pesan
+                    </div>
+                    <textarea class="input-box" id="message" placeholder="Haii bang" required style="min-height: 100px; resize: vertical;"></textarea>
+                </div>
+
+                <button class="action-btn" id="generateBtn">
+                    <i class="fa-solid fa-rocket"></i> GENERATE QUOTE
+                </button>
+                
+                <div class="loading-spinner" id="loading">
+                    <i class="fa-solid fa-circle-notch"></i>
+                </div>
+                <div class="error" id="error"></div>
+            </div>
+
+            <div class="glass-card preview-area anim-element delay-2" id="previewArea">
+                <img id="previewImage" class="preview-image" alt="Preview">
+                <a href="#" class="download-btn" id="downloadBtn" download="iphone-quote.png">
+                    <i class="fa-solid fa-download"></i> DOWNLOAD
+                </a>
+            </div>
+
+            <div class="terminal-log anim-element delay-3" id="log">
+                <div class="log-line">> System Initialized...</div>
+                <div class="log-line log-info">> Ready to generate iPhone quotes.</div>
+                <div class="log-line">> Enter details and click GENERATE QUOTE to create your screenshot.</div>
+            </div>
+
+            <div class="glass-card anim-element delay-3">
+                <div class="section-title">
+                    <i class="fa-solid fa-info-circle"></i>
+                    Panduan Penggunaan
+                </div>
+                <div class="info-content">
+<a href="https://whatsapp.com/channel/0029Vb6KrYL5vKAIMvnFCp1l" class="wa-btn">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="wa-icon">
+  JOIN SALURAN WA
+</a>
+
+                    <h3>𝘾𝙖𝙧𝙖 𝙈𝙚𝙣𝙜𝙜𝙪𝙣𝙖𝙠𝙖𝙣 𝙞𝙋𝙝𝙤𝙣𝙚 𝙌𝙪𝙤𝙩𝙚 𝙂𝙚𝙣𝙚𝙧𝙖𝙩𝙤𝙧</h3>
+                    <p>Panel ini memungkinkan Anda untuk membuat screenshot chat iPhone palsu dengan mudah. Berikut adalah panduan lengkapnya:</p>
+                    
+                    <ul>
+                        <li><span class="highlight">Jam</span>: Masukkan waktu yang ingin ditampilkan pada screenshot (format: HH:MM)</li>
+                        <li><span class="highlight">Persentase Baterai</span>: Tentukan persentase baterai iPhone (0-100)</li>
+                        <li><span class="highlight">Nama Provider</span>: Masukkan nama operator seluler yang ingin ditampilkan</li>
+                        <li><span class="highlight">Pesan</span>: Tulis pesan yang ingin ditampilkan dalam screenshot</li>
+                        <li><span class="highlight">Proses pembuatan</span>: biasanya memakan waktu 5-10 detik tergantung pada koneksi internet.</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <p><i class="fa-solid fa-lightbulb"></i> <strong>Tips:</strong> Untuk hasil terbaik, gunakan nama provider yang sesuai dengan wilayah Anda dan pesan yang natural.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    <div class="toast" id="toast">
+        <i class="fa-solid fa-info-circle"></i>
+        <span id="toast-msg">Message here</span>
+    </div>
+
+    <script>
+        // Sidebar Toggle
+        function toggleSidebar() {
+            document.getElementById('mainSidebar').classList.toggle('active');
+            document.querySelector('.overlay-backdrop').classList.toggle('active');
+        }
+
+        // Utils
+        const utils = {
+            log: (msg, type = '') => {
+                const log = document.getElementById('log');
+                const line = document.createElement('div');
+                line.className = `log-line ${type === 'error' ? 'log-error' : type === 'info' ? 'log-info' : type === 'success' ? 'log-success' : ''}`;
+                line.innerText = `> ${msg}`;
+                log.appendChild(line);
+                log.scrollTop = log.scrollHeight;
+            },
+            toast: (msg) => {
+                const t = document.getElementById('toast');
+                document.getElementById('toast-msg').innerText = msg;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 3000);
+            },
+            loading: (state) => {
+                document.getElementById('loading').style.display = state ? 'block' : 'none';
+                document.getElementById('generateBtn').disabled = state;
+            }
+        };
+
+        // Set default time value
+        window.addEventListener('load', () => {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('time').value = `${h}:${m}`;
+        });
+
+        // Form submission for quote generation
+        const generateBtn = document.getElementById('generateBtn');
+        const error = document.getElementById('error');
+        const previewArea = document.getElementById('previewArea');
+        const previewImage = document.getElementById('previewImage');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        generateBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const time = document.getElementById('time').value.trim();
+            const battery = document.getElementById('battery').value;
+            const carrier = document.getElementById('carrier').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if (!time || !battery || !carrier || !message) {
+                showError('⚠️ Semua field harus diisi!');
+                return;
+            }
+
+            error.style.display = 'none';
+            previewArea.style.display = 'none';
+            utils.loading(true);
+            generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROCESSING...';
+            utils.log(`Generating quote for: ${time}, ${battery}%, ${carrier}`, 'info');
+
+            try {
+                const url = `https://brat.siputzx.my.id/iphone-quoted?time=${encodeURIComponent(time)}&batteryPercentage=${battery}&carrierName=${encodeURIComponent(carrier)}&messageText=${encodeURIComponent(message)}&emojiStyle=apple`;
+
+                previewImage.onload = function() {
+                    previewArea.style.display = 'flex';
+                    utils.loading(false);
+                    generateBtn.innerHTML = '<i class="fa-solid fa-rocket"></i> GENERATE QUOTE';
+                    utils.toast("Quote berhasil dibuat!");
+                    utils.log(`Quote successfully generated for ${carrier}`, 'success');
+
+                    downloadBtn.onclick = async function(e) {
+                        e.preventDefault();
+                        try {
+                            const response = await fetch(url);
+                            const blob = await response.blob();
+                            const downloadUrl = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = downloadUrl;
+                            a.download = `iphone-quote-${Date.now()}.png`;
+                            a.click();
+                            URL.revokeObjectURL(downloadUrl);
+                            utils.log(`Downloaded: iphone-quote-${Date.now()}.png`, 'success');
+                        } catch {
+                            window.open(url, '_blank');
+                            utils.log(`Opened image in new tab`, 'info');
+                        }
+                    };
+                };
+
+                previewImage.onerror = function() {
+                    showError('❌ Gagal memuat gambar.');
+                    utils.loading(false);
+                    generateBtn.innerHTML = '<i class="fa-solid fa-rocket"></i> GENERATE QUOTE';
+                    utils.log(`Failed to load image from API`, 'error');
+                };
+
+                previewImage.src = url;
+                downloadBtn.href = url;
+
+            } catch (err) {
+                showError('Error: ' + err.message);
+                utils.log(`API Error: ${err.message}`, 'error');
+            } finally {
+                utils.loading(false);
+                generateBtn.innerHTML = '<i class="fa-solid fa-rocket"></i> GENERATE QUOTE';
+            }
+        });
+
+        function showError(message) {
+            error.textContent = message;
+            error.style.display = 'block';
+            utils.toast(message);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            utils.log('iPhone Quote Generator initialized', 'success');
+        });
+    </script>
+</body>
+</html>
