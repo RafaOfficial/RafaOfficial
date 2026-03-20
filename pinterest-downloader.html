@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pinterest Downloader - Alteir Flows</title>
+    
+    <!-- Load Font: Orbitron & Share Tech Mono (sama seperti dashboard) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES SAMA SEPERTI DASHBOARD --- */
+        :root {
+            --bg-dark: #080310;       
+            --bg-gradient: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #080310 80%);
+            
+            --card-bg: rgba(26, 11, 46, 0.85);       
+            --accent-pink: #db2777;   
+            --accent-purple: #9333ea; 
+            
+            /* Enhanced Colors */
+            --accent-red: #ff3333;
+            --accent-red-dark: #cc0000;
+            --accent-red-glow: rgba(255, 51, 51, 0.7);
+            --card-bg-red: rgba(50, 10, 10, 0.9);
+            
+            --accent-blue: #3b82f6;
+            --accent-blue-dark: #1d4ed8;
+            --accent-blue-glow: rgba(59, 130, 246, 0.7);
+            --card-bg-blue: rgba(10, 20, 50, 0.9);
+            
+            --accent-green: #10b981;
+            --accent-green-dark: #059669;
+            --accent-green-glow: rgba(16, 185, 129, 0.7);
+            --card-bg-green: rgba(10, 40, 30, 0.9);
+            
+            --accent-purple-tool: #8b5cf6;
+            --accent-purple-dark: #7c3aed;
+            --accent-purple-glow: rgba(139, 92, 246, 0.7);
+            --card-bg-purple: rgba(30, 15, 50, 0.9);
+            
+            --accent-cyan: #06b6d4;
+            --accent-cyan-dark: #0891b2;
+            --accent-cyan-glow: rgba(6, 182, 212, 0.7);
+            --card-bg-cyan: rgba(10, 30, 40, 0.9);
+            
+            --accent-yellow: #eab308;
+            --accent-yellow-dark: #ca8a04;
+            --accent-yellow-glow: rgba(234, 179, 8, 0.7);
+            --card-bg-yellow: rgba(50, 40, 10, 0.9);
+            
+            --text-gray: #9ca3af; 
+            
+            /* FONT DEFINITIONS (sama seperti dashboard) */
+            --font-title: 'Share Tech Mono', sans-serif;   /* KHUSUS JUDUL (Tebal) */
+            --font-code: 'Share Tech Mono', monospace;  /* KHUSUS TEXT KECIL (Terinal) */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+        
+        body {
+            background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            color: #ffffff;
+            font-family: var(--font-code); /* Default pakai font coding */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND PARTICLES (sama seperti dashboard) --- */
+        #particle-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6); 
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+
+        /* --- HEADER (disesuaikan) --- */
+        header {
+            display: flex; 
+            align-items: center; 
+            gap: 16px; 
+            padding: 20px 25px; 
+            padding-top: 40px; 
+            padding-bottom: 20px; 
+            background: rgba(8, 3, 16, 0.95);
+            z-index: 50;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 25px; right: 25px; height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(219, 39, 119, 0.3) 20%, rgba(147, 51, 234, 0.3) 80%, transparent 100%);
+        }
+
+        .brand-title { 
+            font-family: var(--font-title);
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            color: #fff;
+            text-shadow: 0 0 10px rgba(219, 39, 119, 0.6);
+            line-height: 1.1; padding-top: 1px; 
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .header-icon { 
+            color: #fff; cursor: pointer; flex-shrink: 0; margin-top: 2px;
+            transition: transform 0.2s;
+        }
+        .header-icon:active { transform: scale(0.9); color: var(--accent-pink); }
+
+        /* --- BACK BUTTON --- */
+        .back-btn {
+            background: rgba(219, 39, 119, 0.1);
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            color: var(--accent-pink);
+            border-radius: 12px;
+            padding: 10px 15px;
+            font-family: var(--font-code);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .back-btn:active { 
+            background: rgba(219, 39, 119, 0.2); 
+            transform: scale(0.98);
+        }
+
+        /* --- MAIN CONTENT --- */
+        main { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 0 20px; 
+            padding-bottom: 30px; 
+            scroll-behavior: smooth; 
+            padding-top: 0; 
+            position: relative;
+        }
+
+        /* --- TOOLS HEADER STYLE --- */
+        .tools-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 25px;
+            margin-top: 20px;
+        }
+        .tools-title-group { display: flex; align-items: center; gap: 15px; }
+        .tools-logo { 
+            width: 50px; height: 50px; 
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(219, 39, 119, 0.5);
+            animation: pulsePink 2s infinite;
+        }
+        @keyframes pulsePink {
+            0% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(219, 39, 119, 0.7); }
+            100% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
+        }
+        .tools-text h2 { 
+            font-family: var(--font-title);
+            font-size: 24px; 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            color: #fff; margin-bottom: 2px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        .tools-text p { 
+            font-family: var(--font-code);
+            font-size: 11px; 
+            color: var(--accent-pink); 
+            font-weight: 400; 
+            letter-spacing: 0px; 
+            text-shadow: 0 0 8px rgba(219, 39, 119, 0.6);
+        }
+        
+        .owner-badge {
+            border: 2px solid var(--accent-pink);
+            color: var(--accent-pink);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px; 
+            font-weight: 700; 
+            letter-spacing: 0px;
+            background: rgba(219, 39, 119, 0.15);
+            box-shadow: 0 0 10px rgba(219, 39, 119, 0.3);
+            font-family: var(--font-title);
+        }
+
+        /* --- INPUT CARD --- */
+        .input-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
+            opacity: 0.7;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .input-field {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px 20px;
+            padding-right: 50px;
+            border-radius: 15px;
+            color: white;
+            font-family: var(--font-code);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        /* --- BUTTON STYLE --- */
+        .btn-process {
+            width: 100%;
+            padding: 16px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            color: white;
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.3);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-process:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.4);
+        }
+
+        .btn-process:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* --- LOADER --- */
+        .loader-wrapper {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--accent-pink);
+            border-bottom: 3px solid var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loader-text {
+            font-family: var(--font-title);
+            font-size: 12px;
+            color: var(--accent-cyan);
+            letter-spacing: 1px;
+        }
+
+        /* --- RESULTS GRID (LEBIH BANYAK FOTO) --- */
+        /* Menggunakan Masonry Layout untuk tampilan seperti Pinterest */
+        .masonry-grid {
+            column-count: 2;
+            column-gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        @media (min-width: 640px) {
+            .masonry-grid {
+                column-count: 3;
+                column-gap: 20px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 4;
+                column-gap: 25px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .masonry-grid {
+                column-count: 5; /* Lebih banyak kolom di layar lebar */
+            }
+        }
+
+        /* --- PIN CARD STYLING --- */
+        .pin-card {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+        }
+        
+        .pin-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .pin-card:hover .pin-img {
+            transform: scale(1.05);
+        }
+        
+        .pin-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .pin-card:hover .pin-overlay {
+            opacity: 1;
+        }
+        
+        .download-btn-overlay {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-family: var(--font-code);
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .download-btn-overlay:hover {
+            background: var(--accent-pink);
+            border-color: var(--accent-pink);
+        }
+
+        /* --- MODAL (LIGHTBOX) --- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 2, 10, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 70vh;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(112, 0, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+        
+        .modal-controls {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            font-family: var(--font-title);
+            font-size: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .btn-download-main {
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+        }
+        
+        .btn-download-main:hover {
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.6);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            background: rgba(219, 39, 119, 0.3);
+            border-color: var(--accent-pink);
+        }
+
+        /* --- NOTIFICATION STYLE --- */
+        .notification {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 11, 46, 0.95);
+            color: var(--accent-pink);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: var(--font-title);
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            z-index: 9999;
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.2);
+            animation: slideIn 0.3s ease-out;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-50%) translateY(-15px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(-50%) translateY(0); opacity: 1; }
+            to { transform: translateX(-50%) translateY(-15px); opacity: 0; }
+        }
+        
+        /* --- SECTION TITLE --- */
+        .section-title { 
+            font-family: var(--font-title);
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #fff; 
+            margin-bottom: 12px; 
+            letter-spacing: 0.5px;
+            border-left: 3px solid var(--accent-pink);
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+
+        /* --- FLOATING ACTION BUTTON --- */
+        .fab-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .fab-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+            border: none;
+            color: white;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .fab-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.6);
+        }
+        
+        /* Error Toast */
+        .error-toast {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: rgba(255, 51, 51, 0.1);
+            border: 1px solid var(--accent-red);
+            color: #ff9999;
+            font-size: 13px;
+            text-align: center;
+            font-family: var(--font-code);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Particles -->
+    <div id="particle-container"></div>
+
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="back-btn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+            </svg>
+            BACK
+        </a>
+        <div class="brand-title">PINTEREST DOWNLOADER</div>
+    </header>
+
+    <main>
+        <!-- Tools Header -->
+        <div class="tools-header">
+            <div class="tools-title-group">
+                <div class="tools-logo">
+                    <i class="fab fa-pinterest" style="font-size: 28px; color: white;"></i>
+                </div>
+                <div class="tools-text">
+                    <h2>PINTEREST DOWNLOADER</h2>
+                    <p>Search & Download Pinterest Images</p>
+                </div>
+            </div>
+            <div class="owner-badge" id="user-badge">TOOLS</div>
+        </div>
+
+        <!-- Input Form -->
+        <div class="section-title">SEARCH PINTEREST IMAGES</div>
+        
+        <div class="input-card">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="input-field" placeholder="Cari wallpaper, anime, aesthetic...">
+                <i class="fab fa-pinterest input-icon"></i>
+            </div>
+            <button id="searchBtn" class="btn-process">
+                <i class="fas fa-search"></i> SEARCH PINS
+            </button>
+            <div id="errorToast" class="error-toast"></div>
+        </div>
+
+        <!-- Loader -->
+        <div id="loader" class="loader-wrapper">
+            <div class="spinner"></div>
+            <div class="loader-text">SEARCHING PINTEREST...</div>
+        </div>
+
+        <!-- Results Masonry -->
+        <div id="results" class="masonry-grid">
+            <!-- Items injected here -->
+        </div>
+    </main>
+
+    <!-- Modal (Lightbox) -->
+    <div class="modal" id="modal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <img src="" id="modalImg" class="modal-content">
+        <div class="modal-controls">
+            <a href="#" id="modalDl" class="modal-btn btn-download-main" download target="_blank">
+                <i class="fas fa-download"></i> Download
+            </a>
+            <button class="modal-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-wrapper">
+        <button class="fab-btn" onclick="scrollToTop()">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Create background particles (same as dashboard)
+            const container = document.getElementById('particle-container');
+            const particleCount = 35;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                const duration = Math.random() * 15 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particle.style.animationDelay = `-${Math.random() * 20}s`;
+
+                container.appendChild(particle);
+            }
+
+            // Check user role
+            async function fetchUserData() {
+                try {
+                    const userRole = 'TOOLS'; // Default role
+                    const badgeElement = document.getElementById('user-badge');
+                    if (badgeElement) {
+                        badgeElement.textContent = userRole.toUpperCase();
+                    }
+                    return { role: userRole };
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                    return { role: 'user' };
+                }
+            }
+
+            await fetchUserData();
+
+            // --- PINTEREST LOGIC DARI KODE LAMA YANG BERFUNGSI ---
+            const API_URL = 'https://api-faa.my.id/faa/pinterest?q=';
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const results = document.getElementById('results');
+            const loader = document.getElementById('loader');
+            const errorToast = document.getElementById('errorToast');
+
+            // Modal Elements
+            const modal = document.getElementById('modal');
+            const modalImg = document.getElementById('modalImg');
+            const modalDl = document.getElementById('modalDl');
+
+            // Show notification function (sama seperti dashboard)
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+                notification.innerHTML = `<span style="color:#ffffff">📌</span> ${message}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease-out';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }, 2000);
+            }
+
+            // Show error function
+            function showError(message) {
+                errorToast.textContent = message;
+                errorToast.style.display = 'block';
+                setTimeout(() => {
+                    errorToast.style.display = 'none';
+                }, 3000);
+            }
+
+            async function searchPinterest() {
+                const query = searchInput.value.trim();
+                if (!query) {
+                    showError("⚠️ Masukkan kata kunci!");
+                    return;
+                }
+
+                results.innerHTML = '';
+                loader.style.display = 'block';
+                searchInput.blur();
+
+                try {
+                    const response = await fetch(API_URL + encodeURIComponent(query));
+                    const data = await response.json();
+
+                    loader.style.display = 'none';
+
+                    if (data.status && data.result && data.result.length > 0) {
+                        // Show success notification
+                        showNotification(`✅ Found ${data.result.length} Pinterest images!`);
+                        
+                        // Create pins for each result
+                        data.result.forEach((url, index) => {
+                            createPin(url, index);
+                        });
+                    } else {
+                        showError("❌ Tidak ada hasil ditemukan.");
+                    }
+
+                } catch (err) {
+                    loader.style.display = 'none';
+                    showError("❌ Server Error. Coba lagi nanti.");
+                    console.error(err);
+                }
+            }
+
+            function createPin(url, index) {
+                const pin = document.createElement('div');
+                pin.className = 'pin-card';
+                pin.style.animationDelay = `${index * 0.05}s`;
+                
+                pin.innerHTML = `
+                    <img src="${url}" class="pin-img" loading="lazy" onerror="this.src='https://i.pinimg.com/236x/5c/5c/5c/5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c.jpg'">
+                    <div class="pin-overlay">
+                        <button class="download-btn-overlay" onclick="event.stopPropagation(); downloadImage('${url}')">
+                            <i class="fas fa-download"></i> Download
+                        </button>
+                    </div>
+                `;
+
+                pin.addEventListener('click', () => openModal(url));
+                results.appendChild(pin);
+            }
+
+            // --- MODAL LOGIC ---
+            function openModal(url) {
+                modalImg.src = url;
+                modalDl.href = url;
+                modalDl.onclick = (e) => {
+                    e.preventDefault();
+                    downloadImage(url);
+                };
+                modal.classList.add('active');
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                setTimeout(() => modalImg.src = '', 300);
+            }
+
+            async function downloadImage(url) {
+                showNotification("⬇️ Downloading...");
+                try {
+                    // Gunakan proxy CORS untuk menghindari error
+                    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+                    const response = await fetch(proxyUrl);
+                    const blob = await response.blob();
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = `alteirflows_pin_${Date.now()}.jpg`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(blobUrl);
+                    
+                    showNotification("✅ Download Selesai! ✅");
+                } catch (e) {
+                    // Fallback: open in new tab
+                    window.open(url, '_blank');
+                    showNotification("📂 Download dimulai di tab baru.");
+                }
+            }
+
+            // Function to scroll to top
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Event listeners
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') searchPinterest();
+            });
+            searchBtn.addEventListener('click', searchPinterest);
+
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Initial focus on input
+            searchInput.focus();
+            
+            // Auto-search with popular keyword for demo
+            setTimeout(() => {
+                if (searchInput.value === '') {
+                    searchInput.value = 'aesthetic wallpapers';
+                    // Auto search removed to prevent unnecessary API calls
+                    // searchPinterest();
+                }
+            }, 500);
+
+            // Expose functions to global scope
+            window.closeModal = closeModal;
+            window.downloadImage = downloadImage;
+            window.scrollToTop = scrollToTop;
+        });
+    </script>
+</body>
+</html>

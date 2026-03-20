@@ -3,382 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIST JUALAN | RAFAXMODS</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<title>STORE RAFAXMODS</title>
 
 <style>
-:root {
-  --bg: #07000f;
-  --card: rgba(40, 10, 70, 0.55);
-  --neon: #d946ff;
-  --cyan: #00f2ff;
-  --text: #ffffff;
-}
-
-* {
-  box-sizing: border-box;
-  font-family: 'Orbitron', sans-serif;
-}
-
 body {
-  background: radial-gradient(circle at top, #1a0030, #05000a);
-  margin: 0;
-  padding: 20px;
-  color: var(--text);
+    background: #0b0014;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
 }
 
-/* CONTAINER */
+    .profile-box {
+      text-align: center;
+    }
+
+    .logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #00aaff;
+      box-shadow: 0 0 25px rgba(0, 170, 255, 0.6);
+    }
+
+    .name-row {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .name {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    .check {
+      width: 24px;
+      height: 24px;
+      background: #1d9bf0;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(29, 155, 240, 0.7);
+    }
+
+h1 {
+    color: #ff00ff;
+    text-shadow: 0 0 20px #ff00ff;
+}
+
 .container {
-  max-width: 420px;
-  margin: auto;
-  background: linear-gradient(180deg, rgba(120,0,200,.25), rgba(20,0,40,.8));
-  border-radius: 22px;
-  padding: 20px;
-  box-shadow: 0 0 40px rgba(217,70,255,.3);
+    padding: 20px;
 }
 
-/* HEADER */
-.header {
-  text-align: center;
-}
-
-.header h1 {
-  margin: 10px 0 0;
-  color: var(--neon);
-  letter-spacing: 2px;
-}
-
-.header p {
-  font-size: 12px;
-  opacity: .8;
-}
-
-.banner {
-  margin: 15px 0;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.1);
-}
-
-.banner img {
-  width: 100%;
-  display: block;
-}
-
-/* TIME */
-.time-box {
-  margin: 15px 0;
-  padding: 15px;
-  text-align: center;
-  border-radius: 16px;
-  background: var(--card);
-  border: 1px solid rgba(255,255,255,.1);
-}
-
-.time {
-  font-size: 28px;
-  color: var(--cyan);
-}
-
-.date {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #ff5cf7;
-}
-
-/* PRODUCT LIST */
-.product {
-  background: var(--card);
-  border-radius: 16px;
-  padding: 15px;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255,255,255,.1);
-  position: relative;
-}
-
-.product h3 {
-  margin: 0;
-  color: var(--neon);
-}
-
-.price {
-  margin: 8px 0;
-  color: var(--cyan);
-  font-size: 14px;
-}
-
-.stock {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 10px;
-  padding: 4px 8px;
-  border-radius: 10px;
-  background: rgba(0,255,150,.2);
-  color: #00ff9d;
-}
-
-.stock.habis {
-  background: rgba(255,60,60,.2);
-  color: #ff4d4d;
-}
-
-.btn {
-  display: block;
-  margin-top: 12px;
-  padding: 10px;
-  text-align: center;
-  border-radius: 12px;
-  background: linear-gradient(90deg, var(--neon), #7f00ff);
-  color: white;
-  text-decoration: none;
-  font-size: 13px;
-  transition: .3s;
-}
-
-.btn:hover {
-  box-shadow: 0 0 15px var(--neon);
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  font-size: 10px;
-  opacity: .5;
-  margin-top: 20px;
-}
-
-body {
-  margin: 0;
-  font-family: monospace;
-  background: #050505;
-  color: white;
-}
-
-/* NAVBAR */
-.navbar {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  background: linear-gradient(90deg, #020202, #061a12);
-  border-bottom: 2px solid #d946ff;
-}
-
-.menu-btn {
-  font-size: 26px;
-  cursor: pointer;
-  color: #d946ff;
-  margin-right: 15px;
-}
-
-.logo {
-  font-size: 22px;
-  letter-spacing: 2px;
-}
-
-/* SIDEBAR */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: -260px;
-  width: 250px;
-  height: 100%;
-  background: #000;
-  padding-top: 60px;
-  transition: 0.3s;
-  box-shadow: 5px 0 20px rgba(0, 120, 255, 0.5);
-}
-
-.sidebar a {
-  display: block;
-  padding: 15px;
-  color: white;
-  text-decoration: none;
-  border-bottom: 1px solid #0f0f0f;
-}
-
-.sidebar a:hover {
-  background: #d946ff;
-  color: black;
-}
-
-/* CONTENT */
-.content {
-  padding: 20px;
-}
-
+/* Card Button */
 .card {
-  background: #0a0a0a;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 200, 255, 0.9);
+    display: block;
+    background: #140021;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 0 20px #a100ff;
+    transition: 0.3s;
 }
 
-.btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 15px;
-  background: #d946ff;
-  color: black;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px #ff00ff;
 }
-   .video-content {
-        width: 120%; 
-        height: 100%; 
-        object-fit: cover; 
-        margin-left: -10%; 
-        opacity: 0.9;
-        transform: skewX(12deg); 
-        filter: hue-rotate(390deg) contrast(1.8);
-    }
-    
-        .video-display-box {
-        width: 100%; 
-        height: 85px; 
-        background: #000; 
-        border-radius: 10px;
-        border: 2px solid rgba(40, 204, 233, 0.3);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
-        overflow: hidden; 
-        position: relative;
-    }
-    
-       .video-wrapper {
-        display: flex; 
-        justify-content: center;
-        transform: skewX(-12deg); 
-        padding: 0 5px; 
-        margin-bottom: 1px;
-        flex-shrink: 0;
-    }
+
+.card h2 {
+    color: #ff00ff;
+}
+
+/* WhatsApp Button */
+.wa-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 25px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 0 15px #25D366;
+}
+
+.wa-btn:hover {
+    background: #1ebe5d;
+}
 </style>
 </head>
+
 <body>
 
+<h1>WEBSITE JUALAN</h1>
+  <div class="profile-box">
+    <img 
+      class="logo" 
+      src="https://files.catbox.moe/t0cf7r.jpeg" 
+      alt="Logo RafaXMods"
+    />
+
+    <div class="name-row">
+      <div class="name">RafaXMods</div>
+      <div class="check">✔</div>
+    </div>
+  </div>
+
+</body>
+</html>
+<p>Pilih layanan yang kamu butuhkan</p>
+
 <div class="container">
-<div class="navbar">
-  <div class="menu-btn" onclick="openMenu()">☰</div>
-  <div class="logo">LIST BUTTON</div>
-</div>
 
-<div class="sidebar" id="sidebar">
-  <a href="music.html">🎧 Search Musik</a>
-  <a href="iqc.html">📸 Fake Iphone</a>
-  <a href="tiktok.html">🎵 Download TikTok</a>
-  <a onclick="closeMenu()">❌ Close</a>
-</div>
+    <!-- List Jualan -->
+    <a href="list.html" class="card">
+        <h2>🛒 List Jualan</h2>
+        <p>Lihat berbagai produk menarik</p>
+    </a>
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>LIST JUALAN</h1>
-    <h4>RAFAXMODS TERPERCAYA</h4>
-  </div>
+    <!-- music -->
+    <a href="music.html" class="card">
+        <h2>🎧 Search Music</h2>
+        <p>Top up cepat & aman</p>
+    </a>
 
-  <!-- BANNER -->
-              <div class="video-wrapper">
-                <div class="video-display-box">
-                    <div class="monitor-overlay"></div>
-                    <video class="video-content" autoplay loop muted playsinline>
-                        <source src="https://files.catbox.moe/k5c9cr.mp4" type="video/mp4">
-                    </video>
-                </div>
-            </div>
+    <!-- Tiktok Downloand -->
+    <a href="tiktok.html" class="card">
+        <h2>🎵 Download TikTok</h2>
+        <p>Menghilang Nick Di Vide</p>
+    </a>
 
-  <!-- TIME -->
-  <div class="time-box">
-    <div class="time" id="time">00:00</div>
-    <div class="date" id="date">Loading...</div>
-  </div>
+    <!-- Iqc Iphone -->
+    <a href="iqc.html" class="card">
+        <h2>📸 Fake Iphone</h2>
+        <p>Fake Iphone</p>
+    </a>
 
-  <!-- PRODUCT -->
-  <div class="product">
-    <div class="stock">READY</div>
-    <h3>PANEL PRIVATE RAFAXMODA</h3>
-    <h1></h1>
-     <p>🌐 5k > 5gb</a></p>
-    <p>🌐 6k > 6gb</a></p>
-    <p>🌐 7k > 7gb</a></p>
-    <p>🌐 8k > 8gb</a></p>
-    <p>🌐 9k > 9gb</a></p>
-    <p>🌐 10k > unli</a></p>
-    <p>🔰Adp private : 20k + sc crate panel buatan Rafa Official
-     <br>🔰Owner private : 30k + sc crate panel buatan Rafa official</p>
-    <div class="price">Buy Click Di bawah</div>
-    <a class="btn" href="https://wa.me/6281373431773?text=BUY+PANEL+BG">BELI SEKARANG</a>
-  </div>
+    <!-- Pintreset -->
+    <a href="pinterest-downloader.html" class="card">
+        <h2> ✨ Search Wallpaper</h2>
+        <p>Mencari Wallpaper</p>
+    </a>
 
-  <div class="product">
-    <div class="stock">READY</div>
-    <h3>PT PRIBADI RAFAXMODA</h3>
-    <br>Benefits Of partner?:
-<br>• Free Update Lucax Public dari v1 sampe selanjutnya 
-<br>• Free base Lucax Crash Ama func nya
-<br>• Free base Astro Crash Ama Func nya
-<br>• Free Masuk GB tele Func update terus
-<br>• Bisa Open Reseller Lucax Crash 
-<br>• Bisa Open Reseller Astro Crash  
-<br>• Free Admin Saluran 1Kap
-<br>• Free Admin GB Ku Semua
-<br>• Free Function Crash
-<br>• Free Function blank
-<br>• Free Function Delay
-<br>• Free Function stiker frezee
-<br>• Lebih Dekat Ama Devlover 
-<br>• Di bantu Fix SC jika ad kendala saat rename script 
-<br>• Di bantu naik nama di ch Astro Crash 4kap
-<br>• Free base Lucax public no enc 100%
-<br>• Free Base Astro dan Lucax no enc 100%
-<br>> BENEFIT FULL NO GIMICK
-<br>> GK OPEN BNYK 
-<br>> DI JAMIN BALMOND 🤑
-<br>
-    <div class="price">Rp 40.000</div>
-    <a class="btn" href="https://wa.me/6281373431773?text=BUY+PT+BG">BELI SAKARANG</a>
-  </div>
-
-  <div class="product">
-    <div class="stock">READY</div>
-    <h3>LIST NOKOS</h3>
-           <p class="mt-2">Anti Ambil Kembali Nokos Nya✅ </p>
-    <p>Indo : 5k</a></p>
-    <p>Philipina : 6k atau 7k</a></p>
-    <p>Taiwan : 10k</a></p>
-    <p>Malaysia : 10k</p>
-     <br>
-    <div class="price">Buy Click Di bawah</div>
-    <a class="btn" href="https://wa.me/6281373431773?text=BELI+NOKOS+BG">BELI SEKARANG</a>
-  </div>
-
-  <div class="footer">
-    © 2025/2026 LIST JUALAN RAFAXMODS
-  </div>
+    <!-- WhatsApp Channel -->
+          <div class="name">Support Dev Dgn Join Saluran Wa ⬇️</div>
+    <a href="https://whatsapp.com/channel/0029Vb7Vif5G8l5H4WnhD20Q" class="wa-btn" target="_blank">
+        Saluran WhatsApp
+    </a>
 
 </div>
-
-<script>
- 
- function openMenu() {
-  document.getElementById("sidebar").style.left = "0";
-}
-
-function closeMenu() {
-  document.getElementById("sidebar").style.left = "-260px";
-} 
-  
-function updateTime(){
-  const now = new Date()
-  document.getElementById('time').innerText =
-    now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'})
-  document.getElementById('date').innerText =
-    now.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long'})
-}
-setInterval(updateTime, 1000)
-updateTime()
-</script>
 
 </body>
 </html>
