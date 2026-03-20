@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fake Story Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0b0b0f, #17172a, #10131f);
+      color: white;
+      padding: 20px;
+    }
+
+    .wrapper {
+      max-width: 1150px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #cfcfe6;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #f4f4ff;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.05);
+      color: white;
+      padding: 13px 14px;
+      border-radius: 14px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #b9b9c9;
+    }
+
+    .btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    button,
+    .download-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.25s ease;
+    }
+
+    .generate-btn {
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: white;
+      flex: 1;
+    }
+
+    .generate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.35);
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: white;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(34, 197, 94, 0.35);
+    }
+
+    .preview-title {
+      font-size: 23px;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .canvas-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.22);
+      overflow: auto;
+    }
+
+    canvas {
+      width: 360px;
+      max-width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+      background: #000;
+    }
+
+    .mini-note {
+      margin-top: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #c7c7d8;
+    }
+
+    @media (max-width: 920px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      canvas {
+        width: 100%;
+        max-width: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <div class="title">Fake Story Generator</div>
+      <div class="desc">
+        Buat fake story langsung dari website. Isi username, caption, upload foto profil, lalu generate hasilnya.
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Contoh: Ichika">
+      </div>
+
+      <div class="form-group">
+        <label for="caption">Caption / Story</label>
+        <textarea id="caption" placeholder="Contoh: hmm..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="profileInput">Foto Profil</label>
+        <input type="file" id="profileInput" accept="image/*">
+      </div>
+
+      <div class="btns">
+        <button class="generate-btn" onclick="generateStory()">Generate Fake Story</button>
+        <a id="downloadBtn" class="download-btn" href="#" download="fake-story.png">Download</a>
+      </div>
+
+      <div class="mini-note">
+        Background default sudah disiapkan. Kamu bisa ganti link background di JavaScript sesuai template yang kamu mau.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview-title">Preview Hasil</div>
+      <div class="canvas-box">
+        <canvas id="storyCanvas" width="720" height="1280"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("storyCanvas");
+    const ctx = canvas.getContext("2d");
+    const profileInput = document.getElementById("profileInput");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    const bgUrl = "https://files.catbox.moe/3gwr1l.jpg";
+    const defaultProfile = "https://img1.pixhost.to/images/5831/600387261_biyu-offc.jpg";
+
+    let uploadedProfile = null;
+
+    profileInput.addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        uploadedProfile = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function loadImage(src) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Gagal load gambar: " + src));
+        img.src = src;
+      });
+    }
+
+    function wrapTextCenter(ctx, text, x, y, maxWidth, lineHeight) {
+      let line = "";
+      const lines = [];
+
+      for (let i = 0; i < text.length; i++) {
+        let testLine = line + text[i];
+        let testWidth = ctx.measureText(testLine).width;
+
+        if (testWidth > maxWidth && line !== "") {
+          lines.push(line);
+          line = text[i];
+        } else {
+          line = testLine;
+        }
+      }
+
+      if (line) lines.push(line);
+
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], x, y + (i * lineHeight));
+      }
+    }
+
+    async function generateStory() {
+      const username = document.getElementById("username").value.trim() || "Ichika";
+      const caption = document.getElementById("caption").value.trim() || "hmm...";
+      const profileSrc = uploadedProfile || defaultProfile;
+
+      try {
+        const [bg, pp] = await Promise.all([
+          loadImage(bgUrl),
+          loadImage(profileSrc)
+        ]);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+
+        const ppX = 40;
+        const ppY = 250;
+        const ppSize = 70;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(ppX + ppSize / 2, ppY + ppSize / 2, ppSize / 2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+        ctx.drawImage(pp, ppX, ppY, ppSize, ppSize);
+        ctx.restore();
+
+        ctx.font = "28px Arial";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "left";
+        ctx.textBaseline = "middle";
+
+        const usernameX = ppX + ppSize + 15;
+        const usernameY = ppY + ppSize / 2;
+        ctx.fillText(username, usernameX, usernameY);
+
+        ctx.font = "bold 30px Arial";
+        ctx.fillStyle = "#FFFFFF";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "top";
+
+        const captionX = canvas.width / 2;
+        const captionY = canvas.height - 650;
+        const maxWidth = canvas.width - 100;
+        const lineHeight = 42;
+
+        wrapTextCenter(ctx, caption, captionX, captionY, maxWidth, lineHeight);
+
+        const result = canvas.toDataURL("image/png");
+        downloadBtn.href = result;
+      } catch (err) {
+        alert("Terjadi error: " + err.message);
+        console.error(err);
+      }
+    }
+
+    window.onload = generateStory;
+  </script>
+</body>
+</html>
