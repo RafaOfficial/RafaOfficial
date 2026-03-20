@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LIST JUALAN | RAFAXMODS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #07000f;
+  --card: rgba(40, 10, 70, 0.55);
+  --neon: #d946ff;
+  --cyan: #00f2ff;
+  --text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at top, #1a0030, #05000a);
+  margin: 0;
+  padding: 20px;
+  color: var(--text);
+}
+
+/* CONTAINER */
+.container {
+  max-width: 420px;
+  margin: auto;
+  background: linear-gradient(180deg, rgba(120,0,200,.25), rgba(20,0,40,.8));
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(217,70,255,.3);
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  margin: 10px 0 0;
+  color: var(--neon);
+  letter-spacing: 2px;
+}
+
+.header p {
+  font-size: 12px;
+  opacity: .8;
+}
+
+.banner {
+  margin: 15px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.banner img {
+  width: 100%;
+  display: block;
+}
+
+/* TIME */
+.time-box {
+  margin: 15px 0;
+  padding: 15px;
+  text-align: center;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.time {
+  font-size: 28px;
+  color: var(--cyan);
+}
+
+.date {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #ff5cf7;
+}
+
+/* PRODUCT LIST */
+.product {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255,255,255,.1);
+  position: relative;
+}
+
+.product h3 {
+  margin: 0;
+  color: var(--neon);
+}
+
+.price {
+  margin: 8px 0;
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.stock {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  background: rgba(0,255,150,.2);
+  color: #00ff9d;
+}
+
+.stock.habis {
+  background: rgba(255,60,60,.2);
+  color: #ff4d4d;
+}
+
+.btn {
+  display: block;
+  margin-top: 12px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--neon), #7f00ff);
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  transition: .3s;
+}
+
+.btn:hover {
+  box-shadow: 0 0 15px var(--neon);
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  font-size: 10px;
+  opacity: .5;
+  margin-top: 20px;
+}
+
+body {
+  margin: 0;
+  font-family: monospace;
+  background: #050505;
+  color: white;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background: linear-gradient(90deg, #020202, #061a12);
+  border-bottom: 2px solid #d946ff;
+}
+
+.menu-btn {
+  font-size: 26px;
+  cursor: pointer;
+  color: #d946ff;
+  margin-right: 15px;
+}
+
+.logo {
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background: #000;
+  padding-top: 60px;
+  transition: 0.3s;
+  box-shadow: 5px 0 20px rgba(0, 120, 255, 0.5);
+}
+
+.sidebar a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid #0f0f0f;
+}
+
+.sidebar a:hover {
+  background: #d946ff;
+  color: black;
+}
+
+/* CONTENT */
+.content {
+  padding: 20px;
+}
+
+.card {
+  background: #0a0a0a;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 200, 255, 0.9);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #d946ff;
+  color: black;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+   .video-content {
+        width: 120%; 
+        height: 100%; 
+        object-fit: cover; 
+        margin-left: -10%; 
+        opacity: 0.9;
+        transform: skewX(12deg); 
+        filter: hue-rotate(390deg) contrast(1.8);
+    }
+    
+        .video-display-box {
+        width: 100%; 
+        height: 85px; 
+        background: #000; 
+        border-radius: 10px;
+        border: 2px solid rgba(40, 204, 233, 0.3);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.7); 
+        overflow: hidden; 
+        position: relative;
+    }
+    
+       .video-wrapper {
+        display: flex; 
+        justify-content: center;
+        transform: skewX(-12deg); 
+        padding: 0 5px; 
+        margin-bottom: 1px;
+        flex-shrink: 0;
+    }
+    
+            /* --- BACK BUTTON --- */
+        .back-btn {
+            background: rgba(219, 39, 119, 0.1);
+            border: 1px solid rgba(219, 39, 119, 0.3);
+            color: var(--accent-pink);
+            border-radius: 12px;
+            padding: 10px 15px;
+            font-family: var(--font-code);
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+</style>
+</head>
+<body>
+
+<div class="container">
+<div class="navbar">
+    <!-- Header -->
+    <header>
+        <a href="index.html" class="back-btn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+            </svg>
+            BACK
+        </a>
+  <div class="logo">Button Back</div>
+</div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>LIST JUALAN</h1>
+    <h4>RAFAXMODS TERPERCAYA</h4>
+  </div>
+
+  <!-- BANNER -->
+              <div class="video-wrapper">
+                <div class="video-display-box">
+                    <div class="monitor-overlay"></div>
+                    <video class="video-content" autoplay loop muted playsinline>
+                        <source src="https://files.catbox.moe/k5c9cr.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+  <!-- TIME -->
+  <div class="time-box">
+    <div class="time" id="time">00:00</div>
+    <div class="date" id="date">Loading...</div>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="product">
+    <div class="stock">READY</div>
+    <h3>PANEL PRIVATE RAFAXMODA</h3>
+    <h1></h1>
+     <p>🌐 5k > 5gb</a></p>
+    <p>🌐 6k > 6gb</a></p>
+    <p>🌐 7k > 7gb</a></p>
+    <p>🌐 8k > 8gb</a></p>
+    <p>🌐 9k > 9gb</a></p>
+    <p>🌐 10k > unli</a></p>
+    <p>🔰Adp private : 20k + sc crate panel buatan Rafa Official
+     <br>🔰Owner private : 30k + sc crate panel buatan Rafa official</p>
+    <div class="price">Buy Click Di bawah</div>
+    <a class="btn" href="https://wa.me/6281373431773?text=BUY+PANEL+BG">BELI SEKARANG</a>
+  </div>
+
+  <div class="product">
+    <div class="stock">READY</div>
+    <h3>PT PRIBADI RAFAXMODA</h3>
+    <br>Benefits Of partner?:
+<br>• Free Update Lucax Public dari v1 sampe selanjutnya 
+<br>• Free base Lucax Crash Ama func nya
+<br>• Free base Astro Crash Ama Func nya
+<br>• Free Masuk GB tele Func update terus
+<br>• Bisa Open Reseller Lucax Crash 
+<br>• Bisa Open Reseller Astro Crash  
+<br>• Free Admin Saluran 1Kap
+<br>• Free Admin GB Ku Semua
+<br>• Free Function Crash
+<br>• Free Function blank
+<br>• Free Function Delay
+<br>• Free Function stiker frezee
+<br>• Lebih Dekat Ama Devlover 
+<br>• Di bantu Fix SC jika ad kendala saat rename script 
+<br>• Di bantu naik nama di ch Astro Crash 4kap
+<br>• Free base Lucax public no enc 100%
+<br>• Free Base Astro dan Lucax no enc 100%
+<br>> BENEFIT FULL NO GIMICK
+<br>> GK OPEN BNYK 
+<br>> DI JAMIN BALMOND 🤑
+<br>
+    <div class="price">Rp 40.000</div>
+    <a class="btn" href="https://wa.me/6281373431773?text=BUY+PT+BG">BELI SAKARANG</a>
+  </div>
+
+  <div class="product">
+    <div class="stock">READY</div>
+    <h3>LIST NOKOS</h3>
+           <p class="mt-2">Anti Ambil Kembali Nokos Nya✅ </p>
+    <p>Indo : 5k</a></p>
+    <p>Philipina : 6k atau 7k</a></p>
+    <p>Taiwan : 10k</a></p>
+    <p>Malaysia : 10k</p>
+     <br>
+    <div class="price">Buy Click Di bawah</div>
+    <a class="btn" href="https://wa.me/6281373431773?text=BELI+NOKOS+BG">BELI SEKARANG</a>
+  </div>
+
+  <div class="footer">
+    © 2025/2026 LIST JUALAN RAFAXMODS
+  </div>
+
+</div>
+
+<script>
+ 
+ function openMenu() {
+  document.getElementById("sidebar").style.left = "0";
+}
+
+function closeMenu() {
+  document.getElementById("sidebar").style.left = "-260px";
+} 
+  
+function updateTime(){
+  const now = new Date()
+  document.getElementById('time').innerText =
+    now.toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'})
+  document.getElementById('date').innerText =
+    now.toLocaleDateString('id-ID', {weekday:'long', day:'numeric', month:'long'})
+}
+setInterval(updateTime, 1000)
+updateTime()
+</script>
+
+</body>
+</html>
