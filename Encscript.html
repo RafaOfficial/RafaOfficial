@@ -3,23 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encrypt JS Tool</title>
+<title>ENC Custom Tool</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
-<!-- CDN BARU (ANTI ERROR) -->
+<!-- ENGINE STABIL -->
 <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
 
 <style>
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+}
+
+body {
   background: linear-gradient(135deg, #0f0c29, #302b63, #000);
-  color: white;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  color: white;
 }
 
 .container {
@@ -35,6 +40,7 @@ body {
 h2 {
   text-align: center;
   color: #c084fc;
+  margin-bottom: 15px;
 }
 
 input, button {
@@ -55,6 +61,7 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
@@ -76,7 +83,7 @@ button:hover {
 <body>
 
 <div class="container">
-  <h2>⚡ JS Encrypt Tool</h2>
+  <h2>⚡ ENC Custom</h2>
 
   <input type="file" id="file" accept=".js">
   <input type="text" id="key" placeholder="text1|text2">
@@ -91,8 +98,7 @@ button:hover {
 <script>
 let hasil = "";
 
-// ENCRYPT FUNCTION (ANTI ERROR)
-async function encrypt() {
+function encrypt() {
   try {
     const file = document.getElementById("file").files[0];
     const key = document.getElementById("key").value;
@@ -100,7 +106,7 @@ async function encrypt() {
     if (!file) return alert("❌ Upload file dulu");
     if (!key.includes("|")) return alert("❌ Format text1|text2");
 
-    const [t1, t2] = key.split("|");
+    const [text1, text2] = key.split("|");
 
     const reader = new FileReader();
 
@@ -116,13 +122,18 @@ async function encrypt() {
           deadCodeInjection: true,
           stringArrayEncoding: ['base64'],
           identifierNamesGenerator: 'mangled',
-          renameGlobals: true
+          renameGlobals: true,
+
+          // CUSTOM IDENTIFIER (SESUAI REQUEST 🔥)
+          identifiersPrefix:
+            `高宝座${text1}齐${text2}高宝座`
         });
 
         hasil = obfuscated.getObfuscatedCode();
 
         document.getElementById("out").innerText =
           hasil.substring(0, 500) + "...";
+
       } catch (err) {
         alert("❌ Error encrypt: " + err.message);
       }
@@ -135,7 +146,6 @@ async function encrypt() {
   }
 }
 
-// DOWNLOAD
 function download() {
   if (!hasil) return alert("❌ Belum ada hasil");
 
