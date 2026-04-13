@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Encrypt Tool</title>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<!-- JSConfuser CDN -->
+<script src="https://cdn.jsdelivr.net/npm/js-confuser@latest/dist/index.browser.js"></script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #000000);
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CONTAINER */
+.container {
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 25px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 30px rgba(128,0,255,0.3);
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #c084fc;
+}
+
+/* INPUT */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #1e1b4b;
+  color: white;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #a855f7;
+  transform: scale(1.05);
+}
+
+/* OUTPUT */
+.output {
+  margin-top: 15px;
+  background: #020617;
+  padding: 10px;
+  border-radius: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 12px;
+}
+
+/* FILE */
+.file-box {
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>⚙️ JS Encrypt Tool</h1>
+
+  <label>Upload File .js</label>
+  <input type="file" id="fileInput" accept=".js">
+
+  <label>Text 1 | Text 2</label>
+  <input type="text" id="keyInput" placeholder="Contoh: RafaXMods|RafaEnc">
+
+  <button onclick="encryptCode()">Encrypt Sekarang</button>
+
+  <div class="output" id="output">Hasil encrypt akan muncul di sini...</div>
+
+  <button onclick="downloadFile()">Download Hasil</button>
+</div>
+
+<script>
+let encryptedResult = "";
+
+// READ FILE
+function readFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsText(file);
+  });
+}
+
+// ENCRYPT FUNCTION
+async function encryptCode() {
+  try {
+    const file = document.getElementById('fileInput').files[0];
+    const key = document.getElementById('keyInput').value;
+
+    if (!file) return alert("❌ Upload file .js dulu");
+    if (!key.includes("|")) return alert("❌ Format salah (text1|text2)");
+
+    const [text1, text2] = key.split("|");
+    const code = await readFile(file);
+
+    document.getElementById('output').innerText = "🔐 Processing...";
+
+    const result = await JsConfuser.obfuscate(code, {
+      target: "browser",
+      compact: true,
+      controlFlowFlattening: 0.8,
+      deadCode: 0.3,
+      renameVariables: true,
+      stringEncoding: true,
+      stringSplitting: 0.5,
+      stringConcealing: true,
+      shuffle: true,
+      identifierGenerator: () =>
+        `高宝座${text1}齐${text2}高宝座` +
+        Math.random().toString(36).substring(7),
+    });
+
+    encryptedResult = result.code || result;
+
+    document.getElementById('output').innerText = encryptedResult.slice(0, 1000) + "...";
+
+  } catch (e) {
+    alert("❌ Error: " + e.message);
+  }
+}
+
+// DOWNLOAD FILE
+function downloadFile() {
+  if (!encryptedResult) return alert("❌ Belum ada hasil");
+
+  const blob = new Blob([encryptedResult], { type: "application/javascript" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "encrypted.js";
+  a.click();
+}
+</script>
+
+</body>
+</html>

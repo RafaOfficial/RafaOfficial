@@ -102,6 +102,52 @@ h1 {
 .wa-btn:hover {
     background: #1ebe5d;
 }
+
+/* BUTTON */
+.btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  animation: hidup 2.5s infinite ease-in-out;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* Animasi hidup */
+@keyframes hidup {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(3deg); }
+  75% { transform: translateY(4px) rotate(-3deg); }
+}
+
+/* Hover */
+.btn:hover {
+  transform: scale(1.15);
+}
+
+/* ICON */
+.btn img {
+  width: 28px;
+}
+
+/* WARNA */
+.wa {
+  background: #25D366;
+  box-shadow: 0 0 12px #25D366;
+}
+
+.tg {
+  background: #0088cc;
+  box-shadow: 0 0 12px #0088cc;
+}
+
+a {
+  text-decoration: none;
+}
 </style>
 </head>
 
@@ -120,6 +166,20 @@ h1 {
       <div class="check">✔</div>
     </div>
   </div>
+
+<!-- WhatsApp -->
+<a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank">
+  <div class="btn wa">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+  </div>
+</a>
+
+<!-- Telegram -->
+<a href="https://t.me/ErroBaiyles" target="_blank">
+  <div class="btn tg">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png">
+  </div>
+</a>
 
 </body>
 </html>
@@ -175,13 +235,11 @@ h1 {
         <p>Buat HD kan Foto</p>
     </a>
 
-    <!-- WhatsApp Channel -->
-          <div class="name">Support Dev Dgn Join Saluran Wa ⬇️</div>
-    <a href="https://whatsapp.com/channel/0029Vb7Vif5G8l5H4WnhD20Q" class="wa-btn" target="_blank">
-        Saluran WhatsApp
+    <!-- Encscript -->
+    <a href="Encscript.html" class="card">
+        <h2> ⚙️ Enc Custom</h2>
+        <p>Enc Script</p>
     </a>
-
-</div>
 
 </body>
 </html>
