@@ -77,20 +77,32 @@ button:hover {
   max-height: 150px;
   overflow: auto;
 }
+
+.btn-back {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-  <h2>⚡ ENC Custom</h2>
+   <a href="index.html" class="btn-back">⬅ Back</a>
+  <h2>⚙️ ENC Custom</h2>
 
   <input type="file" id="file" accept=".js">
   <input type="text" id="key" placeholder="text1|text2">
 
   <button onclick="encrypt()">Encrypt</button>
 
-  <div class="output" id="out">Menunggu...</div>
+  <div class="output" id="out">🔐Tunggu 1 atau 3 Menit...</div>
 
   <button onclick="download()">Download</button>
 </div>
