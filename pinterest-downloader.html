@@ -111,37 +111,6 @@ button.search-btn {
     opacity:1;
 }
 
-/* FLOAT BUTTON */
-.fab {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-
-    width: 55px;
-    height: 55px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: linear-gradient(45deg, #a855f7, #ec4899);
-    color: white;
-
-    border-radius: 50%;
-    cursor: pointer;
-
-    font-size: 22px;
-    font-weight: bold;
-
-    box-shadow: 0 0 20px rgba(168,85,247,0.6);
-    transition: 0.3s;
-}
-
-.fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 30px rgba(236,72,153,0.8);
-}
-
 /* LOADER */
 .loader {
     text-align:center;
@@ -166,7 +135,6 @@ button.search-btn {
 <div id="result" class="grid"></div>
 <div id="loader" class="loader">Scroll untuk load lebih banyak...</div>
 
-<div class="fab" onclick="scrollTop()">↑</div>
 
 <script>
 const API = "https://api-faa.my.id/faa/pinterest?q=";
