@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Pinterest Pro</title>
+
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: radial-gradient(circle at top, #1a0033, #050505);
+    color:white;
+}
+
+/* HEADER */
+header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    backdrop-filter: blur(10px);
+}
+
+.back {
+    background: rgba(255,255,255,0.1);
+    padding:10px 15px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.title {
+    color:#c084fc;
+    font-weight:bold;
+}
+
+/* SEARCH */
+.search-box {
+    text-align:center;
+    padding:10px;
+}
+
+input {
+    width:70%;
+    padding:12px;
+    border:none;
+    border-radius:15px;
+    background:#111;
+    color:white;
+}
+
+button.search-btn {
+    padding:12px 15px;
+    background:linear-gradient(45deg,#a855f7,#ec4899);
+    border:none;
+    border-radius:12px;
+    color:white;
+    cursor:pointer;
+}
+
+/* GRID */
+.grid {
+    column-count:2;
+    column-gap:12px;
+    padding:10px;
+}
+
+@media(min-width:700px){
+    .grid { column-count:4; }
+}
+
+.card {
+    background:#111;
+    margin-bottom:12px;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(168,85,247,0.3);
+    transition:0.3s;
+    position:relative;
+}
+
+.card:hover {
+    transform:scale(1.03);
+}
+
+.card img {
+    width:100%;
+}
+
+/* DOWNLOAD BUTTON PREMIUM */
+.download {
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    right:10px;
+    padding:10px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(45deg,#9333ea,#ec4899);
+    color:white;
+    font-weight:bold;
+    opacity:0;
+    transition:0.3s;
+}
+
+.card:hover .download {
+    opacity:1;
+}
+
+/* FLOAT BUTTON */
+.fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(45deg, #a855f7, #ec4899);
+    color: white;
+
+    border-radius: 50%;
+    cursor: pointer;
+
+    font-size: 22px;
+    font-weight: bold;
+
+    box-shadow: 0 0 20px rgba(168,85,247,0.6);
+    transition: 0.3s;
+}
+
+.fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(236,72,153,0.8);
+}
+
+/* LOADER */
+.loader {
+    text-align:center;
+    padding:20px;
+    color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="back" onclick="history.back()">⬅</div>
+    <div class="title">PINTEREST PRO</div>
+</header>
+
+<div class="search-box">
+    <input id="search" placeholder="Cari anime, aesthetic...">
+    <button class="search-btn" onclick="startSearch()">SEARCH</button>
+</div>
+
+<div id="result" class="grid"></div>
+<div id="loader" class="loader">Scroll untuk load lebih banyak...</div>
+
+<div class="fab" onclick="scrollTop()">↑</div>
+
+<script>
+const API = "https://api-faa.my.id/faa/pinterest?q=";
+
+let currentQuery = "";
+let page = 1;
+let loading = false;
+
+// START SEARCH
+function startSearch() {
+    currentQuery = document.getElementById("search").value;
+    if (!currentQuery) return alert("Isi dulu!");
+
+    document.getElementById("result").innerHTML = "";
+    page = 1;
+    loadMore();
+}
+
+// LOAD DATA TANPA BATAS
+async function loadMore() {
+    if (loading) return;
+    loading = true;
+
+    try {
+        const res = await fetch(API + encodeURIComponent(currentQuery));
+        const data = await res.json();
+
+        const container = document.getElementById("result");
+
+        data.result.forEach(url => {
+            const div = document.createElement("div");
+            div.className = "card";
+
+            div.innerHTML = `
+                <img src="${url}">
+                <button class="download" onclick="downloadImage('${url}')">
+                    ⬇ Download
+                </button>
+            `;
+
+            container.appendChild(div);
+        });
+
+    } catch {
+        document.getElementById("loader").innerText = "Error load data";
+    }
+
+    loading = false;
+}
+
+// AUTO LOAD SAAT SCROLL
+window.addEventListener("scroll", () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
+        loadMore();
+    }
+});
+
+// DOWNLOAD FIX
+async function downloadImage(url) {
+    try {
+        let res;
+        try {
+            res = await fetch(url);
+        } catch {
+            res = null;
+        }
+
+        if (!res || !res.ok) {
+            res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
+        }
+
+        const blob = await res.blob();
+        const a = document.createElement("a");
+
+        a.href = URL.createObjectURL(blob);
+        a.download = "pin_" + Date.now() + ".jpg";
+
+        a.click();
+    } catch {
+        window.open(url);
+    }
+}
+
+function scrollTop() {
+    window.scrollTo({ top:0, behavior:"smooth" });
+}
+</script>
+
+</body>
+</html>
