@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HD Image Enhancer</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f1a;
+    color: white;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+h1 {
+    color: #4da6ff;
+}
+
+.upload-box {
+    border: 2px dashed #4da6ff;
+    padding: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.upload-box:hover {
+    background: rgba(77,166,255,0.1);
+}
+
+input {
+    display: none;
+}
+
+img {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    background: #4da6ff;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #1a8cff;
+}
+
+.loading {
+    display: none;
+    margin-top: 20px;
+    color: #4da6ff;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.btn-back {
+  display: inline-block;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4da6ff, #1a8cff);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+   <a href="index.html" class="btn-back">⬅ Back</a>
+<div class="container">
+  <h1>❄ HD Image Enhancer</h1>
+    
+    <div class="upload-box" onclick="document.getElementById('file').click()">
+        Klik / Upload Gambar
+    </div>
+
+    <input type="file" id="file" accept="image/*">
+
+    <div id="preview"></div>
+    <div class="loading" id="loading">⏳ Processing...</div>
+    <div class="error" id="error"></div>
+
+    <button onclick="uploadImage()">🚀 Enhance Sekarang</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+let selectedFile = null;
+
+document.getElementById("file").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedFile = file;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById("preview").innerHTML =
+            `<img src="${e.target.result}">`;
+    };
+    reader.readAsDataURL(file);
+});
+
+async function uploadImage() {
+    const errorBox = document.getElementById("error");
+    const loading = document.getElementById("loading");
+    const result = document.getElementById("result");
+
+    errorBox.innerText = "";
+    result.innerHTML = "";
+
+    if (!selectedFile) {
+        errorBox.innerText = "⚠️ Pilih gambar dulu!";
+        return;
+    }
+
+    loading.style.display = "block";
+
+    try {
+        const formData = new FormData();
+        formData.append("method", "1");
+        formData.append("is_pro_version", "false");
+        formData.append("is_enhancing_more", "false");
+        formData.append("max_image_size", "high");
+        formData.append("file", selectedFile);
+
+        const response = await fetch("https://ihancer.com/api/enhance", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) throw new Error("API ERROR");
+
+        const blob = await response.blob();
+        const imageURL = URL.createObjectURL(blob);
+
+        result.innerHTML = `
+            <h2>✅ Hasil HD</h2>
+            <img src="${imageURL}">
+            <br>
+            <a href="${imageURL}" download="hd-image.jpg">
+                <button>⬇️ Download</button>
+            </a>
+        `;
+
+    } catch (err) {
+        console.error(err);
+        errorBox.innerText = "❌ Gagal proses gambar, coba lagi!";
+    }
+
+    loading.style.display = "none";
+}
+</script>
+
+</body>
+</html>
