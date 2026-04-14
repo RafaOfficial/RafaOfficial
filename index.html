@@ -14,7 +14,7 @@ color:white;
 overflow:hidden;
 }
 
-/* ⭐ BINTANG */
+/* ⭐ STAR */
 .star{
 position:fixed;
 width:2px;height:2px;
@@ -23,6 +23,7 @@ border-radius:50%;
 opacity:0.7;
 animation:floatStar 4s ease-in-out infinite alternate;
 }
+
 @keyframes floatStar{
 0%{transform:translateY(0)}
 100%{transform:translateY(-8px)}
@@ -36,11 +37,12 @@ background:linear-gradient(white,transparent);
 transform:rotate(45deg);
 animation:meteor 1s linear;
 }
+
 @keyframes meteor{
 to{transform:translate(-500px,500px) rotate(45deg);opacity:0}
 }
 
-/* ===== GATE OVERLAY ===== */
+/* ===== GATE ===== */
 #gate{
 position:fixed;
 inset:0;
@@ -90,7 +92,6 @@ height:120px;
 background:linear-gradient(45deg,#9333ea,#00c3ff,#ff00ff);
 box-shadow:0 0 40px #9333ea;
 animation:rotate3d 2s infinite linear;
-transform-style:preserve-3d;
 border-radius:20px;
 }
 
@@ -135,50 +136,64 @@ padding:4px 7px;
 font-size:14px;
 }
 
-/* ===== MENU UPGRADE (SUDAH DIRAPIKAN) ===== */
+/* ===== MENU 2 LAPAK PREMIUM ===== */
 .container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-gap:15px;
-padding:15px;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+padding:18px;
 margin-top:20px;
 }
 
 .card{
-background:linear-gradient(145deg,#140021,#1d0033);
-border-radius:18px;
-padding:20px 10px;
+background:linear-gradient(145deg,#12001f,#1e0036);
+border-radius:20px;
+padding:22px 12px;
 text-decoration:none;
 color:white;
-box-shadow:0 0 12px rgba(161,0,255,0.4);
+box-shadow:0 0 15px rgba(170,0,255,0.35);
 transition:0.25s ease;
 text-align:center;
-border:1px solid rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.06);
 position:relative;
 overflow:hidden;
-}
-
-.card h2{
-font-size:14px;
-font-weight:600;
-margin-top:8px;
 }
 
 .card::before{
 content:"";
 position:absolute;
-top:-50%;
-left:-50%;
-width:200%;
-height:200%;
-background:radial-gradient(circle,rgba(255,0,255,0.15),transparent 60%);
-transform:rotate(25deg);
+top:-60%;
+left:-60%;
+width:220%;
+height:220%;
+background:radial-gradient(circle,rgba(255,0,255,0.25),transparent 60%);
+animation:glowMove 3s linear infinite;
+}
+
+@keyframes glowMove{
+0%{transform:translateX(-20%) translateY(-20%) rotate(25deg);}
+50%{transform:translateX(20%) translateY(20%) rotate(25deg);}
+100%{transform:translateX(-20%) translateY(-20%) rotate(25deg);}
 }
 
 .card:hover{
-transform:translateY(-6px) scale(1.03);
-box-shadow:0 0 25px rgba(255,0,255,0.6);
-border:1px solid rgba(255,0,255,0.3);
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 0 30px rgba(255,0,255,0.6);
+border:1px solid rgba(255,0,255,0.4);
+}
+
+.card h2{
+font-size:13px;
+font-weight:700;
+margin-top:10px;
+}
+
+/* MOBILE FIX */
+@media(max-width:400px){
+.container{
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
 }
 
 </style>
@@ -186,9 +201,8 @@ border:1px solid rgba(255,0,255,0.3);
 
 <body>
 
-<!-- ⭐ GATE -->
+<!-- GATE -->
 <div id="gate">
-
 <div class="box">
 <h3>⚠ Wajib Join Saluran WA</h3>
 <p style="opacity:0.7;font-size:13px;">Klik lanjutkan lalu join</p>
@@ -205,12 +219,10 @@ border:1px solid rgba(255,0,255,0.3);
 
 </div>
 
-<!-- LOADING -->
 <div id="loading">
 <div class="cube"></div>
 <p style="margin-top:10px;">Loading Sultan Mode...</p>
 </div>
-
 </div>
 
 <!-- MAIN -->
@@ -225,22 +237,24 @@ RafaXMods <span class="checkmark">✔</span>
 </div>
 
 <div class="container">
+
 <a href="list.html" class="card"><h2>🛒 List Jualan</h2></a>
-<a href="music.html" class="card"><h2>🎧 Search Music</h2></a>
-<a href="Spotify.html" class="card"><h2>🎵 Spotify Play</h2></a>
-<a href="tiktok.html" class="card"><h2>🎵 TikTok DL</h2></a>
-<a href="iqc.html" class="card"><h2>📸 Fake Iphone</h2></a>
+<a href="music.html" class="card"><h2>🎧 Music</h2></a>
+<a href="Spotify.html" class="card"><h2>🎵 Spotify</h2></a>
+<a href="tiktok.html" class="card"><h2>🎵 TikTok</h2></a>
+<a href="iqc.html" class="card"><h2>📸 Fake iPhone</h2></a>
 <a href="pinterest-downloader.html" class="card"><h2>✨ Wallpaper</h2></a>
 <a href="fakestory.html" class="card"><h2>💫 Fake Story</h2></a>
-<a href="hdfoto.html" class="card"><h2>❄ HD Enhancer</h2></a>
+<a href="hdfoto.html" class="card"><h2>❄ HD Foto</h2></a>
 <a href="Encscript.html" class="card"><h2>⚙️ Enc Script</h2></a>
+
 </div>
 
 </div>
 
 <script>
 
-// ⭐ STAR + METEOR
+// STAR
 for(let i=0;i<80;i++){
 let s=document.createElement("div");
 s.className="star";
@@ -249,6 +263,7 @@ s.style.top=Math.random()*100+"vh";
 document.body.appendChild(s);
 }
 
+// METEOR
 setInterval(()=>{
 let m=document.createElement("div");
 m.className="meteor";
@@ -258,7 +273,7 @@ document.body.appendChild(m);
 setTimeout(()=>m.remove(),1000);
 },700);
 
-// STEP GATE
+// GATE
 function warnJoin(){
 alert("⚠ Silakan join saluran WhatsApp dulu!");
 document.getElementById("joinBtn").style.display="inline-block";
