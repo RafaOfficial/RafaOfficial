@@ -11,7 +11,7 @@
 body{
 background:#000;
 color:white;
-overflow:hidden;
+overflow:auto;
 }
 
 /* ⭐ BINTANG */
@@ -40,67 +40,10 @@ animation:meteor 1s linear;
 to{transform:translate(-500px,500px) rotate(45deg);opacity:0}
 }
 
-/* INTRO */
-#intro{
-position:fixed;
-width:100%;height:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:10;
-background:rgba(0,0,0,0.95);
-}
-
-/* BUTTON */
-.btn{
-padding:14px 35px;
-border:none;
-border-radius:50px;
-background:linear-gradient(45deg,#9333ea,#ec4899);
-color:white;
-font-size:16px;
-cursor:pointer;
-box-shadow:0 0 25px #9333ea;
-margin:10px;
-transition:0.3s;
-}
-.btn:hover{
-transform:scale(1.08);
-box-shadow:0 0 45px #ec4899;
-}
-
-/* LOADING */
-#loading{
-display:none;
-flex-direction:column;
-align-items:center;
-}
-
-.percent{
-font-size:40px;
-margin:10px;
-text-shadow:0 0 20px #9333ea;
-}
-
-.bar{
-width:250px;height:6px;
-background:#111;
-border-radius:10px;
-overflow:hidden;
-}
-.fill{
-height:100%;
-width:0%;
-background:linear-gradient(90deg,#9333ea,#ec4899);
-}
-
 /* MAIN */
 #main{
-display:none;
 padding:20px;
-overflow:auto;
-height:100vh;
+min-height:100vh;
 background:#0b0014;
 text-align:center;
 }
@@ -166,7 +109,7 @@ margin:10px 0 20px;
 opacity:0.8;
 }
 
-/* GRID 2 KOLOM */
+/* GRID */
 .container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -195,11 +138,53 @@ box-shadow:0 0 25px #ff00ff;
 font-size:16px;
 }
 
-/* RESPONSIVE */
-@media(max-width:500px){
-.container{
-grid-template-columns:repeat(2,1fr);
+/* ===== IKLAN JOIN WA ===== */
+#adsBox{
+position:fixed;
+bottom:20px;
+right:-320px;
+width:260px;
+background:linear-gradient(145deg,#12001f,#1e0036);
+border-radius:16px;
+padding:15px;
+box-shadow:0 0 20px rgba(255,0,255,0.5);
+color:white;
+z-index:999;
+transition:0.6s ease;
+border:1px solid rgba(255,255,255,0.1);
 }
+
+#adsBox.show{
+right:20px;
+}
+
+#adsBox h4{
+font-size:14px;
+margin-bottom:8px;
+}
+
+#adsBox p{
+font-size:12px;
+opacity:0.8;
+margin-bottom:10px;
+}
+
+.ads-btn{
+display:block;
+text-align:center;
+padding:10px;
+border-radius:25px;
+background:#25D366;
+color:black;
+font-weight:bold;
+text-decoration:none;
+box-shadow:0 0 10px #25D366;
+transition:0.3s;
+}
+
+.ads-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px #25D366;
 }
 </style>
 </head>
@@ -207,29 +192,9 @@ grid-template-columns:repeat(2,1fr);
 <body>
 
 <!-- MUSIC -->
-<audio id="bgm" loop>
+<audio autoplay loop>
 <source src="https://files.catbox.moe/3kq8s7.mp3">
 </audio>
-
-<!-- INTRO / GATE -->
-<div id="intro">
-
-<button class="btn" onclick="warnJoin()">🚀 Lanjutkan</button>
-
-<a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank">
-<button class="btn" id="joinBtn" style="display:none;" onclick="afterJoin()">📢 Join Saluran WA</button>
-</a>
-
-<button class="btn" id="enterBtn" style="display:none;" onclick="start()">➡ Masuk Website</button>
-
-<div id="loading">
-<div class="percent" id="percent">0%</div>
-<div class="bar"><div class="fill" id="fill"></div></div>
-<br>
-<button class="btn" onclick="showMain()">⏭ Skip</button>
-</div>
-
-</div>
 
 <!-- MAIN -->
 <div id="main">
@@ -268,6 +233,15 @@ RafaXMods <span class="check">✔</span>
 
 </div>
 
+<!-- IKLAN -->
+<div id="adsBox">
+<h4>🚀 Join Saluran Kami</h4>
+<p>Dapatkan update Website & fitur script terbaru 🔥</p>
+<a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank" class="ads-btn">
+📢 Join Sekarang
+</a>
+</div>
+
 <script>
 
 // ⭐ STAR
@@ -289,51 +263,19 @@ document.body.appendChild(m);
 setTimeout(()=>m.remove(),1000);
 },700);
 
-// STEP 1 WARNING
-function warnJoin(){
-alert("⚠ Wajib join saluran WhatsApp terlebih dahulu!");
-document.getElementById("joinBtn").style.display="inline-block";
-}
+// IKLAN MUNCUL
+window.addEventListener("load",()=>{
 
-// STEP 2 JOIN
-function afterJoin(){
-document.getElementById("enterBtn").style.display="inline-block";
-}
+setTimeout(()=>{
+document.getElementById("adsBox").classList.add("show");
+},800);
 
-// START LOADING
-function start(){
-document.querySelector(".btn").style.display="none";
-document.getElementById("joinBtn").style.display="none";
-document.getElementById("enterBtn").style.display="none";
-document.getElementById("loading").style.display="flex";
+// AUTO HILANG 10 DETIK
+setTimeout(()=>{
+document.getElementById("adsBox").classList.remove("show");
+},5800);
 
-document.getElementById("bgm").play().catch(()=>{});
-
-let p=0;
-let percent=document.getElementById("percent");
-let fill=document.getElementById("fill");
-
-let int=setInterval(()=>{
-p+=Math.random()*6;
-
-if(p>=100){
-p=100;
-clearInterval(int);
-setTimeout(showMain,500);
-}
-
-percent.innerText=Math.floor(p)+"%";
-fill.style.width=p+"%";
-
-},100);
-}
-
-// SHOW MAIN
-function showMain(){
-document.getElementById("intro").style.display="none";
-document.getElementById("main").style.display="block";
-document.body.style.overflow="auto";
-}
+});
 
 </script>
 
