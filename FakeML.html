@@ -77,6 +77,28 @@ cursor:pointer;
 margin-top:10px;
 }
 
+/* 🎯 BACK BUTTON FIX */
+.back{
+position:fixed;
+top:15px;
+left:15px;
+padding:10px 18px;
+font-size:13px;
+border-radius:20px;
+background:linear-gradient(45deg,#9333ea,#ff00ff);
+color:white;
+z-index:9999;
+box-shadow:0 0 15px #9333ea;
+cursor:pointer;
+transition:0.3s;
+width:auto;
+}
+
+.back:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px #ff00ff;
+}
+
 canvas{
 width:100%;
 margin-top:15px;
@@ -97,24 +119,16 @@ box-shadow:0 0 20px #ff00ff;
 margin-bottom:10px;
 color:#ff00ff;
 }
-
-.back{
-    position:fixed;
-    top:8px;
-    left:12px;
-    width:auto;
-    padding:10px 15px;
-    font-size:12px;
-    z-index:999;
-}
 </style>
 </head>
 
 <body>
 
-<!-- 🔙 BACK -->
-<button class="back" onclick="index.html()">⬅️ BACK</button>
-
+<!-- 🔙 BACK FIXED -->
+<button class="back" onclick="window.location.href='index.html'">⬅️ BACK</button>
+</br>
+</br>
+</br>
 <div class="header"> FAKE ML SUPER GENERATOR 🔥</div>
 
 <div class="box">
@@ -128,7 +142,7 @@ color:#ff00ff;
 
 </div>
 
-<!-- DOWNLOAD AREA (GESER KE BAWAH) -->
+<!-- DOWNLOAD -->
 <div class="download-box">
 <h3>⬇ Scroll ke sini untuk Download</h3>
 <button onclick="download()">Download Hasil</button>
@@ -227,7 +241,7 @@ drawRounded(ctx,user,235,500,236,40);
 // BORDER
 ctx.drawImage(border,195,460,320,320);
 
-// AUTO SCROLL KE BAWAH
+// AUTO SCROLL
 setTimeout(()=>{
 window.scrollTo({
 top:document.body.scrollHeight,
