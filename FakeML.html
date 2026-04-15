@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake ML Super</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+
+body{
+background:#000;
+color:white;
+min-height:100vh;
+overflow:auto;
+}
+
+/* ⭐ */
+.star{
+position:fixed;
+width:2px;height:2px;
+background:white;
+border-radius:50%;
+animation:float 4s infinite alternate;
+}
+@keyframes float{to{transform:translateY(-10px)}}
+
+/* 🌠 */
+.meteor{
+position:fixed;
+width:2px;height:120px;
+background:linear-gradient(white,transparent);
+transform:rotate(45deg);
+animation:meteor 1s linear;
+}
+@keyframes meteor{
+to{transform:translate(-500px,500px);opacity:0}
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:20px;
+font-size:22px;
+color:#ff00ff;
+text-shadow:0 0 15px #ff00ff;
+}
+
+/* BOX */
+.box{
+background:#140021;
+margin:20px;
+padding:20px;
+border-radius:20px;
+box-shadow:0 0 20px #a100ff;
+}
+
+input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:20px;
+background:#0b0014;
+color:white;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:25px;
+background:linear-gradient(45deg,#9333ea,#ff00ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+margin-top:10px;
+}
+
+canvas{
+width:100%;
+margin-top:15px;
+border-radius:15px;
+}
+
+/* DOWNLOAD AREA */
+.download-box{
+margin:40px 20px;
+padding:20px;
+background:#0b0014;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 20px #ff00ff;
+}
+
+.download-box h3{
+margin-bottom:10px;
+color:#ff00ff;
+}
+
+.back{
+    position:fixed;
+    top:8px;
+    left:12px;
+    width:auto;
+    padding:10px 15px;
+    font-size:12px;
+    z-index:999;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔙 BACK -->
+<button class="back" onclick="goBack()">⬅️ BACK</button>
+
+<div class="header"> FAKE ML SUPER GENERATOR 🔥</div>
+
+<div class="box">
+
+<input type="file" id="file">
+<input id="url" placeholder="Atau paste link gambar">
+
+<button onclick="generate()">Generate Sekarang</button>
+
+<canvas id="canvas"></canvas>
+
+</div>
+
+<!-- DOWNLOAD AREA (GESER KE BAWAH) -->
+<div class="download-box">
+<h3>⬇ Scroll ke sini untuk Download</h3>
+<button onclick="download()">Download Hasil</button>
+</div>
+
+<script>
+
+// ⭐ STAR
+for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
+document.body.appendChild(s);
+}
+
+// 🌠 METEOR
+setInterval(()=>{
+let m=document.createElement("div");
+m.className="meteor";
+m.style.left=Math.random()*100+"vw";
+m.style.top="0";
+document.body.appendChild(m);
+setTimeout(()=>m.remove(),1000);
+},700);
+
+// LOAD IMAGE
+function loadImg(src){
+return new Promise((res,rej)=>{
+let img=new Image();
+img.crossOrigin="anonymous";
+img.src=src;
+img.onload=()=>res(img);
+img.onerror=rej;
+});
+}
+
+// ROUNDED
+function drawRounded(ctx, img, x, y, size, radius){
+ctx.save();
+ctx.beginPath();
+ctx.moveTo(x+radius,y);
+ctx.lineTo(x+size-radius,y);
+ctx.quadraticCurveTo(x+size,y,x+size,y+radius);
+ctx.lineTo(x+size,y+size-radius);
+ctx.quadraticCurveTo(x+size,y+size,x+size-radius,y+size);
+ctx.lineTo(x+radius,y+size);
+ctx.quadraticCurveTo(x,y+size,x,y+size-radius);
+ctx.lineTo(x,y+radius);
+ctx.quadraticCurveTo(x,y,x+radius,y);
+ctx.closePath();
+ctx.clip();
+ctx.drawImage(img,x,y,size,size);
+ctx.restore();
+}
+
+// MAIN
+async function generate(){
+let file = document.getElementById("file").files[0];
+let url = document.getElementById("url").value;
+
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+
+let imgSrc;
+
+if(file){
+imgSrc = URL.createObjectURL(file);
+}else if(url){
+imgSrc = url;
+}else{
+alert("Masukkan gambar!");
+return;
+}
+
+try{
+
+let bgUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775228325905.jpeg";
+let borderUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775232236060.png";
+
+let [bg, user, border] = await Promise.all([
+loadImg(bgUrl),
+loadImg(imgSrc),
+loadImg(borderUrl)
+]);
+
+canvas.width = bg.width;
+canvas.height = bg.height;
+
+// BG
+ctx.drawImage(bg,0,0);
+
+// FOTO
+drawRounded(ctx,user,235,500,236,40);
+
+// BORDER
+ctx.drawImage(border,195,460,320,320);
+
+// AUTO SCROLL KE BAWAH
+setTimeout(()=>{
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+},500);
+
+}catch(e){
+alert("Gagal load gambar!");
+}
+}
+
+// DOWNLOAD
+function download(){
+let canvas=document.getElementById("canvas");
+let link=document.createElement("a");
+link.download="fake-ml.png";
+link.href=canvas.toDataURL();
+link.click();
+}
+
+</script>
+
+</body>
+</html>
