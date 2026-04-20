@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake Dana Generator</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ⭐ BINTANG */
+.star{
+  position:fixed;
+  width:2px;height:2px;
+  background:white;
+  animation:move 10s linear infinite;
+}
+
+@keyframes move{
+  from{transform:translateY(0)}
+  to{transform:translateY(100vh)}
+}
+
+.container{
+  max-width:400px;
+  margin:80px auto;
+  background:#020617;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(255,0,255,0.2);
+}
+
+h1{margin-bottom:15px}
+
+input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#1e293b;
+  color:#fff;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#a855f7,#ec4899);
+  color:#fff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+img{
+  width:100%;
+  margin-top:20px;
+  border-radius:10px;
+}
+
+.download{
+  background:linear-gradient(45deg,#22c55e,#4ade80);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Fake Dana Generator</h1>
+
+  <input type="text" id="nominal" placeholder="Contoh: 5.000">
+
+  <button onclick="generate()">Generate Fake Dana</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+// ⭐ bintang
+for(let i=0;i<120;i++){
+  let star=document.createElement("div");
+  star.className="star";
+  star.style.left=Math.random()*100+"%";
+  star.style.top=Math.random()*100+"%";
+  star.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(star);
+}
+
+async function generate(){
+  const nominal = document.getElementById("nominal").value;
+  const result = document.getElementById("result");
+
+  if(!nominal){
+    result.innerHTML = "Masukkan nominal terlebih dahulu";
+    return;
+  }
+
+  result.innerHTML = "Loading...";
+
+  const url = `https://api.zenzxz.my.id/maker/fakedanav2?nominal=${encodeURIComponent(nominal)}`;
+
+  result.innerHTML = `
+    <img id="imgResult" src="${url}">
+    <button class="download" onclick="downloadImage()">Download Image</button>
+  `;
+
+  // auto scroll
+  setTimeout(()=>{
+    document.getElementById("imgResult").scrollIntoView({behavior:"smooth"});
+  },300);
+}
+
+function downloadImage(){
+  const img = document.getElementById("imgResult").src;
+  const a = document.createElement("a");
+  a.href = img;
+  a.download = "fake-dana.jpg";
+  a.click();
+}
+</script>
+
+</body>
+</html>
