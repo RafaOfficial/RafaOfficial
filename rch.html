@@ -3,68 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reach CH System</title>
+<title>Reach CH</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
 body{
-    margin:0;
-    font-family:Arial;
-    background:#0f0f0f;
-    color:white;
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
 }
 
 .container{
-    max-width:430px;
-    margin:20px auto;
-    background:#1b1b1b;
-    padding:20px;
-    border-radius:20px;
+max-width:430px;
+margin:20px auto;
+background:#1b1b1b;
+padding:20px;
+border-radius:20px;
 }
 
 h1{
-    text-align:center;
+text-align:center;
 }
 
 input,textarea{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:#2a2a2a;
-    color:white;
-    box-sizing:border-box;
-    margin-top:10px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2a2a2a;
+color:white;
+box-sizing:border-box;
+margin-top:10px;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    margin-top:12px;
-    background:linear-gradient(45deg,#7b2ff7,#f107a3);
-    color:white;
-    font-size:15px;
-    cursor:pointer;
-}
-
-.box{
-    background:#222;
-    padding:15px;
-    border-radius:15px;
-    margin-top:20px;
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:12px;
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+color:white;
+font-size:15px;
+cursor:pointer;
 }
 
 .item{
-    background:#2d2d2d;
-    padding:12px;
-    border-radius:12px;
-    margin-top:10px;
-    word-break:break-word;
+background:#2d2d2d;
+padding:12px;
+border-radius:12px;
+margin-top:10px;
+word-break:break-word;
 }
 
 .success{
-    border:1px solid lime;
+border:1px solid lime;
 }
 </style>
 </head>
@@ -74,94 +70,105 @@ button{
 
 <h1>🚀 Reach Saluran CH</h1>
 
-<input type="text" id="link" placeholder="https://whatsapp.com/channel/0029Vb67i65Fi8xX7rOtIc2S/864">
+<input type="text" id="link" placeholder="https://t.me/namasaluran">
 
-<textarea id="emoji" rows="3" placeholder="contoh:🥰,😍,🦸‍♂️,🫯"></textarea>
+<textarea id="emoji" rows="3" placeholder="🥰,😍,🔥"></textarea>
 
-<button id="joinBtn" onclick="joinTelegram()">📨 Reatch Saluran</button>
+<button id="joinBtn" onclick="joinTelegram()">📢 Join Saluran Telegram</button>
 
-<button id="kirimBtn" onclick="kirimPesanan()" style="display:none;">📨 Kirim Pesanan</button>
+<button id="sendBtn" onclick="kirimPesanan()" style="display:none;">
+📨 Kirim Pesanan
+</button>
 
-<button onclick="window.location.href='index.html'">⬅️ Kembali Ke Web Utama</button>
+<button onclick="window.location.href='index.html'">
+⬅️ Kembali
+</button>
 
-<div class="box">
-<h3>📜 Riwayat Pemesanan</h3>
+<h3>📜 Riwayat</h3>
+
 <div id="riwayat"></div>
-</div>
-
 
 </div>
 
 <script>
-let pending = JSON.parse(localStorage.getItem('pending')) || [];
-let success = JSON.parse(localStorage.getItem('success')) || [];
+const firebaseConfig = {
+  apiKey: "AIzaSyDZ4vvqy52xcjfge9r0G35DLt6vUTL9WKM",
+  authDomain: "reachchsystem.firebaseapp.com",
+  projectId: "reachchsystem",
+  storageBucket: "reachchsystem.firebasestorage.app",
+  messagingSenderId: "758623115029",
+  appId: "1:758623115029:web:456bcf2892ff5bfeb27b1c",
+  measurementId: "G-6TY72B0S2W"
+};
 
-function save(){
-localStorage.setItem('pending', JSON.stringify(pending));
-localStorage.setItem('success', JSON.stringify(success));
-}
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
 
 function joinTelegram(){
 window.open('https://t.me/ErroBaiyles','_blank');
 
-document.getElementById('kirimBtn').style.display='block';
+document.getElementById('sendBtn').style.display='block';
+
 document.getElementById('joinBtn').innerText='✅ Sudah Join Telegram';
 }
 
 function kirimPesanan(){
-let link = document.getElementById('link').value.trim();
-let emoji = document.getElementById('emoji').value.trim();
+
+let link = document.getElementById('link').value;
+let emoji = document.getElementById('emoji').value;
 
 if(link === '' || emoji === ''){
-alert('Lengkapi data terlebih dahulu!');
+alert('Lengkapi data!');
 return;
 }
 
-pending.push({
-link:link,
-emoji:emoji,
-status:'pending'
-});
+const data = {
+link,
+emoji,
+status:'pending',
+time:Date.now()
+};
 
-save();
-render();
+db.ref('orders').push(data);
 
-alert('Pesanan berhasil terkirim!');
+alert('Pesanan berhasil dikirim!');
 
 document.getElementById('link').value='';
 document.getElementById('emoji').value='';
 }
 
-function render(){
-let box = document.getElementById('riwayat');
-box.innerHTML='';
+function loadRiwayat(){
 
-if(pending.length === 0 && success.length === 0){
-box.innerHTML='<div class="item">Belum ada pesanan</div>';
-}
+db.ref('orders').on('value', snap=>{
 
-pending.forEach((item,index)=>{
-box.innerHTML += `
-<div class="item">
-<b>Pesanan ${index+1}</b><br><br>
+let html='';
+
+snap.forEach(data=>{
+
+let item = data.val();
+
+html += `
+<div class="item ${item.status === 'success' ? 'success' : ''}">
 Link: ${item.link}<br>
 Emoji: ${item.emoji}<br><br>
-🕓 Proses Pengiriman 
-</div>`;
+
+${item.status === 'success'
+? '✅ ACCESS SUCCESS'
+: '🕓 Menunggu Access'}
+
+</div>
+`;
+
 });
 
-success.forEach((item,index)=>{
-box.innerHTML += `
-<div class="item success">
-<b>Pesanan Success ${index+1}</b><br><br>
-Link: ${item.link}<br>
-Emoji: ${item.emoji}<br><br>
-✅ ACCESS SUCCESS
-</div>`;
+document.getElementById('riwayat').innerHTML = html;
+
 });
+
 }
 
-render();
+loadRiwayat();
 </script>
 
 </body>
