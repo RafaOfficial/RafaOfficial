@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Admin</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:white;
+}
+
+.container{
+    max-width:430px;
+    margin:20px auto;
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+.item{
+    background:#2d2d2d;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+    word-break:break-word;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-top:10px;
+    background:linear-gradient(45deg,#7b2ff7,#f107a3);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.copy{
+    background:#444;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚡ Website Admin</h1>
+
+<div id="pending"></div>
+
+<button onclick="resetRiwayat()">🗑️ Reset Riwayat</button>
+
+<button onclick="window.location.href='index.html'">⬅️ Kembali Ke User</button>
+
+</div>
+
+<script>
+let pending = JSON.parse(localStorage.getItem('pending')) || [];
+let success = JSON.parse(localStorage.getItem('success')) || [];
+
+function save(){
+localStorage.setItem('pending', JSON.stringify(pending));
+localStorage.setItem('success', JSON.stringify(success));
+}
+
+function render(){
+let box = document.getElementById('pending');
+box.innerHTML='';
+
+if(pending.length === 0){
+box.innerHTML='<div class="item">Tidak ada pesanan pending</div>';
+return;
+}
+
+pending.forEach((item,index)=>{
+box.innerHTML += `
+<div class="item">
+<b>Pesanan ${index+1}</b><br><br>
+Link: ${item.link}<br>
+Emoji: ${item.emoji}<br><br>
+
+<button class="copy" onclick="copyData('${item.link}','${item.emoji}')">📋 Copy Saluran & Emoji</button>
+
+<button onclick="sukses(${index})">✅ Sukses</button>
+</div>`;
+});
+}
+
+function copyData(link,emoji){
+navigator.clipboard.writeText(`Link: ${link}\nEmoji: ${emoji}`);
+alert('Berhasil di copy!');
+}
+
+function resetRiwayat(){
+if(confirm('Yakin ingin menghapus semua riwayat?')){
+localStorage.removeItem('pending');
+localStorage.removeItem('success');
+pending = [];
+success = [];
+render();
+alert('Riwayat berhasil di reset!');
+}
+}
+
+function sukses(index){
+let item = pending[index];
+item.status='success';
+
+success.push(item);
+pending.splice(index,1);
+
+save();
+render();
+
+alert('Pesanan berhasil di sukseskan!');
+}
+
+render();
+</script>
+
+</body>
+</html>

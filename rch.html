@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reach CH System</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:white;
+}
+
+.container{
+    max-width:430px;
+    margin:20px auto;
+    background:#1b1b1b;
+    padding:20px;
+    border-radius:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+input,textarea{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#2a2a2a;
+    color:white;
+    box-sizing:border-box;
+    margin-top:10px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    margin-top:12px;
+    background:linear-gradient(45deg,#7b2ff7,#f107a3);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.box{
+    background:#222;
+    padding:15px;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+.item{
+    background:#2d2d2d;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+    word-break:break-word;
+}
+
+.success{
+    border:1px solid lime;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🚀 Reach Saluran CH</h1>
+
+<input type="text" id="link" placeholder="https://whatsapp.com/channel/0029Vb67i65Fi8xX7rOtIc2S/864">
+
+<textarea id="emoji" rows="3" placeholder="contoh:🥰,😍,🦸‍♂️,🫯"></textarea>
+
+<button id="joinBtn" onclick="joinTelegram()">📨 Reatch Saluran</button>
+
+<button id="kirimBtn" onclick="kirimPesanan()" style="display:none;">📨 Kirim Pesanan</button>
+
+<button onclick="window.location.href='index.html'">⬅️ Kembali Ke Web Utama</button>
+
+<div class="box">
+<h3>📜 Riwayat Pemesanan</h3>
+<div id="riwayat"></div>
+</div>
+
+<button onclick="window.location.href='admin.html'">⚡ Masuk Website Admin</button>
+
+</div>
+
+<script>
+let pending = JSON.parse(localStorage.getItem('pending')) || [];
+let success = JSON.parse(localStorage.getItem('success')) || [];
+
+function save(){
+localStorage.setItem('pending', JSON.stringify(pending));
+localStorage.setItem('success', JSON.stringify(success));
+}
+
+function joinTelegram(){
+window.open('https://t.me/ErroBaiyles','_blank');
+
+document.getElementById('kirimBtn').style.display='block';
+document.getElementById('joinBtn').innerText='✅ Sudah Join Telegram';
+}
+
+function kirimPesanan(){
+let link = document.getElementById('link').value.trim();
+let emoji = document.getElementById('emoji').value.trim();
+
+if(link === '' || emoji === ''){
+alert('Lengkapi data terlebih dahulu!');
+return;
+}
+
+pending.push({
+link:link,
+emoji:emoji,
+status:'pending'
+});
+
+save();
+render();
+
+alert('Pesanan berhasil terkirim!');
+
+document.getElementById('link').value='';
+document.getElementById('emoji').value='';
+}
+
+function render(){
+let box = document.getElementById('riwayat');
+box.innerHTML='';
+
+if(pending.length === 0 && success.length === 0){
+box.innerHTML='<div class="item">Belum ada pesanan</div>';
+}
+
+pending.forEach((item,index)=>{
+box.innerHTML += `
+<div class="item">
+<b>Pesanan ${index+1}</b><br><br>
+Link: ${item.link}<br>
+Emoji: ${item.emoji}<br><br>
+🕓 Proses Pengiriman 
+</div>`;
+});
+
+success.forEach((item,index)=>{
+box.innerHTML += `
+<div class="item success">
+<b>Pesanan Success ${index+1}</b><br><br>
+Link: ${item.link}<br>
+Emoji: ${item.emoji}<br><br>
+✅ ACCESS SUCCESS
+</div>`;
+});
+}
+
+render();
+</script>
+
+</body>
+</html>
