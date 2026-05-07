@@ -24,41 +24,12 @@ padding:20px;
 border-radius:20px;
 }
 
-h1{
-text-align:center;
-margin-bottom:20px;
-}
-
 .item{
 background:#2d2d2d;
 padding:12px;
 border-radius:12px;
-margin-top:12px;
-word-break:break-word;
-border:1px solid #444;
-}
-
-.status{
-padding:6px 10px;
-border-radius:8px;
-font-size:13px;
-display:inline-block;
 margin-top:10px;
-}
-
-.pending{
-background:orange;
-color:black;
-}
-
-.success{
-background:lime;
-color:black;
-}
-
-.cancel{
-background:red;
-color:white;
+word-break:break-word;
 }
 
 button{
@@ -78,41 +49,12 @@ font-weight:bold;
 background:#444;
 }
 
-.successBtn{
+.copy2{
+background:#555;
+}
+
+.success{
 background:linear-gradient(45deg,#00c853,#64dd17);
-}
-
-.cancelBtn{
-background:linear-gradient(45deg,#ff1744,#ff5252);
-}
-
-textarea{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-margin-top:10px;
-background:#1a1a1a;
-color:white;
-resize:none;
-box-sizing:border-box;
-}
-
-.reason{
-margin-top:10px;
-padding:10px;
-background:#1a1a1a;
-border-radius:10px;
-color:#ff8a8a;
-}
-
-.follow{
-margin-top:10px;
-padding:10px;
-background:#151515;
-border-radius:10px;
-font-size:14px;
-color:#00bfff;
 }
 </style>
 </head>
@@ -141,7 +83,7 @@ apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
 authDomain: "reachchsystem-2d934.firebaseapp.com",
 databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
 projectId: "reachchsystem-2d934",
-storageBucket: "reachchsystem-2d934.firebasedatabase.app",
+storageBucket: "reachchsystem-2d934.firebasestorage.app",
 messagingSenderId: "1020994564198",
 appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
 };
@@ -165,7 +107,7 @@ html += `
 
 <div class="item">
 
-<b>📢 Link Saluran</b><br>
+<b>📢 Link Saluran:</b><br>
 ${item.link}
 
 <button class="copy"
@@ -177,65 +119,25 @@ onclick="copyLink('${item.link}')">
 
 <br><br>
 
-<b>😍 Emoji</b><br>
+<b>😍 Emoji:</b><br>
 ${item.emoji}
 
-<button class="copy"
+<button class="copy2"
 onclick="copyEmoji('${item.emoji}')">
 
 📋 Copy Emoji
 
 </button>
 
-<br>
+<br><br>
 
-<div class="status ${
-item.status === 'success'
-? 'success'
-: item.status === 'cancel'
-? 'cancel'
-: 'pending'
-}">
+<b>Status:</b>
+${item.status}
 
-${
-item.status === 'success'
-? '✅ SUCCESS'
-: item.status === 'cancel'
-? '❌ CANCEL'
-: '🕓 PENDING'
-}
-
-</div>
-
-${
-item.alasan
-? `
-<div class="reason">
-<b>📌 Alasan:</b><br>
-${item.alasan}
-</div>
-`
-: ''
-}
-
-<div class="follow">
-⚠️ Jangan lupa follow saluran Telegram sebelum proses reach.
-</div>
-
-<textarea id="reason-${id}"
-placeholder="Ajukan alasan sendiri..."></textarea>
-
-<button class="successBtn"
+<button class="success"
 onclick="sukses('${id}')">
 
 ✅ Sukses
-
-</button>
-
-<button class="cancelBtn"
-onclick="cancelOrder('${id}')">
-
-❌ Cancel + Ajukan Alasan
 
 </button>
 
@@ -269,33 +171,11 @@ alert('Emoji berhasil di copy!');
 
 function sukses(id){
 
-db.ref('orders/' + id).update({
-status:'success',
-alasan:''
+db.ref('orders/'+id).update({
+status:'success'
 });
 
-alert('Pesanan berhasil disukseskan!');
-
-}
-
-function cancelOrder(id){
-
-let alasan = document.getElementById('reason-' + id).value;
-
-if(alasan.trim() === ''){
-
-alert('Masukkan alasan cancel terlebih dahulu!');
-
-return;
-
-}
-
-db.ref('orders/' + id).update({
-status:'cancel',
-alasan: alasan
-});
-
-alert('Pesanan berhasil dicancel!');
+alert('Pesanan berhasil di sukseskan!');
 
 }
 
@@ -305,7 +185,7 @@ if(confirm('Yakin reset semua riwayat?')){
 
 db.ref('orders').remove();
 
-alert('Riwayat berhasil direset!');
+alert('Riwayat berhasil di reset!');
 
 }
 
