@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reach CH</title>
+<title>Reach CH System</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -22,10 +22,12 @@ margin:20px auto;
 background:#1b1b1b;
 padding:20px;
 border-radius:20px;
+box-shadow:0 0 20px rgba(255,0,150,0.2);
 }
 
 h1{
 text-align:center;
+margin-bottom:20px;
 }
 
 input,textarea{
@@ -37,6 +39,7 @@ background:#2a2a2a;
 color:white;
 box-sizing:border-box;
 margin-top:10px;
+outline:none;
 }
 
 button{
@@ -62,6 +65,10 @@ word-break:break-word;
 .success{
 border:1px solid lime;
 }
+
+.pending{
+border:1px solid orange;
+}
 </style>
 </head>
 <body>
@@ -74,17 +81,23 @@ border:1px solid lime;
 
 <textarea id="emoji" rows="3" placeholder="🥰,😍,🔥"></textarea>
 
-<button id="joinBtn" onclick="joinTelegram()">📢 Join Saluran Telegram</button>
+<button id="joinBtn" onclick="joinTelegram()">
+📢 Join Saluran Telegram
+</button>
 
-<button id="sendBtn" onclick="kirimPesanan()" style="display:none;">
+<button id="sendBtn"
+onclick="kirimPesanan()"
+style="display:none;">
+
 📨 Kirim Pesanan
+
 </button>
 
-<button onclick="window.location.href='index.html'">
-⬅️ Kembali
+<button onclick="window.location.href='indexutama.html'">
+⬅️ Kembali Ke Website Utama
 </button>
 
-<h3>📜 Riwayat</h3>
+<h3>📜 Riwayat Pemesanan</h3>
 
 <div id="riwayat"></div>
 
@@ -92,13 +105,13 @@ border:1px solid lime;
 
 <script>
 const firebaseConfig = {
-  apiKey: "AIzaSyDZ4vvqy52xcjfge9r0G35DLt6vUTL9WKM",
-  authDomain: "reachchsystem.firebaseapp.com",
-  projectId: "reachchsystem",
-  storageBucket: "reachchsystem.firebasestorage.app",
-  messagingSenderId: "758623115029",
-  appId: "1:758623115029:web:456bcf2892ff5bfeb27b1c",
-  measurementId: "G-6TY72B0S2W"
+apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
+authDomain: "reachchsystem-2d934.firebaseapp.com",
+databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+projectId: "reachchsystem-2d934",
+storageBucket: "reachchsystem-2d934.firebasestorage.app",
+messagingSenderId: "1020994564198",
+appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -106,26 +119,33 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 function joinTelegram(){
-window.open('https://t.me/ErroBaiyles','_blank');
+
+window.open('https://t.me/usernamechannel','_blank');
 
 document.getElementById('sendBtn').style.display='block';
 
-document.getElementById('joinBtn').innerText='✅ Sudah Join Telegram';
+document.getElementById('joinBtn').innerHTML =
+'✅ Sudah Join Telegram';
+
 }
 
 function kirimPesanan(){
 
-let link = document.getElementById('link').value;
-let emoji = document.getElementById('emoji').value;
+let link = document.getElementById('link').value.trim();
+
+let emoji = document.getElementById('emoji').value.trim();
 
 if(link === '' || emoji === ''){
-alert('Lengkapi data!');
+
+alert('Lengkapi data terlebih dahulu!');
+
 return;
+
 }
 
 const data = {
-link,
-emoji,
+link:link,
+emoji:emoji,
 status:'pending',
 time:Date.now()
 };
@@ -136,6 +156,7 @@ alert('Pesanan berhasil dikirim!');
 
 document.getElementById('link').value='';
 document.getElementById('emoji').value='';
+
 }
 
 function loadRiwayat(){
@@ -149,13 +170,19 @@ snap.forEach(data=>{
 let item = data.val();
 
 html += `
-<div class="item ${item.status === 'success' ? 'success' : ''}">
-Link: ${item.link}<br>
-Emoji: ${item.emoji}<br><br>
+<div class="item ${item.status === 'success'
+? 'success'
+: 'pending'}">
+
+<b>Link:</b><br>
+${item.link}<br><br>
+
+<b>Emoji:</b><br>
+${item.emoji}<br><br>
 
 ${item.status === 'success'
 ? '✅ ACCESS SUCCESS'
-: '🕓 Menunggu Access'}
+: '🕓 Menunggu Access Admin'}
 
 </div>
 `;
