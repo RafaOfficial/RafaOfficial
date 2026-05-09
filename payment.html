@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Pembayaran</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+}
+
+.container{
+max-width:430px;
+margin:20px auto;
+background:#1b1b1b;
+padding:20px;
+border-radius:20px;
+}
+
+.card{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:12px;
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2a2a2a;
+color:white;
+margin-top:10px;
+box-sizing:border-box;
+}
+
+img{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>💳 Pembayaran</h1>
+
+<div class="card">
+
+<center>
+<img id="pp">
+</center>
+
+<h3 id="user"></h3>
+
+<p id="paket"></p>
+
+<p>Transfer Dana Ke:</p>
+
+<input type="text"
+id="dana"
+value="081234567890"
+readonly>
+
+<button onclick="copyDana()">
+📋 Copy Dana
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>📤 Upload Bukti TF</h3>
+
+<input type="file" id="bukti">
+
+<button onclick="kirimBukti()">
+🚀 Kirim Bukti Transfer
+</button>
+
+</div>
+
+<div class="card" id="statusBox"
+style="display:none;">
+
+⏳ Tunggu informasi dari admin...
+
+</div>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
+authDomain: "reachchsystem-2d934.firebaseapp.com",
+databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+projectId: "reachchsystem-2d934",
+storageBucket: "reachchsystem-2d934.appspot.com",
+messagingSenderId: "1020994564198",
+appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+const storage = firebase.storage();
+
+const data =
+JSON.parse(localStorage.getItem('order_data'));
+
+document.getElementById('pp').src =
+data.pp;
+
+document.getElementById('user').innerText =
+'@' + data.username;
+
+document.getElementById('paket').innerText =
+data.followers + ' - Rp' + data.harga;
+
+function copyDana(){
+
+navigator.clipboard.writeText(
+document.getElementById('dana').value
+);
+
+alert('Nomor Dana berhasil dicopy!');
+
+}
+
+async function kirimBukti(){
+
+let file =
+document.getElementById('bukti').files[0];
+
+if(!file){
+alert('Upload bukti transfer!');
+return;
+}
+
+const ref =
+storage.ref(
+'bukti/' + Date.now() + file.name
+);
+
+await ref.put(file);
+
+const url =
+await ref.getDownloadURL();
+
+db.ref('tiktok_orders').push({
+username:data.username,
+paket:data.followers,
+harga:data.harga,
+pp:data.pp,
+bukti:url,
+status:'pending',
+time:Date.now()
+});
+
+document.getElementById('statusBox')
+.style.display='block';
+
+alert('Bukti transfer berhasil dikirim!');
+
+}
+
+</script>
+
+</body>
+</html>

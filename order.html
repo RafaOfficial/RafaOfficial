@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suntik TikTok</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+}
+
+.container{
+max-width:430px;
+margin:20px auto;
+background:#1b1b1b;
+padding:20px;
+border-radius:20px;
+}
+
+h1{
+text-align:center;
+}
+
+input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#2a2a2a;
+color:white;
+margin-top:12px;
+box-sizing:border-box;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:12px;
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.profile{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-top:20px;
+text-align:center;
+}
+
+.profile img{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #f107a3;
+}
+
+.hidden{
+display:none;
+}
+
+.card{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚡ Suntik Followers TikTok</h1>
+
+<div id="loginBox">
+
+<input type="text"
+id="username"
+placeholder="Masukkan Username TikTok">
+
+<button onclick="cekTiktok()">
+🚀 Cari Akun TikTok
+</button>
+
+</div>
+
+<div id="resultBox" class="hidden">
+
+<div class="profile">
+
+<img id="pp">
+
+<h2 id="nama"></h2>
+
+<p id="followers"></p>
+<p id="following"></p>
+<p id="likes"></p>
+
+<p id="bio"></p>
+
+</div>
+
+<div class="card">
+
+<h3>🔥 Pilih Paket</h3>
+
+<button onclick="order('1000 Followers','5000')">
+1000 Followers - Rp5.000
+</button>
+
+<button onclick="order('5000 Followers','15000')">
+5000 Followers - Rp15.000
+</button>
+
+<button onclick="order('10000 Followers','30000')">
+10000 Followers - Rp30.000
+</button>
+
+</div>
+
+<button onclick="logout()" style="background:red;">
+🚪 Logout
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+async function cekTiktok(){
+
+let user =
+document.getElementById('username').value.trim();
+
+if(user == ''){
+alert('Masukkan username!');
+return;
+}
+
+localStorage.setItem('tt_user', user);
+
+try{
+
+const res = await fetch(
+'https://www.tikwm.com/api/user/info?unique_id=' + user
+);
+
+const data = await res.json();
+
+if(!data.data){
+alert('Username tidak ditemukan!');
+return;
+}
+
+let u = data.data.user;
+let s = data.data.stats;
+
+document.getElementById('loginBox')
+.classList.add('hidden');
+
+document.getElementById('resultBox')
+.classList.remove('hidden');
+
+document.getElementById('pp').src =
+u.avatar;
+
+document.getElementById('nama').innerText =
+'@' + u.unique_id;
+
+document.getElementById('followers').innerText =
+'👥 Followers : ' + s.followerCount;
+
+document.getElementById('following').innerText =
+'👤 Mengikuti : ' + s.followingCount;
+
+document.getElementById('likes').innerText =
+'❤️ Likes : ' + s.heart;
+
+document.getElementById('bio').innerText =
+u.signature || 'Tidak ada bio';
+
+localStorage.setItem(
+'tiktok_data',
+JSON.stringify(data.data)
+);
+
+}catch(e){
+
+alert('Gagal mengambil data TikTok!');
+
+}
+
+}
+
+function order(followers,harga){
+
+const data =
+JSON.parse(localStorage.getItem('tiktok_data'));
+
+const orderData = {
+username:data.user.unique_id,
+followers:followers,
+harga:harga,
+pp:data.user.avatar
+};
+
+localStorage.setItem(
+'order_data',
+JSON.stringify(orderData)
+);
+
+window.location.href='payment.html';
+
+}
+
+function logout(){
+
+localStorage.clear();
+
+location.reload();
+
+}
+
+window.onload = async ()=>{
+
+let saved =
+localStorage.getItem('tt_user');
+
+if(saved){
+
+document.getElementById('username').value =
+saved;
+
+cekTiktok();
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

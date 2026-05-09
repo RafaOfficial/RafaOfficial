@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Admin TikTok</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f0f0f;
+color:white;
+}
+
+.container{
+max-width:430px;
+margin:20px auto;
+background:#1b1b1b;
+padding:20px;
+border-radius:20px;
+}
+
+.item{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+
+img{
+width:80px;
+height:80px;
+border-radius:50%;
+object-fit:cover;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.success{
+background:lime;
+color:black;
+}
+
+.cancel{
+background:red;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚡ Admin TikTok</h1>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
+authDomain: "reachchsystem-2d934.firebaseapp.com",
+databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+projectId: "reachchsystem-2d934",
+storageBucket: "reachchsystem-2d934.appspot.com",
+messagingSenderId: "1020994564198",
+appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+function loadData(){
+
+db.ref('tiktok_orders')
+.on('value',snap=>{
+
+let html='';
+
+snap.forEach(data=>{
+
+let item = data.val();
+let id = data.key;
+
+html += `
+
+<div class="item">
+
+<center>
+<img src="${item.pp}">
+</center>
+
+<h3>@${item.username}</h3>
+
+<p>📦 Paket :
+${item.paket}</p>
+
+<p>💰 Harga :
+Rp${item.harga}</p>
+
+<p>Status :
+${item.status}</p>
+
+<a href="${item.bukti}"
+target="_blank">
+
+<button>
+🖼️ Lihat Bukti TF
+</button>
+
+</a>
+
+<button class="success"
+onclick="success('${id}')">
+
+✅ Success
+
+</button>
+
+<button class="cancel"
+onclick="cancel('${id}')">
+
+❌ Cancel
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById('orders')
+.innerHTML = html;
+
+});
+
+}
+
+function success(id){
+
+db.ref('tiktok_orders/' + id)
+.update({
+status:'success'
+});
+
+alert('Pesanan sukses');
+
+}
+
+function cancel(id){
+
+db.ref('tiktok_orders/' + id)
+.update({
+status:'cancel'
+});
+
+alert('Pesanan dicancel');
+
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
