@@ -9,7 +9,6 @@ content="width=device-width, initial-scale=1.0">
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
 *{
@@ -171,8 +170,10 @@ transform:scale(1);
 }
 }
 
-.riwayat{
-margin-top:20px;
+img.bukti{
+width:100%;
+border-radius:12px;
+margin-top:10px;
 }
 </style>
 </head>
@@ -214,7 +215,8 @@ readonly>
 <h3>📤 Upload Bukti TF</h3>
 
 <input type="file"
-id="bukti">
+id="bukti"
+accept="image/*">
 
 <button onclick="kirimBukti()">
 🚀 Kirim Bukti Transfer
@@ -247,7 +249,6 @@ appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
-const storage = firebase.storage();
 
 const data =
 JSON.parse(localStorage.getItem('order_data'));
@@ -276,6 +277,8 @@ alert('Nomor Dana berhasil dicopy!');
 
 async function kirimBukti(){
 
+try{
+
 let file =
 document.getElementById('bukti').files[0];
 
@@ -296,27 +299,26 @@ document.body.innerHTML += `
 </div>
 `;
 
-const ref =
-storage.ref(
-'bukti/' + Date.now() + file.name
-);
+const reader = new FileReader();
 
-await ref.put(file);
+reader.readAsDataURL(file);
 
-const url =
-await ref.getDownloadURL();
+reader.onload = async function(){
 
-db.ref('tiktok_orders').push({
+const base64 = reader.result;
+
+await db.ref('tiktok_orders').push({
 username:data.username,
 paket:data.paket,
 harga:data.harga,
 pp:data.pp,
-bukti:url,
+bukti:base64,
 status:'pending',
 time:Date.now()
 });
 
-document.getElementById('loading').remove();
+document.getElementById('loading')
+.remove();
 
 document.body.innerHTML += `
 <div class="successPopup"
@@ -342,6 +344,20 @@ loadRiwayat();
 
 },2000);
 
+};
+
+}catch(err){
+
+console.log(err);
+
+if(document.getElementById('loading')){
+document.getElementById('loading').remove();
+}
+
+alert('❌ Gagal upload bukti TF');
+
+}
+
 }
 
 function loadRiwayat(){
@@ -359,7 +375,7 @@ if(item.username === data.username){
 
 html += `
 
-<div class="card riwayat">
+<div class="card">
 
 <center>
 <img src="${item.pp}"
@@ -388,20 +404,14 @@ ${
 item.status == 'pending'
 ? '🕓 Menunggu Admin'
 : item.status == 'success'
-? '✅ Pesanan Sukses'
+? '✅ Pesanan Success'
 : '❌ Pesanan Cancel'
 }
 
 </div>
 
-<a href="${item.bukti}"
-target="_blank">
-
-<button>
-🖼️ Lihat Bukti TF
-</button>
-
-</a>
+<img src="${item.bukti}"
+class="bukti">
 
 </div>
 

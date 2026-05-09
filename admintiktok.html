@@ -52,6 +52,12 @@ object-fit:cover;
 border:3px solid #f107a3;
 }
 
+.bukti{
+width:100%;
+border-radius:12px;
+margin-top:10px;
+}
+
 button{
 width:100%;
 padding:14px;
@@ -70,10 +76,6 @@ color:black;
 
 .cancel{
 background:red;
-}
-
-.view{
-background:linear-gradient(45deg,#7b2ff7,#f107a3);
 }
 
 .status{
@@ -175,14 +177,8 @@ item.status == 'pending'
 
 </div>
 
-<a href="${item.bukti}"
-target="_blank">
-
-<button class="view">
-🖼️ Lihat Bukti TF
-</button>
-
-</a>
+<img src="${item.bukti}"
+class="bukti">
 
 <button class="success"
 onclick="successOrder('${id}')">
