@@ -11,19 +11,30 @@ content="width=device-width, initial-scale=1.0">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial;
+}
+
+body{
 background:#0f0f0f;
 color:white;
+padding:15px;
 }
 
 .container{
 max-width:430px;
-margin:20px auto;
+margin:auto;
 background:#1b1b1b;
 padding:20px;
 border-radius:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
 }
 
 .item{
@@ -33,11 +44,12 @@ border-radius:15px;
 margin-top:15px;
 }
 
-img{
-width:80px;
-height:80px;
+.pp{
+width:90px;
+height:90px;
 border-radius:50%;
 object-fit:cover;
+border:3px solid #f107a3;
 }
 
 button{
@@ -45,11 +57,10 @@ width:100%;
 padding:14px;
 border:none;
 border-radius:12px;
-margin-top:10px;
-background:linear-gradient(45deg,#7b2ff7,#f107a3);
-color:white;
+margin-top:12px;
 font-weight:bold;
 cursor:pointer;
+color:white;
 }
 
 .success{
@@ -59,6 +70,33 @@ color:black;
 
 .cancel{
 background:red;
+}
+
+.view{
+background:linear-gradient(45deg,#7b2ff7,#f107a3);
+}
+
+.status{
+padding:10px;
+border-radius:12px;
+margin-top:10px;
+font-weight:bold;
+text-align:center;
+}
+
+.pending{
+background:orange;
+color:black;
+}
+
+.sukses{
+background:lime;
+color:black;
+}
+
+.cancel2{
+background:red;
+color:white;
 }
 </style>
 </head>
@@ -88,7 +126,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
-function loadData(){
+function loadOrders(){
 
 db.ref('tiktok_orders')
 .on('value',snap=>{
@@ -105,10 +143,13 @@ html += `
 <div class="item">
 
 <center>
-<img src="${item.pp}">
+<img src="${item.pp}"
+class="pp">
 </center>
 
-<h3>@${item.username}</h3>
+<h2 style="text-align:center;">
+@${item.username}
+</h2>
 
 <p>📦 Paket :
 ${item.paket}</p>
@@ -116,27 +157,42 @@ ${item.paket}</p>
 <p>💰 Harga :
 Rp${item.harga}</p>
 
-<p>Status :
-${item.status}</p>
+<div class="status ${
+item.status == 'pending'
+? 'pending'
+: item.status == 'success'
+? 'sukses'
+: 'cancel2'
+}">
+
+${
+item.status == 'pending'
+? '🕓 Pending'
+: item.status == 'success'
+? '✅ Success'
+: '❌ Cancel'
+}
+
+</div>
 
 <a href="${item.bukti}"
 target="_blank">
 
-<button>
+<button class="view">
 🖼️ Lihat Bukti TF
 </button>
 
 </a>
 
 <button class="success"
-onclick="success('${id}')">
+onclick="successOrder('${id}')">
 
 ✅ Success
 
 </button>
 
 <button class="cancel"
-onclick="cancel('${id}')">
+onclick="cancelOrder('${id}')">
 
 ❌ Cancel
 
@@ -155,29 +211,29 @@ document.getElementById('orders')
 
 }
 
-function success(id){
+function successOrder(id){
 
 db.ref('tiktok_orders/' + id)
 .update({
 status:'success'
 });
 
-alert('Pesanan sukses');
+alert('Pesanan berhasil disukseskan!');
 
 }
 
-function cancel(id){
+function cancelOrder(id){
 
 db.ref('tiktok_orders/' + id)
 .update({
 status:'cancel'
 });
 
-alert('Pesanan dicancel');
+alert('Pesanan berhasil dicancel!');
 
 }
 
-loadData();
+loadOrders();
 
 </script>
 

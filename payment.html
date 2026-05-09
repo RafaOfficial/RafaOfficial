@@ -5,26 +5,38 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>Pembayaran</title>
+<title>Pembayaran TikTok</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial;
+}
+
+body{
 background:#0f0f0f;
 color:white;
+padding:15px;
 }
 
 .container{
 max-width:430px;
-margin:20px auto;
+margin:auto;
 background:#1b1b1b;
 padding:20px;
 border-radius:20px;
+box-shadow:0 0 20px rgba(255,0,255,0.2);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
 }
 
 .card{
@@ -32,6 +44,18 @@ background:#222;
 padding:15px;
 border-radius:15px;
 margin-top:15px;
+}
+
+.center{
+text-align:center;
+}
+
+.pp{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #f107a3;
 }
 
 button{
@@ -42,6 +66,7 @@ border-radius:12px;
 margin-top:12px;
 background:linear-gradient(45deg,#7b2ff7,#f107a3);
 color:white;
+font-size:15px;
 font-weight:bold;
 cursor:pointer;
 }
@@ -54,14 +79,100 @@ border-radius:12px;
 background:#2a2a2a;
 color:white;
 margin-top:10px;
-box-sizing:border-box;
+outline:none;
 }
 
-img{
-width:90px;
-height:90px;
+.status{
+margin-top:10px;
+padding:12px;
+border-radius:12px;
+font-weight:bold;
+text-align:center;
+}
+
+.pending{
+background:orange;
+color:black;
+}
+
+.success{
+background:lime;
+color:black;
+}
+
+.cancel{
+background:red;
+color:white;
+}
+
+.loading{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000000dd;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid #333;
+border-top:6px solid #00ff99;
 border-radius:50%;
-object-fit:cover;
+animation:putar 1s linear infinite;
+}
+
+@keyframes putar{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.successPopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000000dd;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.check{
+width:100px;
+height:100px;
+border-radius:50%;
+background:#00ff99;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:60px;
+color:black;
+font-weight:bold;
+animation:zoom .4s;
+}
+
+@keyframes zoom{
+0%{
+transform:scale(0);
+}
+100%{
+transform:scale(1);
+}
+}
+
+.riwayat{
+margin-top:20px;
 }
 </style>
 </head>
@@ -69,27 +180,31 @@ object-fit:cover;
 
 <div class="container">
 
-<h1>💳 Pembayaran</h1>
+<h1>💳 Pembayaran TikTok</h1>
 
-<div class="card">
+<div class="card center">
 
-<center>
-<img id="pp">
-</center>
+<img id="pp" class="pp">
 
-<h3 id="user"></h3>
+<h2 id="username"></h2>
 
 <p id="paket"></p>
 
-<p>Transfer Dana Ke:</p>
+<p id="harga"></p>
+
+</div>
+
+<div class="card">
+
+<h3>💰 Transfer Dana</h3>
 
 <input type="text"
-id="dana"
 value="081234567890"
+id="dana"
 readonly>
 
 <button onclick="copyDana()">
-📋 Copy Dana
+📋 Copy Nomor Dana
 </button>
 
 </div>
@@ -98,7 +213,8 @@ readonly>
 
 <h3>📤 Upload Bukti TF</h3>
 
-<input type="file" id="bukti">
+<input type="file"
+id="bukti">
 
 <button onclick="kirimBukti()">
 🚀 Kirim Bukti Transfer
@@ -106,10 +222,11 @@ readonly>
 
 </div>
 
-<div class="card" id="statusBox"
-style="display:none;">
+<div class="card">
 
-⏳ Tunggu informasi dari admin...
+<h3>📜 Riwayat Pemesanan</h3>
+
+<div id="riwayat"></div>
 
 </div>
 
@@ -138,11 +255,14 @@ JSON.parse(localStorage.getItem('order_data'));
 document.getElementById('pp').src =
 data.pp;
 
-document.getElementById('user').innerText =
+document.getElementById('username').innerText =
 '@' + data.username;
 
 document.getElementById('paket').innerText =
-data.followers + ' - Rp' + data.harga;
+'📦 Paket : ' + data.paket;
+
+document.getElementById('harga').innerText =
+'💰 Harga : Rp' + data.harga;
 
 function copyDana(){
 
@@ -164,6 +284,18 @@ alert('Upload bukti transfer!');
 return;
 }
 
+document.body.innerHTML += `
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+<p style="margin-top:20px;">
+📤 Mengirim bukti transfer...
+</p>
+
+</div>
+`;
+
 const ref =
 storage.ref(
 'bukti/' + Date.now() + file.name
@@ -176,7 +308,7 @@ await ref.getDownloadURL();
 
 db.ref('tiktok_orders').push({
 username:data.username,
-paket:data.followers,
+paket:data.paket,
 harga:data.harga,
 pp:data.pp,
 bukti:url,
@@ -184,12 +316,109 @@ status:'pending',
 time:Date.now()
 });
 
-document.getElementById('statusBox')
-.style.display='block';
+document.getElementById('loading').remove();
 
-alert('Bukti transfer berhasil dikirim!');
+document.body.innerHTML += `
+<div class="successPopup"
+id="successPopup">
+
+<div class="check">
+✓
+</div>
+
+<p style="margin-top:20px;">
+✅ Bukti transfer berhasil dikirim
+</p>
+
+</div>
+`;
+
+setTimeout(()=>{
+
+document.getElementById('successPopup')
+.remove();
+
+loadRiwayat();
+
+},2000);
 
 }
+
+function loadRiwayat(){
+
+db.ref('tiktok_orders')
+.on('value',snap=>{
+
+let html='';
+
+snap.forEach(data2=>{
+
+let item = data2.val();
+
+if(item.username === data.username){
+
+html += `
+
+<div class="card riwayat">
+
+<center>
+<img src="${item.pp}"
+class="pp">
+</center>
+
+<h3 class="center">
+@${item.username}
+</h3>
+
+<p>📦 Paket :
+${item.paket}</p>
+
+<p>💰 Harga :
+Rp${item.harga}</p>
+
+<div class="status ${
+item.status == 'pending'
+? 'pending'
+: item.status == 'success'
+? 'success'
+: 'cancel'
+}">
+
+${
+item.status == 'pending'
+? '🕓 Menunggu Admin'
+: item.status == 'success'
+? '✅ Pesanan Sukses'
+: '❌ Pesanan Cancel'
+}
+
+</div>
+
+<a href="${item.bukti}"
+target="_blank">
+
+<button>
+🖼️ Lihat Bukti TF
+</button>
+
+</a>
+
+</div>
+
+`;
+
+}
+
+});
+
+document.getElementById('riwayat')
+.innerHTML = html;
+
+});
+
+}
+
+loadRiwayat();
 
 </script>
 

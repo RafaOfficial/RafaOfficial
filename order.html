@@ -3,26 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Suntik TikTok</title>
+<title>Suntik Followers TikTok</title>
 
 <style>
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial;
+}
+
+body{
 background:#0f0f0f;
 color:white;
+padding:15px;
 }
 
 .container{
 max-width:430px;
-margin:20px auto;
+margin:auto;
 background:#1b1b1b;
 padding:20px;
 border-radius:20px;
+box-shadow:0 0 20px rgba(255,0,255,0.2);
 }
 
 h1{
 text-align:center;
+margin-bottom:20px;
 }
 
 input{
@@ -32,8 +40,8 @@ border:none;
 border-radius:12px;
 background:#2a2a2a;
 color:white;
+outline:none;
 margin-top:12px;
-box-sizing:border-box;
 }
 
 button{
@@ -65,15 +73,48 @@ object-fit:cover;
 border:3px solid #f107a3;
 }
 
-.hidden{
-display:none;
-}
-
 .card{
 background:#222;
 padding:15px;
 border-radius:15px;
 margin-top:15px;
+}
+
+.hidden{
+display:none;
+}
+
+.logout{
+background:red;
+}
+
+.loading{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000000dd;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:9999;
+}
+
+.loader{
+width:70px;
+height:70px;
+border:6px solid #333;
+border-top:6px solid #f107a3;
+border-radius:50%;
+animation:putar 1s linear infinite;
+}
+
+@keyframes putar{
+100%{
+transform:rotate(360deg);
+}
 }
 </style>
 </head>
@@ -90,7 +131,7 @@ id="username"
 placeholder="Masukkan Username TikTok">
 
 <button onclick="cekTiktok()">
-🚀 Cari Akun TikTok
+🔍 Cari Akun TikTok
 </button>
 
 </div>
@@ -113,24 +154,27 @@ placeholder="Masukkan Username TikTok">
 
 <div class="card">
 
-<h3>🔥 Pilih Paket</h3>
+<h3>🔥 Pilih Paket Followers</h3>
 
-<button onclick="order('1000 Followers','5000')">
+<button onclick="pilihPaket('1000 Followers','5000')">
 1000 Followers - Rp5.000
 </button>
 
-<button onclick="order('5000 Followers','15000')">
+<button onclick="pilihPaket('5000 Followers','15000')">
 5000 Followers - Rp15.000
 </button>
 
-<button onclick="order('10000 Followers','30000')">
+<button onclick="pilihPaket('10000 Followers','30000')">
 10000 Followers - Rp30.000
 </button>
 
 </div>
 
-<button onclick="logout()" style="background:red;">
+<button class="logout"
+onclick="logout()">
+
 🚪 Logout
+
 </button>
 
 </div>
@@ -145,11 +189,23 @@ let user =
 document.getElementById('username').value.trim();
 
 if(user == ''){
-alert('Masukkan username!');
+alert('Masukkan username TikTok!');
 return;
 }
 
 localStorage.setItem('tt_user', user);
+
+document.body.innerHTML += `
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+<p style="margin-top:20px;">
+🔍 Sedang mencari akun TikTok...
+</p>
+
+</div>
+`;
 
 try{
 
@@ -157,15 +213,17 @@ const res = await fetch(
 'https://www.tikwm.com/api/user/info?unique_id=' + user
 );
 
-const data = await res.json();
+const json = await res.json();
 
-if(!data.data){
-alert('Username tidak ditemukan!');
+document.getElementById('loading').remove();
+
+if(!json.data){
+alert('Akun TikTok tidak ditemukan!');
 return;
 }
 
-let u = data.data.user;
-let s = data.data.stats;
+const u = json.data.user;
+const s = json.data.stats;
 
 document.getElementById('loginBox')
 .classList.add('hidden');
@@ -183,20 +241,29 @@ document.getElementById('followers').innerText =
 '👥 Followers : ' + s.followerCount;
 
 document.getElementById('following').innerText =
-'👤 Mengikuti : ' + s.followingCount;
+'❤️ Mengikuti : ' + s.followingCount;
 
 document.getElementById('likes').innerText =
-'❤️ Likes : ' + s.heart;
+'👍 Likes : ' + s.heart;
 
 document.getElementById('bio').innerText =
 u.signature || 'Tidak ada bio';
 
 localStorage.setItem(
 'tiktok_data',
-JSON.stringify(data.data)
+JSON.stringify({
+username:u.unique_id,
+avatar:u.avatar,
+followers:s.followerCount,
+following:s.followingCount,
+likes:s.heart,
+bio:u.signature || ''
+})
 );
 
-}catch(e){
+}catch(err){
+
+console.log(err);
 
 alert('Gagal mengambil data TikTok!');
 
@@ -204,24 +271,38 @@ alert('Gagal mengambil data TikTok!');
 
 }
 
-function order(followers,harga){
+function pilihPaket(paket,harga){
+
+document.body.innerHTML += `
+<div class="loading" id="loading2">
+
+<div class="loader"></div>
+
+<p style="margin-top:20px;">
+🚀 Melanjutkan pembayaran...
+</p>
+
+</div>
+`;
 
 const data =
 JSON.parse(localStorage.getItem('tiktok_data'));
 
-const orderData = {
-username:data.user.unique_id,
-followers:followers,
-harga:harga,
-pp:data.user.avatar
-};
-
 localStorage.setItem(
 'order_data',
-JSON.stringify(orderData)
+JSON.stringify({
+username:data.username,
+pp:data.avatar,
+paket:paket,
+harga:harga
+})
 );
 
+setTimeout(()=>{
+
 window.location.href='payment.html';
+
+},2000);
 
 }
 
@@ -233,7 +314,7 @@ location.reload();
 
 }
 
-window.onload = async ()=>{
+window.onload = ()=>{
 
 let saved =
 localStorage.getItem('tt_user');
