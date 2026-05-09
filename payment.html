@@ -1,9 +1,10 @@
+<!-- payment.html -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Pembayaran TikTok</title>
 
@@ -169,12 +170,6 @@ transform:scale(0);
 transform:scale(1);
 }
 }
-
-img.bukti{
-width:100%;
-border-radius:12px;
-margin-top:10px;
-}
 </style>
 </head>
 <body>
@@ -329,16 +324,24 @@ setTimeout(()=>{
 window.open(
 'https://wa.me/6285797837146?text=' +
 encodeURIComponent(
-'Halo admin saya sudah transfer\n\n' +
-'Username: @${data.username}\n' +
-'Paket: ${data.paket}\n' +
-'Harga: Rp${data.harga}\n\n' +
-'Saya akan kirim bukti TF.'
+'Halo admin saya sudah transfer 💸\n\n' +
+
+'👤 Username TikTok : @' + data.username + '\n' +
+
+'📦 Paket : ' + data.paket + '\n' +
+
+'💰 Harga : Rp' + data.harga + '\n\n' +
+
+'Saya akan mengirim bukti transfer sekarang.'
 ),
 '_blank'
 );
 
+setTimeout(()=>{
+
 location.reload();
+
+},1000);
 
 },2000);
 
@@ -353,6 +356,7 @@ document.getElementById('loading').remove();
 alert('❌ Gagal mengirim pesanan');
 
 }
+
 }
 
 function loadRiwayat(){
@@ -404,9 +408,6 @@ item.status == 'pending'
 }
 
 </div>
-
-<img src="${item.bukti}"
-class="bukti">
 
 </div>
 
