@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin TikTok</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0f0f0f;
+color:white;
+padding:15px;
+}
+
+.container{
+max-width:430px;
+margin:auto;
+background:#1b1b1b;
+padding:20px;
+border-radius:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.item{
+background:#222;
+padding:15px;
+border-radius:15px;
+margin-top:15px;
+}
+
+.pp{
+width:90px;
+height:90px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #f107a3;
+}
+
+.bukti{
+width:100%;
+border-radius:12px;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:12px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+}
+
+.success{
+background:lime;
+color:black;
+}
+
+.cancel{
+background:red;
+}
+
+.status{
+padding:10px;
+border-radius:12px;
+margin-top:10px;
+font-weight:bold;
+text-align:center;
+}
+
+.pending{
+background:orange;
+color:black;
+}
+
+.sukses{
+background:lime;
+color:black;
+}
+
+.cancel2{
+background:red;
+color:white;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚡ Admin TikTok</h1>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
+authDomain: "reachchsystem-2d934.firebaseapp.com",
+databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+projectId: "reachchsystem-2d934",
+storageBucket: "reachchsystem-2d934.appspot.com",
+messagingSenderId: "1020994564198",
+appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+function loadOrders(){
+
+db.ref('tiktok_orders')
+.on('value',snap=>{
+
+let html='';
+
+snap.forEach(data=>{
+
+let item = data.val();
+let id = data.key;
+
+html += `
+
+<div class="item">
+
+<center>
+<img src="${item.pp}"
+class="pp">
+</center>
+
+<h2 style="text-align:center;">
+@${item.username}
+</h2>
+
+<p>📦 Paket :
+${item.paket}</p>
+
+<p>💰 Harga :
+Rp${item.harga}</p>
+
+<div class="status ${
+item.status == 'pending'
+? 'pending'
+: item.status == 'success'
+? 'sukses'
+: 'cancel2'
+}">
+
+${
+item.status == 'pending'
+? '🕓 Pending'
+: item.status == 'success'
+? '✅ Success'
+: '❌ Cancel'
+}
+
+</div>
+
+<img src="${item.bukti}"
+class="bukti">
+
+<button class="success"
+onclick="successOrder('${id}')">
+
+✅ Success
+
+</button>
+
+<button class="cancel"
+onclick="cancelOrder('${id}')">
+
+❌ Cancel
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById('orders')
+.innerHTML = html;
+
+});
+
+}
+
+function successOrder(id){
+
+db.ref('tiktok_orders/' + id)
+.update({
+status:'success'
+});
+
+alert('Pesanan berhasil disukseskan!');
+
+}
+
+function cancelOrder(id){
+
+db.ref('tiktok_orders/' + id)
+.update({
+status:'cancel'
+});
+
+alert('Pesanan berhasil dicancel!');
+
+}
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
