@@ -303,16 +303,64 @@ const reader = new FileReader();
 
 reader.readAsDataURL(file);
 
-reader.onload = async function(){
+reader.onload = async function(e){
 
-const base64 = reader.result;
+const img = new Image();
+
+img.src = e.target.result;
+
+img.onload = async function(){
+
+const canvas =
+document.createElement('canvas');
+
+const ctx =
+canvas.getContext('2d');
+
+let width = img.width;
+let height = img.height;
+
+const maxSize = 700;
+
+if(width > height){
+
+if(width > maxSize){
+height *= maxSize / width;
+width = maxSize;
+}
+
+}else{
+
+if(height > maxSize){
+width *= maxSize / height;
+height = maxSize;
+}
+
+}
+
+canvas.width = width;
+canvas.height = height;
+
+ctx.drawImage(
+img,
+0,
+0,
+width,
+height
+);
+
+const compressed =
+canvas.toDataURL(
+'image/jpeg',
+0.5
+);
 
 await db.ref('tiktok_orders').push({
 username:data.username,
 paket:data.paket,
 harga:data.harga,
 pp:data.pp,
-bukti:base64,
+bukti:compressed,
 status:'pending',
 time:Date.now()
 });
@@ -346,6 +394,8 @@ loadRiwayat();
 
 };
 
+};
+
 }catch(err){
 
 console.log(err);
@@ -354,7 +404,10 @@ if(document.getElementById('loading')){
 document.getElementById('loading').remove();
 }
 
-alert('❌ Gagal upload bukti TF');
+alert(
+'❌ Gagal upload bukti TF\n\n' +
+err.message
+);
 
 }
 
