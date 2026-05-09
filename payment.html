@@ -277,8 +277,6 @@ alert('Nomor Dana berhasil dicopy!');
 
 async function kirimBukti(){
 
-try{
-
 let file =
 document.getElementById('bukti').files[0];
 
@@ -293,74 +291,19 @@ document.body.innerHTML += `
 <div class="loader"></div>
 
 <p style="margin-top:20px;">
-📤 Mengirim bukti transfer...
+📤 Mengirim pesanan...
 </p>
 
 </div>
 `;
 
-const reader = new FileReader();
-
-reader.readAsDataURL(file);
-
-reader.onload = async function(e){
-
-const img = new Image();
-
-img.src = e.target.result;
-
-img.onload = async function(){
-
-const canvas =
-document.createElement('canvas');
-
-const ctx =
-canvas.getContext('2d');
-
-let width = img.width;
-let height = img.height;
-
-const maxSize = 700;
-
-if(width > height){
-
-if(width > maxSize){
-height *= maxSize / width;
-width = maxSize;
-}
-
-}else{
-
-if(height > maxSize){
-width *= maxSize / height;
-height = maxSize;
-}
-
-}
-
-canvas.width = width;
-canvas.height = height;
-
-ctx.drawImage(
-img,
-0,
-0,
-width,
-height
-);
-
-const compressed =
-canvas.toDataURL(
-'image/jpeg',
-0.5
-);
+try{
 
 await db.ref('tiktok_orders').push({
 username:data.username,
 paket:data.paket,
 harga:data.harga,
 pp:data.pp,
-bukti:compressed,
 status:'pending',
 time:Date.now()
 });
@@ -372,12 +315,10 @@ document.body.innerHTML += `
 <div class="successPopup"
 id="successPopup">
 
-<div class="check">
-✓
-</div>
+<div class="check">✓</div>
 
 <p style="margin-top:20px;">
-✅ Bukti transfer berhasil dikirim
+✅ Pesanan berhasil dikirim
 </p>
 
 </div>
@@ -385,16 +326,21 @@ id="successPopup">
 
 setTimeout(()=>{
 
-document.getElementById('successPopup')
-.remove();
+window.open(
+'https://wa.me/6281234567890?text=' +
+encodeURIComponent(
+'Halo admin saya sudah transfer\n\n' +
+'Username: @${data.username}\n' +
+'Paket: ${data.paket}\n' +
+'Harga: Rp${data.harga}\n\n' +
+'Saya akan kirim bukti TF.'
+),
+'_blank'
+);
 
-loadRiwayat();
+location.reload();
 
 },2000);
-
-};
-
-};
 
 }catch(err){
 
@@ -404,13 +350,9 @@ if(document.getElementById('loading')){
 document.getElementById('loading').remove();
 }
 
-alert(
-'❌ Gagal upload bukti TF\n\n' +
-err.message
-);
+alert('❌ Gagal mengirim pesanan');
 
 }
-
 }
 
 function loadRiwayat(){
