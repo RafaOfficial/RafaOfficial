@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>STORE RAFAXMODS</title>
 
 <style>
@@ -19,6 +20,7 @@ body{
 background:#000;
 color:white;
 overflow-x:hidden;
+paddingSaluran WA-top:85px;
 }
 
 /* BACKGROUND */
@@ -30,6 +32,284 @@ background:
 radial-gradient(circle at top,#00aaff22,transparent 40%),
 radial-gradient(circle at bottom,#0044ff22,transparent 40%);
 z-index:-1;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:78px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:0 18px;
+
+/* WARNA BARU */
+background:
+linear-gradient(
+135deg,
+#00cfff,
+#008cff,
+#003cff
+);
+
+z-index:9999;
+
+box-shadow:
+0 0 20px rgba(0,119,255,0.45);
+}
+
+/* LOGO */
+.logo-top{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-top img{
+width:35px;
+height:35px;
+
+filter:
+drop-shadow(0 0 8px #ffffff);
+}
+
+.logo-top span{
+font-size:22px;
+font-weight:bold;
+
+/* TULISAN PUTIH */
+color:white;
+
+text-shadow:
+0 0 12px rgba(255,255,255,0.8);
+}
+
+/* RIGHT */
+.top-right{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+/* NOTIF */
+.notif-btn{
+width:50px;
+height:50px;
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:22px;
+
+background:
+rgba(255,255,255,0.12);
+
+backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 15px rgba(255,255,255,0.15),
+0 0 20px rgba(0,170,255,0.25);
+
+color:white;
+}
+
+/* MENU */
+.hamburger{
+font-size:42px;
+font-weight:bold;
+cursor:pointer;
+
+color:white;
+
+text-shadow:
+0 0 10px #00cfff,
+0 0 18px #0072ff;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+position:fixed;
+top:0;
+right:-320px;
+
+width:290px;
+height:100%;
+
+padding:20px;
+
+overflow-y:auto;
+
+transition:0.4s;
+
+z-index:10000;
+
+background:
+linear-gradient(
+180deg,
+#00cfff,
+#0066ff,
+#001a4d
+);
+
+box-shadow:
+-5px 0 30px rgba(0,153,255,0.5);
+}
+
+/* ACTIVE */
+.sidebar.active{
+right:0;
+}
+
+/* CLOSE BUTTON */
+.close-sidebar{
+position:absolute;
+top:15px;
+left:15px;
+
+width:45px;
+height:45px;
+
+border-radius:14px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:28px;
+font-weight:bold;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+145deg,
+#00d9ff,
+#0066ff,
+#001f66
+);
+
+color:white;
+
+box-shadow:
+0 0 15px rgba(255,255,255,0.15);
+
+transition:0.3s;
+
+z-index:10001;
+}
+
+.close-sidebar:hover{
+
+transform:
+scale(1.08)
+rotate(90deg);
+
+box-shadow:
+0 0 20px #00e1ff,
+0 0 35px #005eff;
+}
+
+/* PROFILE */
+.side-profile{
+text-align:center;
+margin-top:25px;
+}
+
+/* PHOTO */
+.side-pp{
+width:115px;
+height:115px;
+
+border-radius:50%;
+object-fit:cover;
+
+border:4px solid #00e1ff;
+
+box-shadow:
+0 0 20px #00bfff,
+0 0 45px #0044ff;
+}
+
+/* NAME */
+.side-profile h2{
+margin-top:14px;
+font-size:25px;
+color:white;
+}
+
+/* DESC */
+.side-profile p{
+margin-top:6px;
+font-size:13px;
+color:#d6ecff;
+}
+
+/* MENU LIST */
+.menu-list{
+margin-top:35px;
+
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* BUTTON */
+.menu-list a{
+text-decoration:none;
+
+padding:15px;
+
+border-radius:18px;
+
+font-size:15px;
+font-weight:bold;
+
+color:white;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.18),
+rgba(255,255,255,0.05)
+);
+
+backdrop-filter:blur(10px);
+
+border:
+1px solid rgba(255,255,255,0.15);
+
+transition:0.3s;
+}
+
+/* HOVER */
+.menu-list a:hover{
+
+transform:
+translateX(5px)
+scale(1.02);
+
+background:
+linear-gradient(
+145deg,
+#00bfff,
+#0044ff
+);
+
+box-shadow:
+0 0 18px #00aaff;
 }
 
 /* MAIN */
@@ -44,33 +324,6 @@ to bottom,
 #07152e
 );
 text-align:center;
-}
-
-/* NAVBAR */
-.navbar{
-display:flex;
-justify-content:center;
-gap:15px;
-margin-bottom:25px;
-flex-wrap:wrap;
-}
-
-.navbar a{
-text-decoration:none;
-padding:10px 18px;
-border-radius:30px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-color:#7ddcff;
-border:1px solid rgba(255,255,255,0.1);
-transition:0.3s;
-font-size:14px;
-}
-
-.navbar a:hover{
-background:#0099ff;
-color:white;
-box-shadow:0 0 15px #00aaff;
 }
 
 /* TITLE */
@@ -129,7 +382,6 @@ object-fit:cover;
 animation:glowPulse 2.5s ease-in-out infinite;
 }
 
-/* GLOW ONLY */
 @keyframes glowPulse{
 
 0%{
@@ -248,7 +500,6 @@ transform:translateY(-5px);
 transform:scale(1.1);
 }
 
-/* RIPPLE */
 .btn-icon::before{
 content:'';
 position:absolute;
@@ -334,56 +585,6 @@ color:white;
 box-shadow:0 0 18px rgba(0,153,255,0.5);
 transition:0.35s;
 border:1px solid rgba(255,255,255,0.1);
-animation:fadeUp 0.7s ease forwards;
-opacity:0;
-}
-
-.card:nth-child(1){animation-delay:0.1s;}
-.card:nth-child(2){animation-delay:0.2s;}
-.card:nth-child(3){animation-delay:0.3s;}
-.card:nth-child(4){animation-delay:0.4s;}
-.card:nth-child(5){animation-delay:0.5s;}
-.card:nth-child(6){animation-delay:0.6s;}
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(25px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* BORDER GLOW */
-.card::before{
-content:'';
-position:absolute;
-inset:0;
-padding:2px;
-border-radius:20px;
-background:linear-gradient(
-45deg,
-#00aaff,
-#ffffff,
-#0044ff
-);
--webkit-mask:
-linear-gradient(#fff 0 0) content-box,
-linear-gradient(#fff 0 0);
--webkit-mask-composite:xor;
-mask-composite:exclude;
-animation:borderMove 4s linear infinite;
-}
-
-@keyframes borderMove{
-0%{
-filter:hue-rotate(0deg);
-}
-100%{
-filter:hue-rotate(360deg);
-}
 }
 
 .card:hover{
@@ -391,60 +592,9 @@ transform:translateY(-6px) scale(1.03);
 box-shadow:0 0 28px #4dd8ff;
 }
 
-/* CARD ICON */
-.card::after{
-content:'✦';
-position:absolute;
-font-size:70px;
-right:10px;
-bottom:-10px;
-opacity:0.08;
-}
-
-/* CARD TEXT */
 .card h2{
 font-size:16px;
 color:#e6faff;
-z-index:2;
-position:relative;
-}
-
-/* ADS */
-#adsBox{
-position:fixed;
-bottom:20px;
-right:-320px;
-width:260px;
-background:
-linear-gradient(
-145deg,
-#071a35,
-#003b75,
-#0066cc
-);
-border-radius:18px;
-padding:15px;
-box-shadow:0 0 20px rgba(0,153,255,0.4);
-color:white;
-z-index:999;
-transition:0.6s ease;
-border:1px solid rgba(255,255,255,0.1);
-}
-
-#adsBox.show{
-right:20px;
-}
-
-.ads-btn{
-display:block;
-text-align:center;
-padding:10px;
-border-radius:25px;
-background:linear-gradient(145deg,#4dd8ff,#0066ff);
-color:white;
-font-weight:bold;
-text-decoration:none;
-margin-top:10px;
 }
 
 /* FOOTER */
@@ -481,25 +631,99 @@ height:150px;
 
 <!-- MUSIC -->
 <audio id="music" autoplay loop>
-<source src="https://n.uguu.se/RPGCmSTQ.mp3">
+<source src="https://d.uguu.se/pcUXNfFO.opus">
 </audio>
+
+<!-- TOPBAR -->
+<header class="topbar">
+
+<div class="logo-top">
+
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+
+<span>RafaXMods</span>
+
+</div>
+
+<div class="top-right">
+
+<div class="notif-btn">
+🔔
+</div>
+
+<div
+class="hamburger"
+onclick="toggleMenu()"
+>
+☰
+</div>
+
+</div>
+
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+<!-- CLOSE BUTTON -->
+<div class="close-sidebar" onclick="toggleMenu()">
+✕
+</div>
+
+<div class="side-profile">
+
+<img
+src="https://img2.pixhost.to/images/7724/723451208_jpg"
+class="side-pp"
+>
+
+<h2>RafaXMods</h2>
+
+<p>Website Premium Store ⚡</p>
+
+</div>
+
+<div class="menu-list">
+
+<a href="profil.html">
+👤 Profil Saya
+</a>
+
+<a href="bailyes.html">
+💬 My Baiyles
+</a>
+
+<a
+href="https://chat.whatsapp.com/DFa4zugi8XoEDYSTvrXyY5"
+target="_blank"
+>
+👑 Grup Bot RafaXMods
+</a>
+
+<a
+href="https://t.me/ErroBaiyles"
+target="_blank"
+>
+📢 Saluran Tele
+</a>
+
+</div>
+
+</div>
 
 <!-- MAIN -->
 <div id="main">
 
-<!-- TITLE -->
 <h1 class="title">
 WEBSITE JUALAN
 </h1>
 
 <br>
 
-<!-- BADGE -->
 <div class="badge">
 💎 PREMIUM WEBSITE
 </div>
 
-<!-- PROFILE -->
 <div class="profile-wrap">
 
 <img
@@ -525,10 +749,8 @@ RafaXMods <span class="check">✔</span>
 
 </div>
 
-<!-- SOCIAL -->
 <div class="social">
 
-<!-- WHATSAPP CHANNEL -->
 <a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank">
 
 <div class="btn-icon wa">
@@ -539,7 +761,6 @@ RafaXMods <span class="check">✔</span>
 
 </a>
 
-<!-- TELEGRAM -->
 <a href="https://t.me/ErroBaiyles" target="_blank">
 
 <div class="btn-icon tg">
@@ -550,7 +771,6 @@ RafaXMods <span class="check">✔</span>
 
 </a>
 
-<!-- YOUTUBE -->
 <a href="https://www.youtube.com/@RFReview-cr" target="_blank">
 
 <div class="btn-icon yt">
@@ -563,12 +783,10 @@ RafaXMods <span class="check">✔</span>
 
 </div>
 
-<!-- MUSIC BUTTON -->
 <button class="music-btn" onclick="toggleMusic()">
 🎵 Music ON / OFF
 </button>
 
-<!-- DESC -->
 <p class="desc" id="typing"></p>
 
 <!-- MENU -->
@@ -624,50 +842,22 @@ RafaXMods <span class="check">✔</span>
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
 © 2026 RafaXMods - WEBSITE FREE
 </div>
 
 </div>
 
-<!-- ADS -->
-<div id="adsBox">
-
-<h4>
-🚀 Join Saluran Kami
-</h4>
-
-<p>
-Dapatkan update Website & fitur script terbaru 🔥
-</p>
-
-<a
-href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S"
-target="_blank"
-class="ads-btn"
->
-
-📢 Join Sekarang
-
-</a>
-
-</div>
-
 <script>
 
-/* ADS */
-window.addEventListener("load",()=>{
+/* SIDEBAR */
+function toggleMenu(){
 
-setTimeout(()=>{
-document.getElementById("adsBox").classList.add("show");
-},800);
+document
+.getElementById("sidebar")
+.classList.toggle("active");
 
-setTimeout(()=>{
-document.getElementById("adsBox").classList.remove("show");
-},7000);
-
-});
+}
 
 /* CLOCK */
 function updateClock(){

@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BAILEYS 2026 UPDATE</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#000;
+color:white;
+overflow-x:hidden;
+padding-top:90px;
+}
+
+/* BACKGROUND */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+
+background:
+radial-gradient(circle at top,#00cfff22,transparent 40%),
+radial-gradient(circle at bottom,#0044ff22,transparent 40%);
+
+z-index:-1;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:78px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:0 18px;
+
+background:
+linear-gradient(
+135deg,
+#00cfff,
+#008cff,
+#003cff
+);
+
+z-index:9999;
+
+box-shadow:
+0 0 20px rgba(0,170,255,0.5);
+}
+
+/* LOGO */
+.logo-top{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo-top img{
+width:42px;
+height:42px;
+}
+
+.logo-top span{
+font-size:22px;
+font-weight:bold;
+color:white;
+text-shadow:0 0 10px white;
+}
+
+/* RIGHT */
+.top-right{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+/* NOTIF */
+.notif-btn{
+width:52px;
+height:52px;
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:24px;
+
+background:
+rgba(255,255,255,0.12);
+
+backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 15px rgba(255,255,255,0.15);
+}
+
+/* MENU */
+.hamburger{
+font-size:44px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+
+text-shadow:
+0 0 10px #00cfff;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+position:fixed;
+top:0;
+right:-320px;
+
+width:290px;
+height:100%;
+
+padding:20px;
+
+overflow-y:auto;
+
+transition:0.4s;
+
+z-index:10000;
+
+background:
+linear-gradient(
+180deg,
+#00d9ff,
+#0077ff,
+#001f66
+);
+
+box-shadow:
+-5px 0 35px rgba(0,170,255,0.5);
+}
+
+/* ACTIVE */
+.sidebar.active{
+right:0;
+}
+
+/* CLOSE BUTTON */
+.close-sidebar{
+position:absolute;
+top:15px;
+left:15px;
+
+width:45px;
+height:45px;
+
+border-radius:14px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:28px;
+font-weight:bold;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+145deg,
+#00d9ff,
+#0066ff,
+#001f66
+);
+
+color:white;
+
+box-shadow:
+0 0 15px #00cfff,
+0 0 25px #0044ff;
+
+transition:0.3s;
+
+z-index:10001;
+}
+
+.close-sidebar:hover{
+
+transform:
+scale(1.08)
+rotate(90deg);
+
+box-shadow:
+0 0 20px #00e1ff,
+0 0 35px #005eff;
+}
+
+/* PROFILE */
+.side-profile{
+text-align:center;
+margin-top:30px;
+}
+
+.side-pp{
+width:115px;
+height:115px;
+
+border-radius:50%;
+object-fit:cover;
+
+border:4px solid #00e1ff;
+
+box-shadow:
+0 0 20px #00bfff,
+0 0 45px #0044ff;
+}
+
+.side-profile h2{
+margin-top:14px;
+font-size:25px;
+color:white;
+
+text-shadow:
+0 0 12px #00cfff;
+}
+
+.side-profile p{
+margin-top:6px;
+font-size:13px;
+color:#d6ecff;
+}
+
+/* MENU LIST */
+.menu-list{
+margin-top:35px;
+
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* BUTTON */
+.menu-list a{
+text-decoration:none;
+
+padding:15px;
+
+border-radius:18px;
+
+font-size:15px;
+font-weight:bold;
+
+color:white;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.18),
+rgba(255,255,255,0.05)
+);
+
+backdrop-filter:blur(10px);
+
+border:
+1px solid rgba(255,255,255,0.15);
+
+transition:0.3s;
+}
+
+/* HOVER */
+.menu-list a:hover{
+
+transform:
+translateX(5px)
+scale(1.02);
+
+background:
+linear-gradient(
+145deg,
+#00cfff,
+#0044ff
+);
+
+box-shadow:
+0 0 18px #00aaff;
+}
+
+/* MAIN */
+.main{
+padding:20px;
+}
+
+/* BOX */
+.box{
+width:100%;
+
+padding:30px;
+
+border-radius:28px;
+
+background:
+linear-gradient(
+145deg,
+rgba(0,40,90,0.95),
+rgba(0,15,40,0.98)
+);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+box-shadow:
+0 0 30px rgba(0,170,255,0.25);
+
+position:relative;
+overflow:hidden;
+}
+
+/* TITLE */
+.title{
+font-size:32px;
+font-weight:bold;
+text-align:center;
+
+color:white;
+
+text-shadow:
+0 0 15px #00cfff;
+
+margin-bottom:12px;
+}
+
+/* BADGE */
+.badge{
+display:block;
+width:fit-content;
+
+margin:0 auto 18px;
+
+padding:10px 20px;
+
+border-radius:25px;
+
+background:
+linear-gradient(
+145deg,
+#00cfff,
+#005eff
+);
+
+font-size:14px;
+font-weight:bold;
+
+box-shadow:
+0 0 18px #00aaff;
+}
+
+/* UPDATE */
+.update{
+text-align:center;
+font-size:15px;
+color:#bdeeff;
+margin-bottom:25px;
+}
+
+/* CODE */
+.code-box{
+background:#071120;
+
+padding:18px;
+
+border-radius:20px;
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+margin-bottom:22px;
+}
+
+.code{
+font-size:15px;
+color:#4dd8ff;
+line-height:1.8;
+word-break:break-word;
+}
+
+/* COPY BUTTON */
+.copy-btn{
+margin-top:18px;
+
+padding:12px 22px;
+
+border:none;
+border-radius:16px;
+
+background:
+linear-gradient(
+145deg,
+#00cfff,
+#0044ff
+);
+
+color:white;
+font-weight:bold;
+font-size:15px;
+
+cursor:pointer;
+
+box-shadow:
+0 0 18px #00aaff;
+
+transition:0.3s;
+}
+
+.copy-btn:hover{
+
+transform:
+scale(1.05);
+
+box-shadow:
+0 0 25px #00cfff;
+}
+
+/* FEATURES */
+.feature-box{
+display:grid;
+gap:15px;
+}
+
+.feature{
+padding:16px;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.08),
+rgba(255,255,255,0.03)
+);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+font-weight:bold;
+
+color:#dff8ff;
+
+transition:0.3s;
+}
+
+.feature:hover{
+
+transform:
+translateY(-4px);
+
+background:
+linear-gradient(
+145deg,
+#00cfff22,
+#0044ff22
+);
+
+box-shadow:
+0 0 20px rgba(0,170,255,0.2);
+}
+
+/* FOOTER */
+.footer{
+margin-top:28px;
+text-align:center;
+font-size:13px;
+color:#8ddfff;
+opacity:0.8;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+.title{
+font-size:26px;
+}
+
+.logo-top span{
+font-size:18px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+
+<div class="logo-top">
+
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+
+<span>RafaXMods</span>
+
+</div>
+
+<div class="top-right">
+
+<div class="notif-btn">
+🔔
+</div>
+
+<div
+class="hamburger"
+onclick="toggleMenu()"
+>
+☰
+</div>
+
+</div>
+
+</header>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+<!-- CLOSE BUTTON -->
+<div class="close-sidebar" onclick="toggleMenu()">
+✕
+</div>
+
+<div class="side-profile">
+
+<img
+src="https://img2.pixhost.to/images/7724/723451208_jpg"
+class="side-pp"
+>
+
+<h2>RafaXMods</h2>
+
+<p>Website Premium Store ⚡</p>
+
+</div>
+
+<div class="menu-list">
+
+<a href="index.html">
+🔄 Back Menu Utama
+</a>
+
+<a href="profil.html">
+👤 Profil Saya
+</a>
+
+<a href="bailyes.html">
+💬 My Baiyles
+</a>
+
+<a
+href="https://chat.whatsapp.com/xxxxx"
+target="_blank"
+>
+👥 Link Grup
+</a>
+
+<a
+href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S"
+target="_blank"
+>
+📢 Saluran WA
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="box">
+
+<div class="title">
+🚀 BAILEYS 2026 UPDATE
+</div>
+
+<div class="badge">
+NEW VERSION AVAILABLE
+</div>
+
+<div class="update">
+📅 Last Update: Senin-7-april-2026
+</div>
+
+<!-- CODE -->
+<div class="code-box">
+
+<div class="code">
+
+"@whiskeysockets/baileys":<br>
+"github:RafaOfficial/baileys"
+
+</div>
+
+<button class="copy-btn" onclick="copyText()">
+📋 Copy Github
+</button>
+
+</div>
+
+<!-- FEATURES -->
+<div class="feature-box">
+
+<div class="feature">
+✅ BAILEYS VERSI BARU
+</div>
+
+<div class="feature">
+✅ NO LOG OUT SENDER
+</div>
+
+<div class="feature">
+✅ ANTI ERROR PAIRING
+</div>
+
+<div class="feature">
+✅ SUPPORT ALL TYPE MSG
+</div>
+
+<div class="feature">
+✅ SUPPORT ALL BUTTON TYPE
+</div>
+
+<div class="feature">
+✅ SUPPORT CUSTOM PAIRING CODE
+</div>
+
+<div class="feature">
+✅ NODE JS 20-24
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 RafaXMods — Stable & Ready To Use
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* TOGGLE SIDEBAR */
+function toggleMenu(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+}
+
+/* COPY */
+function copyText(){
+
+navigator.clipboard.writeText(
+"github:RafaOfficial/baileys"
+);
+
+alert("Berhasil di copy!");
+
+}
+
+</script>
+
+</body>
+</html>

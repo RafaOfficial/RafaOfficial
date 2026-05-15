@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PROFILE RAFAXMODS</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#000;
+color:white;
+overflow-x:hidden;
+padding-top:90px;
+}
+
+/* BACKGROUND */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#00cfff22,transparent 40%),
+radial-gradient(circle at bottom,#0044ff22,transparent 40%);
+z-index:-1;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:0 20px;
+
+background:
+linear-gradient(
+135deg,
+#00cfff,
+#008cff,
+#003cff
+);
+
+z-index:9999;
+
+box-shadow:
+0 0 20px rgba(0,170,255,0.4);
+}
+
+/* LOGO */
+.logo-top{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-top img{
+width:38px;
+height:38px;
+filter:drop-shadow(0 0 8px white);
+}
+
+.logo-top span{
+font-size:24px;
+font-weight:bold;
+color:white;
+text-shadow:0 0 12px white;
+}
+
+/* MENU */
+.hamburger{
+font-size:42px;
+font-weight:bold;
+cursor:pointer;
+
+color:white;
+
+text-shadow:
+0 0 10px #00cfff,
+0 0 18px #0072ff;
+}
+
+transition:0.3s;
+}
+
+.hamburger:hover{
+
+transform:scale(1.1);
+
+color:#4dd8ff;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+position:fixed;
+top:0;
+right:-320px;
+
+width:290px;
+height:100%;
+
+padding:20px;
+
+overflow-y:auto;
+
+transition:0.4s;
+
+z-index:10000;
+
+background:
+linear-gradient(
+180deg,
+#00cfff,
+#0066ff,
+#001a4d
+);
+
+box-shadow:
+-5px 0 35px rgba(0,170,255,0.5);
+}
+
+.sidebar.active{
+right:0;
+}
+
+/* CLOSE BUTTON */
+.close-sidebar{
+position:absolute;
+top:15px;
+left:15px;
+
+width:45px;
+height:45px;
+
+border-radius:14px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:28px;
+font-weight:bold;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+145deg,
+#00d9ff,
+#0066ff,
+#001f66
+);
+
+color:white;
+
+box-shadow:
+0 0 15px #00cfff,
+0 0 25px #0044ff;
+
+transition:0.3s;
+
+z-index:10001;
+}
+
+.close-sidebar:hover{
+
+transform:
+scale(1.08)
+rotate(90deg);
+
+box-shadow:
+0 0 20px #00e1ff,
+0 0 35px #005eff;
+}
+
+/* PROFILE SIDEBAR */
+.side-profile{
+text-align:center;
+margin-top:25px;
+}
+
+.side-pp{
+width:115px;
+height:115px;
+
+border-radius:50%;
+object-fit:cover;
+
+border:4px solid #00e1ff;
+
+box-shadow:
+0 0 20px #00bfff,
+0 0 45px #0044ff;
+}
+
+.side-profile h2{
+margin-top:14px;
+font-size:25px;
+color:white;
+
+text-shadow:
+0 0 12px #00cfff;
+}
+
+.side-profile p{
+margin-top:6px;
+font-size:13px;
+color:#d6ecff;
+}
+
+/* MENU LIST */
+.menu-list{
+margin-top:35px;
+
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+/* BUTTON MENU */
+.menu-list a{
+text-decoration:none;
+
+padding:15px;
+
+border-radius:18px;
+
+font-size:15px;
+font-weight:bold;
+
+color:white;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.18),
+rgba(255,255,255,0.05)
+);
+
+backdrop-filter:blur(10px);
+
+border:
+1px solid rgba(255,255,255,0.15);
+
+transition:0.3s;
+}
+
+.menu-list a:hover{
+
+transform:
+translateX(5px)
+scale(1.02);
+
+background:
+linear-gradient(
+145deg,
+#00cfff,
+#0044ff
+);
+
+box-shadow:
+0 0 18px #00aaff;
+}
+
+/* MAIN */
+.main{
+padding:20px;
+text-align:center;
+}
+
+/* PROFILE */
+.profile-box{
+margin-top:10px;
+}
+
+.profile-img{
+width:170px;
+height:170px;
+border-radius:50%;
+object-fit:cover;
+
+border:4px solid #00cfff;
+
+box-shadow:
+0 0 20px #00aaff,
+0 0 50px #0044ff;
+
+animation:glow 3s infinite;
+}
+
+@keyframes glow{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.03);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+.name{
+margin-top:15px;
+font-size:32px;
+font-weight:bold;
+color:white;
+text-shadow:0 0 15px white;
+}
+
+.status{
+margin-top:10px;
+display:inline-block;
+padding:8px 18px;
+border-radius:20px;
+background:#00ff88;
+color:black;
+font-weight:bold;
+box-shadow:0 0 15px #00ff88;
+}
+
+/* CARD */
+.card{
+margin-top:22px;
+
+background:
+linear-gradient(
+145deg,
+rgba(0,60,120,0.7),
+rgba(0,20,50,0.95)
+);
+
+padding:22px;
+border-radius:22px;
+
+box-shadow:
+0 0 20px rgba(0,170,255,0.25);
+
+border:
+1px solid rgba(255,255,255,0.1);
+
+text-align:left;
+}
+
+.card h2{
+font-size:23px;
+margin-bottom:14px;
+color:#4dd8ff;
+}
+
+.card p{
+line-height:1.7;
+color:#d9f6ff;
+}
+
+/* HOBBY */
+.hobby-list{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.hobby{
+padding:14px;
+border-radius:15px;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.08),
+rgba(255,255,255,0.03)
+);
+
+text-align:center;
+
+box-shadow:
+0 0 12px rgba(0,170,255,0.2);
+}
+
+/* SKILL */
+.skill{
+margin-top:18px;
+}
+
+.skill span{
+font-weight:bold;
+}
+
+.bar{
+width:100%;
+height:14px;
+background:#08101d;
+border-radius:20px;
+overflow:hidden;
+margin-top:8px;
+}
+
+.fill{
+height:100%;
+border-radius:20px;
+
+background:
+linear-gradient(
+90deg,
+#00cfff,
+#005eff
+);
+
+box-shadow:
+0 0 15px #00aaff;
+}
+
+/* QUOTE */
+.quote{
+margin-top:20px;
+
+padding:20px;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+145deg,
+#001b44,
+#003b88
+);
+
+font-style:italic;
+
+box-shadow:
+0 0 20px rgba(0,170,255,0.25);
+}
+
+/* FORM */
+textarea{
+width:100%;
+height:120px;
+
+margin-top:15px;
+
+padding:15px;
+
+border:none;
+outline:none;
+
+border-radius:18px;
+
+background:#08152c;
+
+color:white;
+
+resize:none;
+}
+
+button{
+margin-top:15px;
+
+padding:12px 22px;
+
+border:none;
+
+border-radius:15px;
+
+background:
+linear-gradient(
+145deg,
+#00cfff,
+#005eff
+);
+
+color:white;
+font-weight:bold;
+cursor:pointer;
+
+box-shadow:
+0 0 15px #00aaff;
+
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* FOOTER */
+.footer{
+margin-top:35px;
+padding:20px;
+font-size:14px;
+color:#7ddcff;
+opacity:0.8;
+text-align:center;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+.hobby-list{
+grid-template-columns:repeat(2,1fr);
+}
+
+.profile-img{
+width:150px;
+height:150px;
+}
+
+.name{
+font-size:28px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+
+<div class="logo-top">
+
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+
+<span>RafaXMods</span>
+
+</div>
+
+<!-- MENU BUTTON -->
+<div class="hamburger" onclick="toggleMenu()">
+☰
+</div>
+
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+<!-- CLOSE -->
+<div class="close-sidebar" onclick="toggleMenu()">
+✕
+</div>
+
+<div class="side-profile">
+
+<img
+src="https://img2.pixhost.to/images/7724/723451208_jpg"
+class="side-pp"
+>
+
+<h2>RafaXMods</h2>
+
+<p>Website Premium Store ⚡</p>
+
+</div>
+
+<!-- MENU -->
+<div class="menu-list">
+
+<a href="index.html">
+ 🔄 Back Menu Utama
+</a>
+
+<a href="profil.html">
+👤 Profil Saya
+</a>
+
+<a href="bailyes.html">
+💬 My Baiyles
+</a>
+
+<a
+href="https://chat.whatsapp.com/DFa4zugi8XoEDYSTvrXyY5"
+target="_blank"
+>
+👑 Grup Bot RafaXMods
+</a>
+
+<a
+href="https://t.me/ErroBaiyles"
+target="_blank"
+>
+📢 Saluran Telegram
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- PROFILE -->
+<div class="profile-box">
+
+<img
+src="https://img2.pixhost.to/images/7724/723451208_jpg"
+class="profile-img"
+>
+
+<div class="name">
+RafaXMods
+</div>
+
+<div class="status">
+⚡ Active Developer
+</div>
+
+</div>
+
+<!-- ABOUT -->
+<div class="card">
+
+<h2>👤 Tentang Saya</h2>
+
+<p>
+Halo saya RafaXMods, creator digital dan developer website dengan Fitur free yang sudah di sediakan.
+</p>
+
+</div>
+
+<!-- PEKERJAAN -->
+<div class="card">
+
+<h2>💼 Pekerjaan</h2>
+
+<p>
+• Website Developer<br>
+• Jual Akun FF<br>
+• Script Creator<br>
+• Kang Suntik Sosmed
+</p>
+
+</div>
+
+<!-- HOBI -->
+<div class="card">
+
+<h2>🎮 Hobi</h2>
+
+<div class="hobby-list">
+
+<div class="hobby">
+🎮 Gaming
+</div>
+
+<div class="hobby">
+💻 Coding
+</div>
+
+<div class="hobby">
+🎨 Design
+</div>
+
+<div class="hobby">
+ ✨ Olahraga 
+</div>
+
+</div>
+
+</div>
+
+<!-- SKILL -->
+<div class="card">
+
+<h2>⚡ Keahlian</h2>
+
+<div class="skill">
+
+<span>HTML & CSS</span>
+
+<div class="bar">
+<div class="fill" style="width:95%"></div>
+</div>
+
+</div>
+
+<div class="skill">
+
+<span>JavaScript</span>
+
+<div class="bar">
+<div class="fill" style="width:88%"></div>
+</div>
+
+</div>
+
+<div class="skill">
+
+<span>Script Wa/Tele</span>
+
+<div class="bar">
+<div class="fill" style="width:92%"></div>
+</div>
+
+</div>
+
+</div>
+
+<!-- QUOTE -->
+<div class="quote">
+"Terus berkembang dan terus belajar menjadi lebih baik ⚡"
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+© 2026 RafaXMods - Profile Website
+</div>
+
+</div>
+
+<script>
+
+/* TOGGLE MENU */
+function toggleMenu(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+}
+
+</script>
+
+</body>
+</html>
