@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>BAILEYS 2026 UPDATE</title>
+<title>BAILEYS RAFAXMODS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -12,27 +14,68 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:sans-serif;
+font-family:'Fredoka',sans-serif;
 scroll-behavior:smooth;
 }
 
+/* =========================
+BODY
+========================= */
+
 body{
-background:#000;
+
+background:
+linear-gradient(
+135deg,
+#2b1811,
+#4e342e,
+#6d4c41,
+#3e2723
+);
+
 color:white;
 overflow-x:hidden;
 padding-top:90px;
+min-height:100vh;
 }
 
 /* BACKGROUND */
+
 body::before{
 content:'';
 position:fixed;
 inset:0;
 
 background:
-radial-gradient(circle at top,#00cfff22,transparent 40%),
-radial-gradient(circle at bottom,#0044ff22,transparent 40%);
+radial-gradient(circle at top,#ffccaa33,transparent 35%),
+radial-gradient(circle at bottom,#ffd7b833,transparent 35%);
 
+z-index:-1;
+}
+
+/* FLOAT */
+
+.circle1{
+position:fixed;
+width:350px;
+height:350px;
+border-radius:50%;
+background:#ffffff10;
+top:-120px;
+left:-120px;
+filter:blur(70px);
+z-index:-1;
+}
+
+.circle2{
+position:fixed;
+width:400px;
+height:400px;
+border-radius:50%;
+background:#ffb74d20;
+bottom:-150px;
+right:-150px;
+filter:blur(80px);
 z-index:-1;
 }
 
@@ -45,7 +88,7 @@ position:fixed;
 top:0;
 left:0;
 width:100%;
-height:78px;
+height:82px;
 
 display:flex;
 justify-content:space-between;
@@ -55,49 +98,60 @@ padding:0 18px;
 
 background:
 linear-gradient(
-135deg,
-#00cfff,
-#008cff,
-#003cff
+145deg,
+#8d6e63,
+#6d4c41,
+#4e342e
 );
 
-z-index:9999;
+border-bottom:
+4px solid white;
 
 box-shadow:
-0 0 20px rgba(0,170,255,0.5);
+8px 8px 0px #2d1b12;
+
+z-index:999;
 }
 
 /* LOGO */
+
 .logo-top{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 }
 
 .logo-top img{
 width:42px;
 height:42px;
+border-radius:50%;
+border:3px solid white;
 }
 
 .logo-top span{
-font-size:22px;
-font-weight:bold;
+font-size:24px;
+font-weight:700;
 color:white;
-text-shadow:0 0 10px white;
+
+text-shadow:
+4px 4px 0px #3e2723;
 }
 
 /* RIGHT */
+
 .top-right{
 display:flex;
 align-items:center;
-gap:14px;
+gap:12px;
 }
 
 /* NOTIF */
+
 .notif-btn{
 width:52px;
 height:52px;
-border-radius:50%;
+
+border-radius:18px;
 
 display:flex;
 justify-content:center;
@@ -106,23 +160,28 @@ align-items:center;
 font-size:24px;
 
 background:
-rgba(255,255,255,0.12);
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
 
-backdrop-filter:blur(10px);
+border:
+3px solid white;
 
 box-shadow:
-0 0 15px rgba(255,255,255,0.15);
+6px 6px 0px #bf360c;
 }
 
 /* MENU */
+
 .hamburger{
-font-size:44px;
-font-weight:bold;
+font-size:40px;
 cursor:pointer;
 color:white;
 
 text-shadow:
-0 0 10px #00cfff;
+4px 4px 0px #3e2723;
 }
 
 /* =========================
@@ -141,217 +200,194 @@ padding:20px;
 
 overflow-y:auto;
 
-transition:0.4s;
-
-z-index:10000;
-
 background:
 linear-gradient(
 180deg,
-#00d9ff,
-#0077ff,
-#001f66
+#a1887f,
+#6d4c41,
+#3e2723
 );
 
-box-shadow:
--5px 0 35px rgba(0,170,255,0.5);
+border-left:
+4px solid white;
+
+transition:0.4s;
+
+z-index:9999;
 }
 
-/* ACTIVE */
 .sidebar.active{
 right:0;
 }
 
-/* CLOSE BUTTON */
+/* CLOSE */
+
 .close-sidebar{
-position:absolute;
-top:15px;
-left:15px;
-
-width:45px;
-height:45px;
-
-border-radius:14px;
+width:50px;
+height:50px;
 
 display:flex;
 justify-content:center;
 align-items:center;
 
+border-radius:18px;
+
 font-size:28px;
 font-weight:bold;
-
-cursor:pointer;
 
 background:
 linear-gradient(
 145deg,
-#00d9ff,
-#0066ff,
-#001f66
+#ff8a65,
+#ff7043
 );
 
-color:white;
+border:
+3px solid white;
 
 box-shadow:
-0 0 15px #00cfff,
-0 0 25px #0044ff;
+6px 6px 0px #bf360c;
 
-transition:0.3s;
-
-z-index:10001;
-}
-
-.close-sidebar:hover{
-
-transform:
-scale(1.08)
-rotate(90deg);
-
-box-shadow:
-0 0 20px #00e1ff,
-0 0 35px #005eff;
+cursor:pointer;
 }
 
 /* PROFILE */
+
 .side-profile{
 text-align:center;
-margin-top:30px;
+margin-top:20px;
 }
 
 .side-pp{
-width:115px;
-height:115px;
+width:120px;
+height:120px;
 
 border-radius:50%;
 object-fit:cover;
 
-border:4px solid #00e1ff;
+border:
+5px solid white;
 
 box-shadow:
-0 0 20px #00bfff,
-0 0 45px #0044ff;
+8px 8px 0px #3e2723;
 }
 
 .side-profile h2{
-margin-top:14px;
-font-size:25px;
-color:white;
-
-text-shadow:
-0 0 12px #00cfff;
+margin-top:15px;
+font-size:28px;
 }
 
 .side-profile p{
 margin-top:6px;
-font-size:13px;
-color:#d6ecff;
+font-size:14px;
+color:#ffe0b2;
 }
 
-/* MENU LIST */
+/* MENU */
+
 .menu-list{
-margin-top:35px;
+margin-top:30px;
 
 display:flex;
 flex-direction:column;
 gap:15px;
 }
 
-/* BUTTON */
 .menu-list a{
 text-decoration:none;
 
-padding:15px;
+padding:16px;
 
-border-radius:18px;
-
-font-size:15px;
-font-weight:bold;
-
-color:white;
+border-radius:22px;
 
 background:
 linear-gradient(
 145deg,
-rgba(255,255,255,0.18),
-rgba(255,255,255,0.05)
+#8d6e63,
+#6d4c41
 );
 
-backdrop-filter:blur(10px);
-
 border:
-1px solid rgba(255,255,255,0.15);
+3px solid white;
+
+box-shadow:
+6px 6px 0px #3e2723;
+
+color:white;
+
+font-weight:bold;
 
 transition:0.3s;
 }
 
-/* HOVER */
 .menu-list a:hover{
 
 transform:
-translateX(5px)
-scale(1.02);
+translateY(-5px)
+rotate(-2deg);
 
 background:
 linear-gradient(
 145deg,
-#00cfff,
-#0044ff
+#ffb74d,
+#ff7043
 );
 
-box-shadow:
-0 0 18px #00aaff;
 }
 
-/* MAIN */
+/* =========================
+MAIN
+========================= */
+
 .main{
 padding:20px;
 }
 
 /* BOX */
+
 .box{
-width:100%;
+padding:28px;
 
-padding:30px;
-
-border-radius:28px;
+border-radius:32px;
 
 background:
 linear-gradient(
 145deg,
-rgba(0,40,90,0.95),
-rgba(0,15,40,0.98)
+#8d6e63,
+#6d4c41,
+#4e342e
 );
 
 border:
-1px solid rgba(255,255,255,0.1);
+4px solid white;
 
 box-shadow:
-0 0 30px rgba(0,170,255,0.25);
+10px 10px 0px #2d1b12;
 
 position:relative;
 overflow:hidden;
 }
 
 /* TITLE */
+
 .title{
-font-size:32px;
-font-weight:bold;
+font-size:34px;
+font-weight:700;
 text-align:center;
 
-color:white;
-
 text-shadow:
-0 0 15px #00cfff;
+4px 4px 0px #3e2723;
 
-margin-bottom:12px;
+margin-bottom:15px;
 }
 
 /* BADGE */
+
 .badge{
 display:block;
 width:fit-content;
 
-margin:0 auto 18px;
+margin:0 auto 20px;
 
 padding:10px 20px;
 
@@ -360,70 +396,94 @@ border-radius:25px;
 background:
 linear-gradient(
 145deg,
-#00cfff,
-#005eff
+#ffcc80,
+#ff7043
 );
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
 
 font-size:14px;
 font-weight:bold;
 
-box-shadow:
-0 0 18px #00aaff;
+color:white;
 }
 
 /* UPDATE */
+
 .update{
 text-align:center;
 font-size:15px;
-color:#bdeeff;
+color:#fff3e0;
 margin-bottom:25px;
 }
 
-/* CODE */
+/* CODE BOX */
+
 .code-box{
-background:#071120;
-
-padding:18px;
-
-border-radius:20px;
-
-border:
-1px solid rgba(255,255,255,0.08);
-
-margin-bottom:22px;
-}
-
-.code{
-font-size:15px;
-color:#4dd8ff;
-line-height:1.8;
-word-break:break-word;
-}
-
-/* COPY BUTTON */
-.copy-btn{
-margin-top:18px;
-
-padding:12px 22px;
-
-border:none;
-border-radius:16px;
 
 background:
 linear-gradient(
 145deg,
-#00cfff,
-#0044ff
+#3e2723,
+#2d1b12
 );
 
-color:white;
-font-weight:bold;
-font-size:15px;
+padding:20px;
 
-cursor:pointer;
+border-radius:24px;
+
+border:
+3px solid white;
 
 box-shadow:
-0 0 18px #00aaff;
+8px 8px 0px #1b0f0a;
+
+margin-bottom:25px;
+}
+
+/* CODE */
+
+.code{
+font-size:16px;
+line-height:1.8;
+color:#ffcc80;
+word-break:break-word;
+}
+
+/* BUTTON */
+
+.copy-btn{
+margin-top:18px;
+
+padding:14px 22px;
+
+border:none;
+
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
+
+color:white;
+
+font-size:15px;
+font-weight:bold;
+
+cursor:pointer;
 
 transition:0.3s;
 }
@@ -431,36 +491,43 @@ transition:0.3s;
 .copy-btn:hover{
 
 transform:
-scale(1.05);
+translateY(-4px)
+rotate(-2deg);
 
-box-shadow:
-0 0 25px #00cfff;
 }
 
 /* FEATURES */
+
 .feature-box{
 display:grid;
-gap:15px;
+gap:16px;
 }
 
-.feature{
-padding:16px;
+/* FEATURE */
 
-border-radius:18px;
+.feature{
+padding:18px;
+
+border-radius:24px;
 
 background:
 linear-gradient(
 145deg,
-rgba(255,255,255,0.08),
-rgba(255,255,255,0.03)
+#a1887f,
+#6d4c41
 );
 
 border:
-1px solid rgba(255,255,255,0.08);
+3px solid white;
+
+box-shadow:
+7px 7px 0px #3e2723;
 
 font-weight:bold;
 
-color:#dff8ff;
+font-size:15px;
+
+color:white;
 
 transition:0.3s;
 }
@@ -468,37 +535,60 @@ transition:0.3s;
 .feature:hover{
 
 transform:
-translateY(-4px);
+translateY(-5px)
+rotate(-1deg);
 
 background:
 linear-gradient(
 145deg,
-#00cfff22,
-#0044ff22
+#ffb74d,
+#ff7043
 );
 
-box-shadow:
-0 0 20px rgba(0,170,255,0.2);
+}
+
+/* TAG */
+
+.tag{
+margin-top:12px;
+
+display:inline-block;
+
+padding:8px 16px;
+
+border-radius:20px;
+
+background:white;
+
+color:#4e342e;
+
+font-size:13px;
+font-weight:bold;
 }
 
 /* FOOTER */
+
 .footer{
-margin-top:28px;
+margin-top:30px;
 text-align:center;
-font-size:13px;
-color:#8ddfff;
-opacity:0.8;
+
+font-size:14px;
+font-weight:bold;
+
+text-shadow:
+3px 3px 0px #3e2723;
 }
 
 /* MOBILE */
-@media(max-width:600px){
+
+@media(max-width:700px){
 
 .title{
-font-size:26px;
+font-size:28px;
 }
 
 .logo-top span{
-font-size:18px;
+font-size:20px;
 }
 
 }
@@ -508,7 +598,11 @@ font-size:18px;
 
 <body>
 
+<div class="circle1"></div>
+<div class="circle2"></div>
+
 <!-- TOPBAR -->
+
 <header class="topbar">
 
 <div class="logo-top">
@@ -537,10 +631,13 @@ onclick="toggleMenu()"
 </header>
 
 <!-- SIDEBAR -->
+
 <div class="sidebar" id="sidebar">
 
-<!-- CLOSE BUTTON -->
-<div class="close-sidebar" onclick="toggleMenu()">
+<div
+class="close-sidebar"
+onclick="toggleMenu()"
+>
 ✕
 </div>
 
@@ -553,35 +650,29 @@ class="side-pp"
 
 <h2>RafaXMods</h2>
 
-<p>Website Premium Store ⚡</p>
+<p>Dark Cartoon Brutalism ⚡</p>
 
 </div>
 
 <div class="menu-list">
 
 <a href="index.html">
-🔄 Back Menu Utama
+🏠 Back Menu Utama
 </a>
 
 <a href="profil.html">
 👤 Profil Saya
 </a>
 
+<a href="music.html">
+🎧 Search Music
+</a>
+
 <a href="bailyes.html">
-💬 My Baiyles
+💬 My Baileys
 </a>
 
-<a
-href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4"
-target="_blank"
->
-👥 Link Grup
-</a>
-
-<a
-href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S"
-target="_blank"
->
+<a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank">
 📢 Saluran WA
 </a>
 
@@ -590,6 +681,7 @@ target="_blank"
 </div>
 
 <!-- MAIN -->
+
 <div class="main">
 
 <div class="box">
@@ -603,54 +695,80 @@ NEW VERSION AVAILABLE
 </div>
 
 <div class="update">
-📅 Last Update: Senin-7-april-2026
+📅 Last Update : Senin - 7 April 2026
 </div>
 
 <!-- CODE -->
+
 <div class="code-box">
 
 <div class="code">
 
-"@whiskeysockets/baileys":<br>
+"@whiskeysockets/baileys"<br>
 "github:RafaOfficial/baileys"
 
 </div>
 
-<button class="copy-btn" onclick="copyText()">
+<button
+class="copy-btn"
+onclick="copyText()"
+>
 📋 Copy Github
 </button>
 
 </div>
 
-<!-- FEATURES -->
+<!-- FEATURE -->
+
 <div class="feature-box">
 
 <div class="feature">
 ✅ BAILEYS VERSI BARU
+<div class="tag">
+Stable Version
+</div>
 </div>
 
 <div class="feature">
 ✅ NO LOG OUT SENDER
+<div class="tag">
+Anti Delay
+</div>
 </div>
 
 <div class="feature">
 ✅ ANTI ERROR PAIRING
+<div class="tag">
+Fast Connect
+</div>
 </div>
 
 <div class="feature">
 ✅ SUPPORT ALL TYPE MSG
+<div class="tag">
+Interactive
+</div>
 </div>
 
 <div class="feature">
 ✅ SUPPORT ALL BUTTON TYPE
+<div class="tag">
+Modern Button
+</div>
 </div>
 
 <div class="feature">
 ✅ SUPPORT CUSTOM PAIRING CODE
+<div class="tag">
+Custom Login
+</div>
 </div>
 
 <div class="feature">
-✅ NODE JS 20-24
+✅ SUPPORT NODE JS 20 - 24
+<div class="tag">
+Latest Runtime
+</div>
 </div>
 
 </div>
@@ -665,7 +783,8 @@ NEW VERSION AVAILABLE
 
 <script>
 
-/* TOGGLE SIDEBAR */
+/* SIDEBAR */
+
 function toggleMenu(){
 
 document
@@ -675,13 +794,14 @@ document
 }
 
 /* COPY */
+
 function copyText(){
 
 navigator.clipboard.writeText(
 "github:RafaOfficial/baileys"
 );
 
-alert("Berhasil di copy!");
+alert("Berhasil Di Copy!");
 
 }
 
