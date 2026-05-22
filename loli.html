@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#6d4c41">
+
+<title>Anime Image Generator</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Fredoka',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#2b1811,
+#4e342e,
+#6d4c41,
+#3e2723
+);
+
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+overflow:hidden;
+}
+
+.blur{
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+opacity:0.4;
+animation:gerak 8s infinite alternate;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:#8d6e63;
+top:-100px;
+left:-100px;
+}
+
+.blur2{
+width:360px;
+height:360px;
+background:#4e342e;
+bottom:-120px;
+right:-120px;
+}
+
+@keyframes gerak{
+
+from{
+transform:translateY(0px);
+}
+
+to{
+transform:translateY(40px);
+}
+
+}
+
+/* CONTAINER */
+
+.container{
+
+width:95%;
+max-width:520px;
+
+margin:25px auto;
+
+padding:22px;
+
+background:rgba(0,0,0,0.12);
+
+backdrop-filter:blur(10px);
+
+border-radius:30px;
+
+border:
+4px solid white;
+
+box-shadow:
+10px 10px 0px #2d1b12;
+}
+
+/* TOPBAR */
+
+.topbar{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+margin-bottom:20px;
+}
+
+/* BACK BUTTON */
+
+.back-btn{
+
+width:58px;
+height:58px;
+
+border:none;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+4px solid white;
+
+box-shadow:
+7px 7px 0px #bf360c;
+
+color:white;
+
+font-size:24px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+}
+
+.back-btn:hover{
+
+transform:
+translateY(-5px)
+rotate(-3deg);
+
+}
+
+/* TITLE */
+
+.title{
+
+flex:1;
+
+margin-left:15px;
+
+font-size:24px;
+font-weight:bold;
+
+text-shadow:
+4px 4px 0px #3e2723;
+}
+
+/* HEADER */
+
+.header{
+
+text-align:center;
+
+padding:22px;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+145deg,
+#8d6e63,
+#6d4c41,
+#4e342e
+);
+
+border:
+4px solid white;
+
+box-shadow:
+8px 8px 0px #3e2723;
+
+font-size:28px;
+font-weight:bold;
+
+letter-spacing:1px;
+
+margin-bottom:25px;
+
+text-shadow:
+4px 4px 0px #2d1b12;
+}
+
+/* BUTTON */
+
+button{
+
+width:100%;
+height:62px;
+
+border:none;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+4px solid white;
+
+box-shadow:
+8px 8px 0px #bf360c;
+
+color:white;
+
+font-size:18px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.3s;
+}
+
+button:hover{
+
+transform:
+translateY(-5px)
+rotate(-2deg);
+
+}
+
+/* IMAGE BOX */
+
+.image-box{
+
+margin-top:25px;
+
+width:100%;
+min-height:320px;
+
+background:
+linear-gradient(
+145deg,
+#5d4037,
+#3e2723
+);
+
+border-radius:25px;
+
+overflow:hidden;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border:
+4px solid white;
+
+box-shadow:
+8px 8px 0px #2d1b12;
+
+position:relative;
+}
+
+/* IMAGE */
+
+.image-box img{
+
+width:100%;
+max-height:650px;
+
+object-fit:contain;
+
+display:none;
+
+background:black;
+}
+
+/* STATUS */
+
+.status{
+
+color:#ffe0b2;
+
+text-align:center;
+
+padding:20px;
+
+line-height:1.6;
+
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* LOADING */
+
+.loading{
+
+width:58px;
+height:58px;
+
+border:
+6px solid rgba(255,255,255,0.15);
+
+border-top:
+6px solid #ffcc80;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+/* DOWNLOAD */
+
+.download{
+
+margin-top:20px;
+
+display:none;
+}
+
+.download button{
+
+background:
+linear-gradient(
+145deg,
+#a1887f,
+#6d4c41
+);
+
+box-shadow:
+8px 8px 0px #3e2723;
+}
+
+/* FOOTER */
+
+.footer{
+
+margin-top:25px;
+
+text-align:center;
+
+font-size:14px;
+font-weight:bold;
+
+color:#ffe0b2;
+
+text-shadow:
+3px 3px 0px #3e2723;
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg">
+
+<div class="blur blur1"></div>
+
+<div class="blur blur2"></div>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="container">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<button
+class="back-btn"
+onclick="goBack()"
+>
+🔙
+</button>
+
+<div class="title">
+RafaXMods
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+🖼️ ANIME IMAGE GENERATOR
+</div>
+
+<!-- BUTTON -->
+
+<button onclick="getImage()">
+✨ Generate Image
+</button>
+
+<!-- IMAGE -->
+
+<div class="image-box">
+
+<div class="status" id="status">
+Tekan tombol Generate Image
+</div>
+
+<img id="image">
+
+</div>
+
+<!-- DOWNLOAD -->
+
+<div class="download" id="downloadBox">
+
+<a
+id="downloadLink"
+download="anime-image.jpg"
+>
+
+<button>
+📥 Download Image
+</button>
+
+</a>
+
+</div>
+
+<div class="footer">
+© RafaXMods - Website Free 
+</div>
+
+</div>
+
+<script>
+
+/* BACK */
+
+function goBack(){
+
+window.location.href = "index.html";
+
+}
+
+/* IMAGE */
+
+async function getImage(){
+
+const image =
+document.getElementById("image");
+
+const status =
+document.getElementById("status");
+
+const downloadBox =
+document.getElementById("downloadBox");
+
+/* RESET */
+
+image.style.display = "none";
+
+status.style.display = "flex";
+
+downloadBox.style.display = "none";
+
+status.innerHTML = `
+
+<div class="loading"></div>
+
+`;
+
+try{
+
+/* FETCH API */
+
+const response =
+await fetch(
+"https://api.soonex.biz.id/v1/image/loli"
+);
+
+/* ERROR */
+
+if(!response.ok){
+
+throw new Error("API ERROR");
+
+}
+
+/* IMAGE */
+
+const blob =
+await response.blob();
+
+const imageUrl =
+URL.createObjectURL(blob);
+
+/* SET IMAGE */
+
+image.src = imageUrl;
+
+image.onload = ()=>{
+
+status.style.display = "none";
+
+image.style.display = "block";
+
+/* DOWNLOAD */
+
+downloadBox.style.display = "block";
+
+document
+.getElementById("downloadLink")
+.href = imageUrl;
+
+};
+
+}catch(err){
+
+console.log(err);
+
+status.style.display = "flex";
+
+status.innerHTML =
+
+"Terjadi kesalahan saat mengambil gambar.";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
