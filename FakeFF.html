@@ -3,211 +3,601 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake Lobby FF Premium</title>
+<meta name="theme-color" content="#6f4e37">
+<title>Fake FF - RafaXMods</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+:root{
+--bg:#3b241b;
+--bg2:#24130d;
+--card:#a27b67;
+--white:#fff7f0;
+--shadow:#4e2f22;
+--orange:#ff9b54;
+--orange2:#ff7b32;
+--dark:#2b1b14;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
 
 body{
-    background:#000;
-    color:white;
-    overflow-x:hidden;
+background:
+linear-gradient(
+180deg,
+#7b5b4a 0%,
+#4a2f23 40%,
+#24130d 100%
+);
+
+min-height:100vh;
+padding:22px;
+color:var(--white);
+overflow-x:hidden;
 }
 
-/* ⭐ STAR */
-.star{
-    position:fixed;
-    width:2px;height:2px;
-    background:white;
-    border-radius:50%;
-    animation:twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-    from{opacity:0.2}
-    to{opacity:1}
+/* CONTAINER */
+
+.container{
+max-width:430px;
+margin:auto;
 }
 
-/* ☄️ METEOR */
-.meteor{
-    position:fixed;
-    width:3px;height:100px;
-    background:linear-gradient(white,transparent);
-    transform:rotate(45deg);
-    animation:meteor 2s linear;
-}
-@keyframes meteor{
-    0%{transform:translate(0,0) rotate(45deg);opacity:1}
-    100%{transform:translate(-600px,600px) rotate(45deg);opacity:0}
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:30px;
 }
 
-/* BOX */
-.box{
-    margin:50px auto;
-    width:90%;
-    max-width:420px;
-    padding:25px;
-    border-radius:20px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(20px);
-    box-shadow:0 0 50px rgba(123,0,255,0.2);
-    text-align:center;
+.back-btn{
+width:75px;
+height:75px;
+border:none;
+border-radius:24px;
+background:
+linear-gradient(
+135deg,
+var(--orange),
+var(--orange2)
+);
+
+font-size:28px;
+font-weight:bold;
+cursor:pointer;
+color:white;
+border:5px solid white;
+
+box-shadow:
+7px 7px 0 #b14c13;
+
+transition:.15s;
+}
+
+.back-btn:active{
+transform:translateY(4px);
+box-shadow:
+4px 4px 0 #b14c13;
+}
+
+.logo{
+font-size:30px;
+font-weight:900;
+line-height:1;
+text-shadow:
+5px 5px 0 rgba(0,0,0,.25);
+}
+
+/* TITLE */
+
+.title-box{
+background:var(--card);
+padding:28px 22px;
+border-radius:35px;
+border:6px solid white;
+
+box-shadow:
+10px 10px 0 var(--shadow);
+
+margin-bottom:25px;
+}
+
+.title-box h1{
+font-size:50px;
+line-height:1;
+font-weight:900;
+
+text-shadow:
+6px 6px 0 rgba(0,0,0,.25);
+}
+
+.title-box p{
+margin-top:12px;
+font-size:17px;
+font-weight:bold;
+color:#ffe6d5;
+}
+
+/* CARD */
+
+.card{
+background:var(--card);
+
+border-radius:35px;
+
+padding:24px;
+
+border:6px solid white;
+
+box-shadow:
+10px 10px 0 var(--shadow);
+
 }
 
 /* INPUT */
-input{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#111;
-    color:white;
-    margin-top:10px;
+
+.input-box{
+margin-bottom:18px;
 }
 
-/* 💜 BUTTON PREMIUM */
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:25px;
-background:linear-gradient(45deg,#9333ea,#ff00ff);
+.input-box label{
+display:block;
+margin-bottom:10px;
+font-size:15px;
+font-weight:900;
 color:white;
+}
+
+.input-box input{
+width:100%;
+height:68px;
+
+border:none;
+outline:none;
+
+border-radius:22px;
+
+padding:0 18px;
+
+font-size:17px;
 font-weight:bold;
+
+background:#fff5ef;
+
+color:#2b1b14;
+
+border:4px solid white;
+}
+
+/* BUTTON */
+
+.generate-btn{
+width:100%;
+height:72px;
+
+border:none;
+border-radius:24px;
+
+background:
+linear-gradient(
+135deg,
+var(--orange),
+var(--orange2)
+);
+
+color:white;
+
+font-size:20px;
+font-weight:900;
+
 cursor:pointer;
-margin-top:10px;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #b14c13;
+
+transition:.15s;
+
+margin-top:8px;
+}
+
+.generate-btn:active{
+transform:translateY(4px);
+box-shadow:
+0 4px 0 #b14c13;
+}
+
+/* LOADING */
+
+.loading{
+display:none;
+margin-top:20px;
+text-align:center;
+}
+
+.loader{
+width:55px;
+height:55px;
+margin:auto;
+
+border-radius:50%;
+
+border:6px solid rgba(255,255,255,.3);
+
+border-top:
+6px solid white;
+
+animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.loading p{
+margin-top:14px;
+font-size:16px;
+font-weight:bold;
 }
 
 /* RESULT */
+
 .result{
-    margin-top:60px;
-    text-align:center;
+margin-top:28px;
+display:none;
+animation:show .4s ease;
 }
 
-/* 🔥 IMAGE DIPERKECIL */
-img{
-    width:80%;          /* tidak full */
-    max-width:300px;    /* batas maksimal */
-    border-radius:12px;
-    margin-top:15px;
-    box-shadow:0 0 25px rgba(123,0,255,0.4);
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
-/* LOADER */
-.loader{
-    margin-top:15px;
-    width:40px;height:40px;
-    border:4px solid #222;
-    border-top:4px solid #7b00ff;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-    display:none;
-    margin:auto;
+.result-card{
+background:#7d5c4c;
+
+padding:18px;
+
+border-radius:28px;
+
+border:5px solid white;
+
+box-shadow:
+8px 8px 0 var(--shadow);
+
+text-align:center;
 }
-@keyframes spin{100%{transform:rotate(360deg)}}
+
+.result-card h2{
+font-size:25px;
+margin-bottom:16px;
+
+text-shadow:
+4px 4px 0 rgba(0,0,0,.25);
+}
+
+.result-card img{
+width:100%;
+border-radius:22px;
+
+border:5px solid white;
+
+background:#000;
+}
+
+/* DOWNLOAD */
+
+.download-btn{
+display:block;
+
+width:100%;
+height:68px;
+
+line-height:58px;
+
+margin-top:18px;
+
+text-align:center;
+
+text-decoration:none;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+135deg,
+#5ed46b,
+#2ca64b
+);
+
+color:white;
+
+font-size:18px;
+font-weight:900;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #206d33;
+
+transition:.15s;
+}
+
+.download-btn:active{
+transform:translateY(4px);
+box-shadow:
+0 4px 0 #206d33;
+}
 
 /* ERROR */
-.error{color:red;margin-top:10px}
 
-/* 🔙 BACK BUTTON (SUDAH DINAIKKAN) */
-.back{
-    position:fixed;
-    top:8px;
-    left:12px;
-    width:auto;
-    padding:10px 15px;
-    font-size:12px;
-    z-index:999;
+.error{
+display:none;
+
+margin-top:18px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:#ffebe9;
+
+color:#c62828;
+
+font-weight:bold;
+
+border:4px solid white;
 }
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+.title-box h1{
+font-size:42px;
+}
+
+.logo{
+font-size:24px;
+}
+
+.back-btn{
+width:68px;
+height:68px;
+font-size:24px;
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- 🔙 BACK -->
-<button class="back" onclick="goBack()">⬅️ BACK</button>
+<div class="container">
 
-<!-- FORM -->
-<div class="box">
-    <h2>🎮 Fake Lobby FF</h2>
-    <input id="nick" placeholder="Masukkan nickname...">
-    <button onclick="gen()">GENERATE</button>
+<!-- HEADER -->
 
-    <div class="loader" id="loader"></div>
-    <div class="error" id="error"></div>
+<div class="header">
+
+<button
+class="back-btn"
+onclick="window.location.href='index.html'">
+
+🔙
+
+</button>
+
+<div class="logo">
+RafaXMods
 </div>
 
+</div>
+
+<!-- TITLE -->
+
+<div class="title-box">
+
+<h1>
+FAKE FF
+</h1>
+
+<p>
+Website Free• Fake FF 
+</p>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+<div class="input-box">
+
+<label>
+Masukkan Nickname
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="Contoh: RafaXMods">
+
+</div>
+
+<button
+class="generate-btn"
+onclick="generateFakeFF()">
+
+GENERATE SEKARANG
+
+</button>
+
+<!-- LOADING -->
+
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+<p>
+Sedang membuat Fake FF...
+</p>
+
+</div>
+
+<!-- ERROR -->
+
+<div class="error" id="error"></div>
+
 <!-- RESULT -->
-<div class="result" id="result"></div>
+
+<div class="result" id="result">
+
+<div class="result-card">
+
+<h2 id="resultName">
+RafaXMods
+</h2>
+
+<img
+id="resultImg"
+src=""
+alt="Fake FF">
+
+<a
+id="downloadBtn"
+class="download-btn"
+download="fakeff.jpg">
+
+DOWNLOAD IMAGE
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script>
-// ⭐ STARS
-for(let i=0;i<120;i++){
-    let s=document.createElement("div");
-    s.className="star";
-    s.style.top=Math.random()*100+"vh";
-    s.style.left=Math.random()*100+"vw";
-    document.body.appendChild(s);
+
+async function generateFakeFF(){
+
+const name =
+document.getElementById("name")
+.value.trim();
+
+const loading =
+document.getElementById("loading");
+
+const result =
+document.getElementById("result");
+
+const error =
+document.getElementById("error");
+
+const resultImg =
+document.getElementById("resultImg");
+
+const resultName =
+document.getElementById("resultName");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+error.style.display="none";
+result.style.display="none";
+
+if(!name){
+
+error.style.display="block";
+
+error.innerHTML=
+"⚠️ Masukkan nickname terlebih dahulu";
+
+return;
+
 }
 
-// ☄️ METEOR
-setInterval(()=>{
-    let m=document.createElement("div");
-    m.className="meteor";
-    m.style.top=Math.random()*100+"vh";
-    m.style.left=Math.random()*100+"vw";
-    document.body.appendChild(m);
-    setTimeout(()=>m.remove(),2000);
-},800);
+loading.style.display="block";
 
-// BACK
-function goBack(){
-    window.location.href="index.html";
+const api =
+`https://api.azbry.com/api/maker/fakeff?name=${encodeURIComponent(name)}`;
+
+try{
+
+const check =
+await fetch(api);
+
+if(!check.ok){
+
+throw new Error(
+"API sedang error"
+);
+
 }
 
-// 🔥 GENERATE + AUTO SCROLL
-async function gen(){
-    const nick=document.getElementById("nick").value.trim();
-    const result=document.getElementById("result");
-    const error=document.getElementById("error");
-    const loader=document.getElementById("loader");
+resultImg.onload = () => {
 
-    result.innerHTML="";
-    error.innerHTML="";
+loading.style.display="none";
 
-    if(!nick){
-        error.innerHTML="⚠️ isi nickname dulu";
-        return;
-    }
+result.style.display="block";
 
-    loader.style.display="block";
+result.scrollIntoView({
 
-    let url=`https://api.nexray.web.id/maker/fakelobyff?nickname=${encodeURIComponent(nick)}`;
+behavior:"smooth"
 
-    try{
-        let res=await fetch(url);
-        if(!res.ok) throw new Error("API error / koneksi");
+});
 
-        result.innerHTML=`
-            <h3>${nick}</h3>
-            <img src="${url}">
-            <br><br>
-            <a href="${url}" download>
-                <button>📥 DOWNLOAD IMAGE</button>
-            </a>
-        `;
+};
 
-        // 🔥 AUTO SCROLL KE HASIL (LEBIH HALUS & TEPAT)
-        setTimeout(()=>{
-            document.getElementById("result").scrollIntoView({
-                behavior:"smooth"
-            });
-        },200);
+resultImg.onerror = () => {
 
-    }catch(e){
-        error.innerHTML="❌ "+e.message;
-    }
+loading.style.display="none";
 
-    loader.style.display="none";
+error.style.display="block";
+
+error.innerHTML=
+"❌ Gagal memuat hasil gambar";
+
+};
+
+resultImg.src = api;
+
+downloadBtn.href = api;
+
+resultName.innerHTML = name;
+
+}catch(err){
+
+loading.style.display="none";
+
+error.style.display="block";
+
+error.innerHTML=
+"❌ "+err.message;
+
 }
+
+}
+
 </script>
 
 </body>

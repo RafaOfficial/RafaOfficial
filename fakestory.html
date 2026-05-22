@@ -1,343 +1,769 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fake Story Generator</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6f4e37">
+<title>Fake Story Generator</title>
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0b0b0f, #17172a, #10131f);
-      color: white;
-      padding: 20px;
-    }
+<style>
 
-    .wrapper {
-      max-width: 1150px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: 380px 1fr;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 22px;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
-    }
-
-    .title {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .desc {
-      font-size: 14px;
-      color: #cfcfe6;
-      line-height: 1.6;
-      margin-bottom: 18px;
-    }
-
-    .form-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #f4f4ff;
-    }
-
-    input[type="text"],
-    textarea,
-    input[type="file"] {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.05);
-      color: white;
-      padding: 13px 14px;
-      border-radius: 14px;
-      outline: none;
-      font-size: 15px;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 130px;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-      color: #b9b9c9;
-    }
-
-    .btns {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    button,
-    .download-btn {
-      border: none;
-      border-radius: 14px;
-      padding: 13px 18px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.25s ease;
-    }
-
-    .generate-btn {
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
-      color: white;
-      flex: 1;
-    }
-
-    .generate-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(124, 58, 237, 0.35);
-    }
-
-    .download-btn {
-      background: linear-gradient(135deg, #16a34a, #22c55e);
-      color: white;
-    }
-
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(34, 197, 94, 0.35);
-    }
-
-    .preview-title {
-      font-size: 23px;
-      font-weight: bold;
-      margin-bottom: 14px;
-    }
-
-    .canvas-box {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.22);
-      overflow: auto;
-    }
-
-    canvas {
-      width: 360px;
-      max-width: 100%;
-      border-radius: 18px;
-      box-shadow: 0 12px 28px rgba(0,0,0,0.45);
-      background: #000;
-    }
-
-    .mini-note {
-      margin-top: 14px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #c7c7d8;
-    }
-
-    @media (max-width: 920px) {
-      .wrapper {
-        grid-template-columns: 1fr;
-      }
-
-      canvas {
-        width: 100%;
-        max-width: 420px;
-      }
-    }
-  
-.btn-back {
-  display: inline-block;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: bold;
-  transition: 0.3s;
+:root{
+--bg:#2f1d16;
+--bg2:#4b2d22;
+--card:#9c7867;
+--white:#fff8ef;
+--shadow:#2a140d;
+--orange:#ff9b54;
+--green:#49c267;
 }
 
-.btn-back:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+scroll-behavior:smooth;
 }
-  </style>
+
+body{
+min-height:100vh;
+background:
+radial-gradient(circle at top,
+#7d5b4d 0%,
+#3b241b 45%,
+#1f120d 100%);
+padding:20px;
+color:var(--white);
+overflow-x:hidden;
+}
+
+/* CONTAINER */
+
+.wrapper{
+max-width:1150px;
+margin:auto;
+display:grid;
+grid-template-columns:380px 1fr;
+gap:25px;
+align-items:start;
+}
+
+/* CARD */
+
+.card{
+background:var(--card);
+border:6px solid white;
+border-radius:35px;
+padding:25px;
+box-shadow:12px 12px 0 var(--shadow);
+}
+
+/* BACK */
+
+.btn-back{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:15px 25px;
+background:linear-gradient(
+135deg,
+#ffb168,
+#ff7b32
+);
+color:white;
+text-decoration:none;
+border-radius:22px;
+font-weight:900;
+font-size:17px;
+border:5px solid white;
+box-shadow:0 8px 0 #b43f00;
+margin-bottom:20px;
+transition:0.2s;
+}
+
+.btn-back:active{
+transform:translateY(4px);
+box-shadow:0 4px 0 #b43f00;
+}
+
+/* TITLE */
+
+.title{
+font-size:42px;
+font-weight:900;
+line-height:1;
+margin-bottom:10px;
+text-shadow:6px 6px 0 rgba(0,0,0,0.3);
+}
+
+.desc{
+font-size:16px;
+line-height:1.7;
+color:#fff0df;
+margin-bottom:25px;
+}
+
+/* LABEL */
+
+label{
+display:block;
+font-size:17px;
+font-weight:900;
+margin-bottom:10px;
+margin-top:15px;
+}
+
+/* INPUT */
+
+input[type="text"],
+textarea{
+width:100%;
+border:none;
+outline:none;
+background:#fff6ef;
+color:#2c1b16;
+padding:16px 18px;
+border-radius:22px;
+font-size:16px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+textarea{
+resize:none;
+min-height:140px;
+}
+
+/* FILE */
+
+.file-box{
+position:relative;
+background:#fff6ef;
+border-radius:22px;
+padding:15px;
+overflow:hidden;
+}
+
+.file-box input{
+width:100%;
+color:#2c1b16;
+font-weight:bold;
+}
+
+/* BUTTONS */
+
+.btns{
+display:flex;
+gap:15px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+button,
+.download-btn{
+flex:1;
+height:65px;
+border:none;
+border-radius:24px;
+font-size:18px;
+font-weight:900;
+cursor:pointer;
+text-decoration:none;
+display:flex;
+align-items:center;
+justify-content:center;
+border:5px solid white;
+transition:0.2s;
+}
+
+/* GENERATE */
+
+.generate-btn{
+background:linear-gradient(
+135deg,
+#ffb168,
+#ff7b32
+);
+color:white;
+box-shadow:0 8px 0 #b43f00;
+}
+
+.generate-btn:active{
+transform:translateY(4px);
+box-shadow:0 4px 0 #b43f00;
+}
+
+/* DOWNLOAD */
+
+.download-btn{
+background:linear-gradient(
+135deg,
+#59d66f,
+#2fa34c
+);
+color:white;
+box-shadow:0 8px 0 #1f6d31;
+}
+
+.download-btn:active{
+transform:translateY(4px);
+box-shadow:0 4px 0 #1f6d31;
+}
+
+/* PREVIEW */
+
+.preview-title{
+font-size:34px;
+font-weight:900;
+margin-bottom:18px;
+text-shadow:6px 6px 0 rgba(0,0,0,0.3);
+}
+
+.canvas-box{
+background:#2c1811;
+border:6px solid white;
+border-radius:35px;
+padding:18px;
+box-shadow:10px 10px 0 var(--shadow);
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:auto;
+position:relative;
+min-height:400px;
+}
+
+/* CANVAS */
+
+canvas{
+width:360px;
+max-width:100%;
+border-radius:25px;
+background:black;
+border:5px solid white;
+display:none;
+animation:pop 0.5s ease;
+}
+
+@keyframes pop{
+0%{
+transform:scale(0.8);
+opacity:0;
+}
+100%{
+transform:scale(1);
+opacity:1;
+}
+}
+
+/* PLACEHOLDER */
+
+.placeholder{
+text-align:center;
+color:#ffe6d2;
+font-size:18px;
+font-weight:bold;
+line-height:1.8;
+}
+
+/* LOADING */
+
+.loading{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+border-radius:25px;
+z-index:5;
+}
+
+.loader{
+width:65px;
+height:65px;
+border-radius:50%;
+border:8px solid rgba(255,255,255,0.2);
+border-top:8px solid #ffb168;
+animation:spin 1s linear infinite;
+margin-bottom:15px;
+}
+
+.loading p{
+font-size:18px;
+font-weight:bold;
+color:white;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+/* NOTE */
+
+.note{
+margin-top:20px;
+font-size:15px;
+line-height:1.8;
+color:#fff0df;
+}
+
+/* MOBILE */
+
+@media(max-width:920px){
+
+.wrapper{
+grid-template-columns:1fr;
+}
+
+.title{
+font-size:34px;
+}
+
+.preview-title{
+font-size:28px;
+}
+
+canvas{
+width:100%;
+max-width:420px;
+}
+
+}
+
+</style>
 </head>
 <body>
-      <a href="index.html" class="btn-back">⬅ Back</a>
 
-  <div class="wrapper">
-    <div class="card">
-      <div class="title">Fake Story Generator</div>
-      <div class="desc">
-        Buat fake story langsung dari website. Isi username, caption, upload foto profil, lalu generate hasilnya.
-      </div>
+<a href="index.html" class="btn-back">
+⬅ BACK
+</a>
 
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="Contoh: Ichika">
-      </div>
+<div class="wrapper">
 
-      <div class="form-group">
-        <label for="caption">Caption / Story</label>
-        <textarea id="caption" placeholder="Contoh: hmm..."></textarea>
-      </div>
+<!-- FORM -->
 
-      <div class="form-group">
-        <label for="profileInput">Foto Profil</label>
-        <input type="file" id="profileInput" accept="image/*">
-      </div>
+<div class="card">
 
-      <div class="btns">
-        <button class="generate-btn" onclick="generateStory()">Generate Fake Story</button>
-        <a id="downloadBtn" class="download-btn" href="#" download="fake-story.png">Download</a>
-      </div>
+<div class="title">
+FAKE STORY
+</div>
 
-      <div class="mini-note">
-        Background default sudah disiapkan. Kamu bisa ganti link background di JavaScript sesuai template yang kamu mau.
-      </div>
-    </div>
+<div class="desc">
+Buat fake story aesthetic dengan style Dark Cartoon Brutalism.
+</div>
 
-    <div class="card">
-      <div class="preview-title">Preview Hasil</div>
-      <div class="canvas-box">
-        <canvas id="storyCanvas" width="720" height="1280"></canvas>
-      </div>
-    </div>
-  </div>
+<label>Username</label>
 
-  <script>
-    const canvas = document.getElementById("storyCanvas");
-    const ctx = canvas.getContext("2d");
-    const profileInput = document.getElementById("profileInput");
-    const downloadBtn = document.getElementById("downloadBtn");
+<input
+type="text"
+id="username"
+placeholder="Contoh: RafaXMods">
 
-    const bgUrl = "https://files.catbox.moe/3gwr1l.jpg";
-    const defaultProfile = "https://img1.pixhost.to/images/5831/600387261_biyu-offc.jpg";
+<label>Caption Story</label>
 
-    let uploadedProfile = null;
+<textarea
+id="caption"
+placeholder="Tulis caption story..."></textarea>
 
-    profileInput.addEventListener("change", function (e) {
-      const file = e.target.files[0];
-      if (!file) return;
+<label>Upload Foto Profil</label>
 
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        uploadedProfile = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
+<div class="file-box">
+<input
+type="file"
+id="profileInput"
+accept="image/*">
+</div>
 
-    function loadImage(src) {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error("Gagal load gambar: " + src));
-        img.src = src;
-      });
-    }
+<div class="btns">
 
-    function wrapTextCenter(ctx, text, x, y, maxWidth, lineHeight) {
-      let line = "";
-      const lines = [];
+<button
+class="generate-btn"
+onclick="generateStory()">
 
-      for (let i = 0; i < text.length; i++) {
-        let testLine = line + text[i];
-        let testWidth = ctx.measureText(testLine).width;
+GENERATE
 
-        if (testWidth > maxWidth && line !== "") {
-          lines.push(line);
-          line = text[i];
-        } else {
-          line = testLine;
-        }
-      }
+</button>
 
-      if (line) lines.push(line);
+<a
+id="downloadBtn"
+class="download-btn"
+href="#"
+download="fake-story.png">
 
-      for (let i = 0; i < lines.length; i++) {
-        ctx.fillText(lines[i], x, y + (i * lineHeight));
-      }
-    }
+DOWNLOAD
 
-    async function generateStory() {
-      const username = document.getElementById("username").value.trim() || "Ichika";
-      const caption = document.getElementById("caption").value.trim() || "hmm...";
-      const profileSrc = uploadedProfile || defaultProfile;
+</a>
 
-      try {
-        const [bg, pp] = await Promise.all([
-          loadImage(bgUrl),
-          loadImage(profileSrc)
-        ]);
+</div>
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+<div class="note">
+• Auto scroll ke hasil setelah generate<br>
+• Dark Cartoon Brutalism Theme<br>
+• Smooth loading animation
+</div>
 
-        const ppX = 40;
-        const ppY = 250;
-        const ppSize = 70;
+</div>
 
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(ppX + ppSize / 2, ppY + ppSize / 2, ppSize / 2, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.clip();
-        ctx.drawImage(pp, ppX, ppY, ppSize, ppSize);
-        ctx.restore();
+<!-- PREVIEW -->
 
-        ctx.font = "28px Arial";
-        ctx.fillStyle = "#FFFFFF";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "middle";
+<div class="card" id="preview-card">
 
-        const usernameX = ppX + ppSize + 15;
-        const usernameY = ppY + ppSize / 2;
-        ctx.fillText(username, usernameX, usernameY);
+<div class="preview-title">
+Preview Result
+</div>
 
-        ctx.font = "bold 30px Arial";
-        ctx.fillStyle = "#FFFFFF";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "top";
+<div class="canvas-box">
 
-        const captionX = canvas.width / 2;
-        const captionY = canvas.height - 650;
-        const maxWidth = canvas.width - 100;
-        const lineHeight = 42;
+<div class="loading" id="loading">
 
-        wrapTextCenter(ctx, caption, captionX, captionY, maxWidth, lineHeight);
+<div class="loader"></div>
 
-        const result = canvas.toDataURL("image/png");
-        downloadBtn.href = result;
-      } catch (err) {
-        alert("Terjadi error: " + err.message);
-        console.error(err);
-      }
-    }
+<p>Generating Story...</p>
 
-    window.onload = generateStory;
-  </script>
+</div>
+
+<div class="placeholder" id="placeholder">
+
+Belum ada preview<br>
+Klik tombol GENERATE
+
+</div>
+
+<canvas
+id="storyCanvas"
+width="720"
+height="1280"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const canvas =
+document.getElementById("storyCanvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const profileInput =
+document.getElementById("profileInput");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+const loading =
+document.getElementById("loading");
+
+const placeholder =
+document.getElementById("placeholder");
+
+const previewCard =
+document.getElementById("preview-card");
+
+/* BACKGROUND */
+
+const bgUrl =
+"https://files.catbox.moe/3gwr1l.jpg";
+
+/* DEFAULT PROFILE */
+
+const defaultProfile =
+"https://img1.pixhost.to/images/5831/600387261_biyu-offc.jpg";
+
+let uploadedProfile = null;
+
+/* UPLOAD */
+
+profileInput.addEventListener(
+"change",
+function(e){
+
+const file =
+e.target.files[0];
+
+if(!file) return;
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(event){
+
+uploadedProfile =
+event.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+);
+
+/* LOAD IMAGE */
+
+function loadImage(src){
+
+return new Promise((resolve,reject)=>{
+
+const img =
+new Image();
+
+img.crossOrigin =
+"anonymous";
+
+img.onload =
+()=>resolve(img);
+
+img.onerror =
+()=>reject(
+new Error(
+"Gagal load gambar"
+)
+);
+
+img.src = src;
+
+});
+
+}
+
+/* WRAP TEXT */
+
+function wrapTextCenter(
+ctx,
+text,
+x,
+y,
+maxWidth,
+lineHeight
+){
+
+let words =
+text.split(" ");
+
+let line = "";
+let lines = [];
+
+for(let n=0;n<words.length;n++){
+
+let testLine =
+line + words[n] + " ";
+
+let metrics =
+ctx.measureText(testLine);
+
+let testWidth =
+metrics.width;
+
+if(
+testWidth > maxWidth &&
+n > 0
+){
+
+lines.push(line);
+
+line =
+words[n] + " ";
+
+}else{
+
+line =
+testLine;
+
+}
+
+}
+
+lines.push(line);
+
+for(let i=0;i<lines.length;i++){
+
+ctx.fillText(
+lines[i],
+x,
+y + (i * lineHeight)
+);
+
+}
+
+}
+
+/* GENERATE */
+
+async function generateStory(){
+
+const username =
+document.getElementById(
+"username"
+).value.trim() || "RafaXMods";
+
+const caption =
+document.getElementById(
+"caption"
+).value.trim() || "Dark Cartoon Brutalism";
+
+const profileSrc =
+uploadedProfile || defaultProfile;
+
+/* SHOW LOADING */
+
+loading.style.display =
+"flex";
+
+placeholder.style.display =
+"none";
+
+canvas.style.display =
+"none";
+
+try{
+
+const [bg,pp] =
+await Promise.all([
+
+loadImage(bgUrl),
+
+loadImage(profileSrc)
+
+]);
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+/* BG */
+
+ctx.drawImage(
+bg,
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+/* PROFILE */
+
+const ppX = 40;
+const ppY = 250;
+const ppSize = 70;
+
+ctx.save();
+
+ctx.beginPath();
+
+ctx.arc(
+ppX + ppSize/2,
+ppY + ppSize/2,
+ppSize/2,
+0,
+Math.PI*2
+);
+
+ctx.closePath();
+
+ctx.clip();
+
+ctx.drawImage(
+pp,
+ppX,
+ppY,
+ppSize,
+ppSize
+);
+
+ctx.restore();
+
+/* USERNAME */
+
+ctx.font =
+"bold 28px Arial";
+
+ctx.fillStyle =
+"#FFFFFF";
+
+ctx.textAlign =
+"left";
+
+ctx.fillText(
+username,
+ppX + ppSize + 15,
+ppY + 42
+);
+
+/* CAPTION */
+
+ctx.font =
+"bold 34px Arial";
+
+ctx.fillStyle =
+"#FFFFFF";
+
+ctx.textAlign =
+"center";
+
+wrapTextCenter(
+ctx,
+caption,
+canvas.width/2,
+canvas.height - 650,
+canvas.width - 100,
+44
+);
+
+/* SHOW RESULT */
+
+canvas.style.display =
+"block";
+
+const result =
+canvas.toDataURL(
+"image/png"
+);
+
+downloadBtn.href =
+result;
+
+/* AUTO SCROLL */
+
+setTimeout(()=>{
+
+previewCard.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+},300);
+
+}catch(err){
+
+alert(
+"Error: " + err.message
+);
+
+placeholder.style.display =
+"block";
+
+}finally{
+
+loading.style.display =
+"none";
+
+}
+
+}
+
+</script>
+
 </body>
 </html>

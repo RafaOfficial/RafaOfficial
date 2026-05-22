@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#6d4c41">
+
+<title>Claude AI</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Fredoka',sans-serif;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#2b1811,
+#4e342e,
+#6d4c41,
+#3e2723
+);
+
+height:100vh;
+overflow:hidden;
+color:white;
+}
+
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:-1;
+}
+
+.blur{
+position:absolute;
+border-radius:50%;
+filter:blur(100px);
+opacity:0.4;
+animation:gerak 8s infinite alternate;
+}
+
+.blur1{
+width:320px;
+height:320px;
+background:#8d6e63;
+top:-100px;
+left:-100px;
+}
+
+.blur2{
+width:360px;
+height:360px;
+background:#4e342e;
+bottom:-120px;
+right:-120px;
+}
+
+@keyframes gerak{
+
+from{
+transform:translateY(0px);
+}
+
+to{
+transform:translateY(40px);
+}
+
+}
+
+/* CONTAINER */
+
+.container{
+width:100%;
+max-width:520px;
+height:100vh;
+margin:auto;
+
+display:flex;
+flex-direction:column;
+
+background:rgba(0,0,0,0.12);
+
+backdrop-filter:blur(10px);
+}
+
+/* HEADER */
+
+.header{
+
+padding:18px;
+
+background:
+linear-gradient(
+145deg,
+#8d6e63,
+#6d4c41,
+#4e342e
+);
+
+border-bottom:
+4px solid white;
+
+box-shadow:
+8px 8px 0px #2d1b12;
+}
+
+/* TOP HEADER */
+
+.top-header{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+/* BACK */
+
+.back-btn{
+
+width:50px;
+height:50px;
+
+border:none;
+border-radius:18px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
+
+color:white;
+
+font-size:22px;
+cursor:pointer;
+
+transition:0.3s;
+}
+
+.back-btn:hover{
+
+transform:
+translateY(-4px)
+rotate(-3deg);
+
+}
+
+/* TITLE */
+
+.header-title{
+
+font-size:24px;
+font-weight:bold;
+
+text-shadow:
+4px 4px 0px #3e2723;
+}
+
+/* CHAT */
+
+.chat-box{
+
+flex:1;
+
+overflow-y:auto;
+
+padding:20px;
+
+display:flex;
+flex-direction:column;
+
+gap:15px;
+}
+
+/* MESSAGE */
+
+.msg{
+
+max-width:82%;
+
+padding:15px;
+
+border-radius:24px;
+
+line-height:1.7;
+
+word-wrap:break-word;
+
+animation:fade .3s ease;
+}
+
+/* USER */
+
+.user{
+
+align-self:flex-end;
+
+background:
+linear-gradient(
+145deg,
+#a1887f,
+#6d4c41
+);
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #3e2723;
+}
+
+/* BOT */
+
+.bot{
+
+align-self:flex-start;
+
+background:
+linear-gradient(
+145deg,
+#5d4037,
+#3e2723
+);
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #2d1b12;
+}
+
+/* COPY BUTTON */
+
+.copy-btn{
+
+margin-top:12px;
+
+padding:8px 15px;
+
+border:none;
+border-radius:14px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+2px solid white;
+
+box-shadow:
+4px 4px 0px #bf360c;
+
+color:white;
+
+font-size:13px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.25s;
+}
+
+.copy-btn:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+/* INPUT */
+
+.input-area{
+
+display:flex;
+gap:10px;
+
+padding:15px;
+
+background:rgba(0,0,0,0.2);
+
+border-top:
+3px solid rgba(255,255,255,0.1);
+}
+
+input{
+
+flex:1;
+height:58px;
+
+border:none;
+outline:none;
+
+border-radius:20px;
+
+padding:0 18px;
+
+background:#2d221d;
+
+color:white;
+
+font-size:16px;
+
+border:
+3px solid white;
+
+box-shadow:
+5px 5px 0px #3e2723;
+}
+
+input::placeholder{
+color:#d7ccc8;
+}
+
+/* SEND BUTTON */
+
+.send-btn{
+
+border:none;
+
+padding:0 25px;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:
+3px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
+
+color:white;
+
+font-size:17px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:0.25s;
+}
+
+.send-btn:hover{
+
+transform:
+translateY(-4px)
+rotate(-2deg);
+
+}
+
+/* LOADING */
+
+.loading{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+
+width:8px;
+height:8px;
+
+border-radius:50%;
+
+background:#ffcc80;
+
+animation:bounce 1s infinite;
+}
+
+.dot:nth-child(2){
+animation-delay:0.2s;
+}
+
+.dot:nth-child(3){
+animation-delay:0.4s;
+}
+
+@keyframes bounce{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-8px);
+}
+
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* SCROLL */
+
+.chat-box::-webkit-scrollbar{
+width:5px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+
+background:#6d4c41;
+
+border-radius:10px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="bg">
+
+<div class="blur blur1"></div>
+
+<div class="blur blur2"></div>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div class="top-header">
+
+<button
+class="back-btn"
+onclick="goBack()"
+>
+🔙
+</button>
+
+<div class="header-title">
+🤖 CLAUDE AI
+</div>
+
+</div>
+
+</div>
+
+<!-- CHAT -->
+
+<div class="chat-box" id="chatBox">
+
+<div class="msg bot">
+
+<div class="msg-text">
+
+Halo 👋<br><br>
+
+Saya Claude AI RafaXMods.<br>
+
+Silahkan tanyakan apa saja.
+
+</div>
+
+<button
+class="copy-btn"
+onclick="copyText('Halo 👋 Saya Claude Al.')"
+>
+Copy
+</button>
+
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="input-area">
+
+<input
+type="text"
+id="question"
+placeholder="Tulis pesan..."
+>
+
+<button
+class="send-btn"
+onclick="sendMessage()"
+>
+Kirim
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const chatBox =
+document.getElementById("chatBox");
+
+/* ADD MESSAGE */
+
+function addMessage(text,type){
+
+const div =
+document.createElement("div");
+
+div.className =
+`msg ${type}`;
+
+if(type === "bot"){
+
+div.innerHTML = `
+
+<div class="msg-text">
+${text}
+</div>
+
+<button class="copy-btn">
+Copy
+</button>
+
+`;
+
+const btn =
+div.querySelector(".copy-btn");
+
+btn.onclick = async()=>{
+
+try{
+
+await navigator.clipboard.writeText(text);
+
+btn.innerHTML = "Copied ✓";
+
+setTimeout(()=>{
+
+btn.innerHTML = "Copy";
+
+},1500);
+
+}catch{
+
+btn.innerHTML = "Gagal";
+
+}
+
+};
+
+}else{
+
+div.innerHTML = text;
+
+}
+
+chatBox.appendChild(div);
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
+}
+
+/* COPY */
+
+async function copyText(text){
+
+try{
+
+await navigator.clipboard.writeText(text);
+
+alert("Teks berhasil disalin");
+
+}catch{
+
+alert("Gagal menyalin");
+
+}
+
+}
+
+/* SEND */
+
+async function sendMessage(){
+
+const input =
+document.getElementById("question");
+
+const text =
+input.value.trim();
+
+if(!text) return;
+
+/* USER */
+
+addMessage(text,"user");
+
+input.value = "";
+
+/* LOADING */
+
+const loading =
+document.createElement("div");
+
+loading.className =
+"msg bot";
+
+loading.id =
+"loading";
+
+loading.innerHTML = `
+
+<div class="loading">
+
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+
+</div>
+
+`;
+
+chatBox.appendChild(loading);
+
+chatBox.scrollTop =
+chatBox.scrollHeight;
+
+try{
+
+const response =
+await fetch(
+
+"https://api.soonex.biz.id/v1/ai/claude?message=" +
+
+encodeURIComponent(text)
+
+);
+
+const data =
+await response.json();
+
+/* REMOVE LOADING */
+
+document
+.getElementById("loading")
+.remove();
+
+console.log(data);
+
+/* RESULT */
+
+let hasil =
+
+data.result ||
+data.answer ||
+data.message ||
+data.data ||
+data.response ||
+
+"Claude AI tidak memberikan respon.";
+
+if(typeof hasil === "object"){
+
+hasil = JSON.stringify(
+hasil,
+null,
+2
+);
+
+}
+
+/* SHOW */
+
+addMessage(hasil,"bot");
+
+}catch(err){
+
+console.log(err);
+
+document
+.getElementById("loading")
+.remove();
+
+addMessage(
+
+"Terjadi kesalahan saat mengambil respon AI.",
+
+"bot"
+
+);
+
+}
+
+}
+
+/* ENTER */
+
+document
+.getElementById("question")
+.addEventListener("keypress",function(e){
+
+if(e.key === "Enter"){
+
+sendMessage();
+
+}
+
+});
+
+/* BACK */
+
+function goBack(){
+
+window.location.href =
+"index.html";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,266 +1,860 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake ML Super</title>
+<meta name="theme-color" content="#6f4e37">
+
+<title>Fake ML RafaXMods</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+
+/* ===================== */
+/* ROOT */
+/* ===================== */
+
+:root{
+--bg1:#3b241b;
+--bg2:#24130d;
+--card:#9b7b6d;
+--white:#fff8f0;
+--shadow:#3d1f14;
+--orange:#ff7b32;
+--green:#4caf50;
+}
+
+/* ===================== */
+/* RESET */
+/* ===================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+/* ===================== */
+/* BODY */
+/* ===================== */
 
 body{
-background:#000;
-color:white;
+background:
+radial-gradient(
+circle at top,
+#7d5b4d 0%,
+#3b241b 45%,
+#1f120d 100%
+);
+
 min-height:100vh;
-overflow:auto;
+color:var(--white);
+overflow-x:hidden;
+padding:25px;
 }
 
-/* ⭐ */
-.star{
-position:fixed;
-width:2px;height:2px;
-background:white;
-border-radius:50%;
-animation:float 4s infinite alternate;
-}
-@keyframes float{to{transform:translateY(-10px)}}
+/* ===================== */
+/* CONTAINER */
+/* ===================== */
 
-/* 🌠 */
-.meteor{
-position:fixed;
-width:2px;height:120px;
-background:linear-gradient(white,transparent);
-transform:rotate(45deg);
-animation:meteor 1s linear;
-}
-@keyframes meteor{
-to{transform:translate(-500px,500px);opacity:0}
+.container{
+max-width:430px;
+margin:auto;
+padding:22px;
+border-radius:40px;
+border:8px solid white;
+
+background:
+linear-gradient(
+135deg,
+rgba(255,255,255,0.05),
+rgba(0,0,0,0.1)
+);
+
+box-shadow:
+14px 14px 0 var(--shadow);
 }
 
+/* ===================== */
 /* HEADER */
-.header{
-text-align:center;
-padding:20px;
-font-size:22px;
-color:#ff00ff;
-text-shadow:0 0 15px #ff00ff;
+/* ===================== */
+
+.top{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:40px;
 }
 
-/* BOX */
-.box{
-background:#140021;
-margin:20px;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 20px #a100ff;
-}
+/* BACK */
 
-input{
-width:100%;
-padding:12px;
+.back{
+width:95px;
+height:95px;
 border:none;
-border-radius:20px;
-background:#0b0014;
-color:white;
-margin:10px 0;
-}
+border-radius:30px;
 
-button{
-width:100%;
-padding:14px;
-border:none;
-border-radius:25px;
-background:linear-gradient(45deg,#9333ea,#ff00ff);
+background:
+linear-gradient(
+135deg,
+#ffb168,
+#ff7b32
+);
+
+font-size:35px;
+cursor:pointer;
+border:6px solid white;
 color:white;
 font-weight:bold;
-cursor:pointer;
-margin-top:10px;
+
+box-shadow:
+10px 10px 0 #b43f00;
+
+transition:0.2s;
 }
 
-/* 🎯 BACK BUTTON FIX */
-.back{
-position:fixed;
-top:15px;
-left:15px;
-padding:10px 18px;
-font-size:13px;
-border-radius:20px;
-background:linear-gradient(45deg,#9333ea,#ff00ff);
+.back:active{
+transform:translateY(4px);
+box-shadow:
+5px 5px 0 #b43f00;
+}
+
+/* TITLE */
+
+.logo{
+font-size:38px;
+font-weight:900;
+
+text-shadow:
+6px 6px 0 rgba(0,0,0,0.45);
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+
+.title{
+text-align:center;
+margin-bottom:35px;
+}
+
+.title h1{
+font-size:60px;
+font-weight:900;
+line-height:1;
+
+text-shadow:
+8px 8px 0 rgba(0,0,0,0.35);
+}
+
+.title p{
+font-size:20px;
+margin-top:12px;
+color:#ffe0c9;
+}
+
+/* ===================== */
+/* CARD */
+/* ===================== */
+
+.card{
+background:var(--card);
+border-radius:35px;
+padding:24px;
+border:6px solid white;
+
+box-shadow:
+10px 10px 0 var(--shadow);
+
+margin-bottom:28px;
+}
+
+/* ===================== */
+/* FILE UPLOAD */
+/* ===================== */
+
+.file-box{
+position:relative;
+margin-bottom:18px;
+}
+
+.file-label{
+display:flex;
+align-items:center;
+justify-content:center;
+height:68px;
+
+border-radius:22px;
+
+background:#fff5ee;
+
+color:#2c1b16;
+
+font-size:18px;
+font-weight:900;
+
+border:4px dashed #ff7b32;
+
+cursor:pointer;
+
+overflow:hidden;
+text-align:center;
+padding:0 15px;
+}
+
+.file-label span{
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+width:100%;
+}
+
+.file-input{
+position:absolute;
+inset:0;
+opacity:0;
+cursor:pointer;
+}
+
+/* ===================== */
+/* INPUT */
+/* ===================== */
+
+input[type="text"]{
+width:100%;
+height:68px;
+border:none;
+outline:none;
+border-radius:22px;
+padding:0 20px;
+font-size:18px;
+margin-bottom:18px;
+background:#fff5ee;
+color:#2c1b16;
+font-weight:bold;
+}
+
+/* ===================== */
+/* BUTTON */
+/* ===================== */
+
+button.generate{
+width:100%;
+height:68px;
+border:none;
+border-radius:24px;
+
+background:
+linear-gradient(
+135deg,
+#ffb168,
+#ff7b32
+);
+
 color:white;
-z-index:9999;
-box-shadow:0 0 15px #9333ea;
+font-size:20px;
+font-weight:900;
 cursor:pointer;
-transition:0.3s;
-width:auto;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #b43f00;
+
+transition:0.2s;
 }
 
-.back:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px #ff00ff;
+button.generate:active{
+transform:translateY(4px);
+
+box-shadow:
+0 4px 0 #b43f00;
 }
+
+/* ===================== */
+/* LOADING */
+/* ===================== */
+
+.loading{
+display:none;
+margin-top:22px;
+text-align:center;
+}
+
+.loading.active{
+display:block;
+}
+
+.loader{
+width:70px;
+height:70px;
+margin:auto;
+border-radius:50%;
+border:8px solid rgba(255,255,255,0.25);
+border-top:8px solid #ffb168;
+
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.loading p{
+margin-top:15px;
+font-size:18px;
+font-weight:900;
+color:#fff5ee;
+text-shadow:2px 2px 0 rgba(0,0,0,0.3);
+}
+
+/* ===================== */
+/* STATUS */
+/* ===================== */
+
+.status{
+margin-top:15px;
+text-align:center;
+font-size:16px;
+color:#fff0df;
+font-weight:bold;
+}
+
+/* ===================== */
+/* CANVAS */
+/* ===================== */
 
 canvas{
 width:100%;
-margin-top:15px;
-border-radius:15px;
+margin-top:22px;
+border-radius:30px;
+border:6px solid white;
+background:black;
+display:none;
 }
 
-/* DOWNLOAD AREA */
-.download-box{
-margin:40px 20px;
-padding:20px;
-background:#0b0014;
-border-radius:20px;
-text-align:center;
-box-shadow:0 0 20px #ff00ff;
+/* ===================== */
+/* DOWNLOAD */
+/* ===================== */
+
+.download-btn{
+margin-top:20px;
+width:100%;
+height:65px;
+border:none;
+border-radius:22px;
+
+background:
+linear-gradient(
+135deg,
+#59d66f,
+#2fa34c
+);
+
+color:white;
+font-size:19px;
+font-weight:900;
+cursor:pointer;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #1f6d31;
+
+display:none;
+
+transition:0.2s;
 }
 
-.download-box h3{
-margin-bottom:10px;
-color:#ff00ff;
+.download-btn.show{
+display:block;
 }
+
+.download-btn:active{
+transform:translateY(4px);
+
+box-shadow:
+0 4px 0 #1f6d31;
+}
+
+/* ===================== */
+/* MOBILE */
+/* ===================== */
+
+@media(max-width:500px){
+
+body{
+padding:15px;
+}
+
+.container{
+padding:18px;
+border-radius:30px;
+}
+
+.title h1{
+font-size:48px;
+}
+
+.logo{
+font-size:30px;
+}
+
+.back{
+width:85px;
+height:85px;
+font-size:28px;
+}
+
+.card{
+padding:18px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- 🔙 BACK FIXED -->
-<button class="back" onclick="window.location.href='index.html'">⬅️ BACK</button>
-</br>
-</br>
-</br>
-<div class="header"> FAKE ML SUPER GENERATOR 🔥</div>
+<div class="container">
 
-<div class="box">
+<!-- TOP -->
 
-<input type="file" id="file">
-<input id="url" placeholder="Atau paste link gambar">
+<div class="top">
 
-<button onclick="generate()">Generate Sekarang</button>
+<button
+class="back"
+onclick="window.location.href='index.html'">
 
-<canvas id="canvas"></canvas>
+🔙
+
+</button>
+
+<div class="logo">
+RafaXMods
+</div>
 
 </div>
 
+<!-- TITLE -->
+
+<div class="title">
+
+<h1>
+FAKE ML
+</h1>
+
+<p>
+Dark Cartoon Brutalism
+</p>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+<!-- FILE -->
+
+<div class="file-box">
+
+<label class="file-label">
+
+<span id="file-name">
+UPLOAD FOTO
+</span>
+
+<input
+type="file"
+id="file"
+class="file-input"
+accept="image/*">
+
+</label>
+
+</div>
+
+<!-- URL -->
+
+<input
+type="text"
+id="url"
+placeholder="Paste link gambar...">
+
+<!-- BUTTON -->
+
+<button
+class="generate"
+onclick="generate()">
+
+GENERATE SEKARANG
+
+</button>
+
+<!-- STATUS -->
+
+<div class="status" id="status">
+
+Upload foto atau masukkan link gambar
+
+</div>
+
+<!-- LOADING -->
+
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+<p>
+GENERATING...
+</p>
+
+</div>
+
+<!-- CANVAS -->
+
+<canvas id="canvas"></canvas>
+
 <!-- DOWNLOAD -->
-<div class="download-box">
-<h3>⬇ Scroll ke sini untuk Download</h3>
-<button onclick="download()">Download Hasil</button>
+
+<button
+class="download-btn"
+id="downloadBtn"
+onclick="download()">
+
+DOWNLOAD IMAGE
+
+</button>
+
+</div>
+
 </div>
 
 <script>
 
-// ⭐ STAR
-for(let i=0;i<120;i++){
-let s=document.createElement("div");
-s.className="star";
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-document.body.appendChild(s);
+/* ===================== */
+/* FILE NAME */
+/* ===================== */
+
+const fileInput =
+document.getElementById("file");
+
+fileInput.addEventListener("change",()=>{
+
+const file =
+fileInput.files[0];
+
+if(file){
+
+document.getElementById(
+"file-name"
+).innerText = file.name;
+
+document.getElementById(
+"status"
+).innerText =
+"Foto berhasil dipilih ✅";
+
 }
 
-// 🌠 METEOR
-setInterval(()=>{
-let m=document.createElement("div");
-m.className="meteor";
-m.style.left=Math.random()*100+"vw";
-m.style.top="0";
-document.body.appendChild(m);
-setTimeout(()=>m.remove(),1000);
-},700);
-
-// LOAD IMAGE
-function loadImg(src){
-return new Promise((res,rej)=>{
-let img=new Image();
-img.crossOrigin="anonymous";
-img.src=src;
-img.onload=()=>res(img);
-img.onerror=rej;
 });
+
+/* ===================== */
+/* LOAD IMAGE */
+/* ===================== */
+
+function loadImg(src){
+
+return new Promise((res,rej)=>{
+
+let img = new Image();
+
+img.crossOrigin="anonymous";
+
+img.src = src;
+
+img.onload=()=>res(img);
+
+img.onerror=rej;
+
+});
+
 }
 
-// ROUNDED
-function drawRounded(ctx, img, x, y, size, radius){
+/* ===================== */
+/* ROUNDED */
+/* ===================== */
+
+function drawRounded(
+ctx,
+img,
+x,
+y,
+size,
+radius
+){
+
 ctx.save();
+
 ctx.beginPath();
+
 ctx.moveTo(x+radius,y);
+
 ctx.lineTo(x+size-radius,y);
-ctx.quadraticCurveTo(x+size,y,x+size,y+radius);
-ctx.lineTo(x+size,y+size-radius);
-ctx.quadraticCurveTo(x+size,y+size,x+size-radius,y+size);
-ctx.lineTo(x+radius,y+size);
-ctx.quadraticCurveTo(x,y+size,x,y+size-radius);
-ctx.lineTo(x,y+radius);
-ctx.quadraticCurveTo(x,y,x+radius,y);
+
+ctx.quadraticCurveTo(
+x+size,y,
+x+size,y+radius
+);
+
+ctx.lineTo(
+x+size,
+y+size-radius
+);
+
+ctx.quadraticCurveTo(
+x+size,
+y+size,
+x+size-radius,
+y+size
+);
+
+ctx.lineTo(
+x+radius,
+y+size
+);
+
+ctx.quadraticCurveTo(
+x,
+y+size,
+x,
+y+size-radius
+);
+
+ctx.lineTo(
+x,
+y+radius
+);
+
+ctx.quadraticCurveTo(
+x,y,
+x+radius,y
+);
+
 ctx.closePath();
+
 ctx.clip();
-ctx.drawImage(img,x,y,size,size);
+
+ctx.drawImage(
+img,
+x,
+y,
+size,
+size
+);
+
 ctx.restore();
+
 }
 
-// MAIN
-async function generate(){
-let file = document.getElementById("file").files[0];
-let url = document.getElementById("url").value;
+/* ===================== */
+/* GENERATE */
+/* ===================== */
 
-let canvas = document.getElementById("canvas");
-let ctx = canvas.getContext("2d");
+async function generate(){
+
+const loading =
+document.getElementById(
+"loading"
+);
+
+const canvas =
+document.getElementById(
+"canvas"
+);
+
+const downloadBtn =
+document.getElementById(
+"downloadBtn"
+);
+
+const status =
+document.getElementById(
+"status"
+);
+
+let file =
+document.getElementById(
+"file"
+).files[0];
+
+let url =
+document.getElementById(
+"url"
+).value;
+
+let ctx =
+canvas.getContext("2d");
 
 let imgSrc;
 
 if(file){
-imgSrc = URL.createObjectURL(file);
+
+imgSrc =
+URL.createObjectURL(file);
+
 }else if(url){
+
 imgSrc = url;
+
 }else{
+
 alert("Masukkan gambar!");
 return;
+
 }
+
+/* SHOW LOADING */
+
+loading.classList.add("active");
+
+canvas.style.display="none";
+
+downloadBtn.classList.remove("show");
+
+status.innerText =
+"Sedang membuat Fake ML...";
 
 try{
 
-let bgUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775228325905.jpeg";
-let borderUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775232236060.png";
+let bgUrl =
+"https://uploader.zenzxz.dpdns.org/uploads/1775228325905.jpeg";
 
-let [bg, user, border] = await Promise.all([
+let borderUrl =
+"https://uploader.zenzxz.dpdns.org/uploads/1775232236060.png";
+
+let [bg,user,border] =
+await Promise.all([
+
 loadImg(bgUrl),
+
 loadImg(imgSrc),
+
 loadImg(borderUrl)
+
 ]);
 
-canvas.width = bg.width;
-canvas.height = bg.height;
+canvas.width =
+bg.width;
 
-// BG
-ctx.drawImage(bg,0,0);
+canvas.height =
+bg.height;
 
-// FOTO
-drawRounded(ctx,user,235,500,236,40);
+/* BG */
 
-// BORDER
-ctx.drawImage(border,195,460,320,320);
+ctx.drawImage(
+bg,
+0,
+0
+);
 
-// AUTO SCROLL
+/* FOTO */
+
+drawRounded(
+ctx,
+user,
+235,
+500,
+236,
+40
+);
+
+/* BORDER */
+
+ctx.drawImage(
+border,
+195,
+460,
+320,
+320
+);
+
+/* HIDE LOADING */
+
+loading.classList.remove(
+"active"
+);
+
+/* SHOW RESULT */
+
+canvas.style.display="block";
+
+downloadBtn.classList.add(
+"show"
+);
+
+status.innerText =
+"Fake ML berhasil dibuat ✅";
+
+/* AUTO SCROLL */
+
 setTimeout(()=>{
+
 window.scrollTo({
-top:document.body.scrollHeight,
+
+top:
+document.body.scrollHeight,
+
 behavior:"smooth"
+
 });
+
 },500);
 
 }catch(e){
-alert("Gagal load gambar!");
-}
+
+loading.classList.remove(
+"active"
+);
+
+status.innerText =
+"Gagal load gambar ❌";
+
+alert(
+"Gagal load gambar!"
+);
+
 }
 
-// DOWNLOAD
+}
+
+/* ===================== */
+/* DOWNLOAD */
+/* ===================== */
+
 function download(){
-let canvas=document.getElementById("canvas");
-let link=document.createElement("a");
-link.download="fake-ml.png";
-link.href=canvas.toDataURL();
+
+let canvas =
+document.getElementById(
+"canvas"
+);
+
+let link =
+document.createElement("a");
+
+link.download =
+"fake-ml.png";
+
+link.href =
+canvas.toDataURL();
+
 link.click();
+
 }
 
 </script>

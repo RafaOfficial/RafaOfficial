@@ -3,175 +3,815 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HD Image Enhancer</title>
+<meta name="theme-color" content="#6f4e37">
+<title>HD Enhancer - RafaXMods</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0f1a;
-    color: white;
-    text-align: center;
+
+:root{
+--bg1:#7b5a48;
+--bg2:#4d3225;
+--bg3:#24140d;
+
+--card:#a67c67;
+
+--white:#fff7f1;
+
+--shadow:#4a2d21;
+
+--orange:#ffb168;
+--orange2:#ff7b32;
+
+--green:#4fd66d;
+--green2:#2fa34c;
 }
 
-.container {
-    padding: 20px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
-h1 {
-    color: #4da6ff;
+/* BODY */
+
+body{
+
+background:
+linear-gradient(
+180deg,
+var(--bg1) 0%,
+var(--bg2) 45%,
+var(--bg3) 100%
+);
+
+min-height:100vh;
+
+padding:22px;
+
+color:var(--white);
+
+overflow-x:hidden;
 }
 
-.upload-box {
-    border: 2px dashed #4da6ff;
-    padding: 30px;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: 0.3s;
+/* CONTAINER */
+
+.container{
+max-width:430px;
+margin:auto;
 }
 
-.upload-box:hover {
-    background: rgba(77,166,255,0.1);
+/* HEADER */
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:28px;
 }
 
-input {
-    display: none;
+/* BACK */
+
+.back-btn{
+
+width:75px;
+height:75px;
+
+border:none;
+
+border-radius:24px;
+
+background:
+linear-gradient(
+135deg,
+var(--orange),
+var(--orange2)
+);
+
+font-size:28px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+color:white;
+
+border:5px solid white;
+
+box-shadow:
+7px 7px 0 #b44b12;
+
+transition:.15s;
 }
 
-img {
-    max-width: 100%;
-    margin-top: 20px;
-    border-radius: 10px;
+.back-btn:active{
+
+transform:translateY(4px);
+
+box-shadow:
+4px 4px 0 #b44b12;
+
 }
 
-button {
-    margin-top: 15px;
-    padding: 12px 20px;
-    border: none;
-    background: #4da6ff;
-    color: white;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
+/* LOGO */
+
+.logo{
+
+font-size:30px;
+
+font-weight:900;
+
+line-height:1;
+
+text-shadow:
+5px 5px 0 rgba(0,0,0,.25);
+
 }
 
-button:hover {
-    background: #1a8cff;
+/* TITLE BOX */
+
+.title-box{
+
+background:var(--card);
+
+padding:28px 22px;
+
+border-radius:35px;
+
+border:6px solid white;
+
+box-shadow:
+10px 10px 0 var(--shadow);
+
+margin-bottom:24px;
 }
 
-.loading {
-    display: none;
-    margin-top: 20px;
-    color: #4da6ff;
+.title-box h1{
+
+font-size:44px;
+
+font-weight:900;
+
+line-height:1.1;
+
+text-shadow:
+6px 6px 0 rgba(0,0,0,.25);
+
 }
 
-.error {
-    color: red;
-    margin-top: 10px;
+.title-box p{
+
+margin-top:12px;
+
+font-size:16px;
+
+font-weight:bold;
+
+color:#ffe6d5;
+
 }
 
-.btn-back {
-  display: inline-block;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #4da6ff, #1a8cff);
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: bold;
-  transition: 0.3s;
+/* CARD */
+
+.card{
+
+background:var(--card);
+
+padding:24px;
+
+border-radius:35px;
+
+border:6px solid white;
+
+box-shadow:
+10px 10px 0 var(--shadow);
+
 }
+
+/* UPLOAD BOX */
+
+.upload-box{
+
+width:100%;
+
+padding:35px 20px;
+
+border-radius:28px;
+
+background:#fff5ef;
+
+border:5px dashed #ff8a45;
+
+text-align:center;
+
+cursor:pointer;
+
+transition:.2s;
+
+color:#2b1a14;
+
+font-size:18px;
+
+font-weight:900;
+
+}
+
+.upload-box:active{
+
+transform:scale(.98);
+
+}
+
+.upload-icon{
+
+font-size:50px;
+
+margin-bottom:10px;
+
+display:block;
+
+}
+
+/* INPUT */
+
+input{
+display:none;
+}
+
+/* PREVIEW */
+
+.preview{
+
+margin-top:22px;
+
+display:none;
+
+animation:show .3s ease;
+}
+
+.preview img{
+
+width:100%;
+
+border-radius:28px;
+
+border:6px solid white;
+
+box-shadow:
+7px 7px 0 var(--shadow);
+
+background:black;
+}
+
+/* BUTTON */
+
+.btn{
+
+width:100%;
+
+height:72px;
+
+border:none;
+
+border-radius:24px;
+
+margin-top:20px;
+
+background:
+linear-gradient(
+135deg,
+var(--orange),
+var(--orange2)
+);
+
+color:white;
+
+font-size:20px;
+
+font-weight:900;
+
+cursor:pointer;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #b44b12;
+
+transition:.15s;
+}
+
+.btn:active{
+
+transform:translateY(4px);
+
+box-shadow:
+0 4px 0 #b44b12;
+
+}
+
+/* LOADING */
+
+.loading{
+
+display:none;
+
+margin-top:24px;
+
+text-align:center;
+
+animation:show .3s ease;
+}
+
+.loader{
+
+width:60px;
+height:60px;
+
+margin:auto;
+
+border-radius:50%;
+
+border:6px solid rgba(255,255,255,.25);
+
+border-top:
+6px solid white;
+
+animation:spin .8s linear infinite;
+}
+
+.loading p{
+
+margin-top:15px;
+
+font-size:17px;
+
+font-weight:bold;
+}
+
+/* RESULT */
+
+.result{
+
+display:none;
+
+margin-top:28px;
+
+animation:show .3s ease;
+}
+
+.result-card{
+
+background:#7f5d4c;
+
+padding:18px;
+
+border-radius:30px;
+
+border:5px solid white;
+
+box-shadow:
+8px 8px 0 var(--shadow);
+
+text-align:center;
+}
+
+.result-card h2{
+
+font-size:28px;
+
+margin-bottom:16px;
+
+text-shadow:
+4px 4px 0 rgba(0,0,0,.25);
+
+}
+
+.result-card img{
+
+width:100%;
+
+border-radius:24px;
+
+border:5px solid white;
+
+background:black;
+}
+
+/* DOWNLOAD */
+
+.download-btn{
+
+display:block;
+
+width:100%;
+
+height:68px;
+
+line-height:58px;
+
+margin-top:18px;
+
+text-align:center;
+
+text-decoration:none;
+
+border-radius:22px;
+
+background:
+linear-gradient(
+135deg,
+var(--green),
+var(--green2)
+);
+
+color:white;
+
+font-size:18px;
+
+font-weight:900;
+
+border:5px solid white;
+
+box-shadow:
+0 8px 0 #206d33;
+
+transition:.15s;
+}
+
+.download-btn:active{
+
+transform:translateY(4px);
+
+box-shadow:
+0 4px 0 #206d33;
+
+}
+
+/* ERROR */
+
+.error{
+
+display:none;
+
+margin-top:18px;
+
+padding:16px;
+
+border-radius:18px;
+
+background:#ffe5e2;
+
+color:#c62828;
+
+font-weight:bold;
+
+border:4px solid white;
+
+animation:show .3s ease;
+}
+
+/* ANIMATION */
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+.logo{
+font-size:24px;
+}
+
+.title-box h1{
+font-size:38px;
+}
+
+.back-btn{
+width:68px;
+height:68px;
+font-size:24px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-   <a href="index.html" class="btn-back">⬅ Back</a>
-<div class="container">
-  <h1>❄ HD Image Enhancer</h1>
-    
-    <div class="upload-box" onclick="document.getElementById('file').click()">
-        Klik / Upload Gambar
-    </div>
 
-    <input type="file" id="file" accept="image/*">
+<!-- HEADER -->
 
-    <div id="preview"></div>
-    <div class="loading" id="loading">⏳ Processing...</div>
-    <div class="error" id="error"></div>
+<div class="header">
 
-    <button onclick="uploadImage()">🚀 Enhance Sekarang</button>
+<button
+class="back-btn"
+onclick="window.location.href='index.html'">
 
-    <div id="result"></div>
+🔙
+
+</button>
+
+<div class="logo">
+RafaXMods
+</div>
+
+</div>
+
+<!-- TITLE -->
+
+<div class="title-box">
+
+<h1>
+HD IMAGE
+ENHANCER
+</h1>
+
+<p>
+Website Free• HD Foto 
+</p>
+
+</div>
+
+<!-- CARD -->
+
+<div class="card">
+
+<!-- UPLOAD -->
+
+<div
+class="upload-box"
+onclick="document.getElementById('file').click()">
+
+<span class="upload-icon">
+🖼️
+</span>
+
+UPLOAD GAMBAR HD
+
+</div>
+
+<input
+type="file"
+id="file"
+accept="image/*">
+
+<!-- PREVIEW -->
+
+<div
+class="preview"
+id="preview">
+
+<img
+id="previewImg"
+src="">
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="btn"
+onclick="uploadImage()">
+
+ENHANCE SEKARANG
+
+</button>
+
+<!-- LOADING -->
+
+<div
+class="loading"
+id="loading">
+
+<div class="loader"></div>
+
+<p>
+Sedang meningkatkan kualitas...
+</p>
+
+</div>
+
+<!-- ERROR -->
+
+<div
+class="error"
+id="error">
+
+</div>
+
+<!-- RESULT -->
+
+<div
+class="result"
+id="result">
+
+<div class="result-card">
+
+<h2>
+HASIL HD IMAGE
+</h2>
+
+<img
+id="resultImg"
+src="">
+
+<a
+id="downloadBtn"
+class="download-btn"
+download="hd-image.jpg">
+
+DOWNLOAD IMAGE
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
+
 let selectedFile = null;
 
-document.getElementById("file").addEventListener("change", function(e) {
-    const file = e.target.files[0];
-    if (!file) return;
+const fileInput =
+document.getElementById("file");
 
-    selectedFile = file;
+const preview =
+document.getElementById("preview");
 
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        document.getElementById("preview").innerHTML =
-            `<img src="${e.target.result}">`;
-    };
-    reader.readAsDataURL(file);
+const previewImg =
+document.getElementById("previewImg");
+
+const loading =
+document.getElementById("loading");
+
+const error =
+document.getElementById("error");
+
+const result =
+document.getElementById("result");
+
+const resultImg =
+document.getElementById("resultImg");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+/* UPLOAD */
+
+fileInput.addEventListener(
+"change",
+function(e){
+
+const file =
+e.target.files[0];
+
+if(!file) return;
+
+selectedFile = file;
+
+const reader =
+new FileReader();
+
+reader.onload = function(ev){
+
+preview.style.display="block";
+
+previewImg.src =
+ev.target.result;
+
+};
+
+reader.readAsDataURL(file);
+
+}
+);
+
+/* ENHANCE */
+
+async function uploadImage(){
+
+error.style.display="none";
+
+result.style.display="none";
+
+if(!selectedFile){
+
+error.style.display="block";
+
+error.innerHTML =
+"⚠️ Upload gambar terlebih dahulu";
+
+return;
+
+}
+
+loading.style.display="block";
+
+try{
+
+const formData =
+new FormData();
+
+formData.append(
+"method",
+"1"
+);
+
+formData.append(
+"is_pro_version",
+"false"
+);
+
+formData.append(
+"is_enhancing_more",
+"false"
+);
+
+formData.append(
+"max_image_size",
+"high"
+);
+
+formData.append(
+"file",
+selectedFile
+);
+
+const response =
+await fetch(
+"https://ihancer.com/api/enhance",
+{
+method:"POST",
+body:formData
+}
+);
+
+if(!response.ok){
+
+throw new Error(
+"API ERROR"
+);
+
+}
+
+const blob =
+await response.blob();
+
+const imageURL =
+URL.createObjectURL(blob);
+
+resultImg.onload = () => {
+
+loading.style.display="none";
+
+result.style.display="block";
+
+result.scrollIntoView({
+
+behavior:"smooth"
+
 });
 
-async function uploadImage() {
-    const errorBox = document.getElementById("error");
-    const loading = document.getElementById("loading");
-    const result = document.getElementById("result");
+};
 
-    errorBox.innerText = "";
-    result.innerHTML = "";
+resultImg.src = imageURL;
 
-    if (!selectedFile) {
-        errorBox.innerText = "⚠️ Pilih gambar dulu!";
-        return;
-    }
+downloadBtn.href = imageURL;
 
-    loading.style.display = "block";
+}catch(err){
 
-    try {
-        const formData = new FormData();
-        formData.append("method", "1");
-        formData.append("is_pro_version", "false");
-        formData.append("is_enhancing_more", "false");
-        formData.append("max_image_size", "high");
-        formData.append("file", selectedFile);
+loading.style.display="none";
 
-        const response = await fetch("https://ihancer.com/api/enhance", {
-            method: "POST",
-            body: formData
-        });
+error.style.display="block";
 
-        if (!response.ok) throw new Error("API ERROR");
+error.innerHTML =
+"❌ Gagal proses gambar, coba lagi!";
 
-        const blob = await response.blob();
-        const imageURL = URL.createObjectURL(blob);
-
-        result.innerHTML = `
-            <h2>✅ Hasil HD</h2>
-            <img src="${imageURL}">
-            <br>
-            <a href="${imageURL}" download="hd-image.jpg">
-                <button>⬇️ Download</button>
-            </a>
-        `;
-
-    } catch (err) {
-        console.error(err);
-        errorBox.innerText = "❌ Gagal proses gambar, coba lagi!";
-    }
-
-    loading.style.display = "none";
 }
+
+}
+
 </script>
 
 </body>

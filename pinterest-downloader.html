@@ -1,861 +1,753 @@
 <!DOCTYPE html>
 <html lang="id">
-<hscriptead>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Pinterest Downloader</title>
-    
-    <!-- Load Font: Orbitron & Share Tech Mono (sama seperti dashboard) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6f4e37">
+<title>Search Pinterest</title>
 
-    <style>
-        /* --- VARIABLES SAMA SEPERTI DASHBOARD --- */
-        :root {
-            --bg-dark: #080310;       
-            --bg-gradient: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #080310 80%);
-            
-            --card-bg: rgba(26, 11, 46, 0.85);       
-            --accent-pink: #db2777;   
-            --accent-purple: #9333ea; 
-            
-            /* Enhanced Colors */
-            --accent-red: #ff3333;
-            --accent-red-dark: #cc0000;
-            --accent-red-glow: rgba(255, 51, 51, 0.7);
-            --card-bg-red: rgba(50, 10, 10, 0.9);
-            
-            --accent-blue: #3b82f6;
-            --accent-blue-dark: #1d4ed8;
-            --accent-blue-glow: rgba(59, 130, 246, 0.7);
-            --card-bg-blue: rgba(10, 20, 50, 0.9);
-            
-            --accent-green: #10b981;
-            --accent-green-dark: #059669;
-            --accent-green-glow: rgba(16, 185, 129, 0.7);
-            --card-bg-green: rgba(10, 40, 30, 0.9);
-            
-            --accent-purple-tool: #8b5cf6;
-            --accent-purple-dark: #7c3aed;
-            --accent-purple-glow: rgba(139, 92, 246, 0.7);
-            --card-bg-purple: rgba(30, 15, 50, 0.9);
-            
-            --accent-cyan: #06b6d4;
-            --accent-cyan-dark: #0891b2;
-            --accent-cyan-glow: rgba(6, 182, 212, 0.7);
-            --card-bg-cyan: rgba(10, 30, 40, 0.9);
-            
-            --accent-yellow: #eab308;
-            --accent-yellow-dark: #ca8a04;
-            --accent-yellow-glow: rgba(234, 179, 8, 0.7);
-            --card-bg-yellow: rgba(50, 40, 10, 0.9);
-            
-            --text-gray: #9ca3af; 
-            
-            /* FONT DEFINITIONS (sama seperti dashboard) */
-            --font-title: 'Share Tech Mono', sans-serif;   /* KHUSUS JUDUL (Tebal) */
-            --font-code: 'Share Tech Mono', monospace;  /* KHUSUS TEXT KECIL (Terinal) */
-        }
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
-        
-        body {
-            background-color: var(--bg-dark);
-            background-image: var(--bg-gradient);
-            color: #ffffff;
-            font-family: var(--font-code); /* Default pakai font coding */
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            position: relative;
-        }
+<style>
 
-        /* --- BACKGROUND PARTICLES (sama seperti dashboard) --- */
-        #particle-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none; overflow: hidden;
-        }
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.6); 
-            border-radius: 50%;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-            animation: floatUp linear infinite;
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
-        }
+:root{
+--bg1:#2b1811;
+--bg2:#4e342e;
+--bg3:#6d4c41;
+--bg4:#3e2723;
 
-        /* --- HEADER (disesuaikan) --- */
-        header {
-            display: flex; 
-            align-items: center; 
-            gap: 16px; 
-            padding: 20px 25px; 
-            padding-top: 40px; 
-            padding-bottom: 20px; 
-            background: rgba(8, 3, 16, 0.95);
-            z-index: 50;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-        
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 25px; right: 25px; height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(219, 39, 119, 0.3) 20%, rgba(147, 51, 234, 0.3) 80%, transparent 100%);
-        }
+--milk:#d7b19d;
+--orange:#ff9f5a;
+--orange2:#ff7b42;
+--white:#fff8f3;
+--shadow:#1b0d08;
+}
 
-        .brand-title { 
-            font-family: var(--font-title);
-            font-size: 20px; 
-            font-weight: 700; 
-            letter-spacing: 1px; 
-            color: #fff;
-            text-shadow: 0 0 10px rgba(219, 39, 119, 0.6);
-            line-height: 1.1; padding-top: 1px; 
-            flex-grow: 1;
-            text-align: center;
-        }
-        
-        .header-icon { 
-            color: #fff; cursor: pointer; flex-shrink: 0; margin-top: 2px;
-            transition: transform 0.2s;
-        }
-        .header-icon:active { transform: scale(0.9); color: var(--accent-pink); }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Baloo 2',cursive;
+}
 
-        /* --- BACK BUTTON --- */
-        .back-btn {
-            background: rgba(219, 39, 119, 0.1);
-            border: 1px solid rgba(219, 39, 119, 0.3);
-            color: var(--accent-pink);
-            border-radius: 12px;
-            padding: 10px 15px;
-            font-family: var(--font-code);
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            text-decoration: none;
-        }
-        
-        .back-btn:active { 
-            background: rgba(219, 39, 119, 0.2); 
-            transform: scale(0.98);
-        }
+body{
+background:
+radial-gradient(circle at top,#6d4c41 0%,#3e2723 40%,#2b1811 100%);
+min-height:100vh;
+overflow-x:hidden;
+color:white;
+}
 
-        /* --- MAIN CONTENT --- */
-        main { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 0 20px; 
-            padding-bottom: 30px; 
-            scroll-behavior: smooth; 
-            padding-top: 0; 
-            position: relative;
-        }
+/* SCROLL */
 
-        /* --- TOOLS HEADER STYLE --- */
-        .tools-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px;
-            margin-top: 20px;
-        }
-        .tools-title-group { display: flex; align-items: center; gap: 15px; }
-        .tools-logo { 
-            width: 50px; height: 50px; 
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-            border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 20px rgba(219, 39, 119, 0.5);
-            animation: pulsePink 2s infinite;
-        }
-        @keyframes pulsePink {
-            0% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
-            50% { box-shadow: 0 0 25px rgba(219, 39, 119, 0.7); }
-            100% { box-shadow: 0 0 15px rgba(219, 39, 119, 0.5); }
-        }
-        .tools-text h2 { 
-            font-family: var(--font-title);
-            font-size: 24px; 
-            font-weight: 700; 
-            letter-spacing: 0.5px; 
-            color: #fff; margin-bottom: 2px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-        .tools-text p { 
-            font-family: var(--font-code);
-            font-size: 11px; 
-            color: var(--accent-pink); 
-            font-weight: 400; 
-            letter-spacing: 0px; 
-            text-shadow: 0 0 8px rgba(219, 39, 119, 0.6);
-        }
-        
-        .owner-badge {
-            border: 2px solid var(--accent-pink);
-            color: var(--accent-pink);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px; 
-            font-weight: 700; 
-            letter-spacing: 0px;
-            background: rgba(219, 39, 119, 0.15);
-            box-shadow: 0 0 10px rgba(219, 39, 119, 0.3);
-            font-family: var(--font-title);
-        }
+::-webkit-scrollbar{
+width:6px;
+}
 
-        /* --- INPUT CARD --- */
-        .input-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 22px;
-            padding: 25px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
+::-webkit-scrollbar-thumb{
+background:#ff9f5a;
+border-radius:20px;
+}
 
-        .input-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-pink), transparent);
-            opacity: 0.7;
-        }
+/* HEADER */
 
-        .input-group {
-            position: relative;
-            margin-bottom: 0;
-        }
+header{
+padding:18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
 
-        .input-field {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 18px 20px;
-            padding-right: 50px;
-            border-radius: 15px;
-            color: white;
-            font-family: var(--font-code);
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.logo{
+font-size:23px;
+font-weight:800;
+text-shadow:4px 4px 0px #3b1d14;
+}
 
-        .input-field:focus {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
-        }
+.back-btn{
+width:50px;
+height:50px;
+border-radius:18px;
+border:4px solid white;
+background:linear-gradient(135deg,#ffb36b,#ff8447);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+color:white;
+box-shadow:6px 6px 0px #b63d10;
+cursor:pointer;
+transition:.2s;
+}
 
-        .input-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-gray);
-        }
+.back-btn:active{
+transform:scale(.95);
+}
 
-        /* --- BUTTON STYLE --- */
-        .btn-process {
-            width: 100%;
-            padding: 16px;
-            border-radius: 15px;
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-            border: none;
-            color: white;
-            font-family: var(--font-title);
-            font-weight: 700;
-            font-size: 14px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(112, 0, 255, 0.3);
-            margin-top: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+/* HERO */
 
-        .btn-process:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.4);
-        }
+.hero{
+padding:5px 18px 0;
+text-align:center;
+}
 
-        .btn-process:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
+.hero-box{
+background:rgba(255,255,255,.08);
+border:5px solid white;
+border-radius:35px;
+padding:25px 18px;
+box-shadow:10px 10px 0px #1f0f09;
+backdrop-filter:blur(8px);
+}
 
-        /* --- LOADER --- */
-        .loader-wrapper {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            border-top: 3px solid var(--accent-pink);
-            border-bottom: 3px solid var(--accent-cyan);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-        
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loader-text {
-            font-family: var(--font-title);
-            font-size: 12px;
-            color: var(--accent-cyan);
-            letter-spacing: 1px;
-        }
+.hero-title{
+font-size:30px;
+font-weight:800;
+line-height:1.1;
+text-shadow:5px 5px 0px #402018;
+}
 
-        /* --- RESULTS GRID (LEBIH BANYAK FOTO) --- */
-        /* Menggunakan Masonry Layout untuk tampilan seperti Pinterest */
-        .masonry-grid {
-            column-count: 2;
-            column-gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        @media (min-width: 640px) {
-            .masonry-grid {
-                column-count: 3;
-                column-gap: 20px;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .masonry-grid {
-                column-count: 4;
-                column-gap: 25px;
-            }
-        }
-        
-        @media (min-width: 1280px) {
-            .masonry-grid {
-                column-count: 5; /* Lebih banyak kolom di layar lebar */
-            }
-        }
+.hero-desc{
+margin-top:10px;
+font-size:16px;
+color:#f8ddd0;
+}
 
-        /* --- PIN CARD STYLING --- */
-        .pin-card {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            animation: fadeInUp 0.5s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .pin-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
-        }
-        
-        .pin-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        
-        .pin-card:hover .pin-img {
-            transform: scale(1.05);
-        }
-        
-        .pin-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 15px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .pin-card:hover .pin-overlay {
-            opacity: 1;
-        }
-        
-        .download-btn-overlay {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 10px;
-            font-family: var(--font-code);
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        
-        .download-btn-overlay:hover {
-            background: var(--accent-pink);
-            border-color: var(--accent-pink);
-        }
+/* SEARCH */
 
-        /* --- MODAL (LIGHTBOX) --- */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(5, 2, 10, 0.98);
-            backdrop-filter: blur(15px);
-            z-index: 1500;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-            padding: 20px;
-        }
-        
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .modal-content {
-            max-width: 90%;
-            max-height: 70vh;
-            border-radius: 20px;
-            box-shadow: 0 0 50px rgba(112, 0, 255, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
-            object-fit: contain;
-        }
-        
-        .modal-controls {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .modal-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 12px;
-            font-family: var(--font-title);
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .modal-btn:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .btn-download-main {
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-            border: none;
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-        }
-        
-        .btn-download-main:hover {
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.6);
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-close:hover {
-            background: rgba(219, 39, 119, 0.3);
-            border-color: var(--accent-pink);
-        }
+.search-area{
+padding:22px 18px;
+}
 
-        /* --- NOTIFICATION STYLE --- */
-        .notification {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(26, 11, 46, 0.95);
-            color: var(--accent-pink);
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-family: var(--font-title);
-            font-weight: 700;
-            letter-spacing: 0.8px;
-            z-index: 9999;
-            border: 1px solid rgba(219, 39, 119, 0.3);
-            box-shadow: 0 4px 15px rgba(219, 39, 119, 0.2);
-            animation: slideIn 0.3s ease-out;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            font-size: 13px;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(-50%) translateY(-15px); opacity: 0; }
-            to { transform: translateX(-50%) translateY(0); opacity: 1; }
-        }
-        
-        @keyframes slideOut {
-            from { transform: translateX(-50%) translateY(0); opacity: 1; }
-            to { transform: translateX(-50%) translateY(-15px); opacity: 0; }
-        }
-        
-        /* --- SECTION TITLE --- */
-        .section-title { 
-            font-family: var(--font-title);
-            font-size: 15px; 
-            font-weight: 700; 
-            color: #fff; 
-            margin-bottom: 12px; 
-            letter-spacing: 0.5px;
-            border-left: 3px solid var(--accent-pink);
-            padding-left: 10px;
-            margin-top: 20px;
-        }
+.search-card{
+background:rgba(255,255,255,.08);
+border:4px solid white;
+border-radius:30px;
+padding:18px;
+box-shadow:10px 10px 0px #1f0f09;
+}
 
-        /* --- FLOATING ACTION BUTTON --- */
-        .fab-wrapper {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-        
-        .fab-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 20px;
-            background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
-            border: none;
-            color: white;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        .fab-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 35px rgba(255, 0, 127, 0.6);
-        }
-        
-        /* Error Toast */
-        .error-toast {
-            display: none;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(255, 51, 51, 0.1);
-            border: 1px solid var(--accent-red);
-            color: #ff9999;
-            font-size: 13px;
-            text-align: center;
-            font-family: var(--font-code);
-        }
-    </style>
+.label{
+font-size:20px;
+font-weight:700;
+margin-bottom:10px;
+text-shadow:3px 3px 0px #402018;
+}
+
+.input{
+width:100%;
+height:54px;
+border-radius:20px;
+border:4px solid white;
+background:#4a2418;
+padding:0 16px;
+font-size:17px;
+color:white;
+outline:none;
+box-shadow:6px 6px 0px #1f0f09;
+}
+
+.input::placeholder{
+color:#d0b0a1;
+}
+
+.search-btn{
+margin-top:16px;
+width:100%;
+height:54px;
+border:none;
+border-radius:22px;
+background:linear-gradient(135deg,#ffb15f,#ff7c45);
+border:4px solid white;
+font-size:18px;
+font-weight:800;
+color:white;
+cursor:pointer;
+box-shadow:7px 7px 0px #c74214;
+transition:.2s;
+}
+
+.search-btn:active{
+transform:translateY(4px);
+box-shadow:3px 3px 0px #c74214;
+}
+
+/* LOADER */
+
+.loader{
+display:none;
+text-align:center;
+padding:25px;
+}
+
+.spinner{
+width:52px;
+height:52px;
+border:6px solid rgba(255,255,255,.2);
+border-top:6px solid #ffb15f;
+border-radius:50%;
+margin:auto;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.loader p{
+margin-top:12px;
+font-size:17px;
+font-weight:700;
+}
+
+/* RESULTS */
+
+.results{
+column-count:2;
+column-gap:14px;
+padding:0 18px 100px;
+}
+
+@media(min-width:700px){
+.results{
+column-count:3;
+}
+}
+
+.pin-card{
+position:relative;
+margin-bottom:14px;
+break-inside:avoid;
+border-radius:24px;
+overflow:hidden;
+border:4px solid white;
+background:#4a2418;
+box-shadow:8px 8px 0px #1f0f09;
+animation:show .3s ease;
+}
+
+@keyframes show{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:none;
+}
+}
+
+.pin-img{
+width:100%;
+display:block;
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,
+rgba(0,0,0,.75),
+transparent 55%);
+display:flex;
+align-items:flex-end;
+justify-content:center;
+padding:12px;
+opacity:0;
+transition:.2s;
+}
+
+.pin-card:hover .overlay{
+opacity:1;
+}
+
+.download-btn{
+height:40px;
+padding:0 14px;
+border:none;
+border-radius:15px;
+background:linear-gradient(135deg,#ffb15f,#ff7c45);
+border:3px solid white;
+font-size:14px;
+font-weight:800;
+color:white;
+cursor:pointer;
+box-shadow:4px 4px 0px #c74214;
+}
+
+/* MODAL */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.9);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+padding:20px;
+z-index:999;
+}
+
+.modal.active{
+display:flex;
+}
+
+.modal img{
+max-width:92%;
+max-height:70vh;
+border-radius:25px;
+border:5px solid white;
+box-shadow:10px 10px 0px #1f0f09;
+}
+
+.modal-actions{
+margin-top:20px;
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.modal-btn{
+height:50px;
+padding:0 18px;
+border:none;
+border-radius:18px;
+border:4px solid white;
+font-size:16px;
+font-weight:800;
+cursor:pointer;
+color:white;
+}
+
+.btn-download{
+background:linear-gradient(135deg,#ffb15f,#ff7c45);
+box-shadow:6px 6px 0px #c74214;
+}
+
+.btn-close{
+background:#5a3429;
+box-shadow:6px 6px 0px #2d140d;
+}
+
+/* FAB */
+
+.fab{
+position:fixed;
+bottom:18px;
+right:18px;
+width:56px;
+height:56px;
+border:none;
+border-radius:18px;
+background:linear-gradient(135deg,#ffb15f,#ff7c45);
+border:4px solid white;
+font-size:20px;
+font-weight:800;
+color:white;
+cursor:pointer;
+box-shadow:6px 6px 0px #c74214;
+z-index:50;
+}
+
+/* NOTIFICATION */
+
+.notification{
+position:fixed;
+top:20px;
+left:50%;
+transform:translateX(-50%);
+background:#4a2418;
+border:4px solid white;
+padding:10px 18px;
+border-radius:18px;
+font-size:15px;
+font-weight:700;
+box-shadow:7px 7px 0px #1f0f09;
+z-index:9999;
+animation:fade .25s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateX(-50%) translateY(-20px);
+}
+to{
+opacity:1;
+transform:translateX(-50%) translateY(0);
+}
+}
+
+</style>
 </head>
 <body>
 
-    <!-- Background Particles -->
-    <div id="particle-container"></div>
+<header>
 
-    <!-- Header -->
-    <header>
-        <a href="index.html" class="back-btn">
-            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M19 12H5M12 19l-7-7 7-7"></path>
-            </svg>
-            BACK
-        </a>
-        <div class="brand-title">PINTEREST DOWNLOADER</div>
-    </header>
+<div class="back-btn">
+🔙
+</div>
 
-    <main>
-        <!-- Tools Header -->
-        <div class="tools-header">
-            <div class="tools-title-group">
-                <div class="tools-logo">
-                    <i class="fab fa-pinterest" style="font-size: 28px; color: white;"></i>
-                </div>
-                <div class="tools-text">
-                    <h2>PINTEREST DOWNLOADER</h2>
-                    <p>Search & Download Pinterest Images</p>
-                </div>
-            </div>
-            <div class="owner-badge" id="user-badge">TOOLS</div>
-        </div>
+<div class="logo">
+Search Wallpaper/pp
+</div>
 
-        <!-- Input Form -->
-        <div class="section-title">SEARCH PINTEREST IMAGES</div>
-        
-        <div class="input-card">
-            <div class="input-group">
-                <input type="text" id="searchInput" class="input-field" placeholder="Cari wallpaper, anime, aesthetic...">
-                <i class="fab fa-pinterest input-icon"></i>
-            </div>
-            <button id="searchBtn" class="btn-process">
-                <i class="fas fa-search"></i> SEARCH PINS
-            </button>
-            <div id="errorToast" class="error-toast"></div>
-        </div>
+</header>
 
-        <!-- Loader -->
-        <div id="loader" class="loader-wrapper">
-            <div class="spinner"></div>
-            <div class="loader-text">SEARCHING PINTEREST...</div>
-        </div>
+<section class="hero">
 
-        <!-- Results Masonry -->
-        <div id="results" class="masonry-grid">
-            <!-- Items injected here -->
-        </div>
-    </main>
+<div class="hero-box">
 
-    <!-- Modal (Lightbox) -->
-    <div class="modal" id="modal">
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-        <img src="" id="modalImg" class="modal-content">
-        <div class="modal-controls">
-            <a href="#" id="modalDl" class="modal-btn btn-download-main" download target="_blank">
-                <i class="fas fa-download"></i> Download
-            </a>
-            <button class="modal-btn" onclick="closeModal()">Close</button>
-        </div>
-    </div>
+<div class="hero-title">
+📌 PINTEREST DOWNLOADER
+</div>
 
-    <!-- Floating Action Button -->
-    <div class="fab-wrapper">
-        <button class="fab-btn" onclick="scrollToTop()">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-    </div>
+<div class="hero-desc">
+Cari wallpaper anime, aesthetic, gaming, cartoon dan download ✨
+</div>
+
+</div>
+
+</section>
+
+<section class="search-area">
+
+<div class="search-card">
+
+<div class="label">
+🔎 Search Sesuai keinginan 
+</div>
+
+<input
+type="text"
+class="input"
+id="searchInput"
+placeholder="Contoh : anime girl"
+>
+
+<button
+class="search-btn"
+id="searchBtn"
+>
+🚀 SEARCH IMAGE
+</button>
+
+</div>
+
+</section>
+
+<div class="loader" id="loader">
+
+<div class="spinner"></div>
+
+<p>Searching Image...</p>
+
+</div>
+
+<div class="results" id="results"></div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+<img src="" id="modalImg">
+
+<div class="modal-actions">
+
+<button
+class="modal-btn btn-download"
+id="modalDownload"
+>
+⬇ DOWNLOAD
+</button>
+
+<button
+class="modal-btn btn-close"
+onclick="closeModal()"
+>
+✖ CLOSE
+</button>
+
+</div>
+
+</div>
+
+<button class="fab" onclick="scrollToTop()">
+⬆
+</button>
 
 <script>
-document.addEventListener('DOMContentLoaded', async () => {
 
-    const API_URL = 'https://api-faa.my.id/faa/pinterest?q=';
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    const results = document.getElementById('results');
-    const loader = document.getElementById('loader');
-    const errorToast = document.getElementById('errorToast');
+const API =
+'https://api-faa.my.id/faa/pinterest?q=';
 
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalDl = document.getElementById('modalDl');
+const searchBtn =
+document.getElementById('searchBtn');
 
-    function showNotification(message) {
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        notification.innerHTML = `📌 ${message}`;
-        document.body.appendChild(notification);
+const searchInput =
+document.getElementById('searchInput');
 
-        setTimeout(() => notification.remove(), 2000);
-    }
+const results =
+document.getElementById('results');
 
-    function showError(message) {
-        errorToast.textContent = message;
-        errorToast.style.display = 'block';
-        setTimeout(() => errorToast.style.display = 'none', 3000);
-    }
+const loader =
+document.getElementById('loader');
 
-    async function searchPinterest() {
-        const query = searchInput.value.trim();
-        if (!query) return showError("⚠️ Masukkan kata kunci!");
+const modal =
+document.getElementById('modal');
 
-        results.innerHTML = '';
-        loader.style.display = 'block';
+const modalImg =
+document.getElementById('modalImg');
 
-        try {
-            const res = await fetch(API_URL + encodeURIComponent(query));
-            const data = await res.json();
+const modalDownload =
+document.getElementById('modalDownload');
 
-            loader.style.display = 'none';
+let currentImage = '';
 
-            if (data.status && data.result?.length) {
-                showNotification(`✅ Found ${data.result.length} images`);
+async function searchPinterest(){
 
-                data.result.forEach((url, i) => createPin(url, i));
-            } else {
-                showError("❌ Tidak ada hasil.");
-            }
+const query =
+searchInput.value.trim();
 
-        } catch {
-            loader.style.display = 'none';
-            showError("❌ Server error");
-        }
-    }
+if(!query){
 
-    function createPin(url, index) {
-        const pin = document.createElement('div');
-        pin.className = 'pin-card';
+showNotif(
+'⚠ Masukkan kata kunci dulu'
+);
 
-        pin.innerHTML = `
-            <img src="${url}" class="pin-img">
-            <div class="pin-overlay">
-                <button class="download-btn-overlay" onclick="event.stopPropagation(); downloadImage('${url}')">
-                    ⬇ Download
-                </button>
-            </div>
-        `;
+return;
 
-        pin.onclick = () => openModal(url);
-        results.appendChild(pin);
-    }
+}
 
-    function openModal(url) {
-        modalImg.src = url;
-        modalDl.href = url;
-        modalDl.onclick = (e) => {
-            e.preventDefault();
-            downloadImage(url);
-        };
-        modal.classList.add('active');
-    }
+results.innerHTML = '';
 
-    function closeModal() {
-        modal.classList.remove('active');
-        setTimeout(() => modalImg.src = '', 300);
-    }
+loader.style.display = 'block';
 
-    // 🔥 DOWNLOAD SUDAH FIX TOTAL
-    async function downloadImage(url) {
-        showNotification("⬇️ Downloading...");
+try{
 
-        try {
-            let response;
+const res =
+await fetch(
+API + encodeURIComponent(query)
+);
 
-            // direct fetch
-            try {
-                response = await fetch(url, { mode: 'cors' });
-            } catch {
-                response = null;
-            }
+const data =
+await res.json();
 
-            // fallback proxy
-            if (!response || !response.ok) {
-                const proxies = [
-                    `https://corsproxy.io/?${encodeURIComponent(url)}`,
-                    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
-                ];
+loader.style.display = 'none';
 
-                for (let proxy of proxies) {
-                    try {
-                        response = await fetch(proxy);
-                        if (response.ok) break;
-                    } catch {}
-                }
-            }
+if(data.status && data.result.length){
 
-            // kalau masih gagal
-            if (!response || !response.ok) {
-                window.open(url, '_blank');
-                showNotification("📂 Buka manual");
-                return;
-            }
+data.result.forEach((img)=>{
 
-            const blob = await response.blob();
-            const blobUrl = URL.createObjectURL(blob);
+createCard(img);
 
-            const a = document.createElement("a");
-            a.href = blobUrl;
-            a.download = "pinterest_" + Date.now() + ".jpg";
-
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            URL.revokeObjectURL(blobUrl);
-
-            showNotification("✅ Download berhasil!");
-        } catch (err) {
-            console.error(err);
-            window.open(url, '_blank');
-            showNotification("❌ Gagal, buka manual");
-        }
-    }
-
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    searchBtn.onclick = searchPinterest;
-    searchInput.addEventListener('keypress', e => {
-        if (e.key === 'Enter') searchPinterest();
-    });
-
-    modal.addEventListener('click', e => {
-        if (e.target === modal) closeModal();
-    });
-
-    window.closeModal = closeModal;
-    window.downloadImage = downloadImage;
-    window.scrollToTop = scrollToTop;
 });
+
+showNotif(
+'✅ ' +
+data.result.length +
+' image ditemukan'
+);
+
+setTimeout(()=>{
+
+results.scrollIntoView({
+behavior:'smooth'
+});
+
+},300);
+
+}else{
+
+showNotif(
+'❌ Tidak ada hasil'
+);
+
+}
+
+}catch(error){
+
+loader.style.display = 'none';
+
+showNotif(
+'❌ Server error'
+);
+
+}
+
+}
+
+function createCard(url){
+
+const card =
+document.createElement('div');
+
+card.className =
+'pin-card';
+
+card.innerHTML = `
+
+<img
+src="${url}"
+class="pin-img"
+loading="lazy"
+>
+
+<div class="overlay">
+
+<button
+class="download-btn"
+onclick="event.stopPropagation();downloadImage('${url}')"
+>
+⬇ DOWNLOAD
+</button>
+
+</div>
+
+`;
+
+card.onclick =
+()=>openModal(url);
+
+results.appendChild(card);
+
+}
+
+function openModal(url){
+
+currentImage = url;
+
+modalImg.src = url;
+
+modal.classList.add('active');
+
+}
+
+function closeModal(){
+
+modal.classList.remove('active');
+
+}
+
+async function downloadImage(url){
+
+showNotif('⬇ Downloading...');
+
+try{
+
+const response =
+await fetch(url);
+
+const blob =
+await response.blob();
+
+const blobUrl =
+URL.createObjectURL(blob);
+
+const a =
+document.createElement('a');
+
+a.href = blobUrl;
+
+a.download =
+'pinterest_' +
+Date.now() +
+'.jpg';
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+URL.revokeObjectURL(blobUrl);
+
+showNotif(
+'✅ Download berhasil!'
+);
+
+}catch{
+
+window.open(url,'_blank');
+
+showNotif(
+'📂 Dibuka manual'
+);
+
+}
+
+}
+
+modalDownload.onclick =
+()=>{
+
+downloadImage(currentImage);
+
+};
+
+function showNotif(text){
+
+const notif =
+document.createElement('div');
+
+notif.className =
+'notification';
+
+notif.innerHTML =
+text;
+
+document.body.appendChild(notif);
+
+setTimeout(()=>{
+
+notif.remove();
+
+},2200);
+
+}
+
+function scrollToTop(){
+
+window.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
+}
+
+searchBtn.onclick =
+searchPinterest;
+
+searchInput.addEventListener(
+'keypress',
+e=>{
+
+if(e.key === 'Enter'){
+
+searchPinterest();
+
+}
+
+}
+);
+
+modal.addEventListener(
+'click',
+e=>{
+
+if(e.target === modal){
+
+closeModal();
+
+}
+
+}
+);
+
 </script>
+
 </body>
 </html>
