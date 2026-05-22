@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d4c41">
+
+<title>ENC Custom Tool</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at top left,#b38867 0%,#8d6e63 20%,#6d4c41 45%,#2d1b16 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:20px;
+}
+
+/* BACKGROUND */
+
+.bg-circle1{
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#d7ccc8;
+    border-radius:50%;
+    top:-100px;
+    left:-100px;
+    opacity:.08;
+    filter:blur(10px);
+}
+
+.bg-circle2{
+    position:absolute;
+    width:250px;
+    height:250px;
+    background:#efebe9;
+    border-radius:50%;
+    bottom:-80px;
+    right:-80px;
+    opacity:.08;
+    filter:blur(10px);
+}
+
+/* FLOAT ICON */
+
+.float-icon{
+    position:absolute;
+    color:#fff3e0;
+    opacity:.18;
+    font-size:28px;
+    animation:float 4s ease-in-out infinite;
+}
+
+.icon1{
+    top:10%;
+    left:10%;
+}
+
+.icon2{
+    bottom:15%;
+    right:12%;
+    animation-delay:1s;
+}
+
+.icon3{
+    top:40%;
+    right:18%;
+    animation-delay:2s;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:470px;
+    position:relative;
+    z-index:2;
+}
+
+/* CARD */
+
+.card{
+    background:#6d4c41;
+    border:4px solid #f5e0d3;
+    border-radius:35px;
+    padding:25px;
+    box-shadow:
+    10px 10px 0px #2d1b16,
+    0 0 30px rgba(0,0,0,.3);
+    position:relative;
+}
+
+/* BACK BUTTON */
+
+.back-wrap{
+    margin-bottom:18px;
+}
+
+.back-btn{
+    width:72px;
+    height:72px;
+    background:#f6a84d;
+    border-radius:22px;
+    border:5px solid #f7f1eb;
+    box-shadow:
+    7px 7px 0 #c63f12;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    position:relative;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    transform:translateY(-3px);
+}
+
+.back-inner{
+    width:48px;
+    height:48px;
+    background:#8fa6b2;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-weight:800;
+    border:3px solid #dbe3e8;
+}
+
+.back-inner span{
+    font-size:10px;
+    margin-top:-2px;
+    letter-spacing:.5px;
+}
+
+.arrow{
+    font-size:22px;
+    line-height:16px;
+}
+
+/* LOGO */
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:auto;
+    background:#fff3e0;
+    border-radius:25px;
+    border:4px solid #3e2723;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    box-shadow:5px 5px 0 #3e2723;
+    margin-bottom:15px;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+}
+
+.title h1{
+    color:white;
+    font-size:32px;
+    font-weight:800;
+    text-shadow:4px 4px 0px #3e2723;
+}
+
+.title p{
+    margin-top:8px;
+    color:#f8d7c8;
+    font-size:13px;
+}
+
+/* INPUT GROUP */
+
+.input-group{
+    margin-top:20px;
+}
+
+.label{
+    color:#fff3e0;
+    font-weight:700;
+    margin-bottom:8px;
+    display:block;
+    font-size:14px;
+}
+
+/* CUSTOM FILE */
+
+.file-box{
+    position:relative;
+}
+
+.file-box input[type=file]{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    cursor:pointer;
+    z-index:2;
+}
+
+.custom-file{
+    width:100%;
+    background:#fff3e0;
+    border:3px solid #3e2723;
+    box-shadow:5px 5px 0 #3e2723;
+    border-radius:22px;
+    padding:16px;
+    color:#4e342e;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    overflow:hidden;
+}
+
+.custom-file span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+/* TEXT INPUT */
+
+.text-input{
+    width:100%;
+    padding:16px;
+    border:none;
+    outline:none;
+    border-radius:22px;
+    background:#fff3e0;
+    color:#3e2723;
+    font-weight:700;
+    border:3px solid #3e2723;
+    box-shadow:5px 5px 0 #3e2723;
+}
+
+.text-input::placeholder{
+    color:#8d6e63;
+}
+
+/* BUTTON */
+
+.main-btn{
+    width:100%;
+    padding:16px;
+    margin-top:18px;
+    border:none;
+    border-radius:22px;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.encrypt-btn{
+    background:#ffcc80;
+    color:#4e342e;
+    border:3px solid #4e342e;
+    box-shadow:5px 5px 0 #4e342e;
+}
+
+.encrypt-btn:hover{
+    transform:translateY(-3px);
+}
+
+.download-btn{
+    background:#c5e1a5;
+    color:#2e4630;
+    border:3px solid #2e4630;
+    box-shadow:5px 5px 0 #2e4630;
+}
+
+.download-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* OUTPUT */
+
+.output{
+    margin-top:18px;
+    background:#fff3e0;
+    color:#3e2723;
+    padding:18px;
+    border-radius:22px;
+    border:3px solid #3e2723;
+    box-shadow:5px 5px 0 #3e2723;
+    max-height:220px;
+    overflow:auto;
+    font-size:12px;
+    line-height:1.6;
+    word-break:break-word;
+}
+
+.output::-webkit-scrollbar{
+    width:6px;
+}
+
+.output::-webkit-scrollbar-thumb{
+    background:#6d4c41;
+    border-radius:20px;
+}
+
+/* INFO */
+
+.info{
+    margin-top:18px;
+    background:#8d6e63;
+    border:3px solid #f5e0d3;
+    padding:15px;
+    border-radius:22px;
+}
+
+.info h3{
+    color:white;
+    margin-bottom:8px;
+    font-size:15px;
+}
+
+.info p{
+    color:#f8d7c8;
+    font-size:12px;
+    line-height:1.6;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:18px;
+    color:#f5d7c8;
+    font-size:12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:500px){
+
+    .card{
+        padding:20px;
+    }
+
+    .title h1{
+        font-size:26px;
+    }
+
+    .logo{
+        width:78px;
+        height:78px;
+        font-size:34px;
+    }
+
+    .back-btn{
+        width:65px;
+        height:65px;
+    }
+
+    .back-inner{
+        width:43px;
+        height:43px;
+    }
+
+    .arrow{
+        font-size:20px;
+    }
+
+    .back-inner span{
+        font-size:9px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-circle1"></div>
+<div class="bg-circle2"></div>
+
+<div class="float-icon icon1">✦</div>
+<div class="float-icon icon2">⚡</div>
+<div class="float-icon icon3">✦</div>
+
+<div class="container">
+
+<div class="card">
+
+<!-- BACK -->
+
+<div class="back-wrap">
+
+<a href="index.html" class="back-btn">
+
+<div class="back-inner">
+
+<div class="arrow">⬅</div>
+
+<span>BACK</span>
+
+</div>
+
+</a>
+
+</div>
+
+<!-- LOGO -->
+
+<div class="logo">
+🔐
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+
+<h1>ENC CUSTOM</h1>
+
+<p>Dark Cartoon Brutalism Milk Brown UI</p>
+
+</div>
+
+<!-- FILE -->
+
+<div class="input-group">
+
+<label class="label">
+📁 Upload File .JS
+</label>
+
+<div class="file-box">
+
+<input type="file" id="file" accept=".js">
+
+<div class="custom-file" id="fileText">
+
+📄 <span>Upload File .JS</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TEXT -->
+
+<div class="input-group">
+
+<label class="label">
+🔑 Custom Identifier
+</label>
+
+<input
+type="text"
+id="key"
+class="text-input"
+placeholder="text1|text2">
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="main-btn encrypt-btn"
+onclick="encrypt()">
+
+🔥 Encrypt Javascript
+
+</button>
+
+<!-- OUTPUT -->
+
+<div class="output" id="out">
+
+🔐 Tunggu 1 atau 3 Menit...
+
+</div>
+
+<!-- DOWNLOAD -->
+
+<button
+class="main-btn download-btn"
+onclick="download()">
+
+⬇ Download Result
+
+</button>
+
+<!-- INFO -->
+
+<div class="info">
+
+<h3>⚠ Information</h3>
+
+<p>
+
+Gunakan format:
+<br><br>
+
+text1|text2
+
+<br><br>
+
+Contoh:
+<br>
+
+rafa|official
+
+</p>
+
+</div>
+
+<div class="footer">
+© Rafa Official • Cartoon Brutalism UI
+</div>
+
+</div>
+</div>
+
+<script>
+
+let hasil = "";
+
+/* FILE NAME */
+
+document
+.getElementById("file")
+.addEventListener("change", function(){
+
+    const file =
+    this.files[0];
+
+    const text =
+    document.querySelector("#fileText span");
+
+    if(file){
+
+        text.innerText =
+        file.name;
+
+    }else{
+
+        text.innerText =
+        "Upload File .JS";
+
+    }
+
+});
+
+/* ENCRYPT */
+
+function encrypt(){
+
+    try{
+
+        const file =
+        document.getElementById("file").files[0];
+
+        const key =
+        document.getElementById("key").value;
+
+        if(!file){
+
+            return alert("❌ Upload file JS dulu");
+
+        }
+
+        if(!key.includes("|")){
+
+            return alert("❌ Format wajib text1|text2");
+
+        }
+
+        const [text1,text2] =
+        key.split("|");
+
+        const reader =
+        new FileReader();
+
+        reader.onload =
+        function(e){
+
+            try{
+
+                const code =
+                e.target.result;
+
+                document.getElementById("out").innerText =
+                "⚡ Sedang encrypt file...";
+
+                const obfuscated =
+                JavaScriptObfuscator.obfuscate(code,{
+
+                    compact:true,
+
+                    controlFlowFlattening:true,
+
+                    deadCodeInjection:true,
+
+                    stringArrayEncoding:['base64'],
+
+                    identifierNamesGenerator:'mangled',
+
+                    renameGlobals:true,
+
+                    identifiersPrefix:
+                    `高宝座${text1}齐${text2}高宝座`
+
+                });
+
+                hasil =
+                obfuscated.getObfuscatedCode();
+
+                document.getElementById("out").innerText =
+                hasil.substring(0,1500) + "...";
+
+            }catch(err){
+
+                alert("❌ Encrypt Error : " + err.message);
+
+            }
+
+        };
+
+        reader.readAsText(file);
+
+    }catch(err){
+
+        alert("❌ Error : " + err.message);
+
+    }
+
+}
+
+/* DOWNLOAD */
+
+function download(){
+
+    if(!hasil){
+
+        return alert("❌ Belum ada hasil encrypt");
+
+    }
+
+    const blob =
+    new Blob([hasil],{
+        type:"application/javascript"
+    });
+
+    const a =
+    document.createElement("a");
+
+    a.href =
+    URL.createObjectURL(blob);
+
+    a.download =
+    "encrypted.js";
+
+    a.click();
+
+}
+
+</script>
+
+</body>
+</html>
