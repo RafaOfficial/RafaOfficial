@@ -3,161 +3,549 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reach CH System</title>
+<meta name="theme-color" content="#6d4c41">
+<title>Reach CH RafaXMods</title>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
 <style>
-body{
+
+/* ========================= */
+/* RESET */
+/* ========================= */
+
+*{
 margin:0;
-font-family:Arial;
-background:#0f0f0f;
-color:white;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+body{
+
+background:
+radial-gradient(
+circle at top,
+#8d6b58 0%,
+#4b2d20 45%,
+#24130d 100%
+);
+
+min-height:100vh;
+
+padding:20px;
+
+overflow-x:hidden;
+
+color:white;
+
+}
+
+/* ========================= */
+/* CONTAINER */
+/* ========================= */
 
 .container{
-max-width:430px;
-margin:20px auto;
-background:#1b1b1b;
-padding:20px;
-border-radius:20px;
-box-shadow:0 0 20px rgba(255,0,150,0.2);
+
+max-width:450px;
+
+margin:auto;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,255,255,0.08),
+rgba(0,0,0,0.15)
+);
+
+border:6px solid #fff;
+
+border-radius:38px;
+
+padding:24px;
+
+box-shadow:
+12px 12px 0 #3d2015;
+
+backdrop-filter:blur(10px);
+
 }
 
-h1{
+/* ========================= */
+/* TITLE */
+/* ========================= */
+
+.title-box{
+
 text-align:center;
-margin-bottom:20px;
+
+margin-bottom:25px;
+
 }
 
-input,textarea{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-background:#2a2a2a;
-color:white;
-box-sizing:border-box;
-margin-top:10px;
-outline:none;
+.title-box h1{
+
+font-size:42px;
+
+font-weight:900;
+
+line-height:1.1;
+
+text-shadow:
+5px 5px 0 rgba(0,0,0,0.35);
+
 }
+
+.title-box p{
+
+margin-top:10px;
+
+font-size:15px;
+
+color:#ffe6d7;
+
+font-weight:bold;
+
+}
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
 
 button{
+
 width:100%;
-padding:14px;
+
+height:62px;
+
 border:none;
-border-radius:12px;
-margin-top:12px;
-background:linear-gradient(45deg,#7b2ff7,#f107a3);
-color:white;
-font-size:15px;
+
+border-radius:22px;
+
+font-size:17px;
+
+font-weight:900;
+
 cursor:pointer;
+
+margin-top:14px;
+
+transition:.2s;
+
+color:white;
+
+border:4px solid white;
+
 }
+
+/* BUTTON ACTIVE */
+
+button:active{
+
+transform:translateY(4px);
+
+}
+
+/* ========================= */
+/* INPUT */
+/* ========================= */
+
+input,
+textarea{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+outline:none;
+
+border-radius:22px;
+
+margin-top:14px;
+
+background:#fff6ef;
+
+font-size:16px;
+
+font-weight:bold;
+
+color:#2d1a13;
+
+border:4px solid white;
+
+resize:none;
+
+}
+
+/* ========================= */
+/* BUTTON STYLE */
+/* ========================= */
+
+.join-btn{
+
+background:
+linear-gradient(
+135deg,
+#ffb56b,
+#ff7b32
+);
+
+box-shadow:
+0 8px 0 #b14500;
+
+}
+
+.send-btn{
+
+background:
+linear-gradient(
+135deg,
+#59d66f,
+#2fa34c
+);
+
+box-shadow:
+0 8px 0 #1d6d32;
+
+display:none;
+
+}
+
+.back-btn{
+
+background:
+linear-gradient(
+135deg,
+#7d5fff,
+#5d39ff
+);
+
+box-shadow:
+0 8px 0 #3119a8;
+
+}
+
+/* ========================= */
+/* HISTORY */
+/* ========================= */
+
+.history-title{
+
+margin-top:30px;
+
+font-size:22px;
+
+font-weight:900;
+
+text-align:center;
+
+text-shadow:
+4px 4px 0 rgba(0,0,0,0.25);
+
+}
+
+/* ========================= */
+/* ITEM */
+/* ========================= */
 
 .item{
-background:#2d2d2d;
-padding:12px;
-border-radius:12px;
-margin-top:10px;
+
+margin-top:16px;
+
+padding:20px;
+
+border-radius:26px;
+
+background:
+linear-gradient(
+135deg,
+#a27d6d,
+#8c685a
+);
+
+border:5px solid white;
+
+box-shadow:
+8px 8px 0 #4a281c;
+
 word-break:break-word;
+
 }
 
+/* STATUS */
+
 .success{
-border:1px solid lime;
+
+background:
+linear-gradient(
+135deg,
+#5ecf72,
+#37a44c
+);
+
 }
 
 .pending{
-border:1px solid orange;
+
+background:
+linear-gradient(
+135deg,
+#ffb86c,
+#ff7b32
+);
+
 }
+
+/* ========================= */
+/* LABEL */
+/* ========================= */
+
+.label{
+
+font-size:15px;
+
+font-weight:900;
+
+margin-bottom:6px;
+
+color:white;
+
+}
+
+/* ========================= */
+/* STATUS TEXT */
+/* ========================= */
+
+.status{
+
+margin-top:12px;
+
+font-weight:900;
+
+font-size:15px;
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:500px){
+
+.title-box h1{
+
+font-size:34px;
+
+}
+
+.container{
+
+padding:20px;
+
+border-radius:30px;
+
+}
+
+button{
+
+height:58px;
+
+font-size:15px;
+
+}
+
+}
+
 </style>
 </head>
 <body>
 
 <div class="container">
 
-<h1>🚀 React Saluran Wa</h1>
+<!-- TITLE -->
 
-<input type="text" id="link" placeholder="https://whatsapp.com/channel/0029Vb67i65Fi8xX7rOtIc2S/865">
+<div class="title-box">
 
-<textarea id="emoji" rows="3" placeholder="contoh:🥰,😍,🔥"></textarea>
+<h1>
+🚀 Reach CH
+</h1>
 
-<button id="joinBtn" onclick="joinTelegram()">
-🫯 Reatch Saluran
+<p>
+Dark Cartoon Brutalism • RafaXMods
+</p>
+
+</div>
+
+<!-- INPUT -->
+
+<input
+type="text"
+id="link"
+placeholder="Masukkan Link Saluran WhatsApp">
+
+<textarea
+id="emoji"
+rows="4"
+placeholder="Contoh: 🔥 😍 🥰 ❤️">
+</textarea>
+
+<!-- BUTTON -->
+
+<button
+class="join-btn"
+id="joinBtn"
+onclick="joinTelegram()">
+
+🫯 Join Telegram Admin
+
 </button>
 
-<button id="sendBtn"
-onclick="kirimPesanan()"
-style="display:none;">
+<button
+class="send-btn"
+id="sendBtn"
+onclick="kirimPesanan()">
 
 📨 Kirim Pesanan
 
 </button>
 
-<button onclick="window.location.href='index.html'">
-⬅️ Kembali Ke Website Utama
+<button
+class="back-btn"
+onclick="window.location.href='index.html'">
+
+🔙 Kembali Ke Website Utama
+
 </button>
 
-<h3>📜 Riwayat Pemesanan</h3>
+<!-- HISTORY -->
+
+<div class="history-title">
+
+📜 Riwayat Pemesanan
+
+</div>
 
 <div id="riwayat"></div>
 
 </div>
 
 <script>
+
+/* ========================= */
+/* FIREBASE */
+/* ========================= */
+
 const firebaseConfig = {
+
 apiKey: "AIzaSyDNWHQT0D16TMy9XQ0p0wYh42QwrvPFzaE",
+
 authDomain: "reachchsystem-2d934.firebaseapp.com",
-databaseURL: "https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+
+databaseURL:
+"https://reachchsystem-2d934-default-rtdb.asia-southeast1.firebasedatabase.app/",
+
 projectId: "reachchsystem-2d934",
-storageBucket: "reachchsystem-2d934.firebasestorage.app",
+
+storageBucket:
+"reachchsystem-2d934.firebasestorage.app",
+
 messagingSenderId: "1020994564198",
-appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
+
+appId:
+"1:1020994564198:web:1cf23aeb506ed136dc7da7"
+
 };
 
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
 
+/* ========================= */
+/* JOIN */
+/* ========================= */
+
 function joinTelegram(){
 
-window.open('https://t.me/ErroBaiyles','_blank');
+window.open(
+'https://t.me/ErroBaiyles',
+'_blank'
+);
 
-document.getElementById('sendBtn').style.display='block';
+document.getElementById(
+'sendBtn'
+).style.display='block';
 
-document.getElementById('joinBtn').innerHTML =
+document.getElementById(
+'joinBtn'
+).innerHTML =
 '✅ Sudah Join Telegram';
 
 }
 
+/* ========================= */
+/* KIRIM */
+/* ========================= */
+
 function kirimPesanan(){
 
-let link = document.getElementById('link').value.trim();
+let link =
+document.getElementById(
+'link'
+).value.trim();
 
-let emoji = document.getElementById('emoji').value.trim();
+let emoji =
+document.getElementById(
+'emoji'
+).value.trim();
 
 if(link === '' || emoji === ''){
 
-alert('Lengkapi data terlebih dahulu!');
+alert(
+'⚠️ Lengkapi data terlebih dahulu!'
+);
 
 return;
 
 }
 
 const data = {
+
 link:link,
+
 emoji:emoji,
+
 status:'pending',
+
 time:Date.now()
+
 };
 
 db.ref('orders').push(data);
 
-alert('Pesanan berhasil dikirim!');
+alert(
+'✅ Pesanan berhasil dikirim!'
+);
 
-document.getElementById('link').value='';
-document.getElementById('emoji').value='';
+document.getElementById(
+'link'
+).value='';
+
+document.getElementById(
+'emoji'
+).value='';
 
 }
+
+/* ========================= */
+/* LOAD HISTORY */
+/* ========================= */
 
 function loadRiwayat(){
 
@@ -170,32 +558,53 @@ snap.forEach(data=>{
 let item = data.val();
 
 html += `
-<div class="item ${item.status === 'success'
+
+<div class="item ${
+item.status === 'success'
 ? 'success'
-: 'pending'}">
+: 'pending'
+}">
 
-<b>Link:</b><br>
-${item.link}<br><br>
+<div class="label">
+🔗 Link:
+</div>
 
-<b>Emoji:</b><br>
-${item.emoji}<br><br>
+${item.link}
 
-${item.status === 'success'
+<br><br>
+
+<div class="label">
+😍 Emoji:
+</div>
+
+${item.emoji}
+
+<div class="status">
+
+${
+item.status === 'success'
 ? '✅ ACCESS SUCCESS'
-: '🕓 Menunggu Access Admin'}
+: '🕓 Menunggu Access Admin'
+}
 
 </div>
+
+</div>
+
 `;
 
 });
 
-document.getElementById('riwayat').innerHTML = html;
+document.getElementById(
+'riwayat'
+).innerHTML = html;
 
 });
 
 }
 
 loadRiwayat();
+
 </script>
 
 </body>
