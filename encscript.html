@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6d4c41">
 
 <title>ENC Custom Tool</title>
 
@@ -20,40 +19,44 @@
     font-family:'Poppins',sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     min-height:100vh;
-    overflow:hidden;
+    overflow-x:hidden;
     background:
     radial-gradient(circle at top left,#b38867 0%,#8d6e63 20%,#6d4c41 45%,#2d1b16 100%);
     display:flex;
     justify-content:center;
     align-items:center;
     position:relative;
-    padding:20px;
+    padding:15px;
 }
 
 /* BACKGROUND */
 
 .bg-circle1{
     position:absolute;
-    width:300px;
-    height:300px;
+    width:220px;
+    height:220px;
     background:#d7ccc8;
     border-radius:50%;
-    top:-100px;
-    left:-100px;
+    top:-80px;
+    left:-80px;
     opacity:.08;
     filter:blur(10px);
 }
 
 .bg-circle2{
     position:absolute;
-    width:250px;
-    height:250px;
+    width:180px;
+    height:180px;
     background:#efebe9;
     border-radius:50%;
-    bottom:-80px;
-    right:-80px;
+    bottom:-60px;
+    right:-60px;
     opacity:.08;
     filter:blur(10px);
 }
@@ -64,7 +67,7 @@ body{
     position:absolute;
     color:#fff3e0;
     opacity:.18;
-    font-size:28px;
+    font-size:20px;
     animation:float 4s ease-in-out infinite;
 }
 
@@ -92,7 +95,7 @@ body{
     }
 
     50%{
-        transform:translateY(-10px);
+        transform:translateY(-8px);
     }
 
     100%{
@@ -105,7 +108,7 @@ body{
 
 .container{
     width:100%;
-    max-width:470px;
+    max-width:390px;
     position:relative;
     z-index:2;
 }
@@ -114,81 +117,79 @@ body{
 
 .card{
     background:#6d4c41;
-    border:4px solid #f5e0d3;
-    border-radius:35px;
-    padding:25px;
+    border:3px solid #f5e0d3;
+    border-radius:28px;
+    padding:18px;
     box-shadow:
-    10px 10px 0px #2d1b16,
-    0 0 30px rgba(0,0,0,.3);
+    7px 7px 0px #2d1b16,
+    0 0 20px rgba(0,0,0,.2);
     position:relative;
 }
 
 /* BACK BUTTON */
 
 .back-wrap{
-    margin-bottom:18px;
+    margin-bottom:12px;
 }
 
 .back-btn{
-    width:72px;
-    height:72px;
+    width:62px;
+    height:62px;
     background:#f6a84d;
-    border-radius:22px;
-    border:5px solid #f7f1eb;
+    border-radius:18px;
+    border:4px solid #f7f1eb;
     box-shadow:
-    7px 7px 0 #c63f12;
+    5px 5px 0 #c63f12;
     display:flex;
     justify-content:center;
     align-items:center;
     text-decoration:none;
-    position:relative;
     transition:.2s;
 }
 
 .back-btn:hover{
-    transform:translateY(-3px);
+    transform:translateY(-2px);
 }
 
 .back-inner{
-    width:48px;
-    height:48px;
+    width:40px;
+    height:40px;
     background:#8fa6b2;
-    border-radius:14px;
+    border-radius:12px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     color:white;
     font-weight:800;
-    border:3px solid #dbe3e8;
+    border:2px solid #dbe3e8;
 }
 
 .back-inner span{
-    font-size:10px;
+    font-size:8px;
     margin-top:-2px;
-    letter-spacing:.5px;
 }
 
 .arrow{
-    font-size:22px;
-    line-height:16px;
+    font-size:18px;
+    line-height:14px;
 }
 
 /* LOGO */
 
 .logo{
-    width:90px;
-    height:90px;
+    width:72px;
+    height:72px;
     margin:auto;
     background:#fff3e0;
-    border-radius:25px;
-    border:4px solid #3e2723;
+    border-radius:20px;
+    border:3px solid #3e2723;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:40px;
-    box-shadow:5px 5px 0 #3e2723;
-    margin-bottom:15px;
+    font-size:30px;
+    box-shadow:4px 4px 0 #3e2723;
+    margin-bottom:12px;
 }
 
 /* TITLE */
@@ -199,32 +200,32 @@ body{
 
 .title h1{
     color:white;
-    font-size:32px;
+    font-size:24px;
     font-weight:800;
-    text-shadow:4px 4px 0px #3e2723;
+    text-shadow:3px 3px 0px #3e2723;
 }
 
 .title p{
-    margin-top:8px;
+    margin-top:5px;
     color:#f8d7c8;
-    font-size:13px;
+    font-size:11px;
 }
 
 /* INPUT GROUP */
 
 .input-group{
-    margin-top:20px;
+    margin-top:15px;
 }
 
 .label{
     color:#fff3e0;
     font-weight:700;
-    margin-bottom:8px;
+    margin-bottom:6px;
     display:block;
-    font-size:14px;
+    font-size:12px;
 }
 
-/* CUSTOM FILE */
+/* FILE */
 
 .file-box{
     position:relative;
@@ -241,16 +242,17 @@ body{
 .custom-file{
     width:100%;
     background:#fff3e0;
-    border:3px solid #3e2723;
-    box-shadow:5px 5px 0 #3e2723;
-    border-radius:22px;
-    padding:16px;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    border-radius:18px;
+    padding:13px;
     color:#4e342e;
     font-weight:700;
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:10px;
     overflow:hidden;
+    font-size:12px;
 }
 
 .custom-file span{
@@ -263,15 +265,16 @@ body{
 
 .text-input{
     width:100%;
-    padding:16px;
+    padding:13px;
     border:none;
     outline:none;
-    border-radius:22px;
+    border-radius:18px;
     background:#fff3e0;
     color:#3e2723;
     font-weight:700;
-    border:3px solid #3e2723;
-    box-shadow:5px 5px 0 #3e2723;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    font-size:12px;
 }
 
 .text-input::placeholder{
@@ -282,11 +285,11 @@ body{
 
 .main-btn{
     width:100%;
-    padding:16px;
-    margin-top:18px;
+    padding:13px;
+    margin-top:15px;
     border:none;
-    border-radius:22px;
-    font-size:15px;
+    border-radius:18px;
+    font-size:13px;
     font-weight:800;
     cursor:pointer;
     transition:.2s;
@@ -295,44 +298,40 @@ body{
 .encrypt-btn{
     background:#ffcc80;
     color:#4e342e;
-    border:3px solid #4e342e;
-    box-shadow:5px 5px 0 #4e342e;
-}
-
-.encrypt-btn:hover{
-    transform:translateY(-3px);
+    border:2px solid #4e342e;
+    box-shadow:4px 4px 0 #4e342e;
 }
 
 .download-btn{
     background:#c5e1a5;
     color:#2e4630;
-    border:3px solid #2e4630;
-    box-shadow:5px 5px 0 #2e4630;
+    border:2px solid #2e4630;
+    box-shadow:4px 4px 0 #2e4630;
 }
 
-.download-btn:hover{
-    transform:translateY(-3px);
+.main-btn:hover{
+    transform:translateY(-2px);
 }
 
 /* OUTPUT */
 
 .output{
-    margin-top:18px;
+    margin-top:15px;
     background:#fff3e0;
     color:#3e2723;
-    padding:18px;
-    border-radius:22px;
-    border:3px solid #3e2723;
-    box-shadow:5px 5px 0 #3e2723;
-    max-height:220px;
+    padding:14px;
+    border-radius:18px;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    max-height:180px;
     overflow:auto;
-    font-size:12px;
-    line-height:1.6;
+    font-size:11px;
+    line-height:1.5;
     word-break:break-word;
 }
 
 .output::-webkit-scrollbar{
-    width:6px;
+    width:5px;
 }
 
 .output::-webkit-scrollbar-thumb{
@@ -340,73 +339,74 @@ body{
     border-radius:20px;
 }
 
+/* LOADING */
+
+.loading-wrap{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+.loader{
+    width:42px;
+    height:42px;
+    border:5px solid #d7ccc8;
+    border-top:5px solid #6d4c41;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:12px;
+}
+
+.loading-text{
+    font-weight:700;
+    color:#4e342e;
+    text-align:center;
+    font-size:12px;
+}
+
+@keyframes spin{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
 /* INFO */
 
 .info{
-    margin-top:18px;
+    margin-top:15px;
     background:#8d6e63;
-    border:3px solid #f5e0d3;
-    padding:15px;
-    border-radius:22px;
+    border:2px solid #f5e0d3;
+    padding:12px;
+    border-radius:18px;
 }
 
 .info h3{
     color:white;
-    margin-bottom:8px;
-    font-size:15px;
+    margin-bottom:6px;
+    font-size:13px;
 }
 
 .info p{
     color:#f8d7c8;
-    font-size:12px;
-    line-height:1.6;
+    font-size:11px;
+    line-height:1.5;
 }
 
 /* FOOTER */
 
 .footer{
     text-align:center;
-    margin-top:18px;
+    margin-top:15px;
     color:#f5d7c8;
-    font-size:12px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:500px){
-
-    .card{
-        padding:20px;
-    }
-
-    .title h1{
-        font-size:26px;
-    }
-
-    .logo{
-        width:78px;
-        height:78px;
-        font-size:34px;
-    }
-
-    .back-btn{
-        width:65px;
-        height:65px;
-    }
-
-    .back-inner{
-        width:43px;
-        height:43px;
-    }
-
-    .arrow{
-        font-size:20px;
-    }
-
-    .back-inner span{
-        font-size:9px;
-    }
-
+    font-size:10px;
 }
 
 </style>
@@ -446,7 +446,7 @@ body{
 <!-- LOGO -->
 
 <div class="logo">
-🔐
+🔒
 </div>
 
 <!-- TITLE -->
@@ -503,7 +503,7 @@ placeholder="text1|text2">
 class="main-btn encrypt-btn"
 onclick="encrypt()">
 
-🔥 Encrypt Javascript
+⚙️ Encrypt Javascript
 
 </button>
 
@@ -588,7 +588,7 @@ document
 
 /* ENCRYPT */
 
-function encrypt(){
+async function encrypt(){
 
     try{
 
@@ -616,16 +616,40 @@ function encrypt(){
         const reader =
         new FileReader();
 
+        const out =
+        document.getElementById("out");
+
+        out.innerHTML = `
+
+        <div class="loading-wrap">
+
+            <div class="loader"></div>
+
+            <div class="loading-text">
+
+                ⚡ Sedang Encrypt File...
+
+            </div>
+
+        </div>
+
+        `;
+
+        out.scrollIntoView({
+            behavior:"smooth"
+        });
+
         reader.onload =
-        function(e){
+        async function(e){
 
             try{
 
                 const code =
                 e.target.result;
 
-                document.getElementById("out").innerText =
-                "⚡ Sedang encrypt file...";
+                await new Promise(resolve =>
+                    setTimeout(resolve,1500)
+                );
 
                 const obfuscated =
                 JavaScriptObfuscator.obfuscate(code,{
@@ -650,8 +674,17 @@ function encrypt(){
                 hasil =
                 obfuscated.getObfuscatedCode();
 
-                document.getElementById("out").innerText =
-                hasil.substring(0,1500) + "...";
+                out.innerText =
+                hasil.substring(0,1200) + "...";
+
+                setTimeout(()=>{
+
+                    out.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                },300);
 
             }catch(err){
 

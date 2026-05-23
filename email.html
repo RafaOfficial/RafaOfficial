@@ -3,212 +3,649 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Unlimited Email Generator</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-body{
+
+*{
     margin:0;
-    font-family:Arial;
-    background:#0d0d0d;
-    color:white;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top left,#c8a58f 0%,#a98274 20%,#6d4c41 50%,#2d1b16 100%);
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    padding:15px;
+    overflow-x:hidden;
+    position:relative;
 }
+
+/* BACKGROUND */
+
+.circle1{
+    position:absolute;
+    width:220px;
+    height:220px;
+    background:#ffffff;
+    opacity:.05;
+    border-radius:50%;
+    top:-80px;
+    left:-80px;
+}
+
+.circle2{
+    position:absolute;
+    width:180px;
+    height:180px;
+    background:#ffffff;
+    opacity:.05;
+    border-radius:50%;
+    bottom:-60px;
+    right:-60px;
+}
+
+/* FLOAT ICON */
+
+.float{
+    position:absolute;
+    color:#fff3e0;
+    opacity:.15;
+    font-size:24px;
+    animation:float 4s ease-in-out infinite;
+}
+
+.f1{
+    top:12%;
+    left:10%;
+}
+
+.f2{
+    bottom:18%;
+    right:12%;
+    animation-delay:1s;
+}
+
+.f3{
+    top:40%;
+    right:18%;
+    animation-delay:2s;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* CARD */
 
 .card{
-    width:90%;
-    max-width:400px;
-    background:#1a1a1a;
+    width:100%;
+    max-width:390px;
+    background:#6d4c41;
+    border:3px solid #f5e0d3;
+    border-radius:28px;
     padding:20px;
-    border-radius:20px;
-    box-shadow:0 0 20px rgba(255,0,150,0.15);
+    box-shadow:
+    8px 8px 0 #2d1b16,
+    0 0 25px rgba(0,0,0,.3);
+    position:relative;
+    z-index:2;
 }
 
+/* LOGO */
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:auto;
+    background:#fff3e0;
+    border-radius:20px;
+    border:3px solid #3e2723;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+    box-shadow:5px 5px 0 #3e2723;
+    margin-bottom:15px;
+}
+
+/* TITLE */
+
 .title{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:10px;
+    text-align:center;
+    color:white;
+    font-size:24px;
+    font-weight:800;
+    text-shadow:3px 3px 0 #3e2723;
 }
 
 .desc{
-    font-size:13px;
-    opacity:0.7;
-    margin-bottom:20px;
+    text-align:center;
+    font-size:12px;
+    color:#f5d7c8;
+    margin-top:8px;
+    line-height:1.5;
 }
+
+/* BUTTON */
 
 button{
     width:100%;
-    padding:15px;
+    padding:14px;
     border:none;
-    border-radius:15px;
-    background:linear-gradient(45deg,#7b2ff7,#f107a3);
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    margin-top:6px;
-}
-
-.loading{
-    display:none;
-    text-align:center;
-    margin-top:10px;
-    animation:blink 1s infinite;
-}
-
-@keyframes blink{
-    50%{opacity:0.3;}
-}
-
-#result{
-    margin-top:15px;
-    max-height:220px;
-    overflow:auto;
-}
-
-.item{
-    background:#222;
-    padding:10px;
-    border-radius:10px;
-    margin-bottom:8px;
+    border-radius:18px;
     font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:12px;
+    transition:.2s;
+}
+
+button:hover{
+    transform:translateY(-2px);
+}
+
+.generate{
+    background:#ffcc80;
+    color:#4e342e;
+    border:2px solid #4e342e;
+    box-shadow:4px 4px 0 #4e342e;
 }
 
 .copy{
-    background:#333;
+    background:#bcaaa4;
+    color:#3e2723;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+}
+
+.back{
+    background:#d7ccc8;
+    color:#3e2723;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+}
+
+/* LOADING */
+
+.loading{
+    display:none;
+    margin-top:15px;
+    background:#fff3e0;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    padding:15px;
+    border-radius:18px;
+    text-align:center;
+    color:#3e2723;
+    font-weight:700;
+}
+
+.loader{
+    width:40px;
+    height:40px;
+    border:5px solid #d7ccc8;
+    border-top:5px solid #6d4c41;
+    border-radius:50%;
+    margin:auto;
+    margin-bottom:10px;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* RESULT */
+
+#result{
+    margin-top:15px;
+    max-height:230px;
+    overflow:auto;
+}
+
+#result::-webkit-scrollbar{
+    width:5px;
+}
+
+#result::-webkit-scrollbar-thumb{
+    background:#6d4c41;
+    border-radius:20px;
+}
+
+.item{
+    background:#fff3e0;
+    color:#3e2723;
+    padding:13px;
+    border-radius:16px;
+    margin-bottom:10px;
+    font-size:12px;
+    font-weight:700;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    word-break:break-word;
 }
 
 /* POPUP */
+
 .popup{
     position:fixed;
     top:0;
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.85);
+    background:rgba(0,0,0,.85);
     display:none;
     justify-content:center;
     align-items:center;
+    z-index:99;
+    padding:15px;
 }
 
 .popup-box{
-    background:#1a1a1a;
+    width:100%;
+    max-width:320px;
+    background:#6d4c41;
+    border:3px solid #f5e0d3;
+    border-radius:25px;
     padding:20px;
-    border-radius:15px;
     text-align:center;
-    width:85%;
-    max-width:300px;
-    animation:fadeIn 0.3s ease;
+    box-shadow:
+    8px 8px 0 #2d1b16;
+    animation:popup .3s ease;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.9);}
-    to{opacity:1; transform:scale(1);}
+@keyframes popup{
+
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+.popup-logo{
+    width:70px;
+    height:70px;
+    margin:auto;
+    background:#fff3e0;
+    border-radius:18px;
+    border:3px solid #3e2723;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    box-shadow:4px 4px 0 #3e2723;
+    margin-bottom:15px;
 }
 
 .popup-box h3{
+    color:white;
+    font-size:20px;
     margin-bottom:10px;
+    text-shadow:2px 2px 0 #3e2723;
 }
 
 .popup-box p{
-    font-size:13px;
-    opacity:0.7;
-    margin-bottom:15px;
+    color:#f5d7c8;
+    font-size:12px;
+    line-height:1.5;
 }
+
+.join{
+    background:#ffcc80;
+    color:#4e342e;
+    border:2px solid #4e342e;
+    box-shadow:4px 4px 0 #4e342e;
+}
+
+.done{
+    background:#d7ccc8;
+    color:#3e2723;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+}
+
+.footer{
+    text-align:center;
+    color:#f5d7c8;
+    font-size:10px;
+    margin-top:15px;
+}
+
+/* BACK BUTTON */
+
+.back-wrap{
+    margin-bottom:12px;
+}
+
+.back-btn{
+    width:62px;
+    height:62px;
+    background:#f6a84d;
+    border-radius:18px;
+    border:4px solid #f7f1eb;
+    box-shadow:
+    5px 5px 0 #c63f12;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    transform:translateY(-2px);
+}
+
+.back-inner{
+    width:40px;
+    height:40px;
+    background:#8fa6b2;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-weight:800;
+    border:2px solid #dbe3e8;
+}
+
+.back-inner span{
+    font-size:8px;
+    margin-top:-2px;
+}
+
+.arrow{
+    font-size:18px;
+    line-height:14px;
+}
+
 </style>
 </head>
 <body>
 
+<div class="circle1"></div>
+<div class="circle2"></div>
+
+<div class="float f1">✦</div>
+<div class="float f2">⚡</div>
+<div class="float f3">✦</div>
+
 <div class="card">
-    <div class="title">✨ Generate Email</div>
 
-    <div class="desc">
-        Generate email tanpa batas (unlimited).
-    </div>
+<!-- BACK -->
 
-    <button onclick="checkJoin()">✨ Generate Email</button>
+<div class="back-wrap">
 
-    <div class="loading" id="loading">⏳ Membuat email...</div>
+<a href="index.html" class="back-btn">
 
-    <div id="result"></div>
+<div class="back-inner">
 
-    <button class="copy" onclick="copyAll()">Copy Semua</button>
+<div class="arrow">⬅</div>
 
-    <button onclick="goBack()">⬅️ Kembali</button>
+<span>BACK</span>
+
+</div>
+
+</a>
+
+</div>
+
+<div class="logo">
+📧
+</div>
+
+<div class="title">
+Unlimited Email
+</div>
+
+<div class="desc">
+Generate email tanpa batas dengan design Dark Cartoon Brutalism tema coklat susu cerah.
+</div>
+
+<button class="generate" onclick="checkJoin()">
+✨ Generate Email
+</button>
+
+<div class="loading" id="loading">
+
+<div class="loader"></div>
+
+⏳ Membuat Email...
+
+</div>
+
+<div id="result"></div>
+
+<button class="copy" onclick="copyAll()">
+📋 Copy Semua
+</button>
+
+<div class="footer">
+© Rafa Official • Brutalism UI
+</div>
+
 </div>
 
 <!-- POPUP -->
-<div class="popup" id="popup">
-    <div class="popup-box">
-        <h3>Wajib Join Telegram</h3>
-        <p>Silakan join saluran Telegram terlebih dahulu untuk menggunakan fitur ini.</p>
 
-        <button id="joinBtn" onclick="joinTele()">Join Telegram</button>
-        <button id="doneBtn" onclick="closePopup()" style="display:none;">Sudah Join</button>
-    </div>
+<div class="popup" id="popup">
+
+<div class="popup-box">
+
+<div class="popup-logo">
+🚀
+</div>
+
+<h3>Join Telegram</h3>
+
+<p>
+Silakan join Telegram terlebih dahulu untuk menggunakan fitur ini.
+</p>
+
+<button
+class="join"
+id="joinBtn"
+onclick="joinTele()">
+
+📢 Join Telegram
+
+</button>
+
+<button
+class="done"
+id="doneBtn"
+onclick="closePopup()"
+style="display:none;">
+
+✅ Sudah Join
+
+</button>
+
+</div>
 </div>
 
 <script>
+
 let emails = [];
 let joined = false;
 
+/* RANDOM EMAIL */
+
 function randomEmail(){
-    let chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+
+    let chars =
+    "abcdefghijklmnopqrstuvwxyz1234567890";
+
     let name = "";
+
     for(let i=0;i<10;i++){
-        name += chars[Math.floor(Math.random()*chars.length)];
+
+        name +=
+        chars[Math.floor(Math.random()*chars.length)];
+
     }
+
     return name + "@gmail.com";
+
 }
+
+/* CHECK JOIN */
 
 function checkJoin(){
+
     if(!joined){
-        document.getElementById("popup").style.display = "flex";
+
+        document.getElementById("popup").style.display =
+        "flex";
+
         return;
+
     }
+
     generate();
+
 }
+
+/* GENERATE */
 
 function generate(){
-    document.getElementById("loading").style.display = "block";
+
+    const loading =
+    document.getElementById("loading");
+
+    loading.style.display =
+    "block";
+
+    loading.scrollIntoView({
+        behavior:"smooth"
+    });
 
     setTimeout(()=>{
-        let email = randomEmail();
+
+        let email =
+        randomEmail();
+
         emails.push(email);
 
-        let div = document.createElement("div");
-        div.className = "item";
-        div.innerText = email;
+        let div =
+        document.createElement("div");
 
-        document.getElementById("result").prepend(div);
+        div.className =
+        "item";
 
-        document.getElementById("loading").style.display = "none";
-    },500);
+        div.innerText =
+        email;
+
+        document
+        .getElementById("result")
+        .prepend(div);
+
+        loading.style.display =
+        "none";
+
+        div.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    },1200);
+
 }
+
+/* JOIN TELEGRAM */
 
 function joinTele(){
-    window.open("https://t.me/ErroBaiyles", "_blank"); // GANTI LINK TELEGRAM
 
-    // tampilkan tombol "Sudah Join"
-    document.getElementById("doneBtn").style.display = "block";
+    window.open(
+    "https://t.me/ErroBaiyles",
+    "_blank"
+    );
+
+    document.getElementById("doneBtn").style.display =
+    "block";
+
 }
+
+/* CLOSE POPUP */
 
 function closePopup(){
+
     joined = true;
-    document.getElementById("popup").style.display = "none";
+
+    document.getElementById("popup").style.display =
+    "none";
+
     generate();
+
 }
+
+/* COPY */
 
 function copyAll(){
-    if(emails.length === 0) return alert("Belum ada email!");
-    navigator.clipboard.writeText(emails.join("\n"));
-    alert("Semua email berhasil di copy!");
+
+    if(emails.length === 0){
+
+        return alert("❌ Belum ada email!");
+
+    }
+
+    navigator.clipboard.writeText(
+        emails.join("\n")
+    );
+
+    alert("✅ Semua email berhasil di copy!");
+
 }
 
+/* BACK */
+
 function goBack(){
-    window.location.href = "index.js"; // ubah kalau mau ke index.html
+
+    window.location.href =
+    "index.html";
+
 }
+
 </script>
 
 </body>
