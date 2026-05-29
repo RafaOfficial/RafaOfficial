@@ -99,7 +99,6 @@
 }
 }
 </script>
-
 <style>
 
 *{
@@ -110,9 +109,7 @@ font-family:'Fredoka',sans-serif;
 scroll-behavior:smooth;
 }
 
-/* =========================
-BODY
-========================= */
+/* BODY */
 
 body{
 
@@ -131,8 +128,6 @@ padding-top:90px;
 color:white;
 }
 
-/* BACKGROUND EFFECT */
-
 body::before{
 content:'';
 position:fixed;
@@ -145,7 +140,7 @@ radial-gradient(circle at bottom,#ffd7b833,transparent 35%);
 z-index:-1;
 }
 
-/* FLOAT EFFECT */
+/* FLOAT BG */
 
 .circle1{
 position:fixed;
@@ -171,9 +166,7 @@ filter:blur(80px);
 z-index:-1;
 }
 
-/* =========================
-TOPBAR
-========================= */
+/* TOPBAR */
 
 .topbar{
 position:fixed;
@@ -196,16 +189,13 @@ linear-gradient(
 #4e342e
 );
 
-border-bottom:
-4px solid white;
+border-bottom:4px solid white;
 
 box-shadow:
 8px 8px 0px #2d1b12;
 
 z-index:999;
 }
-
-/* LOGO */
 
 .logo-top{
 display:flex;
@@ -224,21 +214,15 @@ border:3px solid white;
 font-size:24px;
 font-weight:700;
 
-color:white;
-
 text-shadow:
 4px 4px 0px #3e2723;
 }
-
-/* RIGHT */
 
 .top-right{
 display:flex;
 align-items:center;
 gap:14px;
 }
-
-/* NOTIF */
 
 .notif-btn{
 width:52px;
@@ -259,28 +243,21 @@ linear-gradient(
 #ff7043
 );
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #bf360c;
 }
 
-/* MENU */
-
 .hamburger{
 font-size:40px;
 cursor:pointer;
-
-color:white;
 
 text-shadow:
 4px 4px 0px #3e2723;
 }
 
-/* =========================
-SIDEBAR
-========================= */
+/* SIDEBAR */
 
 .sidebar{
 position:fixed;
@@ -302,10 +279,9 @@ linear-gradient(
 #3e2723
 );
 
-border-left:
-4px solid white;
+border-left:4px solid white;
 
-transition:0.4s;
+transition:.4s;
 
 z-index:9999;
 }
@@ -313,8 +289,6 @@ z-index:9999;
 .sidebar.active{
 right:0;
 }
-
-/* CLOSE */
 
 .close-sidebar{
 width:50px;
@@ -336,16 +310,13 @@ linear-gradient(
 #ff7043
 );
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #bf360c;
 
 cursor:pointer;
 }
-
-/* PROFILE */
 
 .side-profile{
 text-align:center;
@@ -359,8 +330,7 @@ height:120px;
 border-radius:50%;
 object-fit:cover;
 
-border:
-5px solid white;
+border:5px solid white;
 
 box-shadow:
 8px 8px 0px #3e2723;
@@ -376,8 +346,6 @@ margin-top:6px;
 font-size:14px;
 color:#ffe0b2;
 }
-
-/* MENU LIST */
 
 .menu-list{
 margin-top:30px;
@@ -401,8 +369,7 @@ linear-gradient(
 #6d4c41
 );
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #3e2723;
@@ -411,7 +378,7 @@ color:white;
 
 font-weight:bold;
 
-transition:0.3s;
+transition:.3s;
 }
 
 .menu-list a:hover{
@@ -429,22 +396,16 @@ linear-gradient(
 
 }
 
-/* =========================
-MAIN
-========================= */
+/* MAIN */
 
 #main{
 padding:20px;
 text-align:center;
 }
 
-/* TITLE */
-
 .title{
 font-size:42px;
 font-weight:700;
-
-color:white;
 
 text-shadow:
 5px 5px 0px #3e2723;
@@ -471,8 +432,6 @@ linear-gradient(
 
 }
 
-/* BADGE */
-
 .badge{
 display:inline-block;
 
@@ -487,8 +446,7 @@ linear-gradient(
 #ff7043
 );
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #bf360c;
@@ -498,15 +456,11 @@ font-weight:bold;
 margin-bottom:20px;
 }
 
-/* PROFILE */
-
 .profile-wrap{
 display:flex;
 flex-direction:column;
 align-items:center;
 }
-
-/* LOGO */
 
 .logo{
 width:180px;
@@ -515,8 +469,7 @@ height:180px;
 border-radius:50%;
 object-fit:cover;
 
-border:
-5px solid white;
+border:5px solid white;
 
 box-shadow:
 10px 10px 0px #3e2723;
@@ -535,8 +488,6 @@ transform:translateY(-8px);
 }
 
 }
-
-/* NAME */
 
 .name{
 margin-top:15px;
@@ -565,8 +516,6 @@ box-shadow:
 4px 4px 0px #e65100;
 }
 
-/* STATUS */
-
 .status{
 margin-top:12px;
 
@@ -580,22 +529,17 @@ color:#4e342e;
 
 font-weight:bold;
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 5px 5px 0px #6d4c41;
 }
-
-/* CLOCK */
 
 .clock{
 margin-top:10px;
 font-size:15px;
 color:#ffe0b2;
 }
-
-/* VISITOR */
 
 .visitor{
 margin-top:8px;
@@ -612,8 +556,6 @@ justify-content:center;
 gap:18px;
 }
 
-/* ICON */
-
 .btn-icon{
 width:65px;
 height:65px;
@@ -624,13 +566,12 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #3e2723;
 
-transition:0.3s;
+transition:.3s;
 }
 
 .btn-icon:hover{
@@ -645,8 +586,6 @@ rotate(-4deg);
 width:30px;
 }
 
-/* WA */
-
 .wa{
 background:
 linear-gradient(
@@ -656,8 +595,6 @@ linear-gradient(
 );
 }
 
-/* TG */
-
 .tg{
 background:
 linear-gradient(
@@ -666,8 +603,6 @@ linear-gradient(
 #0288d1
 );
 }
-
-/* YT */
 
 .yt{
 background:
@@ -694,8 +629,7 @@ linear-gradient(
 #7b1fa2
 );
 
-border:
-3px solid white;
+border:3px solid white;
 
 box-shadow:
 6px 6px 0px #4a148c;
@@ -707,20 +641,11 @@ font-weight:bold;
 cursor:pointer;
 
 margin-bottom:20px;
-
-transition:0.3s;
 }
-
-.music-btn:hover{
-transform:translateY(-5px);
-}
-
-/* DESC */
 
 .desc{
 font-size:16px;
 line-height:1.6;
-color:white;
 
 text-shadow:
 2px 2px 0px #5d4037;
@@ -728,17 +653,13 @@ text-shadow:
 margin-bottom:25px;
 }
 
-/* =========================
-GRID MENU
-========================= */
+/* GRID */
 
 .container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:16px;
 }
-
-/* CARD */
 
 .card{
 text-decoration:none;
@@ -756,13 +677,12 @@ linear-gradient(
 #4e342e
 );
 
-border:
-4px solid white;
+border:4px solid white;
 
 box-shadow:
 10px 10px 0px #2d1b12;
 
-transition:0.35s;
+transition:.35s;
 }
 
 .card:hover{
@@ -795,7 +715,213 @@ text-shadow:
 3px 3px 0px #3e2723;
 }
 
-/* RESPONSIVE */
+/* IKLAN */
+
+.ads-popup{
+position:fixed;
+inset:0;
+
+background:#000000c7;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+z-index:999999;
+}
+
+.ads-box{
+
+width:100%;
+max-width:360px;
+
+padding:22px;
+
+border-radius:30px;
+
+text-align:center;
+
+background:
+linear-gradient(
+145deg,
+#8d6e63,
+#6d4c41,
+#3e2723
+);
+
+border:4px solid white;
+
+box-shadow:
+12px 12px 0px #2d1b12;
+
+animation:popup .4s ease;
+}
+
+.ads-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:18px;
+
+font-weight:bold;
+}
+
+.ads-timer{
+
+width:48px;
+height:48px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+border-radius:50%;
+
+font-size:18px;
+font-weight:bold;
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:3px solid white;
+
+box-shadow:
+5px 5px 0px #bf360c;
+}
+
+.ads-img{
+width:110px;
+height:110px;
+
+border-radius:50%;
+
+object-fit:cover;
+
+margin-bottom:16px;
+
+border:4px solid white;
+
+box-shadow:
+8px 8px 0px #3e2723;
+}
+
+.ads-box h2{
+
+font-size:28px;
+
+margin-bottom:12px;
+
+text-shadow:
+4px 4px 0px #3e2723;
+}
+
+.ads-box p{
+
+font-size:15px;
+line-height:1.6;
+
+color:#ffe0b2;
+
+margin-bottom:22px;
+}
+
+.join-btn{
+
+display:block;
+
+text-decoration:none;
+
+padding:15px;
+
+border-radius:22px;
+
+font-weight:bold;
+
+color:white;
+
+margin-bottom:18px;
+
+background:
+linear-gradient(
+145deg,
+#66bb6a,
+#2e7d32
+);
+
+border:3px solid white;
+
+box-shadow:
+6px 6px 0px #1b5e20;
+
+transition:.3s;
+}
+
+.join-btn:hover{
+
+transform:
+translateY(-5px)
+rotate(-2deg);
+
+}
+
+.close-ads{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:22px;
+
+font-weight:bold;
+
+font-size:15px;
+
+color:white;
+
+cursor:pointer;
+
+background:
+linear-gradient(
+145deg,
+#ff8a65,
+#ff7043
+);
+
+border:3px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
+}
+
+.close-ads:hover{
+
+transform:
+translateY(-4px);
+
+}
+
+@keyframes popup{
+
+from{
+transform:scale(.7);
+opacity:0;
+}
+
+to{
+transform:scale(1);
+opacity:1;
+}
+
+}
 
 @media(max-width:700px){
 
@@ -829,6 +955,54 @@ font-size:14px;
 
 <div class="circle1"></div>
 <div class="circle2"></div>
+
+<!-- IKLAN -->
+
+<div class="ads-popup" id="adsPopup">
+
+<div class="ads-box">
+
+<div class="ads-top">
+
+<span>📢 IKLAN RAFAXMODS</span>
+
+<div class="ads-timer" id="adsTimer">
+8
+</div>
+
+</div>
+
+<img 
+src="https://img2.pixhost.to/images/7724/723451208_jpg"
+class="ads-img"
+>
+
+<h2>RafaXMods Share Code</h2>
+
+<p>
+Join saluran RafaXMods untuk mendapatkan
+informasi terbaru, share code gratis,
+update fitur website, dan tools premium lainnya ⚡
+</p>
+
+<a 
+href="https://whatsapp.com/channel/0029Vb7pLCF35fLqMBUCMP1D"
+target="_blank"
+class="join-btn"
+>
+🚀 JOIN CHANNEL WA
+</a>
+
+<button 
+class="close-ads"
+onclick="closeAds()"
+>
+❌ Close Iklan
+</button>
+
+</div>
+
+</div>
 
 <!-- AUDIO -->
 
@@ -889,15 +1063,13 @@ class="side-pp"
 
 </div>
 
-<!-- MENU -->
-
 <div class="menu-list">
 
-<a href="profil.html">
+<a href="#">
 👤 Profil Saya
 </a>
 
-<a href="bailyes.html">
+<a href="#">
 💬 My Baiyles
 </a>
 
@@ -957,11 +1129,9 @@ RafaXMods
 
 </div>
 
-<!-- SOCIAL -->
-
 <div class="social">
 
-<a href="https://whatsapp.com/channel/0029Vb6SHOA0AgWEzwzBK41S" target="_blank">
+<a href="https://whatsapp.com/channel/0029Vb7pLCF35fLqMBUCMP1D" target="_blank">
 
 <div class="btn-icon wa">
 
@@ -998,8 +1168,6 @@ RafaXMods
 </button>
 
 <p class="desc" id="typing"></p>
-
-<!-- MENU CARD -->
 
 <div class="container">
 
@@ -1145,6 +1313,39 @@ setTimeout(typing,45);
 }
 
 typing();
+
+/* TIMER IKLAN */
+
+let timeLeft = 8;
+
+const timer =
+document.getElementById("adsTimer");
+
+const countdown = setInterval(()=>{
+
+timeLeft--;
+
+timer.innerHTML = timeLeft;
+
+if(timeLeft <= 0){
+
+clearInterval(countdown);
+
+timer.innerHTML = "✔";
+
+}
+
+},1000);
+
+/* CLOSE IKLAN */
+
+function closeAds(){
+
+document
+.getElementById("adsPopup")
+.style.display = "none";
+
+}
 
 </script>
 
