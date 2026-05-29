@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3 HTML Playground</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#1a1a1a;
+font-family:'Fredoka',sans-serif;
+color:white;
+padding:20px;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+width:300px;
+height:300px;
+background:#6d4c41;
+filter:blur(120px);
+top:-100px;
+left:-100px;
+opacity:.6;
+z-index:-1;
+}
+
+body::after{
+content:'';
+position:fixed;
+width:300px;
+height:300px;
+background:#8d6e63;
+filter:blur(120px);
+bottom:-100px;
+right:-100px;
+opacity:.6;
+z-index:-1;
+}
+
+.title{
+text-align:center;
+font-size:35px;
+font-weight:700;
+margin-bottom:25px;
+text-shadow:3px 3px 0 #000;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+.card{
+background:#2b2b2b;
+border:4px solid #000;
+border-radius:28px;
+box-shadow:8px 8px 0 #000;
+overflow:hidden;
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.top{
+background:#6d4c41;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:4px solid #000;
+}
+
+.top h2{
+font-size:18px;
+}
+
+.buttons{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+button{
+border:none;
+padding:10px 14px;
+border-radius:14px;
+font-family:'Fredoka',sans-serif;
+font-weight:600;
+cursor:pointer;
+transition:.2s;
+border:3px solid #000;
+box-shadow:3px 3px 0 #000;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.play{
+background:#4caf50;
+color:white;
+}
+
+.copy{
+background:#2196f3;
+color:white;
+}
+
+.back{
+background:#ff5252;
+color:white;
+}
+
+textarea{
+width:100%;
+height:350px;
+background:#151515;
+color:#fff;
+border:none;
+outline:none;
+padding:18px;
+font-size:14px;
+font-family:monospace;
+resize:none;
+}
+
+iframe{
+width:100%;
+height:250px;
+background:white;
+border:none;
+border-top:4px solid #000;
+}
+
+.toast{
+position:fixed;
+top:20px;
+right:20px;
+background:#6d4c41;
+padding:15px 20px;
+border-radius:16px;
+border:3px solid #000;
+box-shadow:5px 5px 0 #000;
+font-weight:600;
+transform:translateX(200px);
+opacity:0;
+transition:.3s;
+}
+
+.toast.show{
+transform:translateX(0);
+opacity:1;
+}
+
+@media(max-width:700px){
+.title{
+font-size:28px;
+}
+
+.top{
+flex-direction:column;
+gap:12px;
+align-items:flex-start;
+}
+
+.buttons{
+width:100%;
+}
+
+button{
+flex:1;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">Code Berhasil Di Copy</div>
+
+<h1 class="title">SHARE CODE HTML 📊</h1>
+
+<div class="container">
+
+<div class="card">
+<div class="top">
+<h2>HTML AI GEMINI</h2>
+<div class="buttons">
+<button class="play" onclick="runCode('code1','view1')">▶ Play</button>
+<button class="copy" onclick="copyCode('code1')">📋 Copy</button>
+<button class="back" onclick="window.location.href='index.html'">⬅ Back</button>
+</div>
+</div>
+<textarea id="code1" placeholder="<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Gemini Chat</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#05070d;
+    color:white;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+    position:absolute;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(80px);
+    opacity:.4;
+    animation:gerak 8s infinite alternate;
+}
+
+.circle1{
+    width:250px;
+    height:250px;
+    background:#0066ff;
+    top:-50px;
+    left:-50px;
+}
+
+.circle2{
+    width:300px;
+    height:300px;
+    background:#001d6e;
+    bottom:-80px;
+    right:-80px;
+}
+
+@keyframes gerak{
+    from{
+        transform:translateY(0px) translateX(0px);
+    }
+    to{
+        transform:translateY(30px) translateX(20px);
+    }
+}
+
+/* CONTAINER */
+
+.container{
+    width:95%;
+    max-width:520px;
+    height:90vh;
+    background:#0c111b;
+    border:1px solid rgba(0,140,255,.2);
+    border-radius:25px;
+    overflow:hidden;
+    backdrop-filter:blur(10px);
+    box-shadow:
+    0 0 20px rgba(0,119,255,.3),
+    0 0 50px rgba(0,38,255,.2);
+}
+
+/* HEADER */
+
+.header{
+    padding:20px;
+    text-align:center;
+    font-size:23px;
+    font-weight:bold;
+    background:linear-gradient(
+        90deg,
+        #003cff,
+        #00a2ff
+    );
+    letter-spacing:1px;
+    box-shadow:0 2px 15px rgba(0,89,255,.4);
+}
+
+/* CHAT */
+
+.chat-box{
+    height:calc(100% - 140px);
+    overflow-y:auto;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* MESSAGE */
+
+.msg{
+    max-width:85%;
+    padding:14px;
+    border-radius:18px;
+    animation:fade .3s ease;
+    word-wrap:break-word;
+    line-height:1.6;
+}
+
+.user{
+    align-self:flex-end;
+    background:linear-gradient(
+        135deg,
+        #008cff,
+        #003cff
+    );
+    box-shadow:0 0 12px rgba(0,140,255,.4);
+}
+
+.bot{
+    align-self:flex-start;
+    background:#131c2c;
+    border:1px solid rgba(0,140,255,.2);
+}
+
+/* COPY BUTTON */
+
+.copy-ai-btn{
+    margin-top:12px;
+    background:linear-gradient(
+        135deg,
+        #00a2ff,
+        #003cff
+    );
+    border:none;
+    padding:10px 14px;
+    border-radius:12px;
+    color:white;
+    font-size:13px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 0 10px rgba(0,140,255,.4);
+}
+
+.copy-ai-btn:hover{
+    transform:scale(1.05);
+}
+
+/* INPUT AREA */
+
+.input-area{
+    height:80px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:15px;
+    background:#0a0f18;
+    border-top:1px solid rgba(0,140,255,.15);
+}
+
+input{
+    flex:1;
+    height:50px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    padding:0 15px;
+    background:#111827;
+    color:white;
+    font-size:15px;
+    border:1px solid rgba(0,140,255,.2);
+}
+
+input::placeholder{
+    color:#7b8ba5;
+}
+
+/* SEND BUTTON */
+
+.send-btn{
+    height:50px;
+    padding:0 22px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(
+        135deg,
+        #00a2ff,
+        #003cff
+    );
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 0 15px rgba(0,119,255,.5);
+}
+
+.send-btn:hover{
+    transform:scale(1.05);
+}
+
+/* LOADING */
+
+.loading{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#00a2ff;
+    animation:bounce 1s infinite;
+}
+
+.dot:nth-child(2){
+    animation-delay:.2s;
+}
+
+.dot:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes bounce{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* SCROLL */
+
+.chat-box::-webkit-scrollbar{
+    width:5px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+    background:#005eff;
+    border-radius:10px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+    .container{
+        width:100%;
+        height:100vh;
+        border-radius:0;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+</div>
+
+<div class="container">
+
+    <div class="header">
+        AI GEMINI CHAT
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="msg bot">
+            Halo 👋<br><br>
+            Selamat datang di AI Gemini Chat.
+        </div>
+
+    </div>
+
+    <div class="input-area">
+
+        <input
+        type="text"
+        id="question"
+        placeholder="Tulis pesan..."
+        onkeypress="if(event.key==='Enter') sendMessage()"
+        >
+
+        <button
+        class="send-btn"
+        onclick="sendMessage()">
+        Kirim
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const chatBox = document.getElementById("chatBox");
+
+/* TAMBAH PESAN */
+
+function addMessage(text,type){
+
+    const div = document.createElement("div");
+
+    div.className = `msg ${type}`;
+
+    // PESAN BOT
+    if(type === "bot"){
+
+        div.innerHTML = `
+        <div class="ai-message">
+
+            <div class="ai-text">
+                ${text}
+            </div>
+
+            <button
+            class="copy-ai-btn"
+            onclick="copyAI(this)"
+            data-text="${text.replace(/"/g,'&quot;')}">
+            📋 Copy
+            </button>
+
+        </div>
+        `;
+
+    }else{
+
+        div.innerHTML = text;
+
+    }
+
+    chatBox.appendChild(div);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+/* KIRIM PESAN */
+
+async function sendMessage(){
+
+    const input = document.getElementById("question");
+
+    const text = input.value.trim();
+
+    // WAJIB ISI
+    if(!text){
+
+        alert("Tulis pesan terlebih dahulu!");
+
+        input.focus();
+
+        return;
+
+    }
+
+    addMessage(text,"user");
+
+    input.value = "";
+
+    // LOADING
+
+    const loading = document.createElement("div");
+
+    loading.className = "msg bot";
+
+    loading.id = "loading";
+
+    loading.innerHTML = `
+    <div class="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    `;
+
+    chatBox.appendChild(loading);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try{
+
+        // API FIX
+        const response = await fetch(
+            `https://api.soonex.biz.id/v1/ai/gemini?text=${encodeURIComponent(text)}`
+        );
+
+        const data = await response.json();
+
+        document.getElementById("loading").remove();
+
+        let hasil =
+        data.result ||
+        data.answer ||
+        data.message ||
+        data.response ||
+        JSON.stringify(data);
+
+        addMessage(hasil,"bot");
+
+    }catch(err){
+
+        document.getElementById("loading").remove();
+
+        addMessage(
+            "❌ Gagal mengambil respon AI.",
+            "bot"
+        );
+
+        console.log(err);
+
+    }
+
+}
+
+/* COPY AI */
+
+function copyAI(button){
+
+    const text = button.getAttribute("data-text");
+
+    navigator.clipboard.writeText(text);
+
+    button.innerHTML = "✅ Copied";
+
+    setTimeout(()=>{
+
+        button.innerHTML = "📋 Copy";
+
+    },2000);
+
+}
+
+</script>
+
+</body>
+</html>"></textarea>
+<iframe id="view1"></iframe>
+</div>
+
+<div class="card">
+<div class="top">
+<h2>HTML ENC SCRIPT</h2>
+<div class="buttons">
+<button class="play" onclick="runCode('code2','view2')">▶ Play</button>
+<button class="copy" onclick="copyCode('code2')">📋 Copy</button>
+<button class="back" onclick="window.location.href='index.html'">⬅ Back</button>
+</div>
+</div>
+<textarea id="code2" placeholder="<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d4c41">
+
+<title>ENC Custom Tool</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    background:
+    radial-gradient(circle at top left,#b38867 0%,#8d6e63 20%,#6d4c41 45%,#2d1b16 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    padding:15px;
+}
+
+/* BACKGROUND */
+
+.bg-circle1{
+    position:absolute;
+    width:220px;
+    height:220px;
+    background:#d7ccc8;
+    border-radius:50%;
+    top:-80px;
+    left:-80px;
+    opacity:.08;
+    filter:blur(10px);
+}
+
+.bg-circle2{
+    position:absolute;
+    width:180px;
+    height:180px;
+    background:#efebe9;
+    border-radius:50%;
+    bottom:-60px;
+    right:-60px;
+    opacity:.08;
+    filter:blur(10px);
+}
+
+/* FLOAT ICON */
+
+.float-icon{
+    position:absolute;
+    color:#fff3e0;
+    opacity:.18;
+    font-size:20px;
+    animation:float 4s ease-in-out infinite;
+}
+
+.icon1{
+    top:10%;
+    left:10%;
+}
+
+.icon2{
+    bottom:15%;
+    right:12%;
+    animation-delay:1s;
+}
+
+.icon3{
+    top:40%;
+    right:18%;
+    animation-delay:2s;
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+/* CONTAINER */
+
+.container{
+    width:100%;
+    max-width:390px;
+    position:relative;
+    z-index:2;
+}
+
+/* CARD */
+
+.card{
+    background:#6d4c41;
+    border:3px solid #f5e0d3;
+    border-radius:28px;
+    padding:18px;
+    box-shadow:
+    7px 7px 0px #2d1b16,
+    0 0 20px rgba(0,0,0,.2);
+    position:relative;
+}
+
+/* BACK BUTTON */
+
+.back-wrap{
+    margin-bottom:12px;
+}
+
+.back-btn{
+    width:62px;
+    height:62px;
+    background:#f6a84d;
+    border-radius:18px;
+    border:4px solid #f7f1eb;
+    box-shadow:
+    5px 5px 0 #c63f12;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    transform:translateY(-2px);
+}
+
+.back-inner{
+    width:40px;
+    height:40px;
+    background:#8fa6b2;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-weight:800;
+    border:2px solid #dbe3e8;
+}
+
+.back-inner span{
+    font-size:8px;
+    margin-top:-2px;
+}
+
+.arrow{
+    font-size:18px;
+    line-height:14px;
+}
+
+/* LOGO */
+
+.logo{
+    width:72px;
+    height:72px;
+    margin:auto;
+    background:#fff3e0;
+    border-radius:20px;
+    border:3px solid #3e2723;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    box-shadow:4px 4px 0 #3e2723;
+    margin-bottom:12px;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+}
+
+.title h1{
+    color:white;
+    font-size:24px;
+    font-weight:800;
+    text-shadow:3px 3px 0px #3e2723;
+}
+
+.title p{
+    margin-top:5px;
+    color:#f8d7c8;
+    font-size:11px;
+}
+
+/* INPUT GROUP */
+
+.input-group{
+    margin-top:15px;
+}
+
+.label{
+    color:#fff3e0;
+    font-weight:700;
+    margin-bottom:6px;
+    display:block;
+    font-size:12px;
+}
+
+/* FILE */
+
+.file-box{
+    position:relative;
+}
+
+.file-box input[type=file]{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    cursor:pointer;
+    z-index:2;
+}
+
+.custom-file{
+    width:100%;
+    background:#fff3e0;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    border-radius:18px;
+    padding:13px;
+    color:#4e342e;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    overflow:hidden;
+    font-size:12px;
+}
+
+.custom-file span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+/* TEXT INPUT */
+
+.text-input{
+    width:100%;
+    padding:13px;
+    border:none;
+    outline:none;
+    border-radius:18px;
+    background:#fff3e0;
+    color:#3e2723;
+    font-weight:700;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    font-size:12px;
+}
+
+.text-input::placeholder{
+    color:#8d6e63;
+}
+
+/* BUTTON */
+
+.main-btn{
+    width:100%;
+    padding:13px;
+    margin-top:15px;
+    border:none;
+    border-radius:18px;
+    font-size:13px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.encrypt-btn{
+    background:#ffcc80;
+    color:#4e342e;
+    border:2px solid #4e342e;
+    box-shadow:4px 4px 0 #4e342e;
+}
+
+.download-btn{
+    background:#c5e1a5;
+    color:#2e4630;
+    border:2px solid #2e4630;
+    box-shadow:4px 4px 0 #2e4630;
+}
+
+.main-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* OUTPUT */
+
+.output{
+    margin-top:15px;
+    background:#fff3e0;
+    color:#3e2723;
+    padding:14px;
+    border-radius:18px;
+    border:2px solid #3e2723;
+    box-shadow:4px 4px 0 #3e2723;
+    max-height:180px;
+    overflow:auto;
+    font-size:11px;
+    line-height:1.5;
+    word-break:break-word;
+}
+
+.output::-webkit-scrollbar{
+    width:5px;
+}
+
+.output::-webkit-scrollbar-thumb{
+    background:#6d4c41;
+    border-radius:20px;
+}
+
+/* LOADING */
+
+.loading-wrap{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:15px;
+}
+
+.loader{
+    width:42px;
+    height:42px;
+    border:5px solid #d7ccc8;
+    border-top:5px solid #6d4c41;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:12px;
+}
+
+.loading-text{
+    font-weight:700;
+    color:#4e342e;
+    text-align:center;
+    font-size:12px;
+}
+
+@keyframes spin{
+
+    0%{
+        transform:rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* INFO */
+
+.info{
+    margin-top:15px;
+    background:#8d6e63;
+    border:2px solid #f5e0d3;
+    padding:12px;
+    border-radius:18px;
+}
+
+.info h3{
+    color:white;
+    margin-bottom:6px;
+    font-size:13px;
+}
+
+.info p{
+    color:#f8d7c8;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    margin-top:15px;
+    color:#f5d7c8;
+    font-size:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-circle1"></div>
+<div class="bg-circle2"></div>
+
+<div class="float-icon icon1">✦</div>
+<div class="float-icon icon2">⚡</div>
+<div class="float-icon icon3">✦</div>
+
+<div class="container">
+
+<div class="card">
+
+<!-- BACK -->
+
+<div class="back-wrap">
+
+<a href="index.html" class="back-btn">
+
+<div class="back-inner">
+
+<div class="arrow">⬅</div>
+
+<span>BACK</span>
+
+</div>
+
+</a>
+
+</div>
+
+<!-- LOGO -->
+
+<div class="logo">
+🔒
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+
+<h1>ENC CUSTOM</h1>
+
+<p>Dark Cartoon Brutalism Milk Brown UI</p>
+
+</div>
+
+<!-- FILE -->
+
+<div class="input-group">
+
+<label class="label">
+📁 Upload File .JS
+</label>
+
+<div class="file-box">
+
+<input type="file" id="file" accept=".js">
+
+<div class="custom-file" id="fileText">
+
+📄 <span>Upload File .JS</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- TEXT -->
+
+<div class="input-group">
+
+<label class="label">
+🔑 Custom Identifier
+</label>
+
+<input
+type="text"
+id="key"
+class="text-input"
+placeholder="text1|text2">
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="main-btn encrypt-btn"
+onclick="encrypt()">
+
+⚙️ Encrypt Javascript
+
+</button>
+
+<!-- OUTPUT -->
+
+<div class="output" id="out">
+
+🔐 Tunggu 1 atau 3 Menit...
+
+</div>
+
+<!-- DOWNLOAD -->
+
+<button
+class="main-btn download-btn"
+onclick="download()">
+
+⬇ Download Result
+
+</button>
+
+<!-- INFO -->
+
+<div class="info">
+
+<h3>⚠ Information</h3>
+
+<p>
+
+Gunakan format:
+<br><br>
+
+text1|text2
+
+<br><br>
+
+Contoh:
+<br>
+
+rafa|official
+
+</p>
+
+</div>
+
+<div class="footer">
+© Rafa Official • Cartoon Brutalism UI
+</div>
+
+</div>
+</div>
+
+<script>
+
+let hasil = "";
+
+/* FILE NAME */
+
+document
+.getElementById("file")
+.addEventListener("change", function(){
+
+    const file =
+    this.files[0];
+
+    const text =
+    document.querySelector("#fileText span");
+
+    if(file){
+
+        text.innerText =
+        file.name;
+
+    }else{
+
+        text.innerText =
+        "Upload File .JS";
+
+    }
+
+});
+
+/* ENCRYPT */
+
+async function encrypt(){
+
+    try{
+
+        const file =
+        document.getElementById("file").files[0];
+
+        const key =
+        document.getElementById("key").value;
+
+        if(!file){
+
+            return alert("❌ Upload file JS dulu");
+
+        }
+
+        if(!key.includes("|")){
+
+            return alert("❌ Format wajib text1|text2");
+
+        }
+
+        const [text1,text2] =
+        key.split("|");
+
+        const reader =
+        new FileReader();
+
+        const out =
+        document.getElementById("out");
+
+        out.innerHTML = `
+
+        <div class="loading-wrap">
+
+            <div class="loader"></div>
+
+            <div class="loading-text">
+
+                ⚡ Sedang Encrypt File...
+
+            </div>
+
+        </div>
+
+        `;
+
+        out.scrollIntoView({
+            behavior:"smooth"
+        });
+
+        reader.onload =
+        async function(e){
+
+            try{
+
+                const code =
+                e.target.result;
+
+                await new Promise(resolve =>
+                    setTimeout(resolve,1500)
+                );
+
+                const obfuscated =
+                JavaScriptObfuscator.obfuscate(code,{
+
+                    compact:true,
+
+                    controlFlowFlattening:true,
+
+                    deadCodeInjection:true,
+
+                    stringArrayEncoding:['base64'],
+
+                    identifierNamesGenerator:'mangled',
+
+                    renameGlobals:true,
+
+                    identifiersPrefix:
+                    `高宝座${text1}齐${text2}高宝座`
+
+                });
+
+                hasil =
+                obfuscated.getObfuscatedCode();
+
+                out.innerText =
+                hasil.substring(0,1200) + "...";
+
+                setTimeout(()=>{
+
+                    out.scrollIntoView({
+                        behavior:"smooth",
+                        block:"center"
+                    });
+
+                },300);
+
+            }catch(err){
+
+                alert("❌ Encrypt Error : " + err.message);
+
+            }
+
+        };
+
+        reader.readAsText(file);
+
+    }catch(err){
+
+        alert("❌ Error : " + err.message);
+
+    }
+
+}
+
+/* DOWNLOAD */
+
+function download(){
+
+    if(!hasil){
+
+        return alert("❌ Belum ada hasil encrypt");
+
+    }
+
+    const blob =
+    new Blob([hasil],{
+        type:"application/javascript"
+    });
+
+    const a =
+    document.createElement("a");
+
+    a.href =
+    URL.createObjectURL(blob);
+
+    a.download =
+    "encrypted.js";
+
+    a.click();
+
+}
+
+</script>
+
+</body>
+</html>"></textarea>
+<iframe id="view2"></iframe>
+</div>
+
+<div class="card">
+<div class="top">
+<h2>HTML FAKE GRUP IPHONE</h2>
+<div class="buttons">
+<button class="play" onclick="runCode('code3','view3')">▶ Play</button>
+<button class="copy" onclick="copyCode('code3')">📋 Copy</button>
+<button class="back" onclick="window.location.href='index.html'">⬅ Back</button>
+</div>
+</div>
+<textarea id="code3" placeholder="<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fake Grup iPhone</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#1a120f;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top left,#6d4c41 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#8d6e63 0%,transparent 30%),
+    #1a120f;
+    z-index:-1;
+}
+
+/* BACK BUTTON DI BAWAH */
+
+.back-button{
+    width:100%;
+    margin-top:16px;
+    padding:15px;
+    border:none;
+    border-radius:18px;
+    background:#ff8f3d;
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    border:3px solid #000;
+    box-shadow:6px 6px 0 #c53d00;
+    transition:0.15s;
+}
+
+.back-button:active{
+    transform:translate(4px,4px);
+    box-shadow:2px 2px 0 #c53d00;
+}
+
+/* HEADER */
+
+.header{
+    width:100%;
+    padding:35px 20px 20px;
+    text-align:center;
+}
+
+.logo{
+    font-size:42px;
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+    5px 5px 0 #000;
+}
+
+.sub{
+    margin-top:10px;
+    color:#d7ccc8;
+    font-size:14px;
+    background:#3b2722;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:18px;
+    border:3px solid #000;
+    box-shadow:4px 4px 0 #000;
+}
+
+/* CONTAINER */
+
+.container{
+    width:94%;
+    max-width:520px;
+    margin:18px auto;
+    background:#4e342e;
+    border:4px solid #000;
+    border-radius:28px;
+    padding:24px;
+    box-shadow:10px 10px 0 #000;
+    position:relative;
+}
+
+.container::before{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:#8d6e63;
+    border:4px solid #000;
+    border-radius:50%;
+    top:-20px;
+    right:-15px;
+    z-index:-1;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:20px;
+    color:#fff;
+    text-shadow:3px 3px 0 #000;
+}
+
+/* LABEL */
+
+.label{
+    display:block;
+    margin-bottom:8px;
+    margin-top:18px;
+    font-weight:bold;
+    color:#fff3e0;
+}
+
+/* INPUT */
+
+.input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border:3px solid #000;
+    border-radius:18px;
+    background:#fff3e0;
+    color:#000;
+    font-size:15px;
+    box-shadow:5px 5px 0 #000;
+}
+
+/* BUTTON */
+
+.button{
+    width:100%;
+    margin-top:28px;
+    padding:16px;
+    border:none;
+    border-radius:18px;
+    background:#ffae52;
+    color:#000;
+    font-size:19px;
+    font-weight:900;
+    cursor:pointer;
+    border:3px solid #000;
+    box-shadow:6px 6px 0 #000;
+    transition:0.15s;
+}
+
+.button:active{
+    transform:translate(4px,4px);
+    box-shadow:2px 2px 0 #000;
+}
+
+/* LOADING */
+
+.loading-box{
+    display:none;
+    margin-top:25px;
+    background:#2d1d19;
+    border:3px solid #000;
+    border-radius:18px;
+    padding:15px;
+    box-shadow:5px 5px 0 #000;
+}
+
+.loading-text{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#ffe0b2;
+}
+
+.loading-bar{
+    width:100%;
+    height:18px;
+    background:#1b120f;
+    border-radius:20px;
+    margin-top:15px;
+    overflow:hidden;
+    border:2px solid #000;
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:#ffb74d;
+    transition:0.1s;
+}
+
+/* RESULT */
+
+.result{
+    margin-top:30px;
+    display:none;
+    animation:fade .4s ease;
+}
+
+.result img{
+    width:100%;
+    border-radius:22px;
+    border:4px solid #000;
+    box-shadow:8px 8px 0 #000;
+}
+
+.download{
+    display:block;
+    text-decoration:none;
+    margin-top:18px;
+    text-align:center;
+    padding:15px;
+    background:#ffcc80;
+    color:#000;
+    font-weight:900;
+    border-radius:18px;
+    border:3px solid #000;
+    box-shadow:5px 5px 0 #000;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:35px;
+    text-align:center;
+    color:#d7ccc8;
+    font-size:13px;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:500px){
+
+    .logo{
+        font-size:33px;
+    }
+
+    .container{
+        padding:20px;
+    }
+
+    .title{
+        font-size:21px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="logo">
+        Fake Grup iPhone
+    </div>
+
+    <div class="sub">
+        Website RafaXMods • Modern 2026
+    </div>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="container">
+
+    <div class="title">
+        Fake Grup iPhone
+    </div>
+
+    <label class="label">
+        Link Foto Profile
+    </label>
+
+    <input
+        type="text"
+        id="profile"
+        class="input"
+        value=""
+    >
+
+    <label class="label">
+        Nama Grup
+    </label>
+
+    <input
+        type="text"
+        id="nama"
+        class="input"
+        value=""
+    >
+
+    <label class="label">
+        Jumlah Peserta
+    </label>
+
+    <input
+        type="number"
+        id="peserta"
+        class="input"
+        value=""
+    >
+
+    <button class="button" onclick="generateImage()">
+        GENERATE SEKARANG
+    </button>
+
+    <!-- BACK BUTTON -->
+
+    <button class="back-button" onclick="history.back()">
+        ⬅ BACK
+    </button>
+
+    <!-- LOADING -->
+
+    <div class="loading-box" id="loadingBox">
+
+        <div class="loading-text" id="loadingText">
+            Loading 0%
+        </div>
+
+        <div class="loading-bar">
+
+            <div class="loading-progress" id="loadingProgress"></div>
+
+        </div>
+
+    </div>
+
+    <!-- RESULT -->
+
+    <div class="result" id="result">
+
+        <img id="hasil" src="">
+
+        <a id="download" class="download" download>
+            DOWNLOAD HASIL
+        </a>
+
+    </div>
+
+    <div class="footer">
+        Powered By Rafa Official
+    </div>
+
+</div>
+
+<script>
+
+async function generateImage(){
+
+    const profile = document.getElementById("profile").value.trim();
+    const nama = document.getElementById("nama").value.trim();
+    const peserta = document.getElementById("peserta").value.trim();
+
+    const loadingBox = document.getElementById("loadingBox");
+    const loadingText = document.getElementById("loadingText");
+    const loadingProgress = document.getElementById("loadingProgress");
+
+    const result = document.getElementById("result");
+    const hasil = document.getElementById("hasil");
+    const download = document.getElementById("download");
+
+    if(!profile || !nama || !peserta){
+
+        alert("Harap isi semua form!");
+
+        return;
+    }
+
+    loadingBox.style.display = "block";
+    result.style.display = "none";
+
+    let percent = 0;
+
+    const interval = setInterval(() => {
+
+        percent++;
+
+        loadingText.innerHTML =
+        `Loading ${percent}%`;
+
+        loadingProgress.style.width =
+        percent + "%";
+
+        if(percent >= 100){
+
+            clearInterval(interval);
+
+            const api =
+            `https://api.azbry.com/api/maker/igc?profile=${encodeURIComponent(profile)}&nama=${encodeURIComponent(nama)}&peserta=${encodeURIComponent(peserta)}`;
+
+            hasil.src = api;
+
+            hasil.onload = () => {
+
+                loadingBox.style.display = "none";
+
+                result.style.display = "block";
+
+                download.href = api;
+
+                /* AUTO SCROLL */
+
+                result.scrollIntoView({
+                    behavior:"smooth"
+                });
+
+            }
+
+            hasil.onerror = () => {
+
+                loadingBox.style.display = "none";
+
+                alert("Gagal membuat gambar!");
+
+            }
+
+        }
+
+    },20);
+
+}
+
+</script>
+
+</body>
+</html>"></textarea>
+<iframe id="view3"></iframe>
+</div>
+
+</div>
+
+<script>
+const toast = document.getElementById('toast');
+
+function runCode(textareaId,iframeId){
+const code = document.getElementById(textareaId).value;
+document.getElementById(iframeId).srcdoc = code;
+}
+
+function copyCode(textareaId){
+const code = document.getElementById(textareaId).value;
+navigator.clipboard.writeText(code);
+
+toast.classList.add('show');
+
+setTimeout(()=>{
+toast.classList.remove('show');
+},2000);
+}
+</script>
+
+</body>
+</html>

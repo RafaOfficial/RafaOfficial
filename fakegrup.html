@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fake Grup iPhone</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#1a120f;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+.bg{
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top left,#6d4c41 0%,transparent 30%),
+    radial-gradient(circle at bottom right,#8d6e63 0%,transparent 30%),
+    #1a120f;
+    z-index:-1;
+}
+
+/* BACK BUTTON DI BAWAH */
+
+.back-button{
+    width:100%;
+    margin-top:16px;
+    padding:15px;
+    border:none;
+    border-radius:18px;
+    background:#ff8f3d;
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+    border:3px solid #000;
+    box-shadow:6px 6px 0 #c53d00;
+    transition:0.15s;
+}
+
+.back-button:active{
+    transform:translate(4px,4px);
+    box-shadow:2px 2px 0 #c53d00;
+}
+
+/* HEADER */
+
+.header{
+    width:100%;
+    padding:35px 20px 20px;
+    text-align:center;
+}
+
+.logo{
+    font-size:42px;
+    font-weight:900;
+    color:#fff;
+    text-shadow:
+    5px 5px 0 #000;
+}
+
+.sub{
+    margin-top:10px;
+    color:#d7ccc8;
+    font-size:14px;
+    background:#3b2722;
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:18px;
+    border:3px solid #000;
+    box-shadow:4px 4px 0 #000;
+}
+
+/* CONTAINER */
+
+.container{
+    width:94%;
+    max-width:520px;
+    margin:18px auto;
+    background:#4e342e;
+    border:4px solid #000;
+    border-radius:28px;
+    padding:24px;
+    box-shadow:10px 10px 0 #000;
+    position:relative;
+}
+
+.container::before{
+    content:"";
+    position:absolute;
+    width:80px;
+    height:80px;
+    background:#8d6e63;
+    border:4px solid #000;
+    border-radius:50%;
+    top:-20px;
+    right:-15px;
+    z-index:-1;
+}
+
+/* TITLE */
+
+.title{
+    text-align:center;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:20px;
+    color:#fff;
+    text-shadow:3px 3px 0 #000;
+}
+
+/* LABEL */
+
+.label{
+    display:block;
+    margin-bottom:8px;
+    margin-top:18px;
+    font-weight:bold;
+    color:#fff3e0;
+}
+
+/* INPUT */
+
+.input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border:3px solid #000;
+    border-radius:18px;
+    background:#fff3e0;
+    color:#000;
+    font-size:15px;
+    box-shadow:5px 5px 0 #000;
+}
+
+/* BUTTON */
+
+.button{
+    width:100%;
+    margin-top:28px;
+    padding:16px;
+    border:none;
+    border-radius:18px;
+    background:#ffae52;
+    color:#000;
+    font-size:19px;
+    font-weight:900;
+    cursor:pointer;
+    border:3px solid #000;
+    box-shadow:6px 6px 0 #000;
+    transition:0.15s;
+}
+
+.button:active{
+    transform:translate(4px,4px);
+    box-shadow:2px 2px 0 #000;
+}
+
+/* LOADING */
+
+.loading-box{
+    display:none;
+    margin-top:25px;
+    background:#2d1d19;
+    border:3px solid #000;
+    border-radius:18px;
+    padding:15px;
+    box-shadow:5px 5px 0 #000;
+}
+
+.loading-text{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#ffe0b2;
+}
+
+.loading-bar{
+    width:100%;
+    height:18px;
+    background:#1b120f;
+    border-radius:20px;
+    margin-top:15px;
+    overflow:hidden;
+    border:2px solid #000;
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:#ffb74d;
+    transition:0.1s;
+}
+
+/* RESULT */
+
+.result{
+    margin-top:30px;
+    display:none;
+    animation:fade .4s ease;
+}
+
+.result img{
+    width:100%;
+    border-radius:22px;
+    border:4px solid #000;
+    box-shadow:8px 8px 0 #000;
+}
+
+.download{
+    display:block;
+    text-decoration:none;
+    margin-top:18px;
+    text-align:center;
+    padding:15px;
+    background:#ffcc80;
+    color:#000;
+    font-weight:900;
+    border-radius:18px;
+    border:3px solid #000;
+    box-shadow:5px 5px 0 #000;
+}
+
+/* FOOTER */
+
+.footer{
+    margin-top:35px;
+    text-align:center;
+    color:#d7ccc8;
+    font-size:13px;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:500px){
+
+    .logo{
+        font-size:33px;
+    }
+
+    .container{
+        padding:20px;
+    }
+
+    .title{
+        font-size:21px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="logo">
+        Fake Grup iPhone
+    </div>
+
+    <div class="sub">
+        Website RafaXMods • Modern 2026
+    </div>
+
+</div>
+
+<!-- CONTAINER -->
+
+<div class="container">
+
+    <div class="title">
+        Fake Grup iPhone
+    </div>
+
+    <label class="label">
+        Link Foto Profile
+    </label>
+
+    <input
+        type="text"
+        id="profile"
+        class="input"
+        value=""
+    >
+
+    <label class="label">
+        Nama Grup
+    </label>
+
+    <input
+        type="text"
+        id="nama"
+        class="input"
+        value=""
+    >
+
+    <label class="label">
+        Jumlah Peserta
+    </label>
+
+    <input
+        type="number"
+        id="peserta"
+        class="input"
+        value=""
+    >
+
+    <button class="button" onclick="generateImage()">
+        GENERATE SEKARANG
+    </button>
+
+    <!-- BACK BUTTON -->
+
+    <button class="back-button" onclick="history.back()">
+        ⬅ BACK
+    </button>
+
+    <!-- LOADING -->
+
+    <div class="loading-box" id="loadingBox">
+
+        <div class="loading-text" id="loadingText">
+            Loading 0%
+        </div>
+
+        <div class="loading-bar">
+
+            <div class="loading-progress" id="loadingProgress"></div>
+
+        </div>
+
+    </div>
+
+    <!-- RESULT -->
+
+    <div class="result" id="result">
+
+        <img id="hasil" src="">
+
+        <a id="download" class="download" download>
+            DOWNLOAD HASIL
+        </a>
+
+    </div>
+
+    <div class="footer">
+        Powered By Rafa Official
+    </div>
+
+</div>
+
+<script>
+
+async function generateImage(){
+
+    const profile = document.getElementById("profile").value.trim();
+    const nama = document.getElementById("nama").value.trim();
+    const peserta = document.getElementById("peserta").value.trim();
+
+    const loadingBox = document.getElementById("loadingBox");
+    const loadingText = document.getElementById("loadingText");
+    const loadingProgress = document.getElementById("loadingProgress");
+
+    const result = document.getElementById("result");
+    const hasil = document.getElementById("hasil");
+    const download = document.getElementById("download");
+
+    if(!profile || !nama || !peserta){
+
+        alert("Harap isi semua form!");
+
+        return;
+    }
+
+    loadingBox.style.display = "block";
+    result.style.display = "none";
+
+    let percent = 0;
+
+    const interval = setInterval(() => {
+
+        percent++;
+
+        loadingText.innerHTML =
+        `Loading ${percent}%`;
+
+        loadingProgress.style.width =
+        percent + "%";
+
+        if(percent >= 100){
+
+            clearInterval(interval);
+
+            const api =
+            `https://api.azbry.com/api/maker/igc?profile=${encodeURIComponent(profile)}&nama=${encodeURIComponent(nama)}&peserta=${encodeURIComponent(peserta)}`;
+
+            hasil.src = api;
+
+            hasil.onload = () => {
+
+                loadingBox.style.display = "none";
+
+                result.style.display = "block";
+
+                download.href = api;
+
+                /* AUTO SCROLL */
+
+                result.scrollIntoView({
+                    behavior:"smooth"
+                });
+
+            }
+
+            hasil.onerror = () => {
+
+                loadingBox.style.display = "none";
+
+                alert("Gagal membuat gambar!");
+
+            }
+
+        }
+
+    },20);
+
+}
+
+</script>
+
+</body>
+</html>
