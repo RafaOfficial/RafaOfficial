@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fake Tanya Ustadz - RafaXMods</title>
+
+<meta name="theme-color" content="#6d4c41">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#2b1811,
+#4e342e,
+#6d4c41,
+#3e2723
+);
+
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+overflow-x:hidden;
+color:white;
+}
+
+/* EFFECT */
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+
+background:
+radial-gradient(circle at top,#ffccaa22,transparent 35%),
+radial-gradient(circle at bottom,#ff980022,transparent 35%);
+
+z-index:-1;
+}
+
+.circle1{
+position:fixed;
+width:300px;
+height:300px;
+border-radius:50%;
+background:#ffffff10;
+top:-100px;
+left:-100px;
+filter:blur(70px);
+}
+
+.circle2{
+position:fixed;
+width:350px;
+height:350px;
+border-radius:50%;
+background:#ff980020;
+bottom:-120px;
+right:-120px;
+filter:blur(80px);
+}
+
+/* BOX */
+
+.container{
+
+width:100%;
+max-width:430px;
+
+padding:25px;
+
+border-radius:35px;
+
+background:
+linear-gradient(
+145deg,
+#8d6e63,
+#6d4c41,
+#4e342e
+);
+
+border:4px solid white;
+
+box-shadow:
+12px 12px 0px #2d1b12;
+
+text-align:center;
+}
+
+/* TITLE */
+
+.title{
+
+font-size:34px;
+font-weight:bold;
+
+margin-bottom:10px;
+
+text-shadow:
+5px 5px 0px #3e2723;
+}
+
+.sub{
+
+font-size:15px;
+line-height:1.6;
+
+color:#ffe0b2;
+
+margin-bottom:25px;
+}
+
+/* INPUT */
+
+.input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+outline:none;
+
+border-radius:22px;
+
+font-size:17px;
+
+background:#fff3e0;
+
+color:#4e342e;
+
+border:4px solid white;
+
+box-shadow:
+6px 6px 0px #6d4c41;
+
+margin-bottom:20px;
+}
+
+/* BUTTON */
+
+.btn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+cursor:pointer;
+
+font-size:17px;
+font-weight:bold;
+
+border-radius:22px;
+
+color:white;
+
+margin-top:12px;
+
+transition:.3s;
+
+text-decoration:none;
+
+display:block;
+}
+
+/* GENERATE */
+
+.generate{
+
+background:
+linear-gradient(
+145deg,
+#8e24aa,
+#6a1b9a
+);
+
+border:4px solid white;
+
+box-shadow:
+6px 6px 0px #4a148c;
+}
+
+.generate:hover{
+
+transform:
+translateY(-5px)
+rotate(-2deg);
+
+}
+
+/* BACK */
+
+.back{
+
+background:
+linear-gradient(
+145deg,
+#ffb74d,
+#ff7043
+);
+
+border:4px solid white;
+
+box-shadow:
+6px 6px 0px #bf360c;
+}
+
+.back:hover{
+
+transform:
+translateY(-5px)
+rotate(2deg);
+
+}
+
+/* DOWNLOAD */
+
+.download{
+
+display:none;
+
+background:
+linear-gradient(
+145deg,
+#66bb6a,
+#2e7d32
+);
+
+border:4px solid white;
+
+box-shadow:
+6px 6px 0px #1b5e20;
+}
+
+.download:hover{
+
+transform:
+translateY(-5px)
+rotate(2deg);
+
+}
+
+/* RESULT */
+
+.result{
+
+margin-top:25px;
+
+display:none;
+}
+
+.result img{
+
+width:100%;
+
+border-radius:28px;
+
+border:4px solid white;
+
+box-shadow:
+10px 10px 0px #2d1b12;
+}
+
+/* LOADING */
+
+.loading{
+
+display:none;
+
+margin-top:20px;
+}
+
+.loading-text{
+
+font-size:18px;
+font-weight:bold;
+
+color:#ffe0b2;
+
+margin-bottom:12px;
+}
+
+/* BAR */
+
+.bar{
+
+width:100%;
+height:24px;
+
+border-radius:20px;
+
+background:#ffffff30;
+
+overflow:hidden;
+
+border:3px solid white;
+}
+
+.fill{
+
+height:100%;
+width:0%;
+
+border-radius:20px;
+
+background:
+linear-gradient(
+90deg,
+#ffb74d,
+#ff7043
+);
+
+transition:.1s;
+}
+
+/* PERCENT */
+
+.percent{
+
+margin-top:10px;
+
+font-weight:bold;
+
+color:#fff3e0;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="circle1"></div>
+<div class="circle2"></div>
+
+<!-- MAIN -->
+
+<div class="container">
+
+<div class="title">
+👳‍♂️ Fake Ustadz
+</div>
+
+<div class="sub">
+Buat fake pertanyaan ustadz aesthetic modern seperti story Instagram ⚡
+</div>
+
+<input
+type="text"
+id="question"
+class="input"
+placeholder="Contoh : apa hukum nikah bini muda"
+>
+
+<button
+class="btn generate"
+onclick="generateFake()"
+>
+✨ Generate Fake
+</button>
+
+<!-- BACK BUTTON -->
+
+<a href="index.html" class="btn back">
+🔙 Back
+</a>
+
+<!-- LOADING -->
+
+<div class="loading" id="loading">
+
+<div class="loading-text">
+⏳ Sedang membuat gambar...
+</div>
+
+<div class="bar">
+
+<div class="fill" id="fill"></div>
+
+</div>
+
+<div class="percent" id="percent">
+1%
+</div>
+
+</div>
+
+<!-- RESULT -->
+
+<div class="result" id="result">
+
+<img id="resultImage">
+
+<a 
+id="downloadBtn"
+class="btn download"
+download="fake-ustadz.jpg"
+>
+⬇ Download Image
+</a>
+
+</div>
+
+</div>
+
+<script>
+
+async function generateFake(){
+
+const text =
+document.getElementById("question").value;
+
+const loading =
+document.getElementById("loading");
+
+const result =
+document.getElementById("result");
+
+const resultImage =
+document.getElementById("resultImage");
+
+const fill =
+document.getElementById("fill");
+
+const percent =
+document.getElementById("percent");
+
+const downloadBtn =
+document.getElementById("downloadBtn");
+
+if(!text){
+
+alert("Masukkan pertanyaan terlebih dahulu!");
+
+return;
+
+}
+
+/* RESET */
+
+result.style.display = "none";
+
+downloadBtn.style.display = "none";
+
+loading.style.display = "block";
+
+fill.style.width = "0%";
+
+percent.innerHTML = "1%";
+
+/* LOADING */
+
+let progress = 1;
+
+const loadingAnim = setInterval(()=>{
+
+progress++;
+
+fill.style.width = progress + "%";
+
+percent.innerHTML = progress + "%";
+
+if(progress >= 100){
+
+clearInterval(loadingAnim);
+
+}
+
+},40);
+
+try{
+
+const api =
+`https://api-xemoz-official.my.id/api/maker/tanya-ustadz.php?text=${encodeURIComponent(text)}`;
+
+resultImage.src = api;
+
+resultImage.onload = ()=>{
+
+loading.style.display = "none";
+
+result.style.display = "block";
+
+downloadBtn.style.display = "block";
+
+downloadBtn.href = api;
+
+/* AUTO SCROLL */
+
+result.scrollIntoView({
+behavior:"smooth"
+});
+
+};
+
+}catch(err){
+
+loading.style.display = "none";
+
+alert("Terjadi kesalahan API");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
