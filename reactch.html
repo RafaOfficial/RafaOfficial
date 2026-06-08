@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReactCH - Channel Reactor</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5E6C8;
+    --milk: #EDD9A3;
+    --choco-light: #C68642;
+    --choco: #8B5E2F;
+    --choco-dark: #5C3A1E;
+    --choco-black: #2E1A0E;
+    --white: #FFF8F0;
+    --green: #4CAF50;
+    --red: #E53935;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: var(--cream);
+    background-image:
+      radial-gradient(circle at 20% 20%, #EDD9A380 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, #C6864240 0%, transparent 50%);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238B5E2F' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card {
+    background: var(--white);
+    border: 4px solid var(--choco-dark);
+    border-radius: 20px;
+    box-shadow: 8px 8px 0px var(--choco-dark);
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--choco);
+    border-bottom: 4px solid var(--choco-dark);
+    padding: 20px 24px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .back-btn {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--choco-dark);
+    border: 3px solid var(--choco-black);
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 var(--choco-black);
+    color: var(--cream);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.1s;
+  }
+  .back-btn:hover { transform: translateY(-50%) translate(-1px,-1px); box-shadow: 4px 4px 0 var(--choco-black); }
+  .back-btn:active { transform: translateY(-50%) translate(2px,2px); box-shadow: 1px 1px 0 var(--choco-black); }
+  .logo { font-family: 'Bangers', cursive; font-size: 36px; color: var(--cream); letter-spacing: 3px; text-shadow: 3px 3px 0 var(--choco-dark); line-height: 1; }
+  .logo span { color: var(--milk); }
+  .tagline { color: var(--milk); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+  .card-body { padding: 28px 24px; position: relative; }
+  .field-group { margin-bottom: 18px; }
+  label { display: block; font-size: 13px; font-weight: 900; color: var(--choco-dark); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  input[type="text"] {
+    width: 100%; padding: 12px 14px;
+    border: 3px solid var(--choco); border-radius: 12px;
+    background: var(--cream); font-family: 'Nunito', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--choco-dark);
+    box-shadow: 3px 3px 0 var(--choco); outline: none; transition: all 0.15s;
+  }
+  input[type="text"]:focus { border-color: var(--choco-dark); box-shadow: 4px 4px 0 var(--choco-dark); background: var(--white); }
+  input[type="text"]::placeholder { color: var(--choco-light); font-weight: 700; }
+  .emoji-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .emoji-chip {
+    background: var(--milk); border: 2px solid var(--choco);
+    border-radius: 999px; padding: 4px 10px; font-size: 13px;
+    cursor: pointer; font-weight: 700; color: var(--choco-dark);
+    transition: all 0.12s; user-select: none; box-shadow: 2px 2px 0 var(--choco);
+  }
+  .emoji-chip:hover { background: var(--choco-light); color: var(--white); transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--choco-dark); }
+  .emoji-chip.active { background: var(--choco); color: var(--cream); border-color: var(--choco-dark); }
+  .hint { font-size: 11px; color: var(--choco-light); font-weight: 700; margin-top: 6px; }
+  .btn-submit {
+    width: 100%; padding: 14px;
+    background: var(--choco); color: var(--cream);
+    font-family: 'Bangers', cursive; font-size: 22px;
+    letter-spacing: 2px; border: 3px solid var(--choco-dark);
+    border-radius: 14px; box-shadow: 5px 5px 0 var(--choco-dark);
+    cursor: pointer; transition: all 0.12s; margin-top: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .btn-submit:hover:not(:disabled) { transform: translate(-2px,-2px); box-shadow: 7px 7px 0 var(--choco-dark); background: var(--choco-light); }
+  .btn-submit:active:not(:disabled) { transform: translate(3px,3px); box-shadow: 2px 2px 0 var(--choco-dark); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .overlay {
+    display: none; position: absolute; inset: 0;
+    background: rgba(46,26,14,0.85); border-radius: 16px;
+    z-index: 10; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+  }
+  .overlay.show { display: flex; }
+  .choco-loader {
+    width: 56px; height: 56px;
+    border: 5px solid var(--milk);
+    border-top-color: var(--choco-light);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { font-family: 'Bangers', cursive; font-size: 22px; color: var(--cream); letter-spacing: 2px; animation: pulse 1.2s ease-in-out infinite; }
+  .loading-sub { font-size: 12px; color: var(--milk); font-weight: 700; letter-spacing: 1px; margin-top: -8px; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .result-banner { display: none; border: 3px solid; border-radius: 14px; padding: 14px 16px; margin-top: 16px; }
+  .result-banner.success { background: #E8F5E9; border-color: var(--green); box-shadow: 4px 4px 0 #2E7D32; }
+  .result-banner.error { background: #FFEBEE; border-color: var(--red); box-shadow: 4px 4px 0 #B71C1C; }
+  .result-banner.show { display: block; }
+  .result-title { font-family: 'Bangers', cursive; font-size: 18px; letter-spacing: 1.5px; }
+  .result-banner.success .result-title { color: #1B5E20; }
+  .result-banner.error .result-title { color: #B71C1C; }
+  .result-body {
+    font-family: monospace; font-size: 12px; margin-top: 8px;
+    white-space: pre-wrap; word-break: break-all;
+    max-height: 180px; overflow-y: auto;
+    padding: 8px; border-radius: 8px; border: 2px solid;
+  }
+  .result-banner.success .result-body { background: #F1F8E9; border-color: #A5D6A7; color: #1B5E20; }
+  .result-banner.error .result-body { background: #FFF8F8; border-color: #FFCDD2; color: #B71C1C; }
+  .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+  .step { height: 6px; flex: 1; background: var(--milk); border-radius: 999px; border: 1.5px solid var(--choco-light); transition: all 0.3s; }
+  .step.done { background: var(--choco); border-color: var(--choco-dark); }
+  .step.active { background: var(--choco-light); border-color: var(--choco); animation: stepPulse 0.8s ease-in-out infinite alternate; }
+  @keyframes stepPulse { from { opacity: 0.6; } to { opacity: 1; } }
+  .step-labels { display: flex; justify-content: space-between; margin-bottom: 16px; margin-top: -14px; }
+  .step-label { font-size: 10px; font-weight: 900; color: var(--choco-light); text-transform: uppercase; letter-spacing: 0.5px; flex: 1; text-align: center; }
+  .step-label.active { color: var(--choco); }
+  .step-label.done { color: var(--choco-dark); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">
+    <a class="back-btn" href="index.html">← Back</a>
+    <div class="logo">React<span>CH</span></div>
+    <div class="tagline">⚡ WA Channel Reactor ⚡</div>
+  </div>
+
+  <div class="card-body">
+    <div class="overlay" id="overlay">
+      <div class="choco-loader"></div>
+      <div class="loading-text" id="loadingText">MEMUAT...</div>
+      <div class="loading-sub" id="loadingSub">Mohon tunggu sebentar</div>
+    </div>
+
+    <div class="step-indicator">
+      <div class="step" id="step1"></div>
+      <div class="step" id="step2"></div>
+      <div class="step" id="step3"></div>
+    </div>
+    <div class="step-labels">
+      <div class="step-label" id="lbl1">CSRF Token</div>
+      <div class="step-label" id="lbl2">Register</div>
+      <div class="step-label" id="lbl3">Inject</div>
+    </div>
+
+    <div class="field-group">
+      <label>🔗 URL Channel WA</label>
+      <input type="text" id="urlInput" placeholder="https://whatsapp.com/channel/xxxxx/123" />
+      <div class="hint">Paste link postingan channel WhatsApp</div>
+    </div>
+
+    <div class="field-group">
+      <label>😎 Emoji Reaksi</label>
+      <input type="text" id="emojiInput" value="😂,👍" />
+      <div class="emoji-row" id="emojiPresets">
+        <div class="emoji-chip active" data-val="😂,👍">😂 👍</div>
+        <div class="emoji-chip" data-val="❤️,🔥">❤️ 🔥</div>
+        <div class="emoji-chip" data-val="👏,😍">👏 😍</div>
+        <div class="emoji-chip" data-val="🎉,✅">🎉 ✅</div>
+        <div class="emoji-chip" data-val="😂,👍,❤️,🔥">Semua</div>
+      </div>
+      <div class="hint">Pisahkan dengan koma, contoh: 😂,👍,❤️</div>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" onclick="doReact()">
+      🚀 REACT SEKARANG!
+    </button>
+
+    <div class="result-banner" id="resultBanner">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-body" id="resultBody"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PROXY = "https://rafa-official.vercel.app/api/proxy?path=";
+
+function setStep(active) {
+  for (let i = 1; i <= 3; i++) {
+    const s = document.getElementById('step' + i);
+    const l = document.getElementById('lbl' + i);
+    if (i < active) {
+      s.className = 'step done';
+      l.className = 'step-label done';
+    } else if (i === active) {
+      s.className = 'step active';
+      l.className = 'step-label active';
+    } else {
+      s.className = 'step';
+      l.className = 'step-label';
+    }
+  }
+}
+
+function showLoading(text, sub) {
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('loadingText').textContent = text;
+  document.getElementById('loadingSub').textContent = sub;
+  document.getElementById('submitBtn').disabled = true;
+}
+
+function hideLoading() {
+  document.getElementById('overlay').classList.remove('show');
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function showResult(success, title, body) {
+  const banner = document.getElementById('resultBanner');
+  banner.className = 'result-banner show ' + (success ? 'success' : 'error');
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultBody').textContent =
+    typeof body === 'object' ? JSON.stringify(body, null, 2) : body;
+  banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.getElementById('emojiPresets').addEventListener('click', e => {
+  const chip = e.target.closest('.emoji-chip');
+  if (!chip) return;
+  document.querySelectorAll('.emoji-chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  document.getElementById('emojiInput').value = chip.dataset.val;
+});
+
+async function doReact() {
+  document.getElementById('resultBanner').className = 'result-banner';
+  const url = document.getElementById('urlInput').value.trim();
+  const emoji = document.getElementById('emojiInput').value.trim();
+
+  if (!url) return showResult(false, '⚠️ URL KOSONG!', 'Masukkan URL channel WhatsApp dulu!');
+  if (!url.includes('whatsapp.com')) return showResult(false, '⚠️ URL TIDAK VALID!', 'URL harus dari whatsapp.com');
+  if (!emoji) return showResult(false, '⚠️ EMOJI KOSONG!', 'Pilih atau ketik emoji reaksi dulu!');
+
+  try {
+    // Step 1 - CSRF Token
+    setStep(1);
+    showLoading('MENGAMBIL TOKEN...', 'Menghubungi server keamanan');
+
+    const csrfRes = await fetch(PROXY + 'csrf-token');
+    if (!csrfRes.ok) throw new Error(`Gagal ambil CSRF token (${csrfRes.status})`);
+    const csrfData = await csrfRes.json();
+
+    const token = csrfData.token;
+    const sessionId = csrfData.sessionId;
+    if (!token || !sessionId) throw new Error('Response CSRF tidak valid: ' + JSON.stringify(csrfData));
+
+    // Step 2 - Register Device
+    setStep(2);
+    showLoading('REGISTER DEVICE...', 'Mendaftarkan perangkat virtual');
+
+    const regRes = await fetch(PROXY + 'register-device', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Session-Id': sessionId
+      },
+      body: JSON.stringify({ deviceId: 'device_static' })
+    });
+    if (!regRes.ok) throw new Error(`Gagal register device (${regRes.status})`);
+    const regData = await regRes.json();
+
+    const deviceKey = regData.deviceKey;
+    if (!deviceKey) throw new Error('deviceKey tidak ditemukan: ' + JSON.stringify(regData));
+
+    // Step 3 - Inject React
+    setStep(3);
+    showLoading('MENGIRIM REAKSI...', 'Injecting emoji ke channel...');
+
+    const injectRes = await fetch(PROXY + 'inject', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Session-Id': sessionId
+      },
+      body: JSON.stringify({
+        deviceKey,
+        url,
+        emojis: emoji,
+        csrfToken: token,
+        sessionId
+      })
+    });
+
+    const injectData = await injectRes.json();
+    hideLoading();
+
+    if (!injectRes.ok) throw new Error(injectData?.message || `Inject gagal (${injectRes.status})`);
+
+    // Reset steps semua done
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('step' + i).className = 'step done';
+      document.getElementById('lbl' + i).className = 'step-label done';
+    }
+
+    showResult(true, '✅ REAKSI BERHASIL DIKIRIM!', injectData);
+
+  } catch (err) {
+    hideLoading();
+    setStep(0);
+    showResult(false, '❌ GAGAL!', err.message || String(err));
+  }
+}
+</script>
+</body>
+</html>
