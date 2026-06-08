@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#6d4c41">
+<title>ReactCH - RafaXMods</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #2C1A0E;
+    --card: #3D2410;
+    --card2: #4A2E18;
+    --border: #FFFFFF;
+    --brown-light: #7B4F2E;
+    --cream: #F5E6C8;
+    --milk: #EDD9A3;
+    --gold: #F0A500;
+    --white: #FFFFFF;
+    --green: #2ECC40;
+    --red: #FF4136;
+    --shadow: rgba(0,0,0,0.5);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse at top, #4A2E1840 0%, transparent 60%),
+      radial-gradient(ellipse at bottom, #1A0A0040 0%, transparent 60%);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 40px;
+    color: var(--white);
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--card);
+    border-bottom: 3px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .back-btn {
+    background: #FF6B35;
+    border: 3px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    padding: 7px 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.1s;
+    flex-shrink: 0;
+  }
+  .back-btn:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 rgba(0,0,0,0.4); }
+  .back-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 rgba(0,0,0,0.4); }
+
+  .topbar-title {
+    font-family: 'Bangers', cursive;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  }
+  .topbar-title span { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #3D2410 0%, #5C3A1E 50%, #3D2410 100%);
+    border-bottom: 3px solid var(--border);
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='20' cy='20' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-icon {
+    width: 72px; height: 72px;
+    background: var(--gold);
+    border: 4px solid var(--white);
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 14px;
+  }
+  .hero-title {
+    font-family: 'Bangers', cursive;
+    font-size: 42px;
+    letter-spacing: 4px;
+    color: var(--white);
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+    line-height: 1;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-sub {
+    color: var(--milk);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 2px solid rgba(255,255,255,0.4);
+    margin-top: 10px;
+  }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border: 3px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+  .card-head {
+    background: var(--brown-light);
+    border-bottom: 3px solid var(--border);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-head-icon { font-size: 20px; }
+  .card-head-title {
+    font-family: 'Bangers', cursive;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    color: var(--cream);
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  }
+  .card-body { padding: 18px; }
+
+  /* INPUTS */
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--milk);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--bg);
+    border: 2.5px solid var(--brown-light);
+    border-radius: 12px;
+    color: var(--white);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    outline: none;
+    transition: all 0.15s;
+  }
+  input[type="text"]:focus, textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(240,165,0,0.2);
+  }
+  input[type="text"]::placeholder, textarea::placeholder {
+    color: var(--brown-light);
+    font-weight: 700;
+  }
+
+  /* EMOJI CHIPS */
+  .emoji-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .emoji-chip {
+    background: var(--card2);
+    border: 2px solid var(--brown-light);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--cream);
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .emoji-chip:hover { border-color: var(--gold); color: var(--gold); }
+  .emoji-chip.active {
+    background: var(--gold);
+    color: #2C1A0E;
+    border-color: var(--white);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  }
+
+  .hint {
+    font-size: 11px;
+    color: var(--brown-light);
+    font-weight: 700;
+    margin-top: 7px;
+    letter-spacing: 0.3px;
+  }
+
+  /* STEP BAR */
+  .steps-wrap { padding: 0 18px 4px; }
+  .step-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .step-seg {
+    flex: 1;
+    height: 7px;
+    background: var(--bg);
+    border: 2px solid var(--brown-light);
+    border-radius: 999px;
+    transition: all 0.3s;
+  }
+  .step-seg.done { background: var(--green); border-color: var(--green); }
+  .step-seg.active { background: var(--gold); border-color: var(--gold); animation: segPulse 0.7s ease-in-out infinite alternate; }
+  @keyframes segPulse { from { opacity: 0.5; } to { opacity: 1; } }
+  .step-names {
+    display: flex;
+    justify-content: space-between;
+  }
+  .step-name {
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--brown-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex: 1;
+    text-align: center;
+  }
+  .step-name.active { color: var(--gold); }
+  .step-name.done { color: var(--green); }
+
+  /* SUBMIT BTN */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--gold);
+    color: #2C1A0E;
+    font-family: 'Bangers', cursive;
+    font-size: 24px;
+    letter-spacing: 2px;
+    border: 3px solid var(--white);
+    border-radius: 16px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: all 0.12s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-submit:hover:not(:disabled) {
+    transform: translate(-2px,-2px);
+    box-shadow: 7px 7px 0 rgba(0,0,0,0.4);
+    background: #FFB800;
+  }
+  .btn-submit:active:not(:disabled) {
+    transform: translate(3px,3px);
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+  }
+  .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* LOADING */
+  .loading-card {
+    display: none;
+    background: var(--card);
+    border: 3px solid var(--gold);
+    border-radius: 20px;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
+    padding: 28px 20px;
+    text-align: center;
+    gap: 14px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .loading-card.show { display: flex; }
+  .spinner {
+    width: 52px; height: 52px;
+    border: 5px solid var(--brown-light);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-title {
+    font-family: 'Bangers', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    animation: pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .loading-sub {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--milk);
+  }
+
+  /* RESULT */
+  .result-card {
+    display: none;
+    border: 3px solid;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
+  }
+  .result-card.show { display: block; }
+  .result-card.success { border-color: var(--green); }
+  .result-card.error { border-color: var(--red); }
+  .result-head {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .result-card.success .result-head { background: #1a4a1a; }
+  .result-card.error .result-head { background: #4a1a1a; }
+  .result-head-title {
+    font-family: 'Bangers', cursive;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+  }
+  .result-card.success .result-head-title { color: var(--green); }
+  .result-card.error .result-head-title { color: var(--red); }
+  .result-body-wrap { padding: 14px 18px; background: var(--card); }
+  .result-json {
+    font-family: monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 2px solid var(--brown-light);
+    background: var(--bg);
+    color: var(--milk);
+    line-height: 1.6;
+  }
+
+  /* INFO BOX */
+  .info-box {
+    background: var(--card2);
+    border: 2px solid var(--brown-light);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--milk);
+    line-height: 1.7;
+    margin-top: 14px;
+  }
+  .info-box b { color: var(--gold); }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--brown-light);
+    letter-spacing: 1px;
+  }
+  .footer span { color: var(--gold); }
+
+/* ===== ULTRA PREMIUM CARTOON BRUTALISM ===== */
+body{
+background:
+radial-gradient(circle at top,#6d4c4120,transparent 40%),
+linear-gradient(180deg,#2c1a0e,#24150b)!important;
+}
+
+.topbar{
+backdrop-filter:blur(12px);
+box-shadow:0 8px 25px rgba(0,0,0,.45)!important;
+}
+
+.hero{
+border-radius:0 0 32px 32px;
+box-shadow:0 12px 35px rgba(0,0,0,.45);
+position:relative;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+inset:0;
+background:
+linear-gradient(45deg,transparent 48%,rgba(255,255,255,.03) 50%,transparent 52%);
+background-size:40px 40px;
+pointer-events:none;
+}
+
+.hero-title{
+font-family:'Fredoka One',cursive!important;
+text-shadow:
+0 0 15px rgba(240,165,0,.25),
+4px 4px 0 rgba(0,0,0,.55)!important;
+}
+
+.container{
+max-width:580px!important;
+}
+
+.card{
+background:linear-gradient(180deg,#4a2e18,#3d2410)!important;
+border:3px solid #fff!important;
+box-shadow:8px 8px 0 rgba(0,0,0,.45)!important;
+transition:.25s ease;
+}
+
+.card:hover{
+transform:translateY(-4px);
+}
+
+.card-head{
+background:linear-gradient(90deg,#7b4f2e,#8c5c36)!important;
+}
+
+.card-head-title,
+.loading-title,
+.result-head-title{
+font-family:'Fredoka One',cursive!important;
+}
+
+input[type=text],textarea{
+background:#24150b!important;
+font-weight:800!important;
+}
+
+.btn-submit{
+background:linear-gradient(135deg,#f0a500,#ffcb45)!important;
+box-shadow:8px 8px 0 rgba(0,0,0,.45)!important;
+}
+
+.btn-submit:hover:not(:disabled){
+transform:translate(-3px,-3px)!important;
+}
+
+.emoji-chip{
+background:#5a3920!important;
+border:2px solid #9d7046!important;
+transition:.2s ease;
+}
+
+.emoji-chip:hover{
+transform:translateY(-2px) scale(1.05);
+}
+
+.emoji-chip.active{
+background:linear-gradient(135deg,#f0a500,#ffcb45)!important;
+color:#2c1a0e!important;
+}
+
+#statusText{
+background:linear-gradient(90deg,#3a2312,#52321b)!important;
+}
+
+.result-json::-webkit-scrollbar{
+width:8px;
+}
+
+.result-json::-webkit-scrollbar-thumb{
+background:#f0a500;
+border-radius:20px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a class="back-btn" href="index.html">← Back</a>
+  <div class="topbar-title">React<span>CH</span></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-icon">⚡</div>
+  <div class="hero-title">WA Channel<br><span>Reactor Premium</span></div>
+  <div class="hero-sub">Auto React WhatsApp Channel</div>
+  <div class="hero-badge">✅ Online & Ready</div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- STEP BAR -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-head-icon">📊</span>
+      <span class="card-head-title">Progress Status</span>
+    </div>
+    <div class="steps-wrap" style="padding-top:14px;">
+      <div class="step-bar">
+        <div class="step-seg" id="seg1"></div>
+        <div class="step-seg" id="seg2"></div>
+        <div class="step-seg" id="seg3"></div>
+      </div>
+      <div class="step-names">
+        <div class="step-name" id="sn1">CSRF Token</div>
+        <div class="step-name" id="sn2">Register</div>
+        <div class="step-name" id="sn3">Inject</div>
+      </div>
+    </div>
+    <div style="padding:0 18px 16px;margin-top:8px;">
+      <div style="background:var(--bg);border:2px solid var(--brown-light);border-radius:10px;padding:10px 14px;font-size:13px;font-weight:800;color:var(--milk);" id="statusText">
+        💤 Menunggu input dari kamu...
+      </div>
+    </div>
+  </div>
+
+  <!-- INPUT FORM -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-head-icon">🔗</span>
+      <span class="card-head-title">URL Channel WA</span>
+    </div>
+    <div class="card-body">
+      <input type="text" id="urlInput"
+        placeholder="https://whatsapp.com/channel/xxxxx/123" />
+      <div class="hint">📌 Paste link postingan channel WhatsApp kamu</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-head-icon">😎</span>
+      <span class="card-head-title">Pilih Emoji Reaksi</span>
+      <span style="margin-left:auto;background:var(--gold);color:#2C1A0E;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px;border:2px solid #fff;" id="countBadge">0/3</span>
+    </div>
+    <div class="card-body">
+
+      <div style="background:var(--bg);border:2px solid var(--brown-light);border-radius:12px;padding:10px 14px;min-height:42px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;" id="selectedDisplay">
+        <span style="color:var(--brown-light);font-size:13px;font-weight:800;" id="emptyLabel">Belum ada emoji dipilih...</span>
+      </div>
+
+      <div style="font-size:11px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">😄 Ekspresi</div>
+      <div class="emoji-row">
+        <div class="emoji-chip" data-e="😂">😂</div>
+        <div class="emoji-chip" data-e="😍">😍</div>
+        <div class="emoji-chip" data-e="🥰">🥰</div>
+        <div class="emoji-chip" data-e="😆">😆</div>
+        <div class="emoji-chip" data-e="😎">😎</div>
+        <div class="emoji-chip" data-e="🤩">🤩</div>
+        <div class="emoji-chip" data-e="😭">😭</div>
+        <div class="emoji-chip" data-e="🥺">🥺</div>
+        <div class="emoji-chip" data-e="😱">😱</div>
+        <div class="emoji-chip" data-e="🤣">🤣</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">👋 Gestur</div>
+      <div class="emoji-row">
+        <div class="emoji-chip" data-e="👍">👍</div>
+        <div class="emoji-chip" data-e="👎">👎</div>
+        <div class="emoji-chip" data-e="👏">👏</div>
+        <div class="emoji-chip" data-e="🙌">🙌</div>
+        <div class="emoji-chip" data-e="🤝">🤝</div>
+        <div class="emoji-chip" data-e="💪">💪</div>
+        <div class="emoji-chip" data-e="🫶">🫶</div>
+        <div class="emoji-chip" data-e="✌️">✌️</div>
+        <div class="emoji-chip" data-e="🤙">🤙</div>
+        <div class="emoji-chip" data-e="👌">👌</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">❤️ Hati & Cinta</div>
+      <div class="emoji-row">
+        <div class="emoji-chip" data-e="❤️">❤️</div>
+        <div class="emoji-chip" data-e="🔥">🔥</div>
+        <div class="emoji-chip" data-e="💯">💯</div>
+        <div class="emoji-chip" data-e="💕">💕</div>
+        <div class="emoji-chip" data-e="💖">💖</div>
+        <div class="emoji-chip" data-e="🧡">🧡</div>
+        <div class="emoji-chip" data-e="💛">💛</div>
+        <div class="emoji-chip" data-e="💚">💚</div>
+        <div class="emoji-chip" data-e="💙">💙</div>
+        <div class="emoji-chip" data-e="💜">💜</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">🎉 Selebrasi</div>
+      <div class="emoji-row">
+        <div class="emoji-chip" data-e="🎉">🎉</div>
+        <div class="emoji-chip" data-e="✅">✅</div>
+        <div class="emoji-chip" data-e="🏆">🏆</div>
+        <div class="emoji-chip" data-e="🎊">🎊</div>
+        <div class="emoji-chip" data-e="⭐">⭐</div>
+        <div class="emoji-chip" data-e="🌟">🌟</div>
+        <div class="emoji-chip" data-e="💥">💥</div>
+        <div class="emoji-chip" data-e="🚀">🚀</div>
+        <div class="emoji-chip" data-e="⚡">⚡</div>
+        <div class="emoji-chip" data-e="🎯">🎯</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:900;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin:12px 0 8px;">😤 Negatif</div>
+      <div class="emoji-row">
+        <div class="emoji-chip" data-e="😡">😡</div>
+        <div class="emoji-chip" data-e="🤮">🤮</div>
+        <div class="emoji-chip" data-e="💀">💀</div>
+        <div class="emoji-chip" data-e="🗑️">🗑️</div>
+        <div class="emoji-chip" data-e="🤡">🤡</div>
+        <div class="emoji-chip" data-e="😴">😴</div>
+        <div class="emoji-chip" data-e="🙄">🙄</div>
+        <div class="emoji-chip" data-e="🤦">🤦</div>
+        <div class="emoji-chip" data-e="😤">😤</div>
+        <div class="emoji-chip" data-e="💩">💩</div>
+      </div>
+
+      <input type="hidden" id="emojiInput" value="😂,👍" />
+      <div class="hint" style="margin-top:12px;">👆 Pilih maksimal <b style="color:var(--gold)">3 emoji</b> — klik lagi untuk hapus pilihan</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <button class="btn-submit" id="submitBtn" onclick="doReact()">
+    🚀 REACT SEKARANG!
+  </button>
+
+  <!-- LOADING -->
+  <div class="loading-card" id="loadingCard">
+    <div class="spinner"></div>
+    <div class="loading-title" id="loadingTitle">MEMPROSES...</div>
+    <div class="loading-sub" id="loadingSub">Mohon tunggu sebentar</div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card" id="resultCard">
+    <div class="result-head">
+      <span style="font-size:22px;" id="resultIcon">✅</span>
+      <div class="result-head-title" id="resultTitle">BERHASIL!</div>
+    </div>
+    <div class="result-body-wrap">
+      <div class="result-json" id="resultJson"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">Made with ❤️ by <span>RafaXMods</span></div>
+
+<script>
+const PROXY = "https://rafa-official.vercel.app/api/proxy?path=";
+
+function setStep(active) {
+  for (let i = 1; i <= 3; i++) {
+    const seg = document.getElementById('seg' + i);
+    const sn = document.getElementById('sn' + i);
+    if (i < active) {
+      seg.className = 'step-seg done';
+      sn.className = 'step-name done';
+    } else if (i === active) {
+      seg.className = 'step-seg active';
+      sn.className = 'step-name active';
+    } else {
+      seg.className = 'step-seg';
+      sn.className = 'step-name';
+    }
+  }
+}
+
+function setStatus(text) {
+  document.getElementById('statusText').textContent = text;
+}
+
+function showLoading(title, sub) {
+  document.getElementById('loadingCard').classList.add('show');
+  document.getElementById('loadingTitle').textContent = title;
+  document.getElementById('loadingSub').textContent = sub;
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('resultCard').className = 'result-card';
+}
+
+function hideLoading() {
+  document.getElementById('loadingCard').classList.remove('show');
+  document.getElementById('submitBtn').disabled = false;
+}
+
+function showResult(success, title, body) {
+  const card = document.getElementById('resultCard');
+  card.className = 'result-card show ' + (success ? 'success' : 'error');
+  document.getElementById('resultIcon').textContent = success ? '✅' : '❌';
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultJson').textContent =
+    typeof body === 'object' ? JSON.stringify(body, null, 2) : body;
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+let selectedEmojis = [];
+
+function updateEmojiDisplay() {
+  const display = document.getElementById('selectedDisplay');
+  const empty = document.getElementById('emptyLabel');
+  const badge = document.getElementById('countBadge');
+  const input = document.getElementById('emojiInput');
+  badge.textContent = selectedEmojis.length + '/3';
+  badge.style.background = selectedEmojis.length === 3 ? '#2ECC40' : 'var(--gold)';
+  badge.style.color = selectedEmojis.length === 3 ? '#fff' : '#2C1A0E';
+  empty.style.display = selectedEmojis.length === 0 ? 'inline' : 'none';
+  Array.from(display.querySelectorAll('.sel-tag')).forEach(t => t.remove());
+  selectedEmojis.forEach(e => {
+    const tag = document.createElement('span');
+    tag.className = 'sel-tag';
+    tag.textContent = e;
+    tag.style.cssText = 'font-size:24px;cursor:pointer;line-height:1;';
+    tag.title = 'Klik untuk hapus';
+    tag.onclick = () => {
+      selectedEmojis = selectedEmojis.filter(x => x !== e);
+      document.querySelectorAll('.emoji-chip[data-e]').forEach(c => { if (c.dataset.e === e) c.classList.remove('active'); });
+      updateEmojiDisplay();
+    };
+    display.appendChild(tag);
+  });
+  input.value = selectedEmojis.join(',');
+}
+
+document.querySelectorAll('.emoji-chip[data-e]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const e = chip.dataset.e;
+    if (chip.classList.contains('active')) {
+      chip.classList.remove('active');
+      selectedEmojis = selectedEmojis.filter(x => x !== e);
+    } else {
+      if (selectedEmojis.length >= 3) return;
+      chip.classList.add('active');
+      selectedEmojis.push(e);
+    }
+    updateEmojiDisplay();
+  });
+});
+
+async function doReact() {
+  const url = document.getElementById('urlInput').value.trim();
+  const emoji = document.getElementById('emojiInput').value.trim();
+
+  if (!url) return showResult(false, 'URL KOSONG!', '⚠️ Masukkan URL channel WhatsApp dulu!');
+  if (!url.includes('whatsapp.com')) return showResult(false, 'URL TIDAK VALID!', '⚠️ URL harus dari whatsapp.com');
+  if (selectedEmojis.length === 0) return showResult(false, 'EMOJI KOSONG!', '⚠️ Pilih minimal 1 emoji dulu! Maksimal 3 emoji.');
+
+  try {
+    // STEP 1
+    setStep(1);
+    setStatus('🔐 Mengambil CSRF Token...');
+    showLoading('MENGAMBIL TOKEN...', 'Menghubungi server keamanan');
+
+    const csrfRes = await fetch(PROXY + 'csrf-token');
+    if (!csrfRes.ok) throw new Error(`Gagal ambil CSRF token (${csrfRes.status})`);
+    const csrfData = await csrfRes.json();
+    const { token, sessionId } = csrfData;
+    if (!token || !sessionId) throw new Error('Token tidak valid: ' + JSON.stringify(csrfData));
+
+    // STEP 2
+    setStep(2);
+    setStatus('📱 Mendaftarkan device virtual...');
+    showLoading('REGISTER DEVICE...', 'Mendaftarkan perangkat virtual');
+
+    const regRes = await fetch(PROXY + 'register-device', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session-Id': sessionId },
+      body: JSON.stringify({ deviceId: 'device_static' })
+    });
+    if (!regRes.ok) throw new Error(`Gagal register device (${regRes.status})`);
+    const regData = await regRes.json();
+    const { deviceKey } = regData;
+    if (!deviceKey) throw new Error('deviceKey tidak ditemukan: ' + JSON.stringify(regData));
+
+    // STEP 3
+    setStep(3);
+    setStatus('🚀 Mengirim reaksi emoji...');
+    showLoading('MENGIRIM REAKSI...', 'Injecting emoji ke channel WA');
+
+    const injectRes = await fetch(PROXY + 'inject', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session-Id': sessionId },
+      body: JSON.stringify({ deviceKey, url, emojis: emoji, csrfToken: token, sessionId })
+    });
+    const injectData = await injectRes.json();
+    hideLoading();
+
+    if (!injectRes.ok) throw new Error(injectData?.message || `Inject gagal (${injectRes.status})`);
+
+    // ALL DONE
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('seg' + i).className = 'step-seg done';
+      document.getElementById('sn' + i).className = 'step-name done';
+    }
+    setStatus('✅ Reaksi berhasil dikirim ke channel!');
+    showResult(true, 'REAKSI BERHASIL!', injectData);
+
+  } catch (err) {
+    hideLoading();
+    setStep(0);
+    setStatus('❌ Gagal: ' + (err.message || String(err)));
+    showResult(false, 'GAGAL NIH!', err.message || String(err));
+  }
+}
+</script>
+</body>
+</html>
