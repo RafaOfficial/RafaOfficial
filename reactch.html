@@ -640,4 +640,98 @@ function updateEmojiDisplay() {
     const tag = document.createElement('span');
     tag.className = 'sel-tag';
     tag.textContent = e;
-    tag.style.cssText = 'font-size:24px;cursor:pointer;line-he
+    tag.style.cssText = 'font-size:24px;cursor:pointer;line-height:1;';
+    tag.title = 'Klik untuk hapus';
+    tag.onclick = () => {
+      selectedEmojis = selectedEmojis.filter(x => x !== e);
+      document.querySelectorAll('.emoji-chip[data-e]').forEach(c => { if (c.dataset.e === e) c.classList.remove('active'); });
+      updateEmojiDisplay();
+    };
+    display.appendChild(tag);
+  });
+  input.value = selectedEmojis.join(',');
+}
+
+document.querySelectorAll('.emoji-chip[data-e]').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const e = chip.dataset.e;
+    if (chip.classList.contains('active')) {
+      chip.classList.remove('active');
+      selectedEmojis = selectedEmojis.filter(x => x !== e);
+    } else {
+      if (selectedEmojis.length >= 3) return;
+      chip.classList.add('active');
+      selectedEmojis.push(e);
+    }
+    updateEmojiDisplay();
+  });
+});
+
+async function doReact() {
+  const url = document.getElementById('urlInput').value.trim();
+  const emoji = document.getElementById('emojiInput').value.trim();
+
+  if (!url) return showResult(false, 'URL KOSONG!', '⚠️ Masukkan URL channel WhatsApp dulu!');
+  if (!url.includes('whatsapp.com')) return showResult(false, 'URL TIDAK VALID!', '⚠️ URL harus dari whatsapp.com');
+  if (selectedEmojis.length === 0) return showResult(false, 'EMOJI KOSONG!', '⚠️ Pilih minimal 1 emoji dulu! Maksimal 3 emoji.');
+
+  try {
+    // STEP 1
+    setStep(1);
+    setStatus('🔐 Mengambil CSRF Token...');
+    showLoading('MENGAMBIL TOKEN...', 'Menghubungi server keamanan');
+
+    const csrfRes = await fetch(PROXY + 'csrf-token');
+    if (!csrfRes.ok) throw new Error(`Gagal ambil CSRF token (${csrfRes.status})`);
+    const csrfData = await csrfRes.json();
+    const { token, sessionId } = csrfData;
+    if (!token || !sessionId) throw new Error('Token tidak valid: ' + JSON.stringify(csrfData));
+
+    // STEP 2
+    setStep(2);
+    setStatus('📱 Mendaftarkan device virtual...');
+    showLoading('REGISTER DEVICE...', 'Mendaftarkan perangkat virtual');
+
+    const regRes = await fetch(PROXY + 'register-device', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session-Id': sessionId },
+      body: JSON.stringify({ deviceId: 'device_static' })
+    });
+    if (!regRes.ok) throw new Error(`Gagal register device (${regRes.status})`);
+    const regData = await regRes.json();
+    const { deviceKey } = regData;
+    if (!deviceKey) throw new Error('deviceKey tidak ditemukan: ' + JSON.stringify(regData));
+
+    // STEP 3
+    setStep(3);
+    setStatus('🚀 Mengirim reaksi emoji...');
+    showLoading('MENGIRIM REAKSI...', 'Injecting emoji ke channel WA');
+
+    const injectRes = await fetch(PROXY + 'inject', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Session-Id': sessionId },
+      body: JSON.stringify({ deviceKey, url, emojis: emoji, csrfToken: token, sessionId })
+    });
+    const injectData = await injectRes.json();
+    hideLoading();
+
+    if (!injectRes.ok) throw new Error(injectData?.message || `Inject gagal (${injectRes.status})`);
+
+    // ALL DONE
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('seg' + i).className = 'step-seg done';
+      document.getElementById('sn' + i).className = 'step-name done';
+    }
+    setStatus('✅ Reaksi berhasil dikirim ke channel!');
+    showResult(true, 'REAKSI BERHASIL!', injectData);
+
+  } catch (err) {
+    hideLoading();
+    setStep(0);
+    setStatus('❌ Gagal: ' + (err.message || String(err)));
+    showResult(false, 'GAGAL NIH!', err.message || String(err));
+  }
+}
+</script>
+</body>
+</html>
