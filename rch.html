@@ -497,7 +497,7 @@ const MAX_LIMIT = 5;
 
 function getLimit(callback){
 
-db.ref('limit').once('value', snap=>{
+db.ref('rateLimit/sisa').once('value', snap=>{
 
 let sisa = snap.val();
 
@@ -505,7 +505,7 @@ if(sisa === null){
 
 sisa = MAX_LIMIT;
 
-db.ref('limit').set(sisa);
+db.ref('rateLimit/sisa').set(sisa);
 
 }
 
@@ -565,7 +565,7 @@ db.ref('orders').push(data);
 
 sisa = sisa - 1;
 
-db.ref('limit').set(sisa);
+db.ref('rateLimit/sisa').set(sisa);
 
 alert(
 '✅ Pesanan berhasil dikirim! Sisa limit: '+sisa+'x'
