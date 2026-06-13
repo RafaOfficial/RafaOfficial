@@ -493,7 +493,41 @@ document.getElementById(
 /* KIRIM */
 /* ========================= */
 
+const MAX_LIMIT = 5;
+
+function getLimit(callback){
+
+db.ref('limit').once('value', snap=>{
+
+let sisa = snap.val();
+
+if(sisa === null){
+
+sisa = MAX_LIMIT;
+
+db.ref('limit').set(sisa);
+
+}
+
+callback(sisa);
+
+});
+
+}
+
 function kirimPesanan(){
+
+getLimit(function(sisa){
+
+if(sisa <= 0){
+
+alert(
+'🚫 Limit pengiriman pesanan sudah habis (Maksimal '+MAX_LIMIT+'x)!'
+);
+
+return;
+
+}
 
 let link =
 document.getElementById(
@@ -529,8 +563,12 @@ time:Date.now()
 
 db.ref('orders').push(data);
 
+sisa = sisa - 1;
+
+db.ref('limit').set(sisa);
+
 alert(
-'✅ Pesanan berhasil dikirim!'
+'✅ Pesanan berhasil dikirim! Sisa limit: '+sisa+'x'
 );
 
 document.getElementById(
@@ -540,6 +578,8 @@ document.getElementById(
 document.getElementById(
 'emoji'
 ).value='';
+
+});
 
 }
 
