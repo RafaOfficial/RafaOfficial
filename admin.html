@@ -204,7 +204,7 @@ const db = firebase.database();
 /* LOAD RATE LIMIT REALTIME */
 /* ========================= */
 
-db.ref('rateLimit/sisa').on('value', snap=>{
+db.ref('limit').on('value', snap=>{
 
 let sisa = snap.val();
 
@@ -237,14 +237,14 @@ alert('⚠️ Masukkan angka minimal 1!');
 return;
 }
 
-db.ref('rateLimit/sisa').once('value', snap=>{
+db.ref('limit').once('value', snap=>{
 
 let sisa = snap.val();
 if(sisa === null) sisa = 0;
 
 const baru = sisa + val;
 
-db.ref('rateLimit/sisa').set(baru);
+db.ref('limit').set(baru);
 
 alert(
 '✅ Rate limit ditambah!\n' +
@@ -277,7 +277,7 @@ alert('⚠️ Masukkan angka yang valid (min 0)!');
 return;
 }
 
-db.ref('rateLimit/sisa').set(val);
+db.ref('limit').set(val);
 
 alert(
 '✅ Rate limit diset ke ' + val + '×'
