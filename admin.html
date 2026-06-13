@@ -56,6 +56,69 @@ background:#555;
 .success{
 background:linear-gradient(45deg,#00c853,#64dd17);
 }
+
+/* ========================= */
+/* RATE LIMIT */
+/* ========================= */
+
+.rl-box{
+background:#2d2d2d;
+padding:16px;
+border-radius:12px;
+margin-top:10px;
+text-align:center;
+}
+
+.rl-label{
+font-size:13px;
+color:#aaa;
+font-weight:bold;
+margin-bottom:6px;
+}
+
+.rl-angka{
+font-size:40px;
+font-weight:900;
+color:white;
+}
+
+.rl-sub{
+font-size:11px;
+color:#666;
+margin-top:4px;
+}
+
+.rl-input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+margin-top:10px;
+background:#2d2d2d;
+color:white;
+font-size:15px;
+font-weight:bold;
+outline:none;
+box-sizing:border-box;
+}
+
+.rl-input::placeholder{
+color:#666;
+}
+
+.btn-tambah{
+background:linear-gradient(45deg,#00c853,#64dd17);
+}
+
+.btn-set{
+background:linear-gradient(45deg,#ff6d00,#ffab00);
+}
+
+hr.divider{
+border:none;
+border-top:2px solid #333;
+margin:16px 0;
+}
 </style>
 </head>
 <body>
@@ -63,6 +126,51 @@ background:linear-gradient(45deg,#00c853,#64dd17);
 <div class="container">
 
 <h1>⚡ Website Admin</h1>
+
+<!-- ========================= -->
+<!-- RATE LIMIT SECTION -->
+<!-- ========================= -->
+
+<div class="rl-box">
+
+<div class="rl-label">
+🎯 Rate Limit Saat Ini
+</div>
+
+<div class="rl-angka" id="sisaKuota">
+⏳
+</div>
+
+<div class="rl-sub">
+otomatis sinkron ke rch.html
+</div>
+
+</div>
+
+<input
+class="rl-input"
+type="number"
+id="jumlahInput"
+placeholder="Masukkan angka (misal: 5)"
+min="0">
+
+<button
+class="btn-tambah"
+onclick="tambahRateLimit()">
+➕ Tambah Rate Limit
+</button>
+
+<button
+class="btn-set"
+onclick="setRateLimit()">
+✏️ Set Rate Limit Manual
+</button>
+
+<hr class="divider">
+
+<!-- ========================= -->
+<!-- ORDERS -->
+<!-- ========================= -->
 
 <div id="orders"></div>
 
@@ -91,6 +199,99 @@ appId: "1:1020994564198:web:1cf23aeb506ed136dc7da7"
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.database();
+
+/* ========================= */
+/* LOAD RATE LIMIT REALTIME */
+/* ========================= */
+
+db.ref('rateLimit/sisa').on('value', snap=>{
+
+let sisa = snap.val();
+
+if(sisa === null) sisa = 0;
+
+const el = document.getElementById('sisaKuota');
+
+el.textContent = sisa + '×';
+
+el.style.color =
+sisa > 0 ? '#64dd17' : '#ff1744';
+
+});
+
+/* ========================= */
+/* TAMBAH RATE LIMIT */
+/* ========================= */
+
+function tambahRateLimit(){
+
+const val =
+parseInt(
+document.getElementById(
+'jumlahInput'
+).value.trim()
+);
+
+if(!val || val < 1){
+alert('⚠️ Masukkan angka minimal 1!');
+return;
+}
+
+db.ref('rateLimit/sisa').once('value', snap=>{
+
+let sisa = snap.val();
+if(sisa === null) sisa = 0;
+
+const baru = sisa + val;
+
+db.ref('rateLimit/sisa').set(baru);
+
+alert(
+'✅ Rate limit ditambah!\n' +
+'Sekarang: ' + baru + '×'
+);
+
+document.getElementById(
+'jumlahInput'
+).value = '';
+
+});
+
+}
+
+/* ========================= */
+/* SET RATE LIMIT MANUAL */
+/* ========================= */
+
+function setRateLimit(){
+
+const val =
+parseInt(
+document.getElementById(
+'jumlahInput'
+).value.trim()
+);
+
+if(isNaN(val) || val < 0){
+alert('⚠️ Masukkan angka yang valid (min 0)!');
+return;
+}
+
+db.ref('rateLimit/sisa').set(val);
+
+alert(
+'✅ Rate limit diset ke ' + val + '×'
+);
+
+document.getElementById(
+'jumlahInput'
+).value = '';
+
+}
+
+/* ========================= */
+/* LOAD ORDERS */
+/* ========================= */
 
 function loadOrders(){
 
@@ -154,41 +355,25 @@ document.getElementById('orders').innerHTML = html;
 }
 
 function copyLink(link){
-
 navigator.clipboard.writeText(link);
-
 alert('Link saluran berhasil di copy!');
-
 }
 
 function copyEmoji(emoji){
-
 navigator.clipboard.writeText(emoji);
-
 alert('Emoji berhasil di copy!');
-
 }
 
 function sukses(id){
-
-db.ref('orders/'+id).update({
-status:'success'
-});
-
+db.ref('orders/'+id).update({status:'success'});
 alert('Pesanan berhasil di sukseskan!');
-
 }
 
 function resetRiwayat(){
-
 if(confirm('Yakin reset semua riwayat?')){
-
 db.ref('orders').remove();
-
 alert('Riwayat berhasil di reset!');
-
 }
-
 }
 
 loadOrders();
