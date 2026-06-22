@@ -311,22 +311,38 @@ img.src = api;
 imageURL = api;
 }
 
-function downloadImage(){
+async function downloadImage() {
 
-if(!imageURL) return;
+if (!imageURL) return;
 
-const a =
-document.createElement("a");
+try {
 
-a.href = imageURL;
+const response = await fetch(imageURL);
 
-a.download = "fakeustadz.jpg";
+const blob = await response.blob();
+
+const url = window.URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+
+a.href = url;
+
+a.download = `fakeustadz-${Date.now()}.jpg`;
 
 document.body.appendChild(a);
 
 a.click();
 
-document.body.removeChild(a);
+a.remove();
+
+window.URL.revokeObjectURL(url);
+
+} catch(err) {
+
+window.open(imageURL, "_blank");
+
+}
+
 }
 </script>
 
