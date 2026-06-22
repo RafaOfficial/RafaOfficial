@@ -479,14 +479,14 @@ id="resultImg"
 src=""
 alt="Fake FF">
 
-<a
+<button
 id="downloadBtn"
 class="download-btn"
-download="fakeff.jpg">
+type="button">
 
 DOWNLOAD IMAGE
 
-</a>
+</button>
 
 </div>
 
@@ -498,11 +498,12 @@ DOWNLOAD IMAGE
 
 <script>
 
+let savedBlobUrl = "";
+
 async function generateFakeFF(){
 
 const name =
-document.getElementById("name")
-.value.trim();
+document.getElementById("name").value.trim();
 
 const loading =
 document.getElementById("loading");
@@ -522,31 +523,31 @@ document.getElementById("resultName");
 const downloadBtn =
 document.getElementById("downloadBtn");
 
-error.style.display="none";
-result.style.display="none";
+error.style.display = "none";
+result.style.display = "none";
 
 if(!name){
 
-error.style.display="block";
+error.style.display = "block";
 
-error.innerHTML=
+error.innerHTML =
 "⚠️ Masukkan nickname terlebih dahulu";
 
 return;
 
 }
 
-loading.style.display="block";
+loading.style.display = "block";
 
 const api =
 `https://api.azbry.com/api/maker/fakeff?name=${encodeURIComponent(name)}`;
 
-try{
+try {
 
-const check =
+const response =
 await fetch(api);
 
-if(!check.ok){
+if(!response.ok){
 
 throw new Error(
 "API sedang error"
@@ -554,45 +555,74 @@ throw new Error(
 
 }
 
+const blob =
+await response.blob();
+
+if(savedBlobUrl){
+
+URL.revokeObjectURL(savedBlobUrl);
+
+}
+
+savedBlobUrl =
+URL.createObjectURL(blob);
+
 resultImg.onload = () => {
 
-loading.style.display="none";
+loading.style.display = "none";
 
-result.style.display="block";
+result.style.display = "block";
 
 result.scrollIntoView({
-
 behavior:"smooth"
-
 });
 
 };
 
 resultImg.onerror = () => {
 
-loading.style.display="none";
+loading.style.display = "none";
 
-error.style.display="block";
+error.style.display = "block";
 
-error.innerHTML=
+error.innerHTML =
 "❌ Gagal memuat hasil gambar";
 
 };
 
-resultImg.src = api;
+resultImg.src =
+savedBlobUrl;
 
-downloadBtn.href = api;
+downloadBtn.onclick = () => {
 
-resultName.innerHTML = name;
+const a =
+document.createElement("a");
+
+a.href =
+savedBlobUrl;
+
+a.download =
+`fakeff-${Date.now()}.jpg`;
+
+document.body.appendChild(a);
+
+a.click();
+
+a.remove();
+
+};
+
+resultName.innerHTML =
+name;
 
 }catch(err){
 
-loading.style.display="none";
+loading.style.display = "none";
 
-error.style.display="block";
+error.style.display = "block";
 
-error.innerHTML=
-"❌ "+err.message;
+error.innerHTML =
+"❌ " + err.message;
 
 }
 
