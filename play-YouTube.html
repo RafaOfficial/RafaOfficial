@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play YouTube Music</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-dark:    #1a0a00;
+    --bg-card:    #2e1200;
+    --bg-search:  #3d1a00;
+    --accent:     #f5a623;
+    --accent-dark:#d4861a;
+    --tan:        #8b6347;
+    --tan-light:  #b08060;
+    --text-main:  #f5e6d0;
+    --text-muted: #a07850;
+    --teal:       #4a9ba8;
+    --white:      #ffffff;
+    --shadow:     rgba(0,0,0,0.5);
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px 14px;
+    background: var(--bg-dark);
+    border-bottom: 2px solid #3d1a00;
+  }
+
+  .btn-back {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(245,166,35,0.4);
+    transition: transform .15s, box-shadow .15s;
+    flex-shrink: 0;
+  }
+  .btn-back:hover { transform: scale(1.07); box-shadow: 0 6px 18px rgba(245,166,35,0.55); }
+  .btn-back svg { width:22px; height:22px; fill:var(--white); }
+
+  .header-title {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .header-title svg { width:28px; height:28px; fill:var(--teal); }
+  .header-title h1 {
+    font-size: 26px; font-weight: 900;
+    color: var(--white); letter-spacing: 1px;
+  }
+
+  /* ── SEARCH AREA ── */
+  .search-wrap {
+    padding: 22px 16px 10px;
+  }
+
+  .search-box {
+    background: var(--tan);
+    border-radius: 22px;
+    padding: 10px 10px 10px 14px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+    border: 2.5px solid rgba(255,255,255,0.18);
+  }
+
+  .search-input {
+    flex: 1;
+    background: var(--bg-dark);
+    border: none; outline: none;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--text-main);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  }
+  .search-input::placeholder { color: var(--text-muted); font-weight: 600; }
+
+  .btn-search {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(245,166,35,0.45);
+    transition: transform .15s, box-shadow .15s;
+    flex-shrink: 0;
+  }
+  .btn-search:hover { transform: scale(1.07); box-shadow: 0 6px 20px rgba(245,166,35,0.6); }
+  .btn-search svg { width:22px; height:22px; fill:var(--white); }
+
+  /* ── CONTENT ── */
+  .content {
+    flex: 1;
+    padding: 20px 16px;
+  }
+
+  .empty-state {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; padding: 60px 20px;
+    color: var(--tan-light);
+  }
+  .empty-state svg { width:40px; height:40px; fill:var(--teal); opacity:.7; }
+  .empty-state p { font-size: 16px; font-weight: 700; }
+
+  /* ── LOADING ── */
+  .loading {
+    display: none; flex-direction: column;
+    align-items: center; gap: 16px; padding: 50px 20px;
+  }
+  .spinner {
+    width: 44px; height: 44px;
+    border: 4px solid rgba(245,166,35,0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading p { color: var(--tan-light); font-weight: 700; font-size: 15px; }
+
+  /* ── ERROR ── */
+  .error-box {
+    display: none;
+    background: rgba(180,40,40,0.18);
+    border: 1.5px solid rgba(255,80,80,0.3);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: #ff9090;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* ── RESULT CARD ── */
+  .result-card {
+    display: none;
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1.5px solid rgba(255,255,255,0.07);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #3d1a00, #2a1000);
+    padding: 20px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1.5px solid rgba(255,255,255,0.06);
+  }
+
+  .album-art {
+    width: 72px; height: 72px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--tan), var(--bg-search));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+  .album-art svg { width:32px; height:32px; fill:var(--accent); opacity:.8; }
+  .album-art img { width:100%; height:100%; object-fit:cover; border-radius:12px; }
+
+  .song-artist {
+    font-size: 12px; font-weight: 600;
+    color: var(--teal); margin-bottom: 2px;
+  }
+  .song-album {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  .song-info { flex: 1; min-width: 0; }
+  .song-title {
+    font-size: 17px; font-weight: 800;
+    color: var(--white);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+  .song-query {
+    font-size: 13px; font-weight: 600;
+    color: var(--tan-light);
+  }
+
+  /* ── PLAYER ── */
+  .player-section {
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+
+  audio {
+    width: 100%;
+    border-radius: 12px;
+    outline: none;
+    background: var(--bg-search);
+    height: 44px;
+  }
+  audio::-webkit-media-controls-panel {
+    background: var(--bg-search);
+  }
+
+  /* custom progress */
+  .progress-wrap {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .progress-bar-bg {
+    width: 100%; height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    cursor: pointer; position: relative;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    border-radius: 10px;
+    width: 0%;
+  }
+  .time-row {
+    display: flex; justify-content: space-between;
+    font-size: 12px; font-weight: 700;
+    color: var(--tan-light);
+  }
+
+  /* controls */
+  .controls {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px;
+  }
+
+  .btn-ctrl {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.07);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background .15s, transform .15s;
+    color: var(--text-main);
+  }
+  .btn-ctrl:hover { background: rgba(255,255,255,0.14); transform: scale(1.08); }
+  .btn-ctrl svg { width:20px; height:20px; fill:var(--text-main); }
+
+  .btn-play-main {
+    width: 58px; height: 58px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(245,166,35,0.5);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-play-main:hover { transform: scale(1.08); box-shadow: 0 8px 26px rgba(245,166,35,0.65); }
+  .btn-play-main svg { width:26px; height:26px; fill:var(--white); }
+
+  /* volume */
+  .volume-row {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .volume-row svg { width:18px; height:18px; fill:var(--tan-light); flex-shrink:0; }
+  .volume-slider {
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 5px; border-radius: 10px;
+    background: rgba(255,255,255,0.12); outline: none; cursor: pointer;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(245,166,35,0.5);
+  }
+
+  /* download button */
+  .btn-download {
+    width: 100%;
+    padding: 15px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    border: none; cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px; font-weight: 800;
+    color: var(--white);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 6px 18px rgba(245,166,35,0.4);
+    transition: transform .15s, box-shadow .15s;
+    text-decoration: none;
+  }
+  .btn-download:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(245,166,35,0.55); }
+  .btn-download svg { width:20px; height:20px; fill:var(--white); }
+
+  /* ── HISTORY ── */
+  .history-section { display: none; padding: 0 16px 24px; }
+  .history-title {
+    font-size: 13px; font-weight: 800;
+    color: var(--tan-light); letter-spacing: .5px;
+    margin-bottom: 10px; text-transform: uppercase;
+  }
+  .history-list { display: flex; flex-direction: column; gap: 8px; }
+  .history-item {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 11px 14px;
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer;
+    border: 1.5px solid rgba(255,255,255,0.05);
+    transition: background .15s;
+  }
+  .history-item:hover { background: #3d1a00; }
+  .history-item svg { width:16px; height:16px; fill:var(--tan-light); flex-shrink:0; }
+  .history-item span { font-size: 14px; font-weight: 700; color: var(--text-main); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .history-del {
+    background: none; border: none; cursor: pointer; padding: 2px;
+    display: flex; align-items: center;
+  }
+  .history-del svg { width:14px; height:14px; fill:var(--text-muted); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button class="btn-back" onclick="goBack()">
+    <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+  </button>
+  <div class="header-title">
+    <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    <h1>Play YouTube</h1>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <input class="search-input" id="searchInput" type="text"
+      placeholder="Cari musik YouTube..."
+      onkeydown="if(event.key==='Enter') searchMusic()">
+    <button class="btn-search" onclick="searchMusic()">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="content">
+
+  <div class="empty-state" id="emptyState">
+    <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    <p>Cari lagu favorit kamu 🎵</p>
+  </div>
+
+  <div class="loading" id="loadingState">
+    <div class="spinner"></div>
+    <p>Mencari musik...</p>
+  </div>
+
+  <div class="error-box" id="errorBox"></div>
+
+  <div class="result-card" id="resultCard">
+    <div class="card-header">
+      <div class="album-art" id="albumArt">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      </div>
+      <div class="song-info">
+        <div class="song-title" id="songTitle">-</div>
+        <div class="song-artist" id="songArtist" style="display:none"></div>
+        <div class="song-album" id="songAlbum" style="display:none"></div>
+        <div class="song-query" id="songQuery">-</div>
+      </div>
+    </div>
+
+    <div class="player-section">
+      <audio id="audioPlayer" preload="auto"></audio>
+
+      <div class="progress-wrap">
+        <div class="progress-bar-bg" id="progressBg" onclick="seekAudio(event)">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="time-row">
+          <span id="timeCurrent">0:00</span>
+          <span id="timeDuration">0:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn-ctrl" onclick="skipAudio(-10)" title="Mundur 10s">
+          <svg viewBox="0 0 24 24"><path d="M11.99 5V1l-5 5 5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/><text x="8" y="14" font-size="5" fill="currentColor">10</text></svg>
+        </button>
+        <button class="btn-play-main" id="btnPlayMain" onclick="togglePlay()">
+          <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button class="btn-ctrl" onclick="skipAudio(10)" title="Maju 10s">
+          <svg viewBox="0 0 24 24"><path d="M12.01 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/></svg>
+        </button>
+      </div>
+
+      <div class="volume-row">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+        <input class="volume-slider" type="range" min="0" max="1" step="0.01" value="1" oninput="setVolume(this.value)">
+        <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      </div>
+
+      <a class="btn-download" id="btnDownload" href="#" onclick="downloadAudio(event)">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download Lagu
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="history-section" id="historySection">
+  <div class="history-title">🕐 Riwayat Pencarian</div>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<script>
+  const API_PLAY = 'https://api.azbry.com/api/download/ytplay?q=';
+  const API_MP3 = 'https://api.azbry.com/api/download/ytmp3?url=';
+  
+  let currentDownloadLink = null;
+  let searchHistory = JSON.parse(localStorage.getItem('spotifyHistory') || '[]');
+
+  // Mengambil instance tunggal elemen Audio dari DOM secara aman
+  const mainAudio = document.getElementById('audioPlayer');
+
+  // ── BACK ──
+  function goBack() {
+    if (document.getElementById('resultCard').style.display !== 'none') {
+      showEmpty();
+    } else {
+      history.back();
+    }
+  }
+
+  // ── SEARCH ──
+  async function searchMusic() {
+    const q = document.getElementById('searchInput').value.trim();
+    if (!q) return;
+
+    // Tampilkan animasi loading secara instan tanpa block delay
+    showLoading();
+    addHistory(q);
+
+    try {
+      // Langkah 1: Panggil API Pencarian ytplay
+      const playRes = await fetch(API_PLAY + encodeURIComponent(q));
+      if (!playRes.ok) throw new Error('Koneksi ke server pencarian gagal');
+      
+      const playJson = await playRes.json();
+      if (!playJson.status || !playJson.result) throw new Error('Lagu tidak ditemukan di YouTube');
+
+      const videoData = playJson.result;
+      const targetVideoUrl = videoData.url; 
+
+      // Langkah 2: Oper URL Video YouTube ke API ytmp3 untuk mendapatkan link audio direct
+      const mp3Res = await fetch(API_MP3 + encodeURIComponent(targetVideoUrl));
+      if (!mp3Res.ok) throw new Error('Gagal mengonversi video ke audio');
+
+      const mp3Json = await mp3Res.json();
+      if (!mp3Json.status || !mp3Json.result) throw new Error('File audio tidak tersedia');
+
+      const audioData = mp3Json.result;
+      currentDownloadLink = audioData.download; 
+
+      // Mengisi metadata lagu ke dalam UI komponen
+      document.getElementById('songTitle').textContent = audioData.title || videoData.title || q;
+      document.getElementById('songQuery').textContent = 'via YouTube Music';
+
+      if (videoData.channel && videoData.channel !== "Unknown") {
+        document.getElementById('songArtist').textContent = '🎤 ' + videoData.channel;
+        document.getElementById('songArtist').style.display = 'block';
+      } else if (audioData.channel && audioData.channel !== "Unknown") {
+        document.getElementById('songArtist').textContent = '🎤 ' + audioData.channel;
+        document.getElementById('songArtist').style.display = 'block';
+      } else {
+        document.getElementById('songArtist').style.display = 'none';
+      }
+
+      // Memasang thumbnail gambar cover
+      const artContainer = document.getElementById('albumArt');
+      const coverSrc = audioData.thumbnail || videoData.thumbnail;
+      if (coverSrc) {
+        artContainer.innerHTML = `<img src="${coverSrc}" alt="cover" onerror="this.parentElement.innerHTML='<svg viewBox=\\'0 0 24 24\\'><path d=\\'M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z\\'/></svg>'">`;
+      } else {
+        artContainer.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`;
+      }
+
+      // Muat berkas ke audio engine dan jalankan fungsi tampilkan hasil
+      mainAudio.src = currentDownloadLink;
+      mainAudio.load();
+
+      showResult();
+    } catch (err) {
+      showError('❌ Terjadi Kesalahan: ' + err.message);
+    }
+  }
+
+  // ── PLAYER EVENT LISTENERS ──
+  mainAudio.addEventListener('timeupdate', () => {
+    if (!mainAudio.duration) return;
+    const pct = (mainAudio.currentTime / mainAudio.duration) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('timeCurrent').textContent = fmtTime(mainAudio.currentTime);
+  });
+
+  mainAudio.addEventListener('loadedmetadata', () => {
+    document.getElementById('timeDuration').textContent = fmtTime(mainAudio.duration);
+  });
+
+  mainAudio.addEventListener('ended', () => {
+    document.getElementById('iconPlay').style.display = 'block';
+    document.getElementById('iconPause').style.display = 'none';
+  });
+
+  function togglePlay() {
+    if (mainAudio.paused) {
+      mainAudio.play().then(() => {
+        document.getElementById('iconPlay').style.display = 'none';
+        document.getElementById('iconPause').style.display = 'block';
+      }).catch(e => console.log("Playback diblokir browser:", e));
+    } else {
+      mainAudio.pause();
+      document.getElementById('iconPlay').style.display = 'block';
+      document.getElementById('iconPause').style.display = 'none';
+    }
+  }
+
+  function seekAudio(e) {
+    if (!mainAudio.duration) return;
+    const bg = document.getElementById('progressBg');
+    const rect = bg.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    mainAudio.currentTime = pct * mainAudio.duration;
+  }
+
+  function skipAudio(sec) {
+    if (!mainAudio.duration) return;
+    mainAudio.currentTime = Math.max(0, Math.min(mainAudio.duration, mainAudio.currentTime + sec));
+  }
+
+  function setVolume(v) { 
+    mainAudio.volume = v; 
+  }
+
+  function fmtTime(s) {
+    if (isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60).toString().padStart(2, '0');
+    return m + ':' + sec;
+  }
+
+  // ── DOWNLOAD ──
+  function downloadAudio(e) {
+    e.preventDefault();
+    if (!currentDownloadLink) return;
+    
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.href = currentDownloadLink;
+    const rawTitle = document.getElementById('songTitle').textContent || 'Music_Download';
+    downloadAnchor.download = rawTitle.trim().replace(/\s+/g, '_') + '.mp3';
+    downloadAnchor.target = '_blank';
+    
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    document.body.removeChild(downloadAnchor);
+  }
+
+  // ── HISTORY ──
+  function addHistory(q) {
+    searchHistory = searchHistory.filter(h => h !== q);
+    searchHistory.unshift(q);
+    if (searchHistory.length > 8) searchHistory.pop();
+    localStorage.setItem('spotifyHistory', JSON.stringify(searchHistory));
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const list = document.getElementById('historyList');
+    const section = document.getElementById('historySection');
+    if (searchHistory.length === 0) { section.style.display = 'none'; return; }
+    section.style.display = 'block';
+    list.innerHTML = searchHistory.map((h, i) => `
+      <div class="history-item" onclick="useHistory('${h.replace(/'/g, "\\'")}')">
+        <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        <span>${h}</span>
+        <button class="history-del" onclick="delHistory(event,${i})">
+          <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  function useHistory(q) {
+    document.getElementById('searchInput').value = q;
+    searchMusic();
+  }
+
+  function delHistory(e, i) {
+    e.stopPropagation();
+    searchHistory.splice(i, 1);
+    localStorage.setItem('spotifyHistory', JSON.stringify(searchHistory));
+    renderHistory();
+  }
+
+  // ── STATE HELPERS ──
+  function showEmpty() {
+    mainAudio.pause();
+    document.getElementById('iconPlay').style.display = 'block';
+    document.getElementById('iconPause').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'flex';
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorBox').style.display = 'none';
+    document.getElementById('resultCard').style.display = 'none';
+  }
+
+  function showLoading() {
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('loadingState').style.display = 'flex';
+    document.getElementById('errorBox').style.display = 'none';
+    document.getElementById('resultCard').style.display = 'none';
+  }
+
+  function showResult() {
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorBox').style.display = 'none';
+    document.getElementById('resultCard').style.display = 'block';
+    
+    // Otomatis putar musik begitu data audio berhasil diterima
+    mainAudio.play().then(() => {
+      document.getElementById('iconPlay').style.display = 'none';
+      document.getElementById('iconPause').style.display = 'block';
+    }).catch(err => {
+      // Terjadi jika browser memblokirautoplay kebijakan privasi user gesture
+      console.log("Autoplay ditahan browser, menunggu interaksi user klik tombol play manual.");
+      document.getElementById('iconPlay').style.display = 'block';
+      document.getElementById('iconPause').style.display = 'none';
+    });
+  }
+
+  function showError(msg) {
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorBox').style.display = 'block';
+    document.getElementById('errorBox').textContent = msg;
+    document.getElementById('resultCard').style.display = 'none';
+  }
+
+  // Inisialisasi awal aplikasi
+  renderHistory();
+  if (searchHistory.length > 0) {
+    document.getElementById('emptyState').style.display = 'none';
+  }
+</script>
+</body>
+</html>
