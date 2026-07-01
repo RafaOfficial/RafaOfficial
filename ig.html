@@ -278,71 +278,66 @@ Dark Cartoon Brutalism • Rafa Official
 </div>
 
 <script>
-
 async function executeIG(){
+    const url = document.getElementById("url").value.trim();
 
-const url=document.getElementById("url").value.trim();
+    if(!url){
+        alert("Masukkan URL Instagram!");
+        return;
+    }
 
-if(!url){
-alert("Masukkan URL Instagram!");
-return;
+    const loading = document.getElementById("loading");
+    const result = document.getElementById("result");
+    const video = document.getElementById("video");
+    const download = document.getElementById("downloadLink");
+
+    loading.style.display = "block";
+    result.style.display = "none";
+    download.style.display = "none";
+
+    try {
+        // Menggunakan Endpoint API Baru
+        const api = `https://api.azbry.com/api/download/instagramv2?url=${encodeURIComponent(url)}`;
+
+        const response = await fetch(api);
+        const data = await response.json();
+
+        // Validasi response JSON baru
+        if(!data.status || !data.url || data.url.length === 0){
+            throw new Error("Gagal mengambil data.");
+        }
+
+        // Ambil URL video dari array objek pertama
+        const videoUrl = data.url[0].url;
+
+        video.src = videoUrl;
+        download.href = videoUrl;
+
+        // Tampilkan Metadata baru
+        document.getElementById("username").innerText = 
+            "Username: @" + (data.meta.username || "-");
+
+        document.getElementById("likes").innerText = 
+            "❤ " + (data.meta.like_count ? Number(data.meta.like_count).toLocaleString('id-ID') : "0");
+
+        document.getElementById("comments").innerText = 
+            "💬 " + (data.meta.comment_count ? Number(data.meta.comment_count).toLocaleString('id-ID') : "0");
+
+        document.getElementById("caption").innerText = 
+            "Caption: " + (data.meta.title || "-");
+
+        download.style.display = "block";
+        result.style.display = "block";
+
+    } catch(error) {
+        alert(
+            "Gagal mengambil video.\n\nPastikan URL benar. Jika API eksternal mengalami kendala CORS, Anda mungkin membutuhkan proxy server."
+        );
+        console.log(error);
+    }
+
+    loading.style.display = "none";
 }
-
-const loading=document.getElementById("loading");
-const result=document.getElementById("result");
-const video=document.getElementById("video");
-const download=document.getElementById("downloadLink");
-
-loading.style.display="block";
-result.style.display="none";
-download.style.display="none";
-
-try{
-
-const api=`https://api-nanzz.my.id/docs/api/downloader/Instagram.php?url=${encodeURIComponent(url)}`;
-
-const response=await fetch(api);
-const data=await response.json();
-
-if(!data.debug || !data.debug.status){
-throw new Error();
-}
-
-const videoUrl=data.debug.result.download_urls[0];
-
-video.src=videoUrl;
-
-download.href=videoUrl;
-
-document.getElementById("username").innerText=
-"Username: @" + data.debug.result.metadata.username;
-
-document.getElementById("likes").innerText=
-"❤ " + data.debug.result.metadata.like;
-
-document.getElementById("comments").innerText=
-"💬 " + data.debug.result.metadata.comment;
-
-document.getElementById("caption").innerText=
-"Caption: " + data.debug.result.metadata.caption;
-
-download.style.display="block";
-result.style.display="block";
-
-}catch(error){
-
-alert(
-"Gagal mengambil video.\n\nJika API hidup tetapi tetap gagal, kemungkinan API terkena CORS dan perlu proxy PHP/NodeJS."
-);
-
-console.log(error);
-
-}
-
-loading.style.display="none";
-
-}
-
 </script>
 
 </body>
