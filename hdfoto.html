@@ -3,510 +3,478 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6f4e37">
+<meta name="theme-color" content="#5b7cfa">
 <title>HD Enhancer - RafaXMods</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---bg1:#7b5a48;
---bg2:#4d3225;
---bg3:#24140d;
-
---card:#a67c67;
-
---white:#fff7f1;
-
---shadow:#4a2d21;
-
---orange:#ffb168;
---orange2:#ff7b32;
-
---green:#4fd66d;
---green2:#2fa34c;
+--blue:#5b7cfa;
+--blue2:#324adf;
+--bg-card:#10142c;
+--bg-card2:#0a0d1f;
+--white:#f4f6ff;
+--muted:#8b93b8;
+--green:#2ecf7a;
+--green2:#1a9b57;
+--gold:#ffc857;
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Inter',sans-serif;
 }
 
-/* BODY */
+h1,h2,h3,.logo,.section-title{
+font-family:'Poppins',sans-serif;
+}
 
 body{
-
-background:
-linear-gradient(
-180deg,
-var(--bg1) 0%,
-var(--bg2) 45%,
-var(--bg3) 100%
-);
-
+background:#05060d;
 min-height:100vh;
-
 padding:22px;
-
 color:var(--white);
-
 overflow-x:hidden;
 }
 
-/* CONTAINER */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
+z-index:-1;
+}
 
 .container{
 max-width:430px;
 margin:auto;
 }
 
-/* HEADER */
-
 .header{
 display:flex;
 align-items:center;
 gap:15px;
-margin-bottom:28px;
-}
-
-/* BACK */
-
-.back-btn{
-
-width:75px;
-height:75px;
-
-border:none;
-
-border-radius:24px;
-
-background:
-linear-gradient(
-135deg,
-var(--orange),
-var(--orange2)
-);
-
-font-size:28px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-color:white;
-
-border:5px solid white;
-
-box-shadow:
-7px 7px 0 #b44b12;
-
-transition:.15s;
-}
-
-.back-btn:active{
-
-transform:translateY(4px);
-
-box-shadow:
-4px 4px 0 #b44b12;
-
-}
-
-/* LOGO */
-
-.logo{
-
-font-size:30px;
-
-font-weight:900;
-
-line-height:1;
-
-text-shadow:
-5px 5px 0 rgba(0,0,0,.25);
-
-}
-
-/* TITLE BOX */
-
-.title-box{
-
-background:var(--card);
-
-padding:28px 22px;
-
-border-radius:35px;
-
-border:6px solid white;
-
-box-shadow:
-10px 10px 0 var(--shadow);
-
 margin-bottom:24px;
 }
 
+.back-btn{
+width:64px;
+height:64px;
+border:none;
+border-radius:20px;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+font-size:24px;
+font-weight:bold;
+cursor:pointer;
+color:var(--white);
+box-shadow:0 0 20px rgba(91,124,250,.25);
+transition:.2s;
+}
+
+.back-btn:active{
+transform:translateY(2px);
+}
+
+.logo{
+font-size:26px;
+font-weight:700;
+line-height:1;
+color:var(--white);
+}
+
+.eyebrow{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:7px 16px;
+border-radius:30px;
+background:rgba(91,124,250,.1);
+border:1px solid rgba(124,147,255,.3);
+color:#a5b4ff;
+font-size:11.5px;
+font-weight:600;
+letter-spacing:.5px;
+text-transform:uppercase;
+margin-bottom:16px;
+}
+
+.eyebrow .dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#3ddc84;
+box-shadow:0 0 8px #3ddc84;
+}
+
+.title-box{
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
+padding:28px 22px;
+border-radius:26px;
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
+margin-bottom:18px;
+}
+
 .title-box h1{
-
-font-size:44px;
-
-font-weight:900;
-
+font-size:34px;
+font-weight:700;
 line-height:1.1;
+color:var(--white);
+}
 
-text-shadow:
-6px 6px 0 rgba(0,0,0,.25);
-
+.title-box h1::after{
+content:'';
+display:block;
+width:90px;
+height:4px;
+margin-top:14px;
+border-radius:20px;
+background:linear-gradient(90deg,var(--blue),#a5b4ff);
+box-shadow:0 0 16px rgba(91,124,250,.6);
 }
 
 .title-box p{
+margin-top:14px;
+font-size:14.5px;
+line-height:1.6;
+font-weight:500;
+color:var(--muted);
+}
 
-margin-top:12px;
+/* TRUST STRIP */
+.trust{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:18px;
+}
 
+.trust-item{
+padding:14px 6px;
+border-radius:16px;
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
+border:1px solid rgba(255,255,255,.07);
+text-align:center;
+}
+
+.trust-num{
 font-size:16px;
+font-weight:700;
+color:var(--white);
+}
 
-font-weight:bold;
+.trust-label{
+margin-top:3px;
+font-size:10.5px;
+color:var(--muted);
+font-weight:500;
+line-height:1.3;
+}
 
-color:#ffe6d5;
+/* SECTION HEAD */
+.section-head{
+margin:24px 0 12px;
+text-align:left;
+}
 
+.section-title{
+font-size:16px;
+font-weight:700;
+color:var(--white);
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.section-title .bar{
+width:5px;
+height:17px;
+border-radius:4px;
+background:linear-gradient(180deg,var(--blue),#a5b4ff);
+box-shadow:0 0 12px rgba(91,124,250,.6);
+}
+
+.section-sub{
+margin-top:5px;
+margin-left:14px;
+font-size:12.5px;
+color:var(--muted);
+}
+
+/* STEPS */
+.steps-row{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:4px;
+}
+
+.step-mini{
+padding:14px 8px;
+border-radius:16px;
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
+border:1px solid rgba(255,255,255,.07);
+text-align:center;
+}
+
+.step-num{
+width:26px;
+height:26px;
+margin:0 auto 8px;
+border-radius:9px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+font-weight:700;
+color:white;
+background:linear-gradient(145deg,var(--blue),var(--blue2));
+box-shadow:0 4px 12px rgba(91,124,250,.35);
+}
+
+.step-mini p{
+font-size:11px;
+font-weight:600;
+color:var(--white);
+line-height:1.4;
 }
 
 /* CARD */
-
 .card{
-
-background:var(--card);
-
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
 padding:24px;
-
-border-radius:35px;
-
-border:6px solid white;
-
-box-shadow:
-10px 10px 0 var(--shadow);
-
+border-radius:26px;
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-/* UPLOAD BOX */
-
 .upload-box{
-
 width:100%;
-
 padding:35px 20px;
-
-border-radius:28px;
-
-background:#fff5ef;
-
-border:5px dashed #ff8a45;
-
+border-radius:22px;
+background:#0b0e1f;
+border:2px dashed rgba(124,147,255,.5);
 text-align:center;
-
 cursor:pointer;
-
 transition:.2s;
-
-color:#2b1a14;
-
-font-size:18px;
-
-font-weight:900;
-
+color:var(--white);
+font-size:16px;
+font-weight:600;
 }
 
 .upload-box:active{
-
 transform:scale(.98);
-
 }
 
 .upload-icon{
-
-font-size:50px;
-
+font-size:44px;
 margin-bottom:10px;
-
 display:block;
-
 }
 
-/* INPUT */
+.upload-hint{
+margin-top:8px;
+font-size:12px;
+font-weight:500;
+color:var(--muted);
+}
 
 input{
 display:none;
 }
 
-/* PREVIEW */
-
 .preview{
-
 margin-top:22px;
-
 display:none;
-
 animation:show .3s ease;
 }
 
 .preview img{
-
 width:100%;
-
-border-radius:28px;
-
-border:6px solid white;
-
-box-shadow:
-7px 7px 0 var(--shadow);
-
+border-radius:22px;
+border:1px solid rgba(124,147,255,.35);
 background:black;
 }
 
-/* BUTTON */
-
 .btn{
-
 width:100%;
-
-height:72px;
-
+height:64px;
 border:none;
-
-border-radius:24px;
-
+border-radius:20px;
 margin-top:20px;
-
-background:
-linear-gradient(
-135deg,
-var(--orange),
-var(--orange2)
-);
-
+background:linear-gradient(145deg,var(--blue),var(--blue2));
 color:white;
-
-font-size:20px;
-
-font-weight:900;
-
+font-size:17px;
+font-weight:600;
 cursor:pointer;
-
-border:5px solid white;
-
-box-shadow:
-0 8px 0 #b44b12;
-
-transition:.15s;
+box-shadow:0 8px 24px rgba(91,124,250,.4);
+transition:.2s;
 }
 
-.btn:active{
-
-transform:translateY(4px);
-
-box-shadow:
-0 4px 0 #b44b12;
-
+.btn:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(91,124,250,.55);
 }
-
-/* LOADING */
 
 .loading{
-
 display:none;
-
 margin-top:24px;
-
 text-align:center;
-
 animation:show .3s ease;
 }
 
 .loader{
-
-width:60px;
-height:60px;
-
+width:56px;
+height:56px;
 margin:auto;
-
 border-radius:50%;
-
-border:6px solid rgba(255,255,255,.25);
-
-border-top:
-6px solid white;
-
+border:5px solid rgba(255,255,255,.1);
+border-top:5px solid var(--blue);
 animation:spin .8s linear infinite;
 }
 
 .loading p{
-
-margin-top:15px;
-
-font-size:17px;
-
-font-weight:bold;
+margin-top:14px;
+font-size:15px;
+font-weight:500;
+color:var(--muted);
 }
 
-/* RESULT */
-
 .result{
-
 display:none;
-
 margin-top:28px;
-
 animation:show .3s ease;
 }
 
 .result-card{
-
-background:#7f5d4c;
-
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
 padding:18px;
-
-border-radius:30px;
-
-border:5px solid white;
-
-box-shadow:
-8px 8px 0 var(--shadow);
-
+border-radius:24px;
+border:1px solid rgba(255,255,255,.07);
 text-align:center;
 }
 
 .result-card h2{
-
-font-size:28px;
-
+font-size:24px;
 margin-bottom:16px;
-
-text-shadow:
-4px 4px 0 rgba(0,0,0,.25);
-
+color:var(--white);
 }
 
 .result-card img{
-
 width:100%;
-
-border-radius:24px;
-
-border:5px solid white;
-
+border-radius:20px;
+border:1px solid rgba(124,147,255,.35);
 background:black;
 }
 
-/* DOWNLOAD */
-
 .download-btn{
-
 display:block;
-
 width:100%;
-
-height:68px;
-
-line-height:58px;
-
+height:60px;
+line-height:60px;
 margin-top:18px;
-
 text-align:center;
-
 text-decoration:none;
-
-border-radius:22px;
-
-background:
-linear-gradient(
-135deg,
-var(--green),
-var(--green2)
-);
-
+border-radius:20px;
+background:linear-gradient(145deg,var(--green),var(--green2));
 color:white;
-
-font-size:18px;
-
-font-weight:900;
-
-border:5px solid white;
-
-box-shadow:
-0 8px 0 #206d33;
-
-transition:.15s;
+font-size:16px;
+font-weight:600;
+box-shadow:0 8px 24px rgba(46,207,122,.35);
+transition:.2s;
 }
 
-.download-btn:active{
-
-transform:translateY(4px);
-
-box-shadow:
-0 4px 0 #206d33;
-
+.download-btn:hover{
+transform:translateY(-3px);
 }
-
-/* ERROR */
 
 .error{
-
 display:none;
-
 margin-top:18px;
-
 padding:16px;
-
-border-radius:18px;
-
-background:#ffe5e2;
-
-color:#c62828;
-
-font-weight:bold;
-
-border:4px solid white;
-
+border-radius:16px;
+background:rgba(255,80,80,.1);
+color:#ff8f8f;
+font-weight:600;
+border:1px solid rgba(255,80,80,.3);
 animation:show .3s ease;
 }
 
-/* ANIMATION */
+/* WHY US */
+.why-list{
+display:grid;
+gap:10px;
+}
+
+.why-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px;
+border-radius:16px;
+background:linear-gradient(160deg,var(--bg-card),var(--bg-card2));
+border:1px solid rgba(255,255,255,.07);
+}
+
+.why-icon{
+width:36px;
+height:36px;
+min-width:36px;
+border-radius:11px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+background:rgba(91,124,250,.12);
+border:1px solid rgba(124,147,255,.3);
+}
+
+.why-item span{
+font-size:13.5px;
+font-weight:600;
+color:var(--white);
+}
+
+.footer{
+margin-top:30px;
+padding-top:20px;
+text-align:center;
+font-size:12.5px;
+font-weight:600;
+color:var(--muted);
+border-top:1px solid rgba(255,255,255,.07);
+}
+
+.footer-sub{
+margin-top:5px;
+font-size:11px;
+font-weight:400;
+color:#5a6180;
+}
 
 @keyframes spin{
-100%{
-transform:rotate(360deg);
-}
+100%{transform:rotate(360deg);}
 }
 
 @keyframes show{
-from{
-opacity:0;
-transform:translateY(20px);
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* MOBILE */
 
 @media(max-width:500px){
-
-.logo{
-font-size:24px;
-}
-
-.title-box h1{
-font-size:38px;
-}
-
-.back-btn{
-width:68px;
-height:68px;
-font-size:24px;
-}
-
+.logo{font-size:22px;}
+.title-box h1{font-size:28px;}
+.back-btn{width:58px;height:58px;font-size:20px;}
 }
 
 </style>
@@ -516,135 +484,108 @@ font-size:24px;
 
 <div class="container">
 
-<!-- HEADER -->
-
 <div class="header">
-
-<button
-class="back-btn"
-onclick="window.location.href='index.html'">
-
-🔙
-
-</button>
-
-<div class="logo">
-RafaXMods
+<button class="back-btn" onclick="window.location.href='index.html'">🔙</button>
+<div class="logo">RafaXMods</div>
 </div>
 
-</div>
-
-<!-- TITLE -->
+<div class="eyebrow"><span class="dot"></span> AI Image Enhancer Gratis</div>
 
 <div class="title-box">
-
-<h1>
-HD IMAGE
-ENHANCER
-</h1>
-
-<p>
-Website Free• HD Foto 
-</p>
-
+<h1>HD IMAGE ENHANCER</h1>
+<p>Tingkatkan kualitas foto buram jadi tajam dan jernih dalam hitungan detik — gratis, tanpa watermark.</p>
 </div>
 
-<!-- CARD -->
+<!-- TRUST STRIP -->
+<div class="trust">
+<div class="trust-item">
+<div class="trust-num">10K+</div>
+<div class="trust-label">Foto Diproses</div>
+</div>
+<div class="trust-item">
+<div class="trust-num">4K</div>
+<div class="trust-label">Kualitas HD</div>
+</div>
+<div class="trust-item">
+<div class="trust-num">100%</div>
+<div class="trust-label">Gratis Dipakai</div>
+</div>
+</div>
+
+<!-- CARA PAKAI -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Cara Pakai</div>
+<div class="section-sub">Cuma 3 langkah, hasil langsung jadi</div>
+</div>
+
+<div class="steps-row">
+<div class="step-mini">
+<div class="step-num">1</div>
+<p>Upload Foto</p>
+</div>
+<div class="step-mini">
+<div class="step-num">2</div>
+<p>Klik Enhance</p>
+</div>
+<div class="step-mini">
+<div class="step-num">3</div>
+<p>Download Hasil</p>
+</div>
+</div>
+
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Upload & Proses</div>
+<div class="section-sub">Pilih foto yang ingin ditingkatkan kualitasnya</div>
+</div>
 
 <div class="card">
 
-<!-- UPLOAD -->
-
-<div
-class="upload-box"
-onclick="document.getElementById('file').click()">
-
-<span class="upload-icon">
-🖼️
-</span>
-
+<div class="upload-box" onclick="document.getElementById('file').click()">
+<span class="upload-icon">🖼️</span>
 UPLOAD GAMBAR HD
-
+<div class="upload-hint">Format JPG, PNG • Maksimal ukuran wajar</div>
 </div>
 
-<input
-type="file"
-id="file"
-accept="image/*">
+<input type="file" id="file" accept="image/*">
 
-<!-- PREVIEW -->
-
-<div
-class="preview"
-id="preview">
-
-<img
-id="previewImg"
-src="">
-
+<div class="preview" id="preview">
+<img id="previewImg" src="">
 </div>
 
-<!-- BUTTON -->
+<button class="btn" onclick="uploadImage()">ENHANCE SEKARANG</button>
 
-<button
-class="btn"
-onclick="uploadImage()">
-
-ENHANCE SEKARANG
-
-</button>
-
-<!-- LOADING -->
-
-<div
-class="loading"
-id="loading">
-
+<div class="loading" id="loading">
 <div class="loader"></div>
-
-<p>
-Sedang meningkatkan kualitas...
-</p>
-
+<p>Sedang meningkatkan kualitas...</p>
 </div>
 
-<!-- ERROR -->
+<div class="error" id="error"></div>
 
-<div
-class="error"
-id="error">
-
-</div>
-
-<!-- RESULT -->
-
-<div
-class="result"
-id="result">
-
+<div class="result" id="result">
 <div class="result-card">
-
-<h2>
-HASIL HD IMAGE
-</h2>
-
-<img
-id="resultImg"
-src="">
-
-<a
-id="downloadBtn"
-class="download-btn"
-download="hd-image.jpg">
-
-DOWNLOAD IMAGE
-
-</a>
-
+<h2>HASIL HD IMAGE</h2>
+<img id="resultImg" src="">
+<a id="downloadBtn" class="download-btn" download="hd-image.jpg">DOWNLOAD IMAGE</a>
+</div>
 </div>
 
 </div>
 
+<!-- KENAPA PAKAI INI -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Kenapa Pakai Tools Ini</div>
+</div>
+
+<div class="why-list">
+<div class="why-item"><div class="why-icon">⚡</div><span>Proses cepat, hasil dalam hitungan detik</span></div>
+<div class="why-item"><div class="why-icon">🎯</div><span>Detail wajah & objek jadi lebih tajam</span></div>
+<div class="why-item"><div class="why-icon">🔒</div><span>Foto tidak disimpan, aman dan privat</span></div>
+<div class="why-item"><div class="why-icon">💯</div><span>Gratis 100%, tanpa watermark mengganggu</span></div>
+</div>
+
+<div class="footer">
+© 2026 RafaXMods - HD Image Enhancer
+<div class="footer-sub">Ditenagai oleh teknologi enhance gambar berbasis AI</div>
 </div>
 
 </div>
@@ -653,163 +594,76 @@ DOWNLOAD IMAGE
 
 let selectedFile = null;
 
-const fileInput =
-document.getElementById("file");
+const fileInput = document.getElementById("file");
+const preview = document.getElementById("preview");
+const previewImg = document.getElementById("previewImg");
+const loading = document.getElementById("loading");
+const error = document.getElementById("error");
+const result = document.getElementById("result");
+const resultImg = document.getElementById("resultImg");
+const downloadBtn = document.getElementById("downloadBtn");
 
-const preview =
-document.getElementById("preview");
+fileInput.addEventListener("change", function(e){
+    const file = e.target.files[0];
+    if(!file) return;
 
-const previewImg =
-document.getElementById("previewImg");
+    selectedFile = file;
 
-const loading =
-document.getElementById("loading");
-
-const error =
-document.getElementById("error");
-
-const result =
-document.getElementById("result");
-
-const resultImg =
-document.getElementById("resultImg");
-
-const downloadBtn =
-document.getElementById("downloadBtn");
-
-/* UPLOAD */
-
-fileInput.addEventListener(
-"change",
-function(e){
-
-const file =
-e.target.files[0];
-
-if(!file) return;
-
-selectedFile = file;
-
-const reader =
-new FileReader();
-
-reader.onload = function(ev){
-
-preview.style.display="block";
-
-previewImg.src =
-ev.target.result;
-
-};
-
-reader.readAsDataURL(file);
-
-}
-);
-
-/* ENHANCE */
+    const reader = new FileReader();
+    reader.onload = function(ev){
+        preview.style.display="block";
+        previewImg.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+});
 
 async function uploadImage(){
 
-error.style.display="none";
+    error.style.display="none";
+    result.style.display="none";
 
-result.style.display="none";
+    if(!selectedFile){
+        error.style.display="block";
+        error.innerHTML = "⚠️ Upload gambar terlebih dahulu";
+        return;
+    }
 
-if(!selectedFile){
+    loading.style.display="block";
 
-error.style.display="block";
+    try{
+        const formData = new FormData();
+        formData.append("method","1");
+        formData.append("is_pro_version","false");
+        formData.append("is_enhancing_more","false");
+        formData.append("max_image_size","high");
+        formData.append("file",selectedFile);
 
-error.innerHTML =
-"⚠️ Upload gambar terlebih dahulu";
+        const response = await fetch("https://ihancer.com/api/enhance",{
+            method:"POST",
+            body:formData
+        });
 
-return;
+        if(!response.ok){
+            throw new Error("API ERROR");
+        }
 
-}
+        const blob = await response.blob();
+        const imageURL = URL.createObjectURL(blob);
 
-loading.style.display="block";
+        resultImg.onload = () => {
+            loading.style.display="none";
+            result.style.display="block";
+            result.scrollIntoView({behavior:"smooth"});
+        };
 
-try{
+        resultImg.src = imageURL;
+        downloadBtn.href = imageURL;
 
-const formData =
-new FormData();
-
-formData.append(
-"method",
-"1"
-);
-
-formData.append(
-"is_pro_version",
-"false"
-);
-
-formData.append(
-"is_enhancing_more",
-"false"
-);
-
-formData.append(
-"max_image_size",
-"high"
-);
-
-formData.append(
-"file",
-selectedFile
-);
-
-const response =
-await fetch(
-"https://ihancer.com/api/enhance",
-{
-method:"POST",
-body:formData
-}
-);
-
-if(!response.ok){
-
-throw new Error(
-"API ERROR"
-);
-
-}
-
-const blob =
-await response.blob();
-
-const imageURL =
-URL.createObjectURL(blob);
-
-resultImg.onload = () => {
-
-loading.style.display="none";
-
-result.style.display="block";
-
-result.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-};
-
-resultImg.src = imageURL;
-
-downloadBtn.href = imageURL;
-
-}catch(err){
-
-loading.style.display="none";
-
-error.style.display="block";
-
-error.innerHTML =
-"❌ Gagal proses gambar, coba lagi!";
-
-}
-
+    }catch(err){
+        loading.style.display="none";
+        error.style.display="block";
+        error.innerHTML = "❌ Gagal proses gambar, coba lagi!";
+    }
 }
 
 </script>

@@ -6,215 +6,150 @@
 
 <title>BAILEYS RAFAXMODS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<meta name="theme-color" content="#6d4c41">
+<meta name="theme-color" content="#5b7cfa">
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Fredoka',sans-serif;
+font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 }
 
-/* =========================
-BODY
-========================= */
-
-body{
-
-background:
-linear-gradient(
-135deg,
-#2b1811,
-#4e342e,
-#6d4c41,
-#3e2723
-);
-
-color:white;
-overflow-x:hidden;
-padding-top:90px;
-min-height:100vh;
+h1,h2,.title,.side-profile h2{
+font-family:'Poppins',sans-serif;
 }
 
-/* BACKGROUND */
+/* BODY */
+body{
+background:#05060d;
+min-height:100vh;
+overflow-x:hidden;
+padding-top:90px;
+color:#f4f6ff;
+}
 
 body::before{
 content:'';
 position:fixed;
 inset:0;
-
 background:
-radial-gradient(circle at top,#ffccaa33,transparent 35%),
-radial-gradient(circle at bottom,#ffd7b833,transparent 35%);
-
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
 z-index:-1;
 }
 
-/* FLOAT */
-
+/* FLOAT BG */
 .circle1{
 position:fixed;
-width:350px;
-height:350px;
+width:380px;
+height:380px;
 border-radius:50%;
-background:#ffffff10;
+background:rgba(91,124,250,.18);
 top:-120px;
 left:-120px;
-filter:blur(70px);
+filter:blur(90px);
 z-index:-1;
 }
 
 .circle2{
 position:fixed;
-width:400px;
-height:400px;
+width:420px;
+height:420px;
 border-radius:50%;
-background:#ffb74d20;
+background:rgba(124,147,255,.16);
 bottom:-150px;
 right:-150px;
-filter:blur(80px);
+filter:blur(100px);
 z-index:-1;
 }
 
-/* =========================
-TOPBAR
-========================= */
-
+/* TOPBAR */
 .topbar{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:82px;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
-padding:0 18px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-border-bottom:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #2d1b12;
-
+padding:0 20px;
+background:rgba(9,12,26,.75);
+backdrop-filter:blur(16px);
+-webkit-backdrop-filter:blur(16px);
+border-bottom:1px solid rgba(255,255,255,.08);
+box-shadow:0 8px 30px rgba(0,0,0,.55);
 z-index:999;
 }
-
-/* LOGO */
 
 .logo-top{
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
 }
 
 .logo-top img{
 width:42px;
 height:42px;
 border-radius:50%;
-border:3px solid white;
+border:2px solid rgba(124,147,255,.6);
+box-shadow:0 0 18px rgba(91,124,250,.5);
 }
 
 .logo-top span{
-font-size:24px;
+font-family:'Poppins',sans-serif;
+font-size:22px;
 font-weight:700;
-color:white;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:#f4f6ff;
 }
-
-/* RIGHT */
 
 .top-right{
 display:flex;
 align-items:center;
-gap:12px;
+gap:14px;
 }
 
-/* NOTIF */
-
 .notif-btn{
-width:52px;
-height:52px;
-
-border-radius:18px;
-
+width:50px;
+height:50px;
+border-radius:16px;
 display:flex;
 justify-content:center;
 align-items:center;
-
-font-size:24px;
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
-border:
-3px solid white;
-
+font-size:22px;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
 box-shadow:
-6px 6px 0px #bf360c;
+0 0 20px rgba(91,124,250,.25),
+inset 0 1px 0 rgba(255,255,255,.05);
 }
-
-/* MENU */
 
 .hamburger{
-font-size:40px;
+font-size:32px;
 cursor:pointer;
-color:white;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:#f4f6ff;
 }
 
-/* =========================
-SIDEBAR
-========================= */
-
+/* SIDEBAR */
 .sidebar{
 position:fixed;
 top:0;
 right:-320px;
-
 width:290px;
 height:100%;
-
 padding:20px;
-
 overflow-y:auto;
-
-background:
-linear-gradient(
-180deg,
-#a1887f,
-#6d4c41,
-#3e2723
-);
-
-border-left:
-4px solid white;
-
-transition:0.4s;
-
+background:linear-gradient(180deg,#0b0e22,#05060d);
+border-left:1px solid rgba(124,147,255,.25);
+box-shadow:-20px 0 60px rgba(0,0,0,.6);
+transition:.4s;
 z-index:9999;
 }
 
@@ -222,38 +157,21 @@ z-index:9999;
 right:0;
 }
 
-/* CLOSE */
-
 .close-sidebar{
-width:50px;
-height:50px;
-
+width:46px;
+height:46px;
 display:flex;
 justify-content:center;
 align-items:center;
-
-border-radius:18px;
-
-font-size:28px;
+border-radius:14px;
+font-size:22px;
 font-weight:bold;
-
-background:
-linear-gradient(
-145deg,
-#ff8a65,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #bf360c;
-
+color:#f4f6ff;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25);
 cursor:pointer;
 }
-
-/* PROFILE */
 
 .side-profile{
 text-align:center;
@@ -261,340 +179,220 @@ margin-top:20px;
 }
 
 .side-pp{
-width:120px;
-height:120px;
-
+width:110px;
+height:110px;
 border-radius:50%;
 object-fit:cover;
-
-border:
-5px solid white;
-
-box-shadow:
-8px 8px 0px #3e2723;
+border:3px solid rgba(124,147,255,.5);
+box-shadow:0 0 30px rgba(91,124,250,.45);
 }
 
 .side-profile h2{
 margin-top:15px;
-font-size:28px;
+font-size:24px;
+color:#f4f6ff;
 }
 
 .side-profile p{
 margin-top:6px;
 font-size:14px;
-color:#ffe0b2;
+color:#8b93b8;
 }
-
-/* MENU */
 
 .menu-list{
 margin-top:30px;
-
 display:flex;
 flex-direction:column;
-gap:15px;
+gap:14px;
 }
 
 .menu-list a{
 text-decoration:none;
-
 padding:16px;
-
-border-radius:22px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #3e2723;
-
-color:white;
-
-font-weight:bold;
-
-transition:0.3s;
+border-radius:18px;
+background:linear-gradient(160deg,#10142c,#0b0e1f);
+border:1px solid rgba(255,255,255,.07);
+color:#f4f6ff;
+font-weight:600;
+font-size:14.5px;
+transition:.3s;
+display:block;
 }
 
 .menu-list a:hover{
-
-transform:
-translateY(-5px)
-rotate(-2deg);
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
+transform:translateY(-3px);
+border-color:rgba(124,147,255,.5);
+background:linear-gradient(160deg,#161c3c,#0d1128);
+box-shadow:0 8px 24px rgba(91,124,250,.35);
 }
 
-/* =========================
-MAIN
-========================= */
-
+/* MAIN */
 .main{
 padding:20px;
 }
 
 /* BOX */
-
 .box{
 padding:28px;
-
-border-radius:32px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-border:
-4px solid white;
-
+border-radius:26px;
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
 box-shadow:
-10px 10px 0px #2d1b12;
-
+0 14px 40px rgba(0,0,0,.5),
+inset 0 1px 0 rgba(255,255,255,.04);
 position:relative;
 overflow:hidden;
 }
 
 /* TITLE */
-
 .title{
-font-size:34px;
+font-size:32px;
 font-weight:700;
 text-align:center;
+color:#f4f6ff;
+margin-bottom:10px;
+}
 
-text-shadow:
-4px 4px 0px #3e2723;
-
-margin-bottom:15px;
+.title::after{
+content:'';
+display:block;
+width:110px;
+height:4px;
+margin:16px auto;
+border-radius:20px;
+background:linear-gradient(90deg,#5b7cfa,#a5b4ff);
+box-shadow:0 0 16px rgba(91,124,250,.6);
 }
 
 /* BADGE */
-
 .badge{
 display:block;
 width:fit-content;
-
 margin:0 auto 20px;
-
-padding:10px 20px;
-
-border-radius:25px;
-
-background:
-linear-gradient(
-145deg,
-#ffcc80,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #bf360c;
-
+padding:9px 20px;
+border-radius:30px;
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 8px 24px rgba(91,124,250,.4);
 font-size:14px;
-font-weight:bold;
-
+font-weight:600;
 color:white;
 }
 
 /* UPDATE */
-
 .update{
 text-align:center;
 font-size:15px;
-color:#fff3e0;
+color:#8b93b8;
 margin-bottom:25px;
 }
 
 /* CODE BOX */
-
 .code-box{
-
-background:
-linear-gradient(
-145deg,
-#3e2723,
-#2d1b12
-);
-
+background:linear-gradient(160deg,#0b0e1f,#05060d);
 padding:20px;
-
-border-radius:24px;
-
-border:
-3px solid white;
-
-box-shadow:
-8px 8px 0px #1b0f0a;
-
+border-radius:20px;
+border:1px solid rgba(124,147,255,.25);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
 margin-bottom:25px;
 }
 
 /* CODE */
-
 .code{
-font-size:16px;
+font-size:15px;
 line-height:1.8;
-color:#ffcc80;
+color:#a5b4ff;
 word-break:break-word;
 }
 
 /* BUTTON */
-
 .copy-btn{
 margin-top:18px;
-
 padding:14px 22px;
-
 border:none;
-
 border-radius:18px;
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #bf360c;
-
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 8px 24px rgba(91,124,250,.4);
 color:white;
-
 font-size:15px;
-font-weight:bold;
-
+font-weight:600;
 cursor:pointer;
-
-transition:0.3s;
+transition:.3s;
 }
 
 .copy-btn:hover{
-
-transform:
-translateY(-4px)
-rotate(-2deg);
-
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(91,124,250,.55);
 }
 
 /* FEATURES */
-
 .feature-box{
 display:grid;
 gap:16px;
 }
 
 /* FEATURE */
-
 .feature{
 padding:18px;
+border-radius:20px;
+background:linear-gradient(160deg,#10142c,#0b0e1f);
+border:1px solid rgba(255,255,255,.07);
+font-weight:600;
+font-size:14.5px;
+color:#f4f6ff;
+transition:.3s;
+position:relative;
+overflow:hidden;
+}
 
-border-radius:24px;
-
-background:
-linear-gradient(
-145deg,
-#a1887f,
-#6d4c41
-);
-
-border:
-3px solid white;
-
-box-shadow:
-7px 7px 0px #3e2723;
-
-font-weight:bold;
-
-font-size:15px;
-
-color:white;
-
-transition:0.3s;
+.feature::before{
+content:'';
+position:absolute;
+inset:0;
+background:radial-gradient(circle at 30% 20%,rgba(91,124,250,.16),transparent 60%);
+opacity:0;
+transition:.3s;
 }
 
 .feature:hover{
+transform:translateY(-5px);
+border-color:rgba(124,147,255,.5);
+box-shadow:0 14px 32px rgba(91,124,250,.35);
+}
 
-transform:
-translateY(-5px)
-rotate(-1deg);
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
+.feature:hover::before{
+opacity:1;
 }
 
 /* TAG */
-
 .tag{
 margin-top:12px;
-
 display:inline-block;
-
-padding:8px 16px;
-
+padding:7px 15px;
 border-radius:20px;
-
-background:white;
-
-color:#4e342e;
-
-font-size:13px;
-font-weight:bold;
+background:rgba(91,124,250,.12);
+border:1px solid rgba(124,147,255,.35);
+color:#c7d1ff;
+font-size:12.5px;
+font-weight:600;
+position:relative;
+z-index:1;
 }
 
 /* FOOTER */
-
 .footer{
 margin-top:30px;
 text-align:center;
-
-font-size:14px;
-font-weight:bold;
-
-text-shadow:
-3px 3px 0px #3e2723;
+font-size:13px;
+font-weight:600;
+color:#8b93b8;
 }
 
 /* MOBILE */
-
 @media(max-width:700px){
-
-.title{
-font-size:28px;
+.title{font-size:26px;}
+.logo-top span{font-size:20px;}
 }
-
-.logo-top span{
-font-size:20px;
-}
-
-}
-
 </style>
 </head>
 
@@ -604,215 +402,74 @@ font-size:20px;
 <div class="circle2"></div>
 
 <!-- TOPBAR -->
-
 <header class="topbar">
-
 <div class="logo-top">
-
 <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-
 <span>RafaXMods</span>
-
 </div>
-
 <div class="top-right">
-
-<div class="notif-btn">
-🔔
+<div class="notif-btn">🔔</div>
+<div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
-
-<div
-class="hamburger"
-onclick="toggleMenu()"
->
-☰
-</div>
-
-</div>
-
 </header>
 
 <!-- SIDEBAR -->
-
 <div class="sidebar" id="sidebar">
-
-<div
-class="close-sidebar"
-onclick="toggleMenu()"
->
-✕
-</div>
-
+<div class="close-sidebar" onclick="toggleMenu()">✕</div>
 <div class="side-profile">
-
-<img
-src="https://img2.pixhost.to/images/7724/723451208_jpg"
-class="side-pp"
->
-
+<img src="https://img2.pixhost.to/images/7724/723451208_jpg" class="side-pp">
 <h2>RafaXMods</h2>
-
 <p>Infomasi Menu List ⚡</p>
-
 </div>
-
 <div class="menu-list">
-
-<a href="index.html">
-🔙 Back Menu Utama
-</a>
-
-<a href="profil.html">
-👤 Profil Saya
-</a>
-
-<a href="bailyes.html">
-💬 My Baiyles
-</a>
-
-<a
-href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4"
-target="_blank"
->
-👑 Grup Bot RafaXMods
-</a>
-
-<a
-href="https://t.me/ErroBaiyles"
-target="_blank"
->
-📢 Saluran Tele
-</a>
-
+<a href="index.html">🔙 Back Menu Utama</a>
+<a href="profil.html">👤 Profil Saya</a>
+<a href="bailyes.html">💬 My Baiyles</a>
+<a href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4" target="_blank">👑 Grup Bot RafaXMods</a>
+<a href="https://t.me/ErroBaiyles" target="_blank">📢 Saluran Tele</a>
 </div>
-
 </div>
 
 <!-- MAIN -->
-
 <div class="main">
-
 <div class="box">
 
-<div class="title">
-🚀 BAILEYS 2026 UPDATE
-</div>
-
-<div class="badge">
-NEW VERSION AVAILABLE
-</div>
-
-<div class="update">
-📅 Last Update : Senin - 7 April 2026
-</div>
-
-<!-- CODE -->
+<div class="title">🚀 BAILEYS 2026 UPDATE</div>
+<div class="badge">NEW VERSION AVAILABLE</div>
+<div class="update">📅 Last Update : Senin - 7 April 2026</div>
 
 <div class="code-box">
-
 <div class="code">
-
 "@whiskeysockets/baileys"<br>
 "github:RafaOfficial/baileys"
-
 </div>
-
-<button
-class="copy-btn"
-onclick="copyText()"
->
-📋 Copy Github
-</button>
-
+<button class="copy-btn" onclick="copyText()">📋 Copy Github</button>
 </div>
-
-<!-- FEATURE -->
 
 <div class="feature-box">
-
-<div class="feature">
-✅ BAILEYS VERSI BARU
-<div class="tag">
-Stable Version
-</div>
-</div>
-
-<div class="feature">
-✅ NO LOG OUT SENDER
-<div class="tag">
-Anti Delay
-</div>
+<div class="feature">✅ BAILEYS VERSI BARU<div class="tag">Stable Version</div></div>
+<div class="feature">✅ NO LOG OUT SENDER<div class="tag">Anti Delay</div></div>
+<div class="feature">✅ ANTI ERROR PAIRING<div class="tag">Fast Connect</div></div>
+<div class="feature">✅ SUPPORT ALL TYPE MSG<div class="tag">Interactive</div></div>
+<div class="feature">✅ SUPPORT ALL BUTTON TYPE<div class="tag">Modern Button</div></div>
+<div class="feature">✅ SUPPORT CUSTOM PAIRING CODE<div class="tag">Custom Login</div></div>
+<div class="feature">✅ SUPPORT NODE JS 20 - 24<div class="tag">Latest Runtime</div></div>
 </div>
 
-<div class="feature">
-✅ ANTI ERROR PAIRING
-<div class="tag">
-Fast Connect
-</div>
-</div>
-
-<div class="feature">
-✅ SUPPORT ALL TYPE MSG
-<div class="tag">
-Interactive
-</div>
-</div>
-
-<div class="feature">
-✅ SUPPORT ALL BUTTON TYPE
-<div class="tag">
-Modern Button
-</div>
-</div>
-
-<div class="feature">
-✅ SUPPORT CUSTOM PAIRING CODE
-<div class="tag">
-Custom Login
-</div>
-</div>
-
-<div class="feature">
-✅ SUPPORT NODE JS 20 - 24
-<div class="tag">
-Latest Runtime
-</div>
-</div>
+<div class="footer">© 2026 RafaXMods — Stable & Ready To Use</div>
 
 </div>
-
-<div class="footer">
-© 2026 RafaXMods — Stable & Ready To Use
-</div>
-
-</div>
-
 </div>
 
 <script>
-
-/* SIDEBAR */
-
 function toggleMenu(){
-
-document
-.getElementById("sidebar")
-.classList.toggle("active");
-
+document.getElementById("sidebar").classList.toggle("active");
 }
-
-/* COPY */
 
 function copyText(){
-
-navigator.clipboard.writeText(
-"github:RafaOfficial/baileys"
-);
-
+navigator.clipboard.writeText("github:RafaOfficial/baileys");
 alert("Berhasil Di Copy!");
-
 }
-
 </script>
 
 </body>

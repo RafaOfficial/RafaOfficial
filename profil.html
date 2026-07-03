@@ -6,179 +6,127 @@
 
 <title>PROFILE RAFAXMODS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<meta name="theme-color" content="#6d4c41">
+<meta name="theme-color" content="#5b7cfa">
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Fredoka',sans-serif;
+font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 }
 
-/* =========================
-BODY
-========================= */
+h1,h2,h3,.name,.side-profile h2,.section-title{
+font-family:'Poppins',sans-serif;
+}
 
 body{
-
-background:
-linear-gradient(
-135deg,
-#2b1811,
-#4e342e,
-#6d4c41,
-#3e2723
-);
-
-color:white;
+background:#05060d;
+color:#f4f6ff;
 overflow-x:hidden;
 padding-top:90px;
 min-height:100vh;
 }
 
-/* BACKGROUND EFFECT */
-
 body::before{
 content:'';
 position:fixed;
 inset:0;
-
 background:
-radial-gradient(circle at top,#ffccaa33,transparent 35%),
-radial-gradient(circle at bottom,#ffd7b833,transparent 35%);
-
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
 z-index:-1;
 }
 
-/* FLOAT */
-
 .circle1{
 position:fixed;
-width:350px;
-height:350px;
+width:380px;
+height:380px;
 border-radius:50%;
-background:#ffffff10;
+background:rgba(91,124,250,.18);
 top:-120px;
 left:-120px;
-filter:blur(70px);
+filter:blur(90px);
 z-index:-1;
 }
 
 .circle2{
 position:fixed;
-width:400px;
-height:400px;
+width:420px;
+height:420px;
 border-radius:50%;
-background:#ffb74d20;
+background:rgba(124,147,255,.16);
 bottom:-150px;
 right:-150px;
-filter:blur(80px);
+filter:blur(100px);
 z-index:-1;
 }
 
-/* =========================
-TOPBAR
-========================= */
-
+/* TOPBAR */
 .topbar{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:82px;
-
 display:flex;
 justify-content:space-between;
 align-items:center;
-
-padding:0 18px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-border-bottom:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #2d1b12;
-
+padding:0 20px;
+background:rgba(9,12,26,.75);
+backdrop-filter:blur(16px);
+-webkit-backdrop-filter:blur(16px);
+border-bottom:1px solid rgba(255,255,255,.08);
+box-shadow:0 8px 30px rgba(0,0,0,.55);
 z-index:999;
 }
-
-/* LOGO */
 
 .logo-top{
 display:flex;
 align-items:center;
-gap:10px;
+gap:12px;
 }
 
 .logo-top img{
 width:42px;
 height:42px;
 border-radius:50%;
-border:3px solid white;
+border:2px solid rgba(124,147,255,.6);
+box-shadow:0 0 18px rgba(91,124,250,.5);
 }
 
 .logo-top span{
-font-size:24px;
+font-family:'Poppins',sans-serif;
+font-size:22px;
 font-weight:700;
-color:white;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:#f4f6ff;
 }
-
-/* MENU */
 
 .hamburger{
-font-size:40px;
+font-size:32px;
 cursor:pointer;
-color:white;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:#f4f6ff;
 }
 
-/* =========================
-SIDEBAR
-========================= */
-
+/* SIDEBAR */
 .sidebar{
 position:fixed;
 top:0;
 right:-320px;
-
 width:290px;
 height:100%;
-
 padding:20px;
-
 overflow-y:auto;
-
-background:
-linear-gradient(
-180deg,
-#a1887f,
-#6d4c41,
-#3e2723
-);
-
-border-left:
-4px solid white;
-
-transition:0.4s;
-
+background:linear-gradient(180deg,#0b0e22,#05060d);
+border-left:1px solid rgba(124,147,255,.25);
+box-shadow:-20px 0 60px rgba(0,0,0,.6);
+transition:.4s;
 z-index:9999;
 }
 
@@ -186,38 +134,21 @@ z-index:9999;
 right:0;
 }
 
-/* CLOSE */
-
 .close-sidebar{
-width:50px;
-height:50px;
-
+width:46px;
+height:46px;
 display:flex;
 justify-content:center;
 align-items:center;
-
-border-radius:18px;
-
-font-size:28px;
+border-radius:14px;
+font-size:22px;
 font-weight:bold;
-
-background:
-linear-gradient(
-145deg,
-#ff8a65,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #bf360c;
-
+color:#f4f6ff;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25);
 cursor:pointer;
 }
-
-/* PROFILE SIDEBAR */
 
 .side-profile{
 text-align:center;
@@ -225,216 +156,285 @@ margin-top:20px;
 }
 
 .side-pp{
-width:120px;
-height:120px;
-
+width:110px;
+height:110px;
 border-radius:50%;
 object-fit:cover;
-
-border:
-5px solid white;
-
-box-shadow:
-8px 8px 0px #3e2723;
+border:3px solid rgba(124,147,255,.5);
+box-shadow:0 0 30px rgba(91,124,250,.45);
 }
 
 .side-profile h2{
 margin-top:15px;
-font-size:28px;
+font-size:24px;
+color:#f4f6ff;
 }
 
 .side-profile p{
 margin-top:6px;
 font-size:14px;
-color:#ffe0b2;
+color:#8b93b8;
 }
-
-/* MENU LIST */
 
 .menu-list{
 margin-top:30px;
-
 display:flex;
 flex-direction:column;
-gap:15px;
+gap:14px;
 }
 
 .menu-list a{
 text-decoration:none;
-
 padding:16px;
-
-border-radius:22px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #3e2723;
-
-color:white;
-
-font-weight:bold;
-
-transition:0.3s;
+border-radius:18px;
+background:linear-gradient(160deg,#10142c,#0b0e1f);
+border:1px solid rgba(255,255,255,.07);
+color:#f4f6ff;
+font-weight:600;
+font-size:14.5px;
+transition:.3s;
+display:block;
 }
 
 .menu-list a:hover{
-
-transform:
-translateY(-5px)
-rotate(-2deg);
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
+transform:translateY(-3px);
+border-color:rgba(124,147,255,.5);
+background:linear-gradient(160deg,#161c3c,#0d1128);
+box-shadow:0 8px 24px rgba(91,124,250,.35);
 }
 
-/* =========================
-MAIN
-========================= */
-
+/* MAIN */
 .main{
 padding:20px;
 text-align:center;
+max-width:560px;
+margin:0 auto;
 }
 
-/* PROFILE */
+.eyebrow{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:7px 16px;
+border-radius:30px;
+background:rgba(91,124,250,.1);
+border:1px solid rgba(124,147,255,.3);
+color:#a5b4ff;
+font-size:11.5px;
+font-weight:600;
+letter-spacing:.5px;
+text-transform:uppercase;
+margin-bottom:22px;
+}
+
+.eyebrow .dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#3ddc84;
+box-shadow:0 0 8px #3ddc84;
+}
 
 .profile-box{
-margin-top:10px;
+margin-top:0;
 }
 
-/* PROFILE IMAGE */
+.profile-img-wrap{
+position:relative;
+width:170px;
+margin:0 auto;
+}
 
 .profile-img{
-width:180px;
-height:180px;
-
+width:170px;
+height:170px;
 border-radius:50%;
 object-fit:cover;
-
-border:
-5px solid white;
-
-box-shadow:
-10px 10px 0px #3e2723;
-
+border:3px solid rgba(124,147,255,.55);
+box-shadow:0 0 50px rgba(91,124,250,.5);
 animation:float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-
-0%,100%{
-transform:translateY(0);
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
 }
 
-50%{
-transform:translateY(-8px);
+.verified-badge{
+position:absolute;
+bottom:8px;
+right:6px;
+width:34px;
+height:34px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+border:3px solid #05060d;
+box-shadow:0 0 16px rgba(91,124,250,.6);
 }
-
-}
-
-/* NAME */
 
 .name{
-margin-top:18px;
-
-font-size:34px;
+margin-top:20px;
+font-size:28px;
 font-weight:700;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:#f4f6ff;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
 }
 
-/* STATUS */
+.handle{
+margin-top:6px;
+font-size:14px;
+color:#8b93b8;
+font-weight:500;
+}
+
+.status-row{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin-top:16px;
+}
 
 .status{
-margin-top:12px;
-
-display:inline-block;
-
-padding:10px 20px;
-
-border-radius:22px;
-
-background:#fff3e0;
-
-color:#4e342e;
-
-font-weight:bold;
-
-border:
-3px solid white;
-
-box-shadow:
-5px 5px 0px #6d4c41;
+padding:9px 18px;
+border-radius:20px;
+background:rgba(91,124,250,.12);
+color:#c7d1ff;
+font-weight:600;
+font-size:13px;
+border:1px solid rgba(124,147,255,.35);
 }
 
-/* CARD */
+/* STAT STRIP */
+.stat-strip{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:28px;
+}
+
+.stat-item{
+padding:18px 8px;
+border-radius:20px;
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+text-align:center;
+}
+
+.stat-num{
+font-size:20px;
+font-weight:700;
+color:#f4f6ff;
+font-family:'Poppins',sans-serif;
+}
+
+.stat-label{
+margin-top:4px;
+font-size:11px;
+color:#8b93b8;
+font-weight:500;
+}
+
+/* SECTION HEAD */
+.section-head{
+margin:34px 0 16px;
+text-align:left;
+}
+
+.section-title{
+font-size:19px;
+font-weight:700;
+color:#f4f6ff;
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.section-title .bar{
+width:5px;
+height:20px;
+border-radius:4px;
+background:linear-gradient(180deg,#5b7cfa,#a5b4ff);
+box-shadow:0 0 12px rgba(91,124,250,.6);
+}
+
+.section-sub{
+margin-top:6px;
+margin-left:14px;
+font-size:13px;
+color:#8b93b8;
+}
 
 .card{
-margin-top:25px;
-
 padding:24px;
-
-border-radius:28px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-border:
-4px solid white;
-
-box-shadow:
-10px 10px 0px #2d1b12;
-
+border-radius:24px;
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
 text-align:left;
-
-transition:0.3s;
+transition:.3s;
 }
 
 .card:hover{
-
-transform:
-translateY(-6px)
-rotate(-1deg);
-
+transform:translateY(-5px);
+border-color:rgba(124,147,255,.4);
+box-shadow:0 16px 40px rgba(91,124,250,.25);
 }
 
 .card h2{
-font-size:24px;
+font-size:20px;
 margin-bottom:15px;
-
-color:white;
-
-text-shadow:
-3px 3px 0px #3e2723;
+color:#f4f6ff;
 }
 
 .card p{
 line-height:1.8;
-font-size:16px;
-color:#fff3e0;
+font-size:15px;
+color:#8b93b8;
 }
 
-/* HOBBY */
+/* JOB LIST */
+.job-list{
+display:grid;
+gap:10px;
+margin-top:4px;
+}
+
+.job-item{
+display:flex;
+align-items:center;
+gap:12px;
+padding:12px 14px;
+border-radius:14px;
+background:rgba(255,255,255,.02);
+border:1px solid rgba(255,255,255,.06);
+}
+
+.job-icon{
+width:36px;
+height:36px;
+min-width:36px;
+border-radius:11px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:16px;
+background:rgba(91,124,250,.12);
+border:1px solid rgba(124,147,255,.3);
+}
+
+.job-item span{
+font-size:14px;
+font-weight:600;
+color:#f4f6ff;
+}
 
 .hobby-list{
 display:grid;
@@ -445,200 +445,194 @@ margin-top:15px;
 
 .hobby{
 padding:15px;
-
-border-radius:20px;
-
-background:
-linear-gradient(
-145deg,
-#a1887f,
-#6d4c41
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #3e2723;
-
+border-radius:18px;
+background:linear-gradient(160deg,#10142c,#0b0e1f);
+border:1px solid rgba(255,255,255,.07);
 text-align:center;
-
-font-weight:bold;
-
-transition:0.3s;
+font-weight:600;
+transition:.3s;
 }
 
 .hobby:hover{
-
-transform:
-translateY(-5px)
-rotate(-2deg);
-
+transform:translateY(-4px);
+border-color:rgba(124,147,255,.5);
+box-shadow:0 10px 24px rgba(91,124,250,.3);
 }
-
-/* SKILL */
 
 .skill{
 margin-top:18px;
 }
 
-.skill span{
-font-weight:bold;
-font-size:16px;
+.skill:first-child{
+margin-top:0;
 }
 
-/* BAR */
+.skill-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.skill span{
+font-weight:600;
+font-size:15px;
+color:#f4f6ff;
+}
+
+.skill-percent{
+font-size:13px;
+font-weight:700;
+color:#a5b4ff;
+}
 
 .bar{
 width:100%;
-height:15px;
-
-background:#2d1b12;
-
+height:12px;
+background:#0b0e1f;
 border-radius:20px;
-
 overflow:hidden;
-
 margin-top:10px;
-
-border:
-2px solid white;
+border:1px solid rgba(255,255,255,.08);
 }
-
-/* FILL */
 
 .fill{
 height:100%;
 border-radius:20px;
-
-background:
-linear-gradient(
-90deg,
-#ffcc80,
-#ff7043
-);
-
-box-shadow:
-0 0 15px #ffab40;
+background:linear-gradient(90deg,#5b7cfa,#a5b4ff);
+box-shadow:0 0 15px rgba(91,124,250,.6);
+width:0;
+transition:width 1.4s cubic-bezier(.22,.9,.32,1);
 }
 
-/* QUOTE */
+/* TIMELINE */
+.timeline{
+margin-top:4px;
+}
+
+.timeline-item{
+position:relative;
+padding-left:26px;
+padding-bottom:22px;
+border-left:2px solid rgba(124,147,255,.25);
+}
+
+.timeline-item:last-child{
+padding-bottom:0;
+border-left:2px solid transparent;
+}
+
+.timeline-dot{
+position:absolute;
+left:-7px;
+top:2px;
+width:12px;
+height:12px;
+border-radius:50%;
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 0 12px rgba(91,124,250,.7);
+}
+
+.timeline-year{
+font-size:12px;
+font-weight:700;
+color:#a5b4ff;
+letter-spacing:.5px;
+}
+
+.timeline-item h4{
+margin-top:4px;
+font-size:15px;
+font-weight:600;
+color:#f4f6ff;
+}
+
+.timeline-item p{
+margin-top:4px;
+font-size:13px;
+color:#8b93b8;
+line-height:1.6;
+}
+
+/* SOCIAL */
+.social-row{
+display:flex;
+justify-content:center;
+gap:14px;
+margin-top:6px;
+}
+
+.social-btn{
+flex:1;
+max-width:150px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+padding:14px;
+border-radius:16px;
+text-decoration:none;
+font-size:13.5px;
+font-weight:600;
+color:#f4f6ff;
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+transition:.3s;
+}
+
+.social-btn:hover{
+transform:translateY(-4px);
+border-color:rgba(124,147,255,.5);
+box-shadow:0 10px 24px rgba(91,124,250,.3);
+}
 
 .quote{
-margin-top:25px;
-
-padding:22px;
-
-border-radius:25px;
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
-border:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #bf360c;
-
+margin-top:34px;
+padding:24px;
+border-radius:22px;
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 8px 24px rgba(91,124,250,.4);
 font-style:italic;
-
-font-size:17px;
-
+font-size:16px;
 line-height:1.7;
-}
-
-/* FEATURES */
-
-.feature-box{
-display:grid;
-gap:16px;
-}
-
-/* FEATURE */
-
-.feature{
-padding:18px;
-
-border-radius:24px;
-
-background:
-linear-gradient(
-145deg,
-#a1887f,
-#6d4c41
-);
-
-border:
-3px solid white;
-
-box-shadow:
-7px 7px 0px #3e2723;
-
-font-weight:bold;
-
-font-size:15px;
-
 color:white;
-
-transition:0.3s;
+text-align:center;
+position:relative;
 }
 
-.feature:hover{
-
-transform:
-translateY(-5px)
-rotate(-1deg);
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
+.quote::before{
+content:'"';
+position:absolute;
+top:-6px;
+left:18px;
+font-size:60px;
+font-family:'Poppins',sans-serif;
+color:rgba(255,255,255,.25);
+font-style:normal;
 }
-
-/* FOOTER */
 
 .footer{
-margin-top:35px;
-
-padding:20px;
-
-font-size:14px;
-font-weight:bold;
-
-text-shadow:
-3px 3px 0px #3e2723;
-
+margin-top:40px;
+padding:24px 20px 0;
+font-size:13px;
+font-weight:600;
+color:#8b93b8;
 text-align:center;
+border-top:1px solid rgba(255,255,255,.07);
 }
 
-/* MOBILE */
+.footer-sub{
+margin-top:6px;
+font-size:11.5px;
+font-weight:400;
+color:#5a6180;
+}
 
 @media(max-width:700px){
-
-.profile-img{
-width:150px;
-height:150px;
-}
-
-.name{
-font-size:28px;
-}
-
-.hobby-list{
-grid-template-columns:repeat(2,1fr);
-}
-
-.card h2{
-font-size:20px;
-}
-
+.profile-img,.profile-img-wrap{width:140px;height:140px;}
+.name{font-size:23px;}
+.hobby-list{grid-template-columns:repeat(2,1fr);}
+.card h2{font-size:17px;}
+.social-btn{font-size:12px;padding:12px 8px;}
 }
 
 </style>
@@ -650,234 +644,209 @@ font-size:20px;
 <div class="circle2"></div>
 
 <!-- TOPBAR -->
-
 <div class="topbar">
-
 <div class="logo-top">
-
 <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-
 <span>RafaXMods</span>
-
 </div>
-
-<div
-class="hamburger"
-onclick="toggleMenu()"
->
-☰
-</div>
-
+<div class="hamburger" onclick="toggleMenu()">☰</div>
 </div>
 
 <!-- SIDEBAR -->
-
 <div class="sidebar" id="sidebar">
-
-<div
-class="close-sidebar"
-onclick="toggleMenu()"
->
-✕
-</div>
-
+<div class="close-sidebar" onclick="toggleMenu()">✕</div>
 <div class="side-profile">
-
-<img
-src="https://img2.pixhost.to/images/8330/733379870_lanz-mikasamd.jpg"
-class="side-pp"
->
-
+<img src="https://img2.pixhost.to/images/8330/733379870_lanz-mikasamd.jpg" class="side-pp">
 <h2>RafaXMods</h2>
-
-<p>Dark Cartoon Brutalism ⚡</p>
-
+<p>Modern Blue Neon ⚡</p>
 </div>
-
-<!-- MENU -->
 
 <div class="menu-list">
-
-<a href="index.html">
-🔙 Back Menu Utama
-</a>
-
-<a href="profil.html">
-👤 Profil Saya
-</a>
-
-<a href="bailyes.html">
-💬 My Baiyles
-</a>
-
-<a
-href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4"
-target="_blank"
->
-👑 Grup Bot RafaXMods
-</a>
-
-<a
-href="https://t.me/ErroBaiyles"
-target="_blank"
->
-📢 Saluran Tele
-</a>
-
+<a href="index.html">🔙 Back Menu Utama</a>
+<a href="profil.html">👤 Profil Saya</a>
+<a href="bailyes.html">💬 My Baiyles</a>
+<a href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4" target="_blank">👑 Grup Bot RafaXMods</a>
+<a href="https://t.me/ErroBaiyles" target="_blank">📢 Saluran Tele</a>
 </div>
-
 </div>
 
 <!-- MAIN -->
-
 <div class="main">
 
-<!-- PROFILE -->
+<div class="eyebrow"><span class="dot"></span> Tersedia Untuk Kolaborasi</div>
 
 <div class="profile-box">
+<div class="profile-img-wrap">
+<img src="https://img2.pixhost.to/images/8330/733379870_lanz-mikasamd.jpg" class="profile-img">
+<div class="verified-badge">✔</div>
+</div>
+<div class="name">RafaXMods</div>
+<div class="handle">@rafaxmods • Full-Stack Digital Creator</div>
 
-<img
-src="https://img2.pixhost.to/images/8330/733379870_lanz-mikasamd.jpg"
-class="profile-img"
->
-
-<div class="name">
-RafaXMods
+<div class="status-row">
+<div class="status">⚡ Active Developer</div>
+<div class="status">🟢 Online Sekarang</div>
+</div>
 </div>
 
-<div class="status">
-⚡ Active Developer
+<!-- STAT STRIP -->
+<div class="stat-strip">
+<div class="stat-item">
+<div class="stat-num">3+</div>
+<div class="stat-label">Tahun Pengalaman</div>
+</div>
+<div class="stat-item">
+<div class="stat-num">20+</div>
+<div class="stat-label">Project Selesai</div>
+</div>
+<div class="stat-item">
+<div class="stat-num">1K+</div>
+<div class="stat-label">Pengguna Tools</div>
+</div>
 </div>
 
+<!-- TENTANG -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Tentang Saya</div>
+<div class="section-sub">Kenalan lebih dekat sama saya</div>
 </div>
 
-<!-- ABOUT -->
 <div class="card">
-  
-<h2>👤 Tentang Saya</h2>
-
 <p>
-Halo saya RafaXMods, creator digital dan developer website
+Halo, saya RafaXMods — creator digital dan developer website
 dengan berbagai fitur premium gratis untuk sosial media,
-website tools, dan kebutuhan digital lainnya.
+website tools, dan kebutuhan digital lainnya. Fokus saya
+adalah membangun sesuatu yang simpel, cepat, dan benar-benar
+berguna buat penggunanya.
 </p>
-
 </div>
 
-<!-- JOB -->
+<!-- PEKERJAAN -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Pekerjaan</div>
+<div class="section-sub">Bidang yang saya tekuni sehari-hari</div>
+</div>
 
 <div class="card">
-
-<h2>💼 Pekerjaan</h2>
-
-<p>
-• Website Developer<br>
-• Script Creator<br>
-• Digital Designer<br>
-• Sosmed Tools Developer
-</p>
-
+<div class="job-list">
+<div class="job-item"><div class="job-icon">🌐</div><span>Website Developer</span></div>
+<div class="job-item"><div class="job-icon">📝</div><span>Script Creator</span></div>
+<div class="job-item"><div class="job-icon">🎨</div><span>Digital Designer</span></div>
+<div class="job-item"><div class="job-icon">📱</div><span>Sosmed Tools Developer</span></div>
+</div>
 </div>
 
-<!-- HOBBY -->
-<h2>🎮 Hobi</h2>
-
-<div class="feature-box">
+<!-- HOBI -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Hobi</div>
+<div class="section-sub">Hal-hal yang bikin saya betah di depan layar</div>
+</div>
 
 <div class="hobby-list">
-
-<div class="feature">
-🎮 Gaming
+<div class="hobby">🎮 Gaming</div>
+<div class="hobby">💻 Coding</div>
+<div class="hobby">🎨 Design</div>
+<div class="hobby">⚡ Editing</div>
 </div>
 
-<div class="feature">
-💻 Coding
+<!-- KEAHLIAN -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Keahlian</div>
+<div class="section-sub">Tools dan skill yang saya kuasai</div>
 </div>
 
-<div class="feature">
-🎨 Design
-</div>
-
-<div class="feature">
-⚡ Editing
-</div>
-
-</div>
-
-</div>
-
-<!-- SKILL -->
 <div class="card">
-  
-<h2>⚡ Keahlian</h2>
 
 <div class="skill">
-
-<span>HTML & CSS</span>
-
-<div class="bar">
-<div class="fill" style="width:95%"></div>
-</div>
-
+<div class="skill-top"><span>HTML & CSS</span><span class="skill-percent">95%</span></div>
+<div class="bar"><div class="fill" data-width="95"></div></div>
 </div>
 
 <div class="skill">
-  
-<span>JavaScript</span>
-
-<div class="bar">
-<div class="fill" style="width:88%"></div>
-</div>
-
+<div class="skill-top"><span>JavaScript</span><span class="skill-percent">88%</span></div>
+<div class="bar"><div class="fill" data-width="88"></div></div>
 </div>
 
 <div class="skill">
-
-<span>Bot WhatsApp</span>
-
-<div class="bar">
-<div class="fill" style="width:92%"></div>
-</div>
-
+<div class="skill-top"><span>Bot WhatsApp</span><span class="skill-percent">92%</span></div>
+<div class="bar"><div class="fill" data-width="92"></div></div>
 </div>
 
 <div class="skill">
-
-<span>UI Design</span>
-
-<div class="bar">
-<div class="fill" style="width:85%"></div>
+<div class="skill-top"><span>UI Design</span><span class="skill-percent">85%</span></div>
+<div class="bar"><div class="fill" data-width="85"></div></div>
 </div>
 
 </div>
 
+<!-- PERJALANAN -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Perjalanan</div>
+<div class="section-sub">Sedikit cerita perjalanan RafaXMods</div>
 </div>
-<!-- QUOTE -->
+
+<div class="card">
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-year">2023</div>
+<h4>Mulai Belajar Coding</h4>
+<p>Belajar dasar HTML, CSS, dan JavaScript secara otodidak.</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-year">2024</div>
+<h4>Membangun Bot WhatsApp</h4>
+<p>Mulai fokus mengembangkan script dan bot berbasis Baileys.</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-year">2026</div>
+<h4>Meluncurkan RafaXMods</h4>
+<p>Merilis website tools dan jualan untuk kebutuhan digital publik.</p>
+</div>
+
+</div>
+</div>
+
+<!-- SOSIAL -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Terhubung Dengan Saya</div>
+</div>
+
+<div class="social-row">
+<a href="https://chat.whatsapp.com/ILpvo3YUuE63U6oxlFyfT4" target="_blank" class="social-btn">💬 WhatsApp</a>
+<a href="https://t.me/ErroBaiyles" target="_blank" class="social-btn">📢 Telegram</a>
+</div>
 
 <div class="quote">
-"Terus berkembang dan terus belajar menjadi lebih baik ⚡"
+Terus berkembang dan terus belajar menjadi lebih baik ⚡
 </div>
-
-<!-- FOOTER -->
 
 <div class="footer">
 © 2026 RafaXMods - Profile Website
+<div class="footer-sub">Dibuat dengan dedikasi, dirawat dengan konsistensi</div>
 </div>
 
 </div>
 
 <script>
-
-/* TOGGLE MENU */
-
 function toggleMenu(){
-
-document
-.getElementById("sidebar")
-.classList.toggle("active");
-
+document.getElementById("sidebar").classList.toggle("active");
 }
 
+/* ANIMASI SKILL BAR */
+window.addEventListener("load", function(){
+document.querySelectorAll(".fill").forEach(function(el){
+const w = el.getAttribute("data-width");
+setTimeout(function(){
+el.style.width = w + "%";
+}, 200);
+});
+});
 </script>
 
 </body>

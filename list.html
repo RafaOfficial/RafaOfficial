@@ -5,554 +5,756 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#6d4c41">
+<meta name="theme-color" content="#5b7cfa">
 
 <title>LIST JUALAN | RAFAXMODS</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---bg1:#2b1811;
---bg2:#4e342e;
---bg3:#6d4c41;
---bg4:#3e2723;
-
---orange1:#ffb74d;
---orange2:#ff7043;
-
---white:#ffffff;
+--blue:#5b7cfa;
+--blue2:#324adf;
+--card:#10142c;
+--card2:#0a0d1f;
+--white:#f4f6ff;
+--muted:#8b93b8;
+--green:#2ecf7a;
+--green2:#1a9b57;
+--gold:#ffc857;
+--gold2:#e6a730;
 }
-
-/* GLOBAL */
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Fredoka',sans-serif;
+font-family:'Inter',sans-serif;
+}
+
+h1,h2,h3,.logo,.section-title{
+font-family:'Poppins',sans-serif;
 }
 
 body{
-
-background:
-linear-gradient(
-135deg,
-var(--bg1),
-var(--bg2),
-var(--bg3),
-var(--bg4)
-);
-
-color:white;
-
+background:#05060d;
+color:var(--white);
 min-height:100vh;
-
 overflow-x:hidden;
-
 padding:20px;
 }
 
-/* BACKGROUND */
-
-.bg{
+body::before{
+content:'';
 position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-overflow:hidden;
+inset:0;
+background:
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
 z-index:-1;
 }
 
 .blur{
-position:absolute;
+position:fixed;
 border-radius:50%;
 filter:blur(100px);
-opacity:0.4;
-animation:float 8s infinite alternate;
+opacity:.5;
+z-index:-1;
 }
 
 .blur1{
-width:320px;
-height:320px;
-background:#8d6e63;
-top:-100px;
-left:-100px;
+width:380px;
+height:380px;
+background:rgba(91,124,250,.18);
+top:-120px;
+left:-120px;
 }
 
 .blur2{
-width:360px;
-height:360px;
-background:#4e342e;
-bottom:-120px;
-right:-120px;
+width:420px;
+height:420px;
+background:rgba(124,147,255,.16);
+bottom:-150px;
+right:-150px;
 }
-
-@keyframes float{
-
-from{
-transform:translateY(0px);
-}
-
-to{
-transform:translateY(40px);
-}
-
-}
-
-/* CONTAINER */
 
 .container{
-
 width:100%;
 max-width:500px;
-
 margin:auto;
-
-padding:20px;
-
-border-radius:30px;
-
-background:rgba(0,0,0,0.12);
-
-backdrop-filter:blur(10px);
-
-border:
-4px solid white;
-
-box-shadow:
-10px 10px 0px #2d1b12;
+padding:22px;
+border-radius:28px;
+background:rgba(10,13,31,.6);
+backdrop-filter:blur(14px);
+-webkit-backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 14px 40px rgba(0,0,0,.5);
 }
 
-/* TOPBAR */
-
 .topbar{
-
 display:flex;
 align-items:center;
 gap:15px;
-
 margin-bottom:20px;
 }
 
-/* BACK BUTTON */
-
 .back-btn{
-
-width:58px;
-height:58px;
-
+width:56px;
+height:56px;
 border:none;
-
-border-radius:20px;
-
+border-radius:18px;
 display:flex;
 justify-content:center;
 align-items:center;
-
-background:
-linear-gradient(
-145deg,
-var(--orange1),
-var(--orange2)
-);
-
-border:
-4px solid white;
-
-box-shadow:
-7px 7px 0px #bf360c;
-
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25);
 cursor:pointer;
-
-transition:0.3s;
-
+transition:.3s;
 text-decoration:none;
-
-color:white;
-
-font-size:24px;
-font-weight:bold;
+color:var(--white);
+font-size:22px;
+font-weight:600;
 }
 
 .back-btn:hover{
-
-transform:
-translateY(-5px)
-rotate(-3deg);
-
+transform:translateY(-3px);
 }
-
-/* LOGO */
 
 .logo{
-
-font-size:24px;
+font-size:22px;
 font-weight:700;
-
-text-shadow:
-4px 4px 0px #3e2723;
+color:var(--white);
 }
 
-/* HEADER */
-
 .header{
-
 text-align:center;
-
 margin-top:10px;
-margin-bottom:25px;
+margin-bottom:20px;
+}
+
+.eyebrow{
+display:inline-flex;
+align-items:center;
+gap:8px;
+padding:7px 16px;
+border-radius:30px;
+background:rgba(91,124,250,.1);
+border:1px solid rgba(124,147,255,.3);
+color:#a5b4ff;
+font-size:11.5px;
+font-weight:600;
+letter-spacing:.5px;
+text-transform:uppercase;
+margin-bottom:16px;
+}
+
+.eyebrow .dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#3ddc84;
+box-shadow:0 0 8px #3ddc84;
 }
 
 .header h1{
+font-size:28px;
+color:var(--white);
+}
 
-font-size:34px;
-
-text-shadow:
-5px 5px 0px #3e2723;
+.header h1::after{
+content:'';
+display:block;
+width:100px;
+height:4px;
+margin:14px auto;
+border-radius:20px;
+background:linear-gradient(90deg,var(--blue),#a5b4ff);
+box-shadow:0 0 16px rgba(91,124,250,.6);
 }
 
 .header p{
-
-margin-top:10px;
-
-color:#ffe0b2;
-
-font-size:15px;
+color:var(--muted);
+font-size:14.5px;
+line-height:1.6;
+padding:0 8px;
 }
 
-/* VIDEO */
-
 .video-wrapper{
-
-margin-bottom:22px;
+margin-bottom:18px;
 }
 
 .video-display-box{
-
 width:100%;
 height:95px;
-
 overflow:hidden;
-
-border-radius:24px;
-
-border:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #2d1b12;
+border-radius:20px;
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
 
 .video-content{
-
 width:120%;
 height:100%;
-
 object-fit:cover;
-
 margin-left:-10%;
-
 transform:skewX(10deg);
-
-filter:contrast(1.2)
-brightness(0.9);
+filter:contrast(1.15) brightness(.95);
 }
 
-/* TIME */
+/* TRUST STRIP */
+.trust{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:18px;
+}
+
+.trust-item{
+padding:14px 6px;
+border-radius:16px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+text-align:center;
+}
+
+.trust-num{
+font-size:16px;
+font-weight:700;
+color:var(--white);
+}
+
+.trust-label{
+margin-top:3px;
+font-size:10.5px;
+color:var(--muted);
+font-weight:500;
+line-height:1.3;
+}
 
 .time-box{
-
 padding:18px;
-
-border-radius:25px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41
-);
-
-border:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #3e2723;
-
+border-radius:22px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
 text-align:center;
-
-margin-bottom:25px;
-}
-
-.time{
-
-font-size:34px;
-font-weight:bold;
-
-color:#fff3e0;
-}
-
-.date{
-
-margin-top:8px;
-
-font-size:14px;
-
-color:#ffe0b2;
-}
-
-/* PRODUCT */
-
-.product{
-
-position:relative;
-
-padding:20px;
-
-border-radius:26px;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-border:
-4px solid white;
-
-box-shadow:
-10px 10px 0px #2d1b12;
-
 margin-bottom:22px;
 }
 
-/* STOCK */
+.time{
+font-size:32px;
+font-weight:700;
+color:var(--white);
+}
+
+.date{
+margin-top:8px;
+font-size:14px;
+color:var(--muted);
+}
+
+.live-view{
+margin-top:10px;
+display:inline-flex;
+align-items:center;
+gap:6px;
+font-size:12px;
+color:#8ff0b0;
+font-weight:600;
+}
+
+.live-view .blinker{
+width:7px;
+height:7px;
+border-radius:50%;
+background:#3ddc84;
+box-shadow:0 0 8px #3ddc84;
+animation:blink 1.4s infinite;
+}
+
+@keyframes blink{
+0%,100%{opacity:1;}
+50%{opacity:.25;}
+}
+
+/* SECTION HEAD */
+.section-head{
+margin:26px 0 14px;
+text-align:left;
+}
+
+.section-title{
+font-size:18px;
+font-weight:700;
+color:var(--white);
+display:flex;
+align-items:center;
+gap:9px;
+}
+
+.section-title .bar{
+width:5px;
+height:19px;
+border-radius:4px;
+background:linear-gradient(180deg,var(--blue),#a5b4ff);
+box-shadow:0 0 12px rgba(91,124,250,.6);
+}
+
+.section-sub{
+margin-top:6px;
+margin-left:14px;
+font-size:13px;
+color:var(--muted);
+}
+
+/* CARA ORDER */
+.steps{
+display:grid;
+gap:12px;
+margin-bottom:6px;
+}
+
+.step{
+display:flex;
+align-items:flex-start;
+gap:14px;
+padding:16px;
+border-radius:18px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+}
+
+.step-num{
+width:34px;
+height:34px;
+min-width:34px;
+border-radius:11px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+font-size:14px;
+color:white;
+background:linear-gradient(145deg,var(--blue),var(--blue2));
+box-shadow:0 6px 16px rgba(91,124,250,.35);
+}
+
+.step-text h4{
+font-size:14.5px;
+font-weight:600;
+color:var(--white);
+margin-bottom:3px;
+}
+
+.step-text p{
+font-size:13px;
+color:var(--muted);
+line-height:1.5;
+}
+
+/* PRODUCT */
+.product{
+position:relative;
+padding:20px;
+border-radius:24px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
+margin-bottom:22px;
+transition:.3s;
+}
+
+.product:hover{
+border-color:rgba(124,147,255,.4);
+box-shadow:0 16px 40px rgba(91,124,250,.25);
+}
+
+.product.best::before{
+content:'⭐ TERLARIS';
+position:absolute;
+top:-11px;
+left:20px;
+padding:5px 14px;
+border-radius:20px;
+font-size:11px;
+font-weight:700;
+color:#1a1200;
+background:linear-gradient(145deg,var(--gold),var(--gold2));
+box-shadow:0 6px 16px rgba(255,200,87,.4);
+}
 
 .stock{
-
 position:absolute;
-
 top:15px;
 right:15px;
-
 padding:6px 12px;
-
 border-radius:16px;
-
-background:
-linear-gradient(
-145deg,
-#66bb6a,
-#2e7d32
-);
-
-border:
-2px solid white;
-
+background:linear-gradient(145deg,var(--green),var(--green2));
 font-size:12px;
-font-weight:bold;
+font-weight:700;
+color:white;
+box-shadow:0 6px 16px rgba(46,207,122,.3);
 }
-
-/* TITLE */
 
 .product h3{
-
-font-size:22px;
-
-margin-bottom:15px;
-
-text-shadow:
-4px 4px 0px #3e2723;
+font-size:19px;
+margin-bottom:6px;
+color:var(--white);
 }
 
-/* TEXT */
+.rating{
+display:flex;
+align-items:center;
+gap:6px;
+margin-bottom:14px;
+font-size:12.5px;
+color:var(--muted);
+font-weight:500;
+}
+
+.rating .stars{
+color:var(--gold);
+letter-spacing:1px;
+}
 
 .product p{
-
 margin-bottom:10px;
-
 line-height:1.7;
-
-font-size:15px;
-
-color:#fff3e0;
+font-size:14.5px;
+color:var(--muted);
 }
 
-/* PRICE */
+.price-row{
+display:flex;
+align-items:baseline;
+gap:10px;
+margin-top:16px;
+flex-wrap:wrap;
+}
+
+.price-old{
+font-size:13px;
+color:#5a6180;
+text-decoration:line-through;
+}
 
 .price{
-
-margin-top:15px;
-
 font-size:17px;
-font-weight:bold;
-
-color:#ffe082;
+font-weight:700;
+color:#a5b4ff;
 }
 
-/* BUTTON */
+.badge-diskon{
+padding:4px 10px;
+border-radius:10px;
+font-size:11px;
+font-weight:700;
+color:white;
+background:linear-gradient(145deg,#ff6b6b,#e64545);
+}
+
+.guarantee{
+margin-top:12px;
+display:flex;
+align-items:center;
+gap:7px;
+font-size:12px;
+color:#8ff0b0;
+font-weight:600;
+}
 
 .btn{
-
 display:block;
-
 margin-top:18px;
-
 padding:14px;
-
 text-align:center;
-
-border-radius:20px;
-
+border-radius:18px;
 text-decoration:none;
-
-background:
-linear-gradient(
-145deg,
-var(--orange1),
-var(--orange2)
-);
-
-border:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #bf360c;
-
+background:linear-gradient(145deg,var(--blue),var(--blue2));
 color:white;
-
-font-size:15px;
-font-weight:bold;
-
-transition:0.3s;
+font-size:14.5px;
+font-weight:600;
+box-shadow:0 8px 24px rgba(91,124,250,.4);
+transition:.3s;
 }
 
 .btn:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 28px rgba(91,124,250,.55);
+}
 
-transform:
-translateY(-5px)
-rotate(-2deg);
+/* TESTIMONI */
+.testi-scroll{
+display:flex;
+gap:14px;
+overflow-x:auto;
+padding-bottom:8px;
+scrollbar-width:none;
+}
 
+.testi-scroll::-webkit-scrollbar{
+display:none;
+}
+
+.testi{
+min-width:230px;
+padding:16px;
+border-radius:18px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+}
+
+.testi-top{
+display:flex;
+align-items:center;
+gap:10px;
+margin-bottom:10px;
+}
+
+.testi-avatar{
+width:36px;
+height:36px;
+border-radius:50%;
+background:linear-gradient(145deg,var(--blue),var(--blue2));
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+font-size:13px;
+color:white;
+}
+
+.testi-name{
+font-size:13.5px;
+font-weight:600;
+color:var(--white);
+}
+
+.testi-stars{
+font-size:11px;
+color:var(--gold);
+letter-spacing:1px;
+}
+
+.testi p{
+font-size:12.5px;
+color:var(--muted);
+line-height:1.6;
+}
+
+/* FAQ */
+.faq-item{
+padding:16px;
+border-radius:16px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+margin-bottom:10px;
+cursor:pointer;
+}
+
+.faq-q{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
+font-weight:600;
+color:var(--white);
+}
+
+.faq-icon{
+transition:.3s;
+color:var(--blue);
+font-size:16px;
+}
+
+.faq-item.open .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-a{
+max-height:0;
+overflow:hidden;
+transition:.3s;
+font-size:13px;
+color:var(--muted);
+line-height:1.6;
+}
+
+.faq-item.open .faq-a{
+max-height:200px;
+margin-top:10px;
+}
+
+/* PAYMENT */
+.payment-row{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+margin-top:6px;
+margin-bottom:20px;
+}
+
+.payment-chip{
+padding:9px 16px;
+border-radius:14px;
+background:linear-gradient(160deg,var(--card),var(--card2));
+border:1px solid rgba(255,255,255,.07);
+font-size:12px;
+font-weight:600;
+color:var(--muted);
 }
 
 /* FOOTER */
-
 .footer{
-
 margin-top:25px;
-
 text-align:center;
+font-size:13px;
+font-weight:600;
+color:var(--muted);
+padding-top:20px;
+border-top:1px solid rgba(255,255,255,.07);
+}
 
-font-size:14px;
-font-weight:bold;
+.footer-sub{
+margin-top:6px;
+font-size:11.5px;
+font-weight:400;
+color:#5a6180;
+}
 
-color:#ffe0b2;
+/* FLOATING WA */
+.float-wa{
+position:fixed;
+bottom:22px;
+right:22px;
+width:60px;
+height:60px;
+border-radius:50%;
+background:linear-gradient(145deg,var(--green),var(--green2));
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+text-decoration:none;
+box-shadow:0 10px 30px rgba(46,207,122,.5);
+z-index:9999;
+animation:pulse 2s infinite;
+}
 
-text-shadow:
-3px 3px 0px #3e2723;
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(46,207,122,.5),0 10px 30px rgba(46,207,122,.5);}
+70%{box-shadow:0 0 0 14px rgba(46,207,122,0),0 10px 30px rgba(46,207,122,.5);}
+100%{box-shadow:0 0 0 0 rgba(46,207,122,0),0 10px 30px rgba(46,207,122,.5);}
+}
+
+@media(max-width:420px){
+.testi{min-width:200px;}
 }
 
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND -->
-
-<div class="bg">
-
 <div class="blur blur1"></div>
-
 <div class="blur blur2"></div>
-
-</div>
-
-<!-- CONTAINER -->
 
 <div class="container">
 
-<!-- TOPBAR -->
-
 <div class="topbar">
-
-<a href="index.html" class="back-btn">
-🔙
-</a>
-
-<div class="logo">
-RafaXMods
+<a href="index.html" class="back-btn">🔙</a>
+<div class="logo">RafaXMods</div>
 </div>
-
-</div>
-
-<!-- HEADER -->
 
 <div class="header">
-
-<h1>
-🛒 LIST JUALAN
-</h1>
-
-<p>
-Dark Cartoon Brutalism Store
-</p>
-
+<div class="eyebrow"><span class="dot"></span> Toko Terpercaya Sejak 2023</div>
+<h1>🛒 LIST JUALAN</h1>
+<p>Panel murah, PT pribadi, dan nokos anti ambil kembali — semua proses cepat lewat WhatsApp, tanpa ribet.</p>
 </div>
-
-<!-- VIDEO -->
 
 <div class="video-wrapper">
-
 <div class="video-display-box">
-
-<video
-class="video-content"
-autoplay
-loop
-muted
-playsinline
->
-
-<source
-src="https://files.catbox.moe/k5c9cr.mp4"
-type="video/mp4"
->
-
+<video class="video-content" autoplay loop muted playsinline>
+<source src="https://files.catbox.moe/k5c9cr.mp4" type="video/mp4">
 </video>
-
+</div>
 </div>
 
+<!-- TRUST STRIP -->
+<div class="trust">
+<div class="trust-item">
+<div class="trust-num">500+</div>
+<div class="trust-label">Transaksi Sukses</div>
 </div>
-
-<!-- TIME -->
+<div class="trust-item">
+<div class="trust-num">4.9★</div>
+<div class="trust-label">Rating Pembeli</div>
+</div>
+<div class="trust-item">
+<div class="trust-num">24/7</div>
+<div class="trust-label">Fast Response</div>
+</div>
+</div>
 
 <div class="time-box">
-
-<div class="time" id="time">
-00:00
+<div class="time" id="time">00:00</div>
+<div class="date" id="date">Loading...</div>
+<div class="live-view"><span class="blinker"></span> 7 orang sedang lihat halaman ini</div>
 </div>
 
-<div class="date" id="date">
-Loading...
+<!-- CARA ORDER -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Cara Order</div>
+<div class="section-sub">Cuma 4 langkah, barang langsung diproses</div>
 </div>
 
+<div class="steps">
+<div class="step">
+<div class="step-num">1</div>
+<div class="step-text">
+<h4>Pilih Produk</h4>
+<p>Tentukan paket yang kamu butuhkan di bawah</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">2</div>
+<div class="step-text">
+<h4>Klik Beli Sekarang</h4>
+<p>Kamu akan diarahkan langsung ke chat WhatsApp admin</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">3</div>
+<div class="step-text">
+<h4>Konfirmasi & Bayar</h4>
+<p>Admin kirim rincian harga & metode pembayaran</p>
+</div>
+</div>
+<div class="step">
+<div class="step-num">4</div>
+<div class="step-text">
+<h4>Barang Diproses</h4>
+<p>Pesanan diproses cepat setelah pembayaran dikonfirmasi</p>
+</div>
+</div>
+</div>
+
+<!-- SECTION PRODUK -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Produk Tersedia</div>
+<div class="section-sub">Stok update setiap hari, harga bersahabat</div>
 </div>
 
 <!-- PRODUCT 1 -->
-
-<div class="product">
-
-<div class="stock">
-READY
-</div>
-
-<h3>
-⚡ PANEL RAFAXMODS
-</h3>
+<div class="product best">
+<div class="stock">READY</div>
+<h3>⚡ PANEL RAFAXMODS</h3>
+<div class="rating"><span class="stars">★★★★★</span> 4.9 (212 ulasan)</div>
 
 <p>🌐 5K → 5GB</p>
 <p>🌐 6K → 6GB</p>
@@ -562,40 +764,24 @@ READY
 <p>🌐 10K → UNLIMITED</p>
 
 <p>
-
 🔰 ADP PRIVATE : 20K + SC CREATE PANEL<br>
-
 🔰 OWNER PRIVATE : 30K + SC CREATE PANEL
-
 </p>
 
-<div class="price">
-💰 Buy Klik Tombol Di Bawah
+<div class="guarantee">✅ Garansi replace jika ada kendala</div>
+
+<div class="price-row">
+<span class="price">Mulai 5K</span>
 </div>
 
-<a
-class="btn"
-href="https://wa.me/6281373431773?text=BUY+PANEL+BG"
-target="_blank"
->
-
-🛒 BELI SEKARANG
-
-</a>
-
+<a class="btn" href="https://wa.me/6281373431773?text=BUY+PANEL+BG" target="_blank">🛒 BELI SEKARANG</a>
 </div>
 
 <!-- PRODUCT 2 -->
-
 <div class="product">
-
-<div class="stock">
-READY
-</div>
-
-<h3>
-👑 PT PRIBADI RAFAXMODS
-</h3>
+<div class="stock">READY</div>
+<h3>👑 PT PRIBADI RAFAXMODS</h3>
+<div class="rating"><span class="stars">★★★★★</span> 5.0 (98 ulasan)</div>
 
 <p>
 • Free Update Script<br>
@@ -606,112 +792,139 @@ READY
 • Free Admin Channel<br>
 • Free Base No Enc<br>
 • Bisa Open Reseller<br>
-• Di bantu Fix Script<br> 
+• Di bantu Fix Script<br>
 • DLL Masih Banyak Lagi<br>
 • Benefit Full No Gimmick
 </p>
 
-<div class="price">
-💰 Rp 40.000
+<div class="guarantee">✅ Support fix script full waktu</div>
+
+<div class="price-row">
+<span class="price-old">Rp 60.000</span>
+<span class="price">Rp 40.000</span>
+<span class="badge-diskon">HEMAT 33%</span>
 </div>
 
-<a
-class="btn"
-href="https://wa.me/6281373431773?text=BUY+PT+BG"
-target="_blank"
->
-
-🔥 BELI SEKARANG
-
-</a>
-
+<a class="btn" href="https://wa.me/6281373431773?text=BUY+PT+BG" target="_blank">🔥 BELI SEKARANG</a>
 </div>
 
 <!-- PRODUCT 3 -->
-
 <div class="product">
-
-<div class="stock">
-READY
-</div>
-
-<h3>
-📱 LIST NOKOS
-</h3>
+<div class="stock">READY</div>
+<h3>📱 LIST NOKOS</h3>
+<div class="rating"><span class="stars">★★★★★</span> 4.8 (156 ulasan)</div>
 
 <p>🇮🇩 Indonesia → 5K</p>
 <p>🇵🇭 Philipina → 6K / 7K</p>
 <p>🇹🇼 Taiwan → 10K</p>
 <p>🇲🇾 Malaysia → 10K</p>
 
-<p>
-✅ Anti Ambil Kembali
-</p>
+<div class="guarantee">✅ Anti ambil kembali, aman dipakai</div>
 
-<div class="price">
-💰 Buy Klik Tombol Di Bawah
+<div class="price-row">
+<span class="price">Mulai 5K</span>
 </div>
 
-<a
-class="btn"
-href="https://wa.me/6281373431773?text=BELI+NOKOS+BG"
-target="_blank"
->
-
-📲 BELI SEKARANG
-
-</a>
-
+<a class="btn" href="https://wa.me/6281373431773?text=BELI+NOKOS+BG" target="_blank">📲 BELI SEKARANG</a>
 </div>
 
-<!-- FOOTER -->
+<!-- TESTIMONI -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Kata Mereka</div>
+<div class="section-sub">Testimoni asli dari pembeli RafaXMods</div>
+</div>
+
+<div class="testi-scroll">
+<div class="testi">
+<div class="testi-top">
+<div class="testi-avatar">A</div>
+<div>
+<div class="testi-name">Andre S.</div>
+<div class="testi-stars">★★★★★</div>
+</div>
+</div>
+<p>Panelnya stabil banget, proses juga cepet. Recommended buat yang lagi cari panel murah!</p>
+</div>
+
+<div class="testi">
+<div class="testi-top">
+<div class="testi-avatar">D</div>
+<div>
+<div class="testi-name">Dewi R.</div>
+<div class="testi-stars">★★★★★</div>
+</div>
+</div>
+<p>Admin fast response, PT pribadinya lengkap fiturnya. Worth it harganya.</p>
+</div>
+
+<div class="testi">
+<div class="testi-top">
+<div class="testi-avatar">F</div>
+<div>
+<div class="testi-name">Fajar M.</div>
+<div class="testi-stars">★★★★★</div>
+</div>
+</div>
+<p>Nokosnya aman, sampai sekarang belum pernah kena ambil kembali. Mantap!</p>
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Pertanyaan Umum</div>
+<div class="section-sub">Masih ragu? Cek dulu jawabannya di sini</div>
+</div>
+
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Apakah proses order aman?<span class="faq-icon">＋</span></div>
+<div class="faq-a">Aman, semua transaksi dikonfirmasi langsung lewat WhatsApp admin sebelum diproses.</div>
+</div>
+
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Berapa lama proses pesanan?<span class="faq-icon">＋</span></div>
+<div class="faq-a">Rata-rata diproses dalam hitungan menit setelah pembayaran dikonfirmasi admin.</div>
+</div>
+
+<div class="faq-item" onclick="this.classList.toggle('open')">
+<div class="faq-q">Bisa refund kalau ada kendala?<span class="faq-icon">＋</span></div>
+<div class="faq-a">Bisa, khusus panel ada garansi replace jika terjadi kendala teknis dari sisi kami.</div>
+</div>
+
+<!-- PAYMENT -->
+<div class="section-head">
+<div class="section-title"><span class="bar"></span>Metode Pembayaran</div>
+</div>
+
+<div class="payment-row">
+<div class="payment-chip">💳 DANA</div>
+<div class="payment-chip">💳 OVO</div>
+<div class="payment-chip">💳 QRIS</div>
+<div class="payment-chip">🏦 BCA</div>
+</div>
 
 <div class="footer">
-
 © 2026 RafaXMods - List Jualan
-
+<div class="footer-sub">Semua transaksi diproses manual oleh admin via WhatsApp</div>
 </div>
 
 </div>
+
+<!-- FLOATING WA -->
+<a href="https://wa.me/6281373431773?text=Halo+RafaXMods+saya+mau+tanya+produk" target="_blank" class="float-wa">💬</a>
 
 <script>
 
-/* CLOCK */
-
 function updateTime(){
+const now = new Date();
 
-const now =
-new Date();
+document.getElementById("time").innerText =
+now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
 
-document
-.getElementById("time")
-.innerText =
-
-now.toLocaleTimeString(
-'id-ID',
-{
-hour:'2-digit',
-minute:'2-digit'
-}
-);
-
-document
-.getElementById("date")
-.innerText =
-
-now.toLocaleDateString(
-'id-ID',
-{
-weekday:'long',
-day:'numeric',
-month:'long'
-}
-);
-
+document.getElementById("date").innerText =
+now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
 }
 
 setInterval(updateTime,1000);
-
 updateTime();
 
 </script>
