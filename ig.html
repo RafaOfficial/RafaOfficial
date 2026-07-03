@@ -3,25 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6d4c41">
-<title>IG Downloader - Rafa Official</title>
+<meta name="theme-color" content="#5b7cfa">
+<title>IG Downloader Premium - RafaXMods Official</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Inter',sans-serif;
+}
+
+h1,h2,.logo,.brand-name{
+font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#4a2f23;
+background:#05060d;
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:flex-start;
 padding:20px;
-color:#fff;
+color:#f4f6ff;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
+z-index:-1;
 }
 
 .topbar{
@@ -34,22 +54,30 @@ margin-bottom:20px;
 }
 
 .back-circle{
-width:64px;
-height:64px;
-min-width:64px;
+width:60px;
+height:60px;
+min-width:60px;
 border-radius:18px;
-background:linear-gradient(145deg,#ff9248,#e8730f);
-border:4px solid #fff;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-box-shadow:4px 4px 0 rgba(0,0,0,0.35);
-font-weight:900;
-color:#fff;
+box-shadow:0 0 20px rgba(91,124,250,.25);
+font-weight:700;
+color:#f4f6ff;
 font-size:11px;
 line-height:1.1;
 text-align:center;
+transition: .3s;
+}
+
+.back-circle:hover{
+transform: translateY(-2px);
+box-shadow: 0 0 25px rgba(91,124,250,.45);
+border-color: #5b7cfa;
 }
 
 .back-circle .arrow{
@@ -58,54 +86,112 @@ display:block;
 }
 
 .brand-name{
-font-size:26px;
-font-weight:900;
-color:#fff;
-text-shadow:2px 2px 0 rgba(0,0,0,0.3);
+font-size:24px;
+font-weight:700;
+color:#f4f6ff;
 }
 
 .container{
 width:100%;
 max-width:600px;
-background:#a9785f;
-border:4px solid #fff;
-border-radius:25px;
-padding:25px;
-box-shadow:8px 8px 0 rgba(0,0,0,0.35);
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+border-radius:26px;
+padding:26px;
+box-shadow:0 14px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .logo{
 text-align:center;
-font-size:32px;
-font-weight:900;
-color:#fff7ef;
-margin-bottom:10px;
-text-shadow:3px 3px 0 rgba(0,0,0,0.25);
+font-size:28px;
+font-weight:700;
+color:#f4f6ff;
+margin-bottom:5px;
+}
+
+.server-status{
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+font-size: 11px;
+color: #8b93b8;
+margin-bottom: 15px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.status-dot {
+width: 7px;
+height: 7px;
+background-color: #10b981;
+border-radius: 50%;
+display: inline-block;
+box-shadow: 0 0 8px #10b981;
+animation: blink 1.5s infinite ease-in-out;
+}
+
+@keyframes blink {
+0%, 100% { opacity: 0.4; }
+50% { opacity: 1; }
 }
 
 .desc{
 text-align:center;
-color:#f3e3d6;
+color:#8b93b8;
 margin-bottom:20px;
-font-weight:600;
+font-weight:500;
+font-size: 14px;
+line-height: 1.5;
+}
+
+.input-wrapper {
+position: relative;
+width: 100%;
+margin-bottom: 15px;
 }
 
 .input{
 width:100%;
-padding:15px;
-border:none;
-outline:none;
-border-radius:15px;
-background:#fdf3ea;
-border:3px dashed #e8730f;
-color:#3b2a24;
+padding:16px;
+padding-right:45px;
+border-radius:16px;
+background:#0b0e1f;
+border:1px solid rgba(124,147,255,.25);
+color:#f4f6ff;
 font-size:15px;
-margin-bottom:15px;
-font-weight:600;
+font-weight:500;
+outline:none;
+transition: all 0.3s ease;
+}
+
+.input:focus{
+border-color:#5b7cfa;
+box-shadow:0 0 18px rgba(91,124,250,.35);
+background: #0f132a;
 }
 
 .input::placeholder{
-color:#a9785f;
+color:#4e5578;
+}
+
+.clear-btn {
+position: absolute;
+right: 15px;
+top: 50%;
+transform: translateY(-50%);
+background: none;
+border: none;
+color: #4e5578;
+font-size: 20px;
+cursor: pointer;
+display: none;
+transition: color 0.2s;
+}
+
+.clear-btn:hover {
+color: #f4f6ff;
 }
 
 .btn{
@@ -113,19 +199,19 @@ width:100%;
 padding:15px;
 border:none;
 cursor:pointer;
-border-radius:15px;
-font-weight:900;
-font-size:16px;
-margin-top:10px;
-background:linear-gradient(145deg,#ff9248,#e8730f);
+border-radius:16px;
+font-weight:600;
+font-size:15px;
+margin-top:5px;
+background:linear-gradient(145deg,#5b7cfa,#324adf);
 color:white;
-border:3px solid #fff;
-box-shadow:5px 5px 0 rgba(0,0,0,0.35);
-transition:.2s;
+box-shadow:0 8px 24px rgba(91,124,250,.4);
+transition:.3s;
 }
 
 .btn:hover{
-transform:translateY(-2px);
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(91,124,250,.55);
 }
 
 .back{
@@ -135,74 +221,166 @@ display:none;
 .loading{
 display:none;
 text-align:center;
-margin-top:20px;
+margin-top:25px;
 }
 
 .loader{
-width:60px;
-height:60px;
+width:50px;
+height:50px;
 margin:auto;
-border:6px solid #6d4c41;
-border-top:6px solid #ff9248;
+border:4px solid rgba(255,255,255,.05);
+border-top:4px solid #5b7cfa;
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
 
-@keyframes spin{
-100%{
-transform:rotate(360deg);
+.loading p{
+margin-top:14px;
+color:#8b93b8;
+font-weight:500;
+font-size: 14px;
 }
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
 }
 
 .result{
 display:none;
-margin-top:20px;
-background:#8d6452;
-padding:15px;
-border-radius:15px;
-border:3px solid #fff;
+margin-top:25px;
+background:linear-gradient(160deg,#121733,#0b0e1f);
+padding:18px;
+border-radius:20px;
+border:1px solid rgba(124,147,255,.15);
+animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
 }
 
 video{
 width:100%;
-border-radius:15px;
+border-radius:14px;
 margin-bottom:15px;
-border:3px solid #e8730f;
+border:1px solid rgba(124,147,255,.25);
+background: #05060d;
 }
 
 .info{
-background:#fdf3ea;
-color:#3b2a24;
-padding:12px;
-border-radius:12px;
-margin-bottom:12px;
-font-weight:600;
+background:#0b0e1f;
+color:#c7d1ff;
+padding:14px;
+border-radius:14px;
+margin-bottom:15px;
+font-weight:500;
+border:1px solid rgba(255,255,255,.05);
+font-size: 14px;
 }
 
 .info p{
-margin:5px 0;
+margin:6px 0;
 word-break:break-word;
+display: flex;
+align-items: flex-start;
+gap: 6px;
+}
+
+.action-buttons {
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 
 .download-btn{
 display:none;
 text-decoration:none;
 text-align:center;
-padding:14px;
-background:linear-gradient(145deg,#ff9248,#e8730f);
+padding:15px;
+background:linear-gradient(145deg,#10b981,#059669);
 color:white;
-font-weight:900;
-border-radius:15px;
-border:3px solid #fff;
-box-shadow:5px 5px 0 rgba(0,0,0,0.35);
+font-weight:600;
+border-radius:16px;
+box-shadow:0 8px 24px rgba(16, 185, 129, 0.3);
+transition: .3s;
+}
+
+.download-btn:hover {
+transform: translateY(-2px);
+box-shadow:0 12px 28px rgba(16, 185, 129, 0.45);
+}
+
+.copy-btn {
+display: none;
+width: 100%;
+padding: 14px;
+background: rgba(91,124,250,0.1);
+border: 1px solid rgba(91,124,250,0.3);
+color: #7c97ff;
+font-weight: 600;
+font-size: 14px;
+border-radius: 16px;
+cursor: pointer;
+transition: .3s;
+}
+
+.copy-btn:hover {
+background: rgba(91,124,250,0.2);
+color: #fff;
+}
+
+.guide-card {
+margin-top: 25px;
+background: rgba(255, 255, 255, 0.02);
+border: 1px solid rgba(255, 255, 255, 0.04);
+padding: 16px;
+border-radius: 18px;
+}
+
+.guide-title {
+color: #5b7cfa;
+font-weight: 600;
+font-size: 13px;
+margin-bottom: 10px;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.guide-steps {
+list-style-type: none;
+font-size: 13px;
+color: #8b93b8;
+display: flex;
+flex-direction: column;
+gap: 8px;
+}
+
+.guide-steps li {
+display: flex;
+gap: 10px;
+align-items: center;
+}
+
+.step-num {
+background: rgba(91,124,250,0.15);
+color: #7c97ff;
+min-width: 22px;
+height: 22px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+font-size: 11px;
 }
 
 .footer{
-margin-top:20px;
+margin-top:25px;
 text-align:center;
-font-size:13px;
-color:#f3e3d6;
-font-weight:600;
+font-size:12px;
+color:#4e5578;
+font-weight:500;
 }
 </style>
 
@@ -211,78 +389,107 @@ font-weight:600;
 
 <div style="width:100%;max-width:600px;">
 
-<div class="topbar">
-<div class="back-circle" onclick="location.href='index.html'">
-<span class="arrow">&#8592;</span>
-<span>BACK</span>
-</div>
-<div class="brand-name">RafaXMods</div>
-</div>
+    <div class="topbar">
+        <div class="back-circle" onclick="location.href='index.html'">
+            <span class="arrow">&#8592;</span>
+            <span>BACK</span>
+        </div>
+        <div class="brand-name">RafaXMods Premium</div>
+    </div>
 
-<div class="container">
+    <div class="container">
 
-<div class="logo">📥 IG Downloader</div>
+        <div class="logo">🚀 IG Downloader Pro</div>
+        <div class="server-status">
+            <span class="status-dot"></span> Sistem Aktif
+        </div>
+        
+        <div class="desc">
+            Unduh Instagram Reels, Post, & Story Kualitas HD Tanpa Batas
+        </div>
 
-<div class="desc">
-Downloader Instagram Reels, Post & Story
-</div>
+        <div class="input-wrapper">
+            <input
+                type="text"
+                id="url"
+                class="input"
+                placeholder="Tempel tautan atau URL Instagram di sini..."
+                oninput="toggleClearBtn()">
+            <button class="clear-btn" id="clearBtn" onclick="clearInput()">&times;</button>
+        </div>
 
-<input
-type="text"
-id="url"
-class="input"
-placeholder="Masukkan URL Instagram">
+        <button class="btn" onclick="executeIG()">
+            ⚡ PROSES MEDIA
+        </button>
 
-<button class="btn" onclick="executeIG()">
-⚡ EXECUTE IG
-</button>
+        <button class="btn back" onclick="location.href='index.html'">
+            ⬅ KEMBALI
+        </button>
 
-<button class="btn back" onclick="location.href='index.html'">
-⬅ BACK
-</button>
+        <div class="loading" id="loading">
+            <div class="loader"></div>
+            <p>Menghubungkan ke server & mengambil data...</p>
+        </div>
 
-<div class="loading" id="loading">
-<div class="loader"></div>
-<p style="margin-top:10px;">
-Mengambil data...
-</p>
-</div>
+        <div class="result" id="result">
 
-<div class="result" id="result">
+            <video id="video" controls playsinline></video>
 
-<video
-id="video"
-controls
-playsinline> </video>
+            <div class="info">
+                <p id="username">👤 Kreator: -</p>
+                <p id="likes">❤️ 0 Suka</p>
+                <p id="comments">💬 0 Komentar</p>
+                <p id="caption">📝 Deskripsi: -</p>
+            </div>
 
-<div class="info">
-<p id="username">Username: -</p>
-<p id="likes">❤ 0</p>
-<p id="comments">💬 0</p>
-<p id="caption">Caption: -</p>
-</div>
+            <div class="action-buttons">
+                <a id="downloadLink" class="download-btn" download>
+                    📥 AMBIL VIDEO SEKARANG
+                </a>
+                <button id="copyLinkBtn" class="copy-btn" onclick="copyDownloadUrl()">
+                    🔗 SALIN TAUTAN UNDUHAN
+                </button>
+            </div>
 
-<a
-id="downloadLink"
-class="download-btn"
-download>
-⬇ DOWNLOAD VIDEO </a>
+        </div>
 
-</div>
+        <div class="guide-card" id="guideCard">
+            <div class="guide-title">💡 Petunjuk Singkat</div>
+            <ul class="guide-steps">
+                <li><span class="step-num">1</span> Salin tautan Reels/Foto dari aplikasi Instagram.</li>
+                <li><span class="step-num">2</span> Tempelkan tautan tersebut ke dalam kolom input di atas.</li>
+                <li><span class="step-num">3</span> Klik tombol proses dan tunggu tombol unduh muncul.</li>
+            </ul>
+        </div>
 
-<div class="footer">
-Dark Cartoon Brutalism • Rafa Official
-</div>
+        <div class="footer">
+            &copy; RafaXMods Ultra UI &bull; Layanan Sosmed Premium Gratis
+        </div>
 
-</div>
+    </div>
 </div>
 
 <script>
+let globalDownloadUrl = "";
+
+function toggleClearBtn() {
+    const urlInput = document.getElementById("url");
+    const clearBtn = document.getElementById("clearBtn");
+    clearBtn.style.display = urlInput.value.length > 0 ? "block" : "none";
+}
+
+function clearInput() {
+    const urlInput = document.getElementById("url");
+    urlInput.value = "";
+    toggleClearBtn();
+    urlInput.focus();
+}
+
 async function executeIG(){
     const url = document.getElementById("url").value.trim();
 
     if(!url){
-        alert("Masukkan URL Instagram!");
+        alert("Peringatan: Silakan masukkan URL Instagram valid terlebih dahulu!");
         return;
     }
 
@@ -290,53 +497,68 @@ async function executeIG(){
     const result = document.getElementById("result");
     const video = document.getElementById("video");
     const download = document.getElementById("downloadLink");
+    const copyBtn = document.getElementById("copyLinkBtn");
+    const guideCard = document.getElementById("guideCard");
 
     loading.style.display = "block";
     result.style.display = "none";
     download.style.display = "none";
+    copyBtn.style.display = "none";
+    guideCard.style.display = "none";
 
     try {
-        // Menggunakan Endpoint API Baru
         const api = `https://api.azbry.com/api/download/instagramv2?url=${encodeURIComponent(url)}`;
 
         const response = await fetch(api);
         const data = await response.json();
 
-        // Validasi response JSON baru
         if(!data.status || !data.url || data.url.length === 0){
             throw new Error("Gagal mengambil data.");
         }
 
-        // Ambil URL video dari array objek pertama
         const videoUrl = data.url[0].url;
+        globalDownloadUrl = videoUrl;
 
         video.src = videoUrl;
         download.href = videoUrl;
 
-        // Tampilkan Metadata baru
         document.getElementById("username").innerText = 
-            "Username: @" + (data.meta.username || "-");
+            "👤 Kreator: @" + (data.meta.username || "-");
 
         document.getElementById("likes").innerText = 
-            "❤ " + (data.meta.like_count ? Number(data.meta.like_count).toLocaleString('id-ID') : "0");
+            "❤️ " + (data.meta.like_count ? Number(data.meta.like_count).toLocaleString('id-ID') : "0") + " Suka";
 
         document.getElementById("comments").innerText = 
-            "💬 " + (data.meta.comment_count ? Number(data.meta.comment_count).toLocaleString('id-ID') : "0");
+            "💬 " + (data.meta.comment_count ? Number(data.meta.comment_count).toLocaleString('id-ID') : "0") + " Komentar";
 
         document.getElementById("caption").innerText = 
-            "Caption: " + (data.meta.title || "-");
+            "📝 Deskripsi: " + (data.meta.title || "-");
 
         download.style.display = "block";
+        copyBtn.style.display = "block";
         result.style.display = "block";
+        
+        // Auto scroll halus ke area hasil agar user tahu media sudah siap
+        result.scrollIntoView({ behavior: 'smooth' });
 
     } catch(error) {
         alert(
-            "Gagal mengambil video.\n\nPastikan URL benar. Jika API eksternal mengalami kendala CORS, Anda mungkin membutuhkan proxy server."
+            "Sistem Gagal Memproses Media!\n\nPastikan URL benar dan akun tidak di-private. Jika server eksternal mengalami kendala CORS, Anda mungkin memerlukan bantuan proxy server."
         );
+        guideCard.style.display = "block";
         console.log(error);
     }
 
     loading.style.display = "none";
+}
+
+function copyDownloadUrl() {
+    if (!globalDownloadUrl) return;
+    navigator.clipboard.writeText(globalDownloadUrl).then(() => {
+        alert("Tautan unduhan berhasil disalin ke papan klip!");
+    }).catch(err => {
+        alert("Gagal menyalin tautan otomatis.");
+    });
 }
 </script>
 
