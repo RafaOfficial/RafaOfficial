@@ -3,570 +3,889 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#5b7cfa">
 <title>IQC GENERATOR - RafaXMods</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<meta name="theme-color" content="#6d4c41">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-
+/* CSS RESET & GENERAL STYLES */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Fredoka',sans-serif;
+font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 }
 
-/* BODY */
-
-body{
-
-min-height:100vh;
-
-background:
-linear-gradient(
-135deg,
-#2b1811,
-#4e342e,
-#6d4c41,
-#3e2723
-);
-
-overflow-x:hidden;
-color:white;
-padding:20px;
+h1, .title, .preview-title, label, .btn-back, button, .download-btn {
+font-family:'Poppins',sans-serif;
 }
 
-/* BACKGROUND */
+.mono{
+font-family:'JetBrains Mono',monospace;
+}
+
+/* BODY BACKGROUND (100% MATCH INDEX) */
+body{
+background:#05060d;
+min-height:100vh;
+overflow-x:hidden;
+padding:40px 20px 70px;
+color:#f4f6ff;
+position:relative;
+}
 
 body::before{
 content:'';
 position:fixed;
 inset:0;
-
 background:
-radial-gradient(circle at top,#ffccaa33,transparent 35%),
-radial-gradient(circle at bottom,#ffd7b833,transparent 35%);
-
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
 z-index:-1;
 }
 
-/* FLOAT EFFECT */
+/* FINE CYBER GRID OVERLAY */
+body::after{
+content:'';
+position:fixed;
+inset:0;
+background-image:
+linear-gradient(rgba(124,147,255,.05) 1px,transparent 1px),
+linear-gradient(90deg,rgba(124,147,255,.05) 1px,transparent 1px);
+background-size:42px 42px;
+mask-image:radial-gradient(ellipse 80% 60% at 50% 20%,#000 10%,transparent 75%);
+z-index:-1;
+pointer-events:none;
+}
 
+/* FLOATING CYBER GLOWS */
 .circle1{
 position:fixed;
-width:350px;
-height:350px;
+width:380px;
+height:380px;
 border-radius:50%;
-background:#ffffff10;
+background:rgba(91,124,250,.18);
 top:-120px;
 left:-120px;
-filter:blur(70px);
+filter:blur(90px);
 z-index:-1;
 }
 
 .circle2{
 position:fixed;
-width:400px;
-height:400px;
+width:420px;
+height:420px;
 border-radius:50%;
-background:#ffb74d20;
+background:rgba(124,147,255,.16);
 bottom:-150px;
 right:-150px;
-filter:blur(80px);
+filter:blur(100px);
 z-index:-1;
 }
 
-/* TOP AREA */
-
-.top-nav{
+/* TOP BAR */
+.topbar{
+max-width:1150px;
+margin:0 auto 24px;
 display:flex;
 align-items:center;
-margin-bottom:20px;
+justify-content:space-between;
+gap:16px;
 }
 
 /* BACK BUTTON */
-
-.back-btn{
-
+.btn-back{
 width:50px;
 height:50px;
-
-display:flex;
+border-radius:16px;
+display:inline-flex;
 justify-content:center;
 align-items:center;
-
+font-size:19px;
 text-decoration:none;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25);
+transition:.3s;
+color:#fff;
+flex-shrink:0;
+}
 
+.btn-back:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 28px rgba(91,124,250,.45);
+}
+
+.brandmark{
+display:flex;
+align-items:center;
+gap:10px;
+color:#8b93b8;
+font-size:12.5px;
+font-weight:600;
+letter-spacing:1.5px;
+text-transform:uppercase;
+}
+
+.brandmark .dot{
+width:7px;
+height:7px;
+border-radius:50%;
+background:#5b7cfa;
+box-shadow:0 0 10px 2px rgba(91,124,250,.8);
+animation:pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot{
+0%,100%{opacity:1;}
+50%{opacity:.35;}
+}
+
+/* WRAPPER GRID */
+.wrapper{
+max-width:1150px;
+margin:auto;
+display:grid;
+grid-template-columns:400px 1fr;
+gap:25px;
+align-items:start;
+}
+
+/* CARD SYSTEM (100% MATCH INDEX) */
+.card{
+padding:26px;
+border-radius:26px;
+background:linear-gradient(160deg,#10142c,#070a18);
+border:1px solid rgba(124,147,255,.3);
+box-shadow:
+0 0 40px rgba(91,124,250,.15),
+0 20px 40px rgba(0,0,0,.5);
+position:relative;
+}
+
+/* EYEBROW TAG */
+.eyebrow{
+display:inline-flex;
+align-items:center;
+gap:8px;
+font-size:11px;
+font-weight:700;
+letter-spacing:1.8px;
+text-transform:uppercase;
+color:#a5b4ff;
+background:rgba(91,124,250,.1);
+border:1px solid rgba(124,147,255,.3);
+padding:7px 14px 7px 11px;
+border-radius:100px;
+margin-bottom:18px;
+}
+
+.eyebrow svg{
+width:13px;
+height:13px;
+flex-shrink:0;
+}
+
+/* HEADINGS & TEXTS */
+.title{
+font-family:'Space Grotesk',sans-serif;
+font-size:34px;
+font-weight:700;
+line-height:1.15;
+letter-spacing:-.5px;
+margin-bottom:10px;
+background:linear-gradient(90deg,#5b7cfa,#a5b4ff 55%,#e2e6ff);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.desc{
+font-size:14px;
+line-height:1.7;
+color:#8b93b8;
+margin-bottom:6px;
+max-width:34ch;
+}
+
+.preview-title{
+font-family:'Space Grotesk',sans-serif;
+font-size:22px;
+font-weight:700;
+letter-spacing:-.3px;
+color:#f4f6ff;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.preview-sub{
+font-size:12.5px;
+color:#6b729a;
+margin-top:4px;
+margin-bottom:18px;
+letter-spacing:.2px;
+}
+
+.preview-head{
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:12px;
+margin-bottom:4px;
+}
+
+.status-chip{
+display:flex;
+align-items:center;
+gap:6px;
+font-size:11px;
+font-weight:600;
+letter-spacing:.5px;
+text-transform:uppercase;
+color:#7dd3a8;
+background:rgba(125,211,168,.08);
+border:1px solid rgba(125,211,168,.28);
+padding:6px 11px;
+border-radius:100px;
+white-space:nowrap;
+}
+
+.status-chip.idle{
+color:#8b93b8;
+background:rgba(139,147,184,.08);
+border-color:rgba(139,147,184,.25);
+}
+
+.status-chip .dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:currentColor;
+box-shadow:0 0 8px currentColor;
+}
+
+/* INPUT SYSTEM */
+label{
+display:flex;
+align-items:center;
+justify-content:space-between;
+font-size:12px;
+font-weight:600;
+margin-bottom:8px;
+margin-top:18px;
+color:#c7d1ff;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+.char-count{
+font-family:'JetBrains Mono',monospace;
+font-size:11px;
+font-weight:400;
+color:#5c6390;
+text-transform:none;
+letter-spacing:.3px;
+}
+
+.input-shell{
+position:relative;
+}
+
+textarea{
+width:100%;
+border:1px solid rgba(255,255,255,.08);
+outline:none;
+background:rgba(9,12,26,.65);
+color:#f4f6ff;
+padding:16px 18px;
+border-radius:18px;
+font-size:15px;
+line-height:1.6;
+transition:.3s;
+resize:none;
+min-height:130px;
+}
+
+textarea::placeholder{
+color:#565d84;
+}
+
+textarea:focus{
+border-color:rgba(124,147,255,.6);
+box-shadow:0 0 0 4px rgba(91,124,250,.12),0 0 15px rgba(91,124,250,.25);
+}
+
+.input-shell::after{
+content:'';
+position:absolute;
+bottom:12px;
+right:14px;
+width:16px;
+height:16px;
+pointer-events:none;
+opacity:.25;
+background:
+linear-gradient(-45deg,transparent 45%,#7c93ff 45%,#7c93ff 55%,transparent 55%),
+linear-gradient(-45deg,transparent 65%,#7c93ff 65%,#7c93ff 75%,transparent 75%);
+}
+
+/* BUTTONS AREA */
+.btns{
+display:flex;
+gap:15px;
+margin-top:24px;
+flex-wrap:wrap;
+}
+
+button,
+.download-btn{
+flex:1;
+height:55px;
 border:none;
 border-radius:18px;
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #bf360c;
-
-color:white;
-
-font-size:22px;
+font-size:14.5px;
+font-weight:600;
+letter-spacing:.3px;
 cursor:pointer;
-
-transition:0.3s;
+text-decoration:none;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:9px;
+transition:.3s;
 }
 
-.back-btn:hover{
-
-transform:
-translateY(-5px)
-rotate(-5deg);
-
+button svg,.download-btn svg{
+width:17px;
+height:17px;
+flex-shrink:0;
 }
 
-/* CONTAINER */
-
-.container{
-
-max-width:550px;
-margin:auto;
-
-background:
-linear-gradient(
-145deg,
-#8d6e63,
-#6d4c41,
-#4e342e
-);
-
-padding:25px;
-
-border-radius:35px;
-
-border:
-4px solid white;
-
-box-shadow:
-10px 10px 0px #2d1b12;
-
+/* MAIN ACT BUTTON (BLUE GLOW) */
+.generate-btn{
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 8px 24px rgba(91,124,250,.4);
+color:white;
 position:relative;
 overflow:hidden;
 }
 
-/* TITLE */
-
-.title{
-font-size:35px;
-font-weight:700;
-text-align:center;
-
-text-shadow:
-4px 4px 0px #3e2723;
-
-margin-bottom:12px;
+.generate-btn::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.25) 50%,transparent 70%);
+transform:translateX(-120%);
+transition:transform .6s ease;
 }
 
-/* DESC */
-
-.desc{
-text-align:center;
-color:#fff3e0;
-font-size:15px;
-line-height:1.7;
-margin-bottom:25px;
+.generate-btn:hover::before{
+transform:translateX(120%);
 }
 
-/* INPUT */
-
-.input-box{
-margin-top:15px;
+.generate-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 28px rgba(91,124,250,.55);
 }
 
-label{
-display:block;
-margin-bottom:10px;
-font-size:15px;
-font-weight:bold;
-}
-
-/* TEXTAREA */
-
-textarea{
-
-width:100%;
-height:140px;
-
-padding:18px;
-
-border:none;
-outline:none;
-
-border-radius:24px;
-
-background:
-linear-gradient(
-145deg,
-#3e2723,
-#2d1b12
-);
-
-border:
-3px solid white;
-
-box-shadow:
-6px 6px 0px #1b0f0a;
-
-color:white;
-
-font-size:16px;
-
-resize:none;
-}
-
-/* BUTTON */
-
-button{
-
-width:100%;
-
-margin-top:20px;
-
-padding:16px;
-
-border:none;
-
-border-radius:24px;
-
-background:
-linear-gradient(
-145deg,
-#ffb74d,
-#ff7043
-);
-
-border:
-3px solid white;
-
-box-shadow:
-7px 7px 0px #bf360c;
-
-color:white;
-
-font-size:17px;
-font-weight:bold;
-
-cursor:pointer;
-
-transition:0.3s;
-}
-
-/* HOVER */
-
-button:hover{
-
-transform:
-translateY(-5px)
-rotate(-1deg);
-
-}
-
-/* DOWNLOAD BUTTON */
-
-.download-btn{
-
-background:
-linear-gradient(
-145deg,
-#81c784,
-#43a047
-);
-
-box-shadow:
-7px 7px 0px #1b5e20;
-
-display:none;
-}
-
-/* RESULT */
-
-.result-box{
-margin-top:30px;
-display:none;
-animation:fade 0.5s ease;
-}
-
-/* IMAGE */
-
-.result-box img{
-
-width:100%;
-
-border-radius:28px;
-
-border:
-4px solid white;
-
-box-shadow:
-8px 8px 0px #2d1b12;
-}
-
-/* LOADING */
-
-.loading{
-display:none;
-margin-top:25px;
-text-align:center;
-font-weight:bold;
-color:#fff3e0;
-font-size:16px;
-}
-
-/* FOOTER */
-
-.footer{
-margin-top:25px;
-text-align:center;
-font-size:14px;
-font-weight:bold;
-
-text-shadow:
-3px 3px 0px #3e2723;
-}
-
-/* ANIMATION */
-
-@keyframes fade{
-
-from{
-opacity:0;
-transform:translateY(20px);
-}
-
-to{
-opacity:1;
+.generate-btn:active{
 transform:translateY(0);
 }
 
+/* SUB DOWNLOAD BUTTON */
+.download-btn{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.1);
+color:#c7d1ff;
+display:none;
 }
 
-/* MOBILE */
-
-@media(max-width:600px){
-
-.title{
-font-size:28px;
+.download-btn:hover{
+background:rgba(255,255,255,.08);
+color:#f4f6ff;
+border-color:rgba(255,255,255,.2);
+transform:translateY(-3px);
 }
 
-.container{
-padding:20px;
+/* FEATURE PILLS */
+.pills{
+margin-top:22px;
+padding-top:18px;
+border-top:1px solid rgba(255,255,255,.07);
+display:flex;
+flex-wrap:wrap;
+gap:8px;
 }
 
+.pill{
+display:flex;
+align-items:center;
+gap:6px;
+font-size:11.5px;
+font-weight:500;
+color:#9aa3d6;
+background:rgba(124,147,255,.06);
+border:1px solid rgba(124,147,255,.15);
+padding:6px 11px;
+border-radius:100px;
 }
 
+.pill svg{
+width:12px;
+height:12px;
+color:#5b7cfa;
+flex-shrink:0;
+}
+
+/* PREVIEW BOX CONTENT */
+.canvas-box{
+background:rgba(5,6,13,.4);
+border:1px solid rgba(255,255,255,.06);
+border-radius:22px;
+padding:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:auto;
+position:relative;
+min-height:460px;
+}
+
+/* HUD CORNER BRACKETS - SIGNATURE ELEMENT */
+.canvas-box::before,
+.canvas-box::after,
+.corner-br,
+.corner-bl{
+content:'';
+position:absolute;
+width:22px;
+height:22px;
+border:2px solid rgba(124,147,255,.4);
+opacity:.8;
+}
+
+.canvas-box::before{
+top:10px;
+left:10px;
+border-right:none;
+border-bottom:none;
+border-top-left-radius:8px;
+}
+
+.canvas-box::after{
+top:10px;
+right:10px;
+border-left:none;
+border-bottom:none;
+border-top-right-radius:8px;
+}
+
+.corner-bl{
+bottom:10px;
+left:10px;
+border-right:none;
+border-top:none;
+border-bottom-left-radius:8px;
+}
+
+.corner-br{
+bottom:10px;
+right:10px;
+border-left:none;
+border-top:none;
+border-bottom-right-radius:8px;
+}
+
+/* RESULT IMAGE STYLING */
+#resultBox{
+display:none;
+max-width:100%;
+text-align:center;
+animation:pop 0.5s ease;
+}
+
+#resultImage{
+max-width:100%;
+height:auto;
+border-radius:18px;
+border:1px solid rgba(124,147,255,.3);
+box-shadow:0 14px 32px rgba(91,124,250,.25);
+}
+
+.result-meta{
+margin-top:14px;
+display:inline-flex;
+align-items:center;
+gap:7px;
+font-family:'JetBrains Mono',monospace;
+font-size:11.5px;
+color:#7dd3a8;
+background:rgba(125,211,168,.07);
+border:1px solid rgba(125,211,168,.22);
+padding:6px 13px;
+border-radius:100px;
+}
+
+.result-meta .dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#7dd3a8;
+box-shadow:0 0 8px #7dd3a8;
+}
+
+@keyframes pop{
+0%{transform:scale(0.95);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+
+/* PLACEHOLDER SYSTEM */
+.placeholder{
+text-align:center;
+color:#8b93b8;
+font-size:14.5px;
+line-height:1.8;
+max-width:280px;
+}
+
+.placeholder-icon{
+width:56px;
+height:56px;
+margin:0 auto 18px;
+border-radius:18px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(145deg,rgba(91,124,250,.14),rgba(91,124,250,.04));
+border:1px solid rgba(124,147,255,.25);
+}
+
+.placeholder-icon svg{
+width:26px;
+height:26px;
+color:#7c93ff;
+}
+
+.placeholder strong{
+display:block;
+color:#e2e6ff;
+font-family:'Poppins',sans-serif;
+font-size:15.5px;
+font-weight:600;
+margin-bottom:6px;
+}
+
+/* LOADING OVERLAY */
+.loading{
+position:absolute;
+inset:0;
+background:rgba(5,6,13,.88);
+backdrop-filter:blur(4px);
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+border-radius:22px;
+z-index:5;
+overflow:hidden;
+}
+
+.loading::before{
+content:'';
+position:absolute;
+left:0;
+right:0;
+height:2px;
+background:linear-gradient(90deg,transparent,#5b7cfa,#a5b4ff,transparent);
+box-shadow:0 0 12px 2px rgba(91,124,250,.7);
+animation:scanline 2.1s ease-in-out infinite;
+}
+
+@keyframes scanline{
+0%{top:12%;opacity:0;}
+10%{opacity:1;}
+90%{opacity:1;}
+100%{top:88%;opacity:0;}
+}
+
+.loader{
+width:50px;
+height:50px;
+border-radius:50%;
+border:5px solid rgba(91,124,250,.1);
+border-top:5px solid #5b7cfa;
+animation:spin 1s linear infinite;
+margin-bottom:15px;
+box-shadow:0 0 15px rgba(91,124,250,.3);
+}
+
+.loading p{
+font-family:'Poppins',sans-serif;
+font-size:15px;
+font-weight:600;
+color:#f4f6ff;
+margin-bottom:4px;
+}
+
+.loading span{
+font-family:'JetBrains Mono',monospace;
+font-size:11.5px;
+color:#6b729a;
+letter-spacing:.5px;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+
+/* INFO SYSTEM FOOTER */
+.note{
+margin-top:20px;
+font-size:13px;
+line-height:1.9;
+color:#8b93b8;
+border-top:1px solid rgba(255,255,255,.07);
+padding-top:16px;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.note-row{
+display:flex;
+align-items:flex-start;
+gap:9px;
+}
+
+.note-row svg{
+width:14px;
+height:14px;
+color:#5b7cfa;
+flex-shrink:0;
+margin-top:2px;
+}
+
+/* FOOTER CREDIT */
+.footer-credit{
+max-width:1150px;
+margin:36px auto 0;
+text-align:center;
+font-size:12px;
+color:#4c5280;
+letter-spacing:.5px;
+}
+
+.footer-credit span{
+color:#7c93ff;
+}
+
+/* MOBILE SYSTEM RESPONSIVE */
+@media(max-width:920px){
+.wrapper{
+grid-template-columns:1fr;
+}
+.title{font-size:28px;}
+.preview-title{font-size:20px;}
+}
+
+@media(max-width:480px){
+.btns{flex-direction:column;}
+}
 </style>
 </head>
-
 <body>
 
 <div class="circle1"></div>
 <div class="circle2"></div>
 
-<!-- TOP NAV -->
-
-<div class="top-nav">
-
-<a href="index.html" class="back-btn">
-🔙
-</a>
-
+<div class="topbar">
+<a href="index.html" class="btn-back" aria-label="Kembali">🔙</a>
+<div class="brandmark"><span class="dot"></span>RafaXMods &middot; Cyber Tools</div>
 </div>
 
-<!-- CONTAINER -->
+<div class="wrapper">
 
-<div class="container">
+<div class="card">
 
-<!-- TITLE -->
-
-<div class="title">
-📸 IQC GENERATOR
+<div class="eyebrow">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.5-6.3 4.5 2.3-7.2-6-4.6h7.6z"/></svg>
+Premium Image Generator
 </div>
 
-<div class="desc">
-Buat fake iPhone quote aesthetic.
+<div class="title">IQC Maker</div>
+<div class="desc">Ubah teks jadi gambar IQC otomatis, lengkap dengan sentuhan visual signature Blue-Cyber khas RafaXMods.</div>
+
+<div class="input-shell">
+<label>Masukkan Text <span class="char-count" id="charCount">0 karakter</span></label>
+<textarea id="text" placeholder="Tulis teks IQC di sini..." maxlength="300"></textarea>
 </div>
 
-<!-- INPUT -->
-
-<div class="input-box">
-
-<label>✏️ Masukkan Text</label>
-
-<textarea
-id="text"
-placeholder="Contoh : Halo Dek"
-></textarea>
-
-</div>
-
-<!-- BUTTON -->
-
-<button onclick="generateIQC()">
-🚀 Generate Sekarang
+<div class="btns">
+<button class="generate-btn" onclick="generateIQC()">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2-6.3-4.5-6.3 4.5 2.3-7.2-6-4.6h7.6z"/></svg>
+GENERATE
 </button>
+<button id="downloadBtn" class="download-btn" onclick="downloadImage()">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 20h16"/></svg>
+DOWNLOAD
+</button>
+</div>
 
-<!-- LOADING -->
+<div class="pills">
+<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>Proses Cepat</div>
+<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-4z"/></svg>Aman &amp; Privat</div>
+<div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 16h5"/></svg>Output HD</div>
+</div>
+
+<div class="note">
+<div class="note-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Auto scroll ke hasil setelah generate selesai</div>
+<div class="note-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Exclusive RafaXMods Blue-Cyber Theme</div>
+<div class="note-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Smooth asset-loader screen integration</div>
+</div>
+
+</div>
+
+<div class="card" id="preview-card">
+
+<div class="preview-head">
+<div>
+<div class="preview-title">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5-9 9"/></svg>
+Preview Result
+</div>
+<div class="preview-sub">Hasil render akan tampil di panel ini secara real-time</div>
+</div>
+<div class="status-chip idle" id="statusChip"><span class="dot"></span><span id="statusText">Standby</span></div>
+</div>
+
+<div class="canvas-box">
+<div class="corner-bl"></div>
+<div class="corner-br"></div>
 
 <div class="loading" id="loading">
-⏳ Sedang membuat gambar...
+<div class="loader"></div>
+<p>Generating IQC Image...</p>
+<span>mohon tunggu sebentar</span>
 </div>
 
-<!-- RESULT -->
-
-<div
-class="result-box"
-id="resultBox"
->
-
-<img id="resultImage">
-
-<!-- DOWNLOAD -->
-
-<button
-class="download-btn"
-id="downloadBtn"
-onclick="downloadImage()"
->
-⬇️ Download Image
-</button>
-
+<div class="placeholder" id="placeholder">
+<div class="placeholder-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.7"/><path d="M21 15l-5-5-11 11"/></svg>
+</div>
+<strong>Belum ada preview</strong>
+Klik tombol GENERATE untuk membuat gambar IQC pertamamu
 </div>
 
-<!-- FOOTER -->
-
-<div class="footer">
-© 2026 RafaXMods - IQC Generator
+<div id="resultBox">
+<img id="resultImage" src="" alt="IQC Result">
+<div class="result-meta"><span class="dot"></span>Berhasil dibuat</div>
 </div>
 
 </div>
+</div>
+
+</div>
+
+<div class="footer-credit">Crafted with <span>&hearts;</span> by RafaXMods &mdash; Blue-Cyber Series</div>
 
 <script>
-
 let imageUrl = "";
 
-/* GENERATE */
+const textArea = document.getElementById("text");
+const charCount = document.getElementById("charCount");
+const statusChip = document.getElementById("statusChip");
+const statusText = document.getElementById("statusText");
 
-async function generateIQC(){
-
-const text =
-document.getElementById("text").value;
-
-if(!text){
-
-alert("Masukkan text dulu!");
-return;
-
-}
-
-/* SHOW LOADING */
-
-document.getElementById("loading").style.display = "block";
-
-document.getElementById("resultBox").style.display = "none";
-
-document.getElementById("downloadBtn").style.display = "none";
-
-try{
-
-imageUrl =
-`https://api.azbry.com/api/maker/iqc?text=${encodeURIComponent(text)}`;
-
-/* SET IMAGE */
-
-document.getElementById("resultImage").src = imageUrl;
-
-/* WHEN IMAGE LOADED */
-
-document.getElementById("resultImage").onload = () => {
-
-/* HIDE LOADING */
-
-document.getElementById("loading").style.display = "none";
-
-/* SHOW RESULT */
-
-document.getElementById("resultBox").style.display = "block";
-
-/* SHOW DOWNLOAD */
-
-document.getElementById("downloadBtn").style.display = "block";
-
-/* AUTO SCROLL */
-
-document
-.getElementById("resultBox")
-.scrollIntoView({
-behavior:"smooth"
+textArea.addEventListener("input", () => {
+charCount.textContent = textArea.value.length + " karakter";
 });
 
+function setStatus(mode){
+statusChip.classList.remove("idle");
+if(mode === "idle"){
+statusChip.classList.add("idle");
+statusText.textContent = "Standby";
+}else if(mode === "loading"){
+statusText.textContent = "Memproses";
+}else if(mode === "done"){
+statusText.textContent = "Selesai";
+}
+}
+
+/* GENERATE ENGINE FUNCTION */
+async function generateIQC(){
+const text = document.getElementById("text").value;
+if(!text){
+alert("Masukkan text dulu!");
+return;
+}
+
+/* SHOW LOADING ACTION */
+document.getElementById("loading").style.display = "flex";
+document.getElementById("placeholder").style.display = "none";
+document.getElementById("resultBox").style.display = "none";
+document.getElementById("downloadBtn").style.display = "none";
+setStatus("loading");
+
+try{
+imageUrl = `https://api.azbry.com/api/maker/iqc?text=${encodeURIComponent(text)}`;
+
+/* SET IMAGE RESOURCE */
+document.getElementById("resultImage").src = imageUrl;
+
+/* WHEN IMAGE LOAD COMPLETED */
+document.getElementById("resultImage").onload = () => {
+/* HIDE LOADING STAGE */
+document.getElementById("loading").style.display = "none";
+
+/* SHOW RESULT CONTENT */
+document.getElementById("resultBox").style.display = "block";
+
+/* SHOW DOWNLOAD CONTROLLER */
+document.getElementById("downloadBtn").style.display = "flex";
+
+setStatus("done");
+
+/* AUTO SCROLL ENGINE ACTION */
+setTimeout(() => {
+document.getElementById("preview-card").scrollIntoView({
+behavior: "smooth",
+block: "center"
+});
+}, 300);
 };
 
 }catch(err){
-
 document.getElementById("loading").style.display = "none";
-
+document.getElementById("placeholder").style.display = "block";
+setStatus("idle");
 alert("Terjadi kesalahan!");
-
+}
 }
 
-}
-
-/* DOWNLOAD IMAGE */
-
+/* SECURE DOWNLOAD ENGINE BLOCK */
 async function downloadImage(){
-
 try{
-
-const response =
-await fetch(imageUrl);
-
-const blob =
-await response.blob();
-
-const url =
-window.URL.createObjectURL(blob);
-
-const a =
-document.createElement("a");
-
+const response = await fetch(imageUrl);
+const blob = await response.blob();
+const url = window.URL.createObjectURL(blob);
+const a = document.createElement("a");
 a.href = url;
-
 a.download = "RafaXMods-IQC.png";
-
 document.body.appendChild(a);
-
 a.click();
-
 a.remove();
-
 window.URL.revokeObjectURL(url);
-
 }catch(err){
-
-alert("Gagal download image!");
-
+alert("Gagal mendownload gambar!");
 }
-
 }
-
 </script>
 
 </body>

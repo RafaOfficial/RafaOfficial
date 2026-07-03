@@ -3,131 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6f4e37">
-<title>Fake Story Generator</title>
+<meta name="theme-color" content="#5b7cfa">
+<title>Fake Story Generator — RafaXMods VIP Premium</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-:root{
---bg:#2f1d16;
---bg2:#4b2d22;
---card:#9c7867;
---white:#fff8ef;
---shadow:#2a140d;
---orange:#ff9b54;
---green:#49c267;
-}
-
+/* --- CORE INTEGRITY --- */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Inter',sans-serif;
 scroll-behavior:smooth;
 }
 
-body{
-min-height:100vh;
-background:
-radial-gradient(circle at top,
-#7d5b4d 0%,
-#3b241b 45%,
-#1f120d 100%);
-padding:20px;
-color:var(--white);
-overflow-x:hidden;
+h1, .title, .preview-title, label, .btn-back, button, .download-btn {
+font-family:'Poppins',sans-serif;
 }
 
-/* CONTAINER */
+/* BODY & CYBER BACKGROUND */
+body{
+background:#030408;
+min-height:100vh;
+overflow-x:hidden;
+padding:40px 20px;
+color:#f4f6ff;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.32),transparent 60%),
+radial-gradient(ellipse 70% 45% at 10% 50%,rgba(60,80,200,.2),transparent 60%),
+radial-gradient(ellipse 70% 45% at 90% 90%,rgba(91,124,250,.25),transparent 60%);
+z-index:-1;
+}
+
+.circle1{
+position:fixed;
+width:450px;
+height:450px;
+border-radius:50%;
+background:rgba(91,124,250,.22);
+top:-150px;
+left:-150px;
+filter:blur(110px);
+z-index:-1;
+}
+
+.circle2{
+position:fixed;
+width:500px;
+height:500px;
+border-radius:50%;
+background:rgba(124,147,255,.18);
+bottom:-180px;
+right:-180px;
+filter:blur(120px);
+z-index:-1;
+}
+
+/* --- VIP PREMIUM DESIGN LUXURY --- */
 
 .wrapper{
 max-width:1150px;
 margin:auto;
 display:grid;
-grid-template-columns:380px 1fr;
-gap:25px;
+grid-template-columns:430px 1fr;
+gap:35px;
 align-items:start;
 }
 
-/* CARD */
-
+/* GLASSMORPHISM CARD VIP */
 .card{
-background:var(--card);
-border:6px solid white;
-border-radius:35px;
-padding:25px;
-box-shadow:12px 12px 0 var(--shadow);
+padding:35px;
+border-radius:30px;
+background: linear-gradient(135deg, rgba(16, 20, 44, 0.7) 0%, rgba(7, 10, 24, 0.9) 100%);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border: 1px solid rgba(124, 147, 255, 0.2);
+box-shadow:
+0 25px 50px -12px rgba(0, 0, 0, 0.7),
+0 0 30px rgba(91, 124, 250, 0.15),
+inset 0 1px 1px rgba(255, 255, 255, 0.1);
+transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* BACK */
+.card:hover {
+border-color: rgba(91, 124, 250, 0.5);
+box-shadow:
+0 30px 60px -10px rgba(0, 0, 0, 0.8),
+0 0 40px rgba(91, 124, 250, 0.25),
+inset 0 1px 2px rgba(255, 255, 255, 0.15);
+transform: translateY(-2px);
+}
 
+/* BACK BUTTON */
 .btn-back{
+width:55px;
+height:55px;
+border-radius:20px;
 display:inline-flex;
-align-items:center;
 justify-content:center;
-padding:15px 25px;
-background:linear-gradient(
-135deg,
-#ffb168,
-#ff7b32
-);
-color:white;
+align-items:center;
 text-decoration:none;
-border-radius:22px;
-font-weight:900;
-font-size:17px;
-border:5px solid white;
-box-shadow:0 8px 0 #b43f00;
-margin-bottom:20px;
-transition:0.2s;
+background:linear-gradient(145deg,#1c234b,#0f1334);
+border:1px solid rgba(124,147,255,.3);
+box-shadow:0 0 20px rgba(91,124,250,.2);
+margin-bottom:30px;
+transition:.3s;
 }
 
-.btn-back:active{
-transform:translateY(4px);
-box-shadow:0 4px 0 #b43f00;
+.btn-back svg {
+width: 24px;
+height: 24px;
+fill: #c7d1ff;
+transition: .3s;
 }
 
-/* TITLE */
+.btn-back:hover{
+transform: scale(1.05);
+box-shadow:0 0 30px rgba(91,124,250,.5);
+border-color: rgba(124,147,255,.7);
+}
 
+.btn-back:hover svg {
+fill: #fff;
+}
+
+/* SHIMMER TEXT VIP TITLE */
 .title{
-font-size:42px;
+font-size:38px;
 font-weight:900;
-line-height:1;
-margin-bottom:10px;
-text-shadow:6px 6px 0 rgba(0,0,0,0.3);
+line-height:1.1;
+margin-bottom:12px;
+letter-spacing: -0.5px;
+background: linear-gradient(90deg, #5b7cfa, #a5b4ff, #fff, #5b7cfa);
+background-size: 200% auto;
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+animation: shineVIP 4s linear infinite;
+}
+
+@keyframes shineVIP {
+to { background-position: 200% center; }
 }
 
 .desc{
-font-size:16px;
+font-size:14px;
 line-height:1.7;
-color:#fff0df;
-margin-bottom:25px;
+color:#8f98bd;
+margin-bottom:32px;
 }
 
-/* LABEL */
-
+/* LABEL PLATINUM LOOK */
 label{
 display:block;
-font-size:17px;
-font-weight:900;
+font-size:12px;
+font-weight:800;
 margin-bottom:10px;
-margin-top:15px;
+margin-top:22px;
+color:#a5b4ff;
+text-transform:uppercase;
+letter-spacing:1.5px;
+text-shadow: 0 0 10px rgba(165,180,255,0.2);
 }
 
-/* INPUT */
-
+/* INPUT & TEXTAREA MODERNIZE */
 input[type="text"],
-textarea{
+textarea,
+.file-box{
 width:100%;
-border:none;
+border:1px solid rgba(124,147,255,.18);
 outline:none;
-background:#fff6ef;
-color:#2c1b16;
-padding:16px 18px;
-border-radius:22px;
-font-size:16px;
-font-weight:bold;
-margin-bottom:10px;
+background:rgba(5, 7, 17, 0.85);
+color:#fff;
+padding:18px 22px;
+border-radius:20px;
+font-size:15px;
+transition:.3s ease;
+}
+
+input[type="text"]:focus,
+textarea:focus{
+border-color:rgba(91,124,250,.8);
+box-shadow:0 0 25px rgba(91,124,250,.35);
+background:rgba(8, 11, 28, 1);
 }
 
 textarea{
@@ -135,634 +202,445 @@ resize:none;
 min-height:140px;
 }
 
-/* FILE */
-
+/* PLATINUM UPLOAD BOX */
 .file-box{
-position:relative;
-background:#fff6ef;
-border-radius:22px;
-padding:15px;
-overflow:hidden;
+position: relative;
+padding: 0;
+overflow: hidden;
+cursor: pointer;
 }
 
-.file-box input{
-width:100%;
-color:#2c1b16;
-font-weight:bold;
+.file-box input[type="file"] {
+position: absolute;
+inset: 0;
+opacity: 0;
+cursor: pointer;
+height: 100%;
 }
 
-/* BUTTONS */
+.file-label-text {
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 18px 22px;
+color: #8b93b8;
+font-weight: 600;
+font-size: 15px;
+}
 
+.file-label-text svg {
+width: 22px;
+height: 22px;
+fill: #5b7cfa;
+filter: drop-shadow(0 0 5px rgba(91,124,250,0.4));
+}
+
+/* BUTTONS VIP STYLE */
 .btns{
 display:flex;
-gap:15px;
-margin-top:20px;
+gap:20px;
+margin-top:35px;
 flex-wrap:wrap;
 }
 
 button,
 .download-btn{
 flex:1;
-height:65px;
+height:60px;
 border:none;
-border-radius:24px;
-font-size:18px;
-font-weight:900;
+border-radius:22px;
+font-size:15px;
+font-weight:800;
 cursor:pointer;
 text-decoration:none;
 display:flex;
 align-items:center;
 justify-content:center;
-border:5px solid white;
-transition:0.2s;
+gap: 12px;
+transition:.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+letter-spacing: 1px;
 }
 
-/* GENERATE */
-
+/* GENERATE GLOW BTN */
 .generate-btn{
-background:linear-gradient(
-135deg,
-#ffb168,
-#ff7b32
-);
+background:linear-gradient(135deg, #6c8aff 0%, #324adf 50%, #2234ab 100%);
+box-shadow:0 10px 30px rgba(91,124,250,0.4);
 color:white;
-box-shadow:0 8px 0 #b43f00;
+border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.generate-btn:active{
-transform:translateY(4px);
-box-shadow:0 4px 0 #b43f00;
+.generate-btn svg {
+width: 20px;
+height: 20px;
+fill: #fff;
 }
 
-/* DOWNLOAD */
+.generate-btn:hover{
+transform:translateY(-4px) scale(1.02);
+box-shadow:0 15px 40px rgba(91,124,250,0.6);
+filter: brightness(1.1);
+}
 
+/* DOWNLOAD PREMIUM BTN */
 .download-btn{
-background:linear-gradient(
-135deg,
-#59d66f,
-#2fa34c
-);
-color:white;
-box-shadow:0 8px 0 #1f6d31;
+background:rgba(255,255,255,.02);
+border:1px solid rgba(124,147,255,.25);
+color:#a5b4ff;
 }
 
-.download-btn:active{
-transform:translateY(4px);
-box-shadow:0 4px 0 #1f6d31;
+.download-btn svg {
+width: 20px;
+height: 20px;
+fill: #a5b4ff;
+transition: .3s;
 }
 
-/* PREVIEW */
+.download-btn:hover{
+background:rgba(124,147,255,.12);
+color:#fff;
+border-color:rgba(124,147,255,.6);
+transform:translateY(-4px) scale(1.02);
+box-shadow:0 15px 30px rgba(0, 0, 0, 0.4);
+}
 
+.download-btn:hover svg {
+fill: #fff;
+filter: drop-shadow(0 0 5px #fff);
+}
+
+/* PREVIEW BOX STYLE */
 .preview-title{
-font-size:34px;
-font-weight:900;
-margin-bottom:18px;
-text-shadow:6px 6px 0 rgba(0,0,0,0.3);
+font-size:26px;
+font-weight:800;
+color:#f4f6ff;
+margin-bottom:22px;
+letter-spacing: -0.5px;
+text-shadow: 0 0 15px rgba(244,246,255,0.1);
 }
 
 .canvas-box{
-background:#2c1811;
-border:6px solid white;
-border-radius:35px;
-padding:18px;
-box-shadow:10px 10px 0 var(--shadow);
+background:rgba(2,3,7,0.8);
+border:1px solid rgba(124,147,255,.15);
+border-radius:26px;
+padding:30px;
 display:flex;
 justify-content:center;
 align-items:center;
-overflow:auto;
+overflow:hidden;
 position:relative;
-min-height:400px;
+min-height:520px;
+box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
 }
 
-/* CANVAS */
-
+/* PREMIUM NEON CANVAS PREVIEW */
 canvas{
-width:360px;
+width:340px;
 max-width:100%;
-border-radius:25px;
+border-radius:22px;
 background:black;
-border:5px solid white;
+border: 1px solid rgba(91, 124, 250, 0.4);
+box-shadow:
+0 30px 70px rgba(0,0,0,0.9),
+0 0 40px rgba(91,124,250,0.3);
 display:none;
-animation:pop 0.5s ease;
+animation:popVIP 0.65s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-@keyframes pop{
-0%{
-transform:scale(0.8);
-opacity:0;
-}
-100%{
-transform:scale(1);
-opacity:1;
-}
+@keyframes popVIP{
+0%{transform:scale(0.85) cubic-bezier(0.19, 1, 0.22, 1); opacity:0; filter: blur(10px);}
+100%{transform:scale(1); opacity:1; filter: blur(0);}
 }
 
-/* PLACEHOLDER */
-
+/* PLACEHOLDER ENGINE */
 .placeholder{
 text-align:center;
-color:#ffe6d2;
-font-size:18px;
-font-weight:bold;
+color:#8b93b8;
+font-size:15px;
 line-height:1.8;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 18px;
 }
 
-/* LOADING */
+.placeholder svg {
+width: 60px;
+height: 60px;
+fill: rgba(124,147,255,.25);
+filter: drop-shadow(0 0 10px rgba(124,147,255,0.05));
+}
 
+/* LOADING KINETIC */
 .loading{
 position:absolute;
 inset:0;
-background:rgba(0,0,0,0.7);
+background:rgba(3,4,8,.95);
+backdrop-filter:blur(8px);
 display:none;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-border-radius:25px;
+border-radius:26px;
 z-index:5;
 }
 
 .loader{
-width:65px;
-height:65px;
+width:60px;
+height:60px;
 border-radius:50%;
-border:8px solid rgba(255,255,255,0.2);
-border-top:8px solid #ffb168;
-animation:spin 1s linear infinite;
-margin-bottom:15px;
+border:4px solid rgba(91,124,250,.08);
+border-top:4px solid #5b7cfa;
+border-right:4px solid #a5b4ff;
+animation:spinVIP 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+margin-bottom:20px;
+box-shadow:0 0 30px rgba(91,124,250,.5);
 }
 
 .loading p{
-font-size:18px;
-font-weight:bold;
-color:white;
-}
-
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
-}
-
-/* NOTE */
-
-.note{
-margin-top:20px;
 font-size:15px;
-line-height:1.8;
-color:#fff0df;
+font-weight:800;
+color:#fff;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
-/* MOBILE */
+@keyframes spinVIP{
+100%{transform:rotate(360deg);}
+}
 
-@media(max-width:920px){
+/* VIP NOTEPAD */
+.note{
+margin-top:28px;
+font-size:13px;
+line-height:2;
+color:#7f87a3;
+border-top:1px solid rgba(124,147,255,.12);
+padding-top:20px;
+}
 
+/* MOBILE SYSTEM RESPONSIVE */
+@media(max-width:1024px){
 .wrapper{
 grid-template-columns:1fr;
+gap: 30px;
+}
+.title{font-size:34px;}
+.card{padding: 30px;}
 }
 
-.title{
-font-size:34px;
+@media(max-width:480px){
+canvas{width:100%;}
+.btns{flex-direction: column; gap: 12px;}
+button, .download-btn { width: 100%; height: 56px;}
 }
-
-.preview-title{
-font-size:28px;
-}
-
-canvas{
-width:100%;
-max-width:420px;
-}
-
-}
-
 </style>
 </head>
 <body>
 
+<div class="circle1"></div>
+<div class="circle2"></div>
+
+<div style="max-width: 1150px; margin: auto; padding: 0 5px;">
 <a href="index.html" class="btn-back">
-⬅ BACK
+<svg viewBox="0 0 24 24"><path d="M19,11H7.41l5.29-5.29a1,1,0,0,0-1.42-1.42l-7,7a1,1,0,0,0,0,1.42l7,7a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L7.41,13H19a1,1,0,0,0,0-2z"/></svg>
 </a>
+</div>
 
 <div class="wrapper">
 
-<!-- FORM -->
-
 <div class="card">
+<div class="title">FAKE STORY VIP</div>
+<div class="desc">Ciptakan manipulasi fake story premium resolusi tinggi dengan engine visual exclusive khusus besutan RafaXMods.</div>
 
-<div class="title">
-FAKE STORY
-</div>
+<label>Username Account</label>
+<input type="text" id="username" placeholder="RafaXMods">
 
-<div class="desc">
-Buat fake story aesthetic dengan style Dark Cartoon Brutalism.
-</div>
+<label>Caption Story Content</label>
+<textarea id="caption" placeholder="Tulis baris kata, quote brilian atau caption premium Anda di sini..."></textarea>
 
-<label>Username</label>
-
-<input
-type="text"
-id="username"
-placeholder="Contoh: RafaXMods">
-
-<label>Caption Story</label>
-
-<textarea
-id="caption"
-placeholder="Tulis caption story..."></textarea>
-
-<label>Upload Foto Profil</label>
-
+<label>Avatar Profil</label>
 <div class="file-box">
-<input
-type="file"
-id="profileInput"
-accept="image/*">
+<div class="file-label-text">
+<svg viewBox="0 0 24 24"><path d="M19,13H13v6a1,1,0,0,1-2,0V13H5a1,1,0,0,1,0-2h6V5a1,1,0,0,1,2,0v6h6a1,1,0,0,1,0,2z"/></svg>
+<span id="fileNameDisplay">Pilih file foto profil...</span>
+</div>
+<input type="file" id="profileInput" accept="image/*">
 </div>
 
 <div class="btns">
-
-<button
-class="generate-btn"
-onclick="generateStory()">
-
-GENERATE
-
+<button class="generate-btn" onclick="generateStory()">
+<svg viewBox="0 0 24 24"><path d="M12,2A10,10,0,0,0,4.65,18.76h0a1,1,0,0,0,1.38-.2,1,1,0,0,0-.2-1.38A8,8,0,1,1,12,20a7.93,7.93,0,0,1-4.78-1.58,1,1,0,1,0-1.18,1.6A9.91,9.91,0,0,0,12,22,10,10,0,0,0,12,2ZM11,16a1,1,0,0,0,1,1h0a1,1,0,0,0,1-1V10a1,1,0,0,0-2,0Zm0-8a1,1,0,1,0,1-1A1,1,0,0,0,11,8Z"/></svg>
+GENERATE VIP
 </button>
-
-<a
-id="downloadBtn"
-class="download-btn"
-href="#"
-download="fake-story.png">
-
+<a id="downloadBtn" class="download-btn" href="#" download="fake-story-vip.png">
+<svg viewBox="0 0 24 24"><path d="M19,14a1,1,0,0,0-1,1v3a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V15a1,1,0,0,0-2,0v3a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V15A1,1,0,0,0,19,14Zm-6.71,3.71a1,1,0,0,0,1.42,0l4-4a1,1,0,1,0-1.42-1.42L13,15.59V3a1,1,0,0,0-2,0V15.59L7.71,12.29a1,1,0,0,0-1.42,1.42Z"/></svg>
 DOWNLOAD
-
 </a>
-
 </div>
 
 <div class="note">
-• Auto scroll ke hasil setelah generate<br>
-• Dark Cartoon Brutalism Theme<br>
-• Smooth loading animation
+• Exclusive RafaXMods Cyber Engine Integration<br>
+• Ultra Smooth Kinetic Loading Transition<br>
+• Auto focus-scroll ke hasil kanvas
 </div>
-
 </div>
-
-<!-- PREVIEW -->
 
 <div class="card" id="preview-card">
-
-<div class="preview-title">
-Preview Result
-</div>
-
+<div class="preview-title">VIP Result Preview</div>
 <div class="canvas-box">
 
 <div class="loading" id="loading">
-
 <div class="loader"></div>
-
-<p>Generating Story...</p>
-
+<p>Processing High-Res Image...</p>
 </div>
 
 <div class="placeholder" id="placeholder">
-
-Belum ada preview<br>
-Klik tombol GENERATE
-
+<svg viewBox="0 0 24 24"><path d="M19,2H5A3,3,0,0,0,2,5V19a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V5A3,3,0,0,0,19,2ZM5,20a1,1,0,0,1-1-1V14.69l3.29-3.3a1,1,0,0,1,1.42,0L13.59,16l-1.3,1.3a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l2-2a1,1,0,0,0,0-1.42l-4.29-4.3a3,3,0,0,0-4.24,0L4,11.59V5A1,1,0,0,1,5,4H19a1,1,0,0,1,1,1V19a1,1,0,0,1-1,1ZM17,10.5a1.5,1.5,0,1,0-1.5-1.5A1.5,1.5,0,0,0,17,10.5Z"/></svg>
+<span>Belum ada rendering<br>Silakan picu tombol GENERATE VIP</span>
 </div>
 
-<canvas
-id="storyCanvas"
-width="720"
-height="1280"></canvas>
-
+<canvas id="storyCanvas" width="720" height="1280"></canvas>
 </div>
-
 </div>
 
 </div>
 
 <script>
+const canvas = document.getElementById("storyCanvas");
+const ctx = canvas.getContext("2d");
+const profileInput = document.getElementById("profileInput");
+const downloadBtn = document.getElementById("downloadBtn");
+const loading = document.getElementById("loading");
+const placeholder = document.getElementById("placeholder");
+const previewCard = document.getElementById("preview-card");
+const fileNameDisplay = document.getElementById("fileNameDisplay");
 
-const canvas =
-document.getElementById("storyCanvas");
+/* BACKGROUND (KEEP ORIGINAL) */
+const bgUrl = "https://files.catbox.moe/3gwr1l.jpg";
 
-const ctx =
-canvas.getContext("2d");
-
-const profileInput =
-document.getElementById("profileInput");
-
-const downloadBtn =
-document.getElementById("downloadBtn");
-
-const loading =
-document.getElementById("loading");
-
-const placeholder =
-document.getElementById("placeholder");
-
-const previewCard =
-document.getElementById("preview-card");
-
-/* BACKGROUND */
-
-const bgUrl =
-"https://files.catbox.moe/3gwr1l.jpg";
-
-/* DEFAULT PROFILE */
-
-const defaultProfile =
-"https://img1.pixhost.to/images/5831/600387261_biyu-offc.jpg";
-
+/* DEFAULT PROFILE (KEEP ORIGINAL) */
+const defaultProfile = "https://img1.pixhost.to/images/5831/600387261_biyu-offc.jpg";
 let uploadedProfile = null;
 
-/* UPLOAD */
-
-profileInput.addEventListener(
-"change",
-function(e){
-
-const file =
-e.target.files[0];
-
-if(!file) return;
-
-const reader =
-new FileReader();
-
-reader.onload =
-function(event){
-
-uploadedProfile =
-event.target.result;
-
-};
-
-reader.readAsDataURL(file);
-
+/* FILE INPUT DETECTION VIP SYSTEM */
+profileInput.addEventListener("change", function(e){
+const file = e.target.files[0];
+if(!file) {
+fileNameDisplay.innerText = "Pilih file foto profil...";
+return;
 }
-);
+fileNameDisplay.innerText = file.name;
+fileNameDisplay.style.color = "#fff";
 
-/* LOAD IMAGE */
-
-function loadImage(src){
-
-return new Promise((resolve,reject)=>{
-
-const img =
-new Image();
-
-img.crossOrigin =
-"anonymous";
-
-img.onload =
-()=>resolve(img);
-
-img.onerror =
-()=>reject(
-new Error(
-"Gagal load gambar"
-)
-);
-
-img.src = src;
-
+const reader = new FileReader();
+reader.onload = function(event){
+uploadedProfile = event.target.result;
+};
+reader.readAsDataURL(file);
 });
 
+/* IMAGE LOADER CORE */
+function loadImage(src){
+return new Promise((resolve,reject)=>{
+const img = new Image();
+img.crossOrigin = "anonymous";
+img.onload = ()=>resolve(img);
+img.onerror = ()=>reject(new Error("Gagal memuat material gambar"));
+img.src = src;
+});
 }
 
-/* WRAP TEXT */
-
-function wrapTextCenter(
-ctx,
-text,
-x,
-y,
-maxWidth,
-lineHeight
-){
-
-let words =
-text.split(" ");
-
+/* SMART TEXT WRAP ENGINE */
+function wrapTextCenter(ctx, text, x, y, maxWidth, lineHeight){
+let words = text.split(" ");
 let line = "";
 let lines = [];
-
 for(let n=0;n<words.length;n++){
-
-let testLine =
-line + words[n] + " ";
-
-let metrics =
-ctx.measureText(testLine);
-
-let testWidth =
-metrics.width;
-
-if(
-testWidth > maxWidth &&
-n > 0
-){
-
+let testLine = line + words[n] + " ";
+let metrics = ctx.measureText(testLine);
+let testWidth = metrics.width;
+if(testWidth > maxWidth && n > 0){
 lines.push(line);
-
-line =
-words[n] + " ";
-
+line = words[n] + " ";
 }else{
-
-line =
-testLine;
-
+line = testLine;
 }
-
 }
-
 lines.push(line);
-
 for(let i=0;i<lines.length;i++){
-
-ctx.fillText(
-lines[i],
-x,
-y + (i * lineHeight)
-);
-
+ctx.fillText(lines[i], x, y + (i * lineHeight));
+}
 }
 
-}
-
-/* GENERATE */
-
+/* GENERATE ENGINE CORE */
 async function generateStory(){
+const username = document.getElementById("username").value.trim() || "RafaXMods";
+const caption = document.getElementById("caption").value.trim() || "Dark Cartoon Brutalism";
+const profileSrc = uploadedProfile || defaultProfile;
 
-const username =
-document.getElementById(
-"username"
-).value.trim() || "RafaXMods";
-
-const caption =
-document.getElementById(
-"caption"
-).value.trim() || "Dark Cartoon Brutalism";
-
-const profileSrc =
-uploadedProfile || defaultProfile;
-
-/* SHOW LOADING */
-
-loading.style.display =
-"flex";
-
-placeholder.style.display =
-"none";
-
-canvas.style.display =
-"none";
+/* RUN PRE-RENDER LOADING */
+loading.style.display = "flex";
+placeholder.style.display = "none";
+canvas.style.display = "none";
 
 try{
-
-const [bg,pp] =
-await Promise.all([
-
+const [bg,pp] = await Promise.all([
 loadImage(bgUrl),
-
 loadImage(profileSrc)
-
 ]);
 
-ctx.clearRect(
-0,
-0,
-canvas.width,
-canvas.height
-);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-/* BG */
+/* DRAW BACKGROUND */
+ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
-ctx.drawImage(
-bg,
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-/* PROFILE */
-
+/* DRAW PROFILE (HIGH QUALITY CLIPPING) */
 const ppX = 40;
 const ppY = 250;
 const ppSize = 70;
 
 ctx.save();
-
 ctx.beginPath();
-
-ctx.arc(
-ppX + ppSize/2,
-ppY + ppSize/2,
-ppSize/2,
-0,
-Math.PI*2
-);
-
+ctx.arc(ppX + ppSize/2, ppY + ppSize/2, ppSize/2, 0, Math.PI*2);
 ctx.closePath();
-
 ctx.clip();
-
-ctx.drawImage(
-pp,
-ppX,
-ppY,
-ppSize,
-ppSize
-);
-
+ctx.drawImage(pp, ppX, ppY, ppSize, ppSize);
 ctx.restore();
 
-/* USERNAME */
+/* DRAW TEXT USERNAME */
+ctx.font = "bold 28px Arial";
+ctx.fillStyle = "#FFFFFF";
+ctx.textAlign = "left";
+ctx.fillText(username, ppX + ppSize + 15, ppY + 42);
 
-ctx.font =
-"bold 28px Arial";
+/* DRAW CAPTION COMPONENT */
+ctx.font = "bold 34px Arial";
+ctx.fillStyle = "#FFFFFF";
+ctx.textAlign = "center";
 
-ctx.fillStyle =
-"#FFFFFF";
+wrapTextCenter(ctx, caption, canvas.width/2, canvas.height - 650, canvas.width - 100, 44);
 
-ctx.textAlign =
-"left";
+/* DEPLOY RESULT PREVIEW */
+canvas.style.display = "block";
+const result = canvas.toDataURL("image/png");
+downloadBtn.href = result;
 
-ctx.fillText(
-username,
-ppX + ppSize + 15,
-ppY + 42
-);
-
-/* CAPTION */
-
-ctx.font =
-"bold 34px Arial";
-
-ctx.fillStyle =
-"#FFFFFF";
-
-ctx.textAlign =
-"center";
-
-wrapTextCenter(
-ctx,
-caption,
-canvas.width/2,
-canvas.height - 650,
-canvas.width - 100,
-44
-);
-
-/* SHOW RESULT */
-
-canvas.style.display =
-"block";
-
-const result =
-canvas.toDataURL(
-"image/png"
-);
-
-downloadBtn.href =
-result;
-
-/* AUTO SCROLL */
-
+/* LAUNCH FOCUS SCROLL */
 setTimeout(()=>{
-
 previewCard.scrollIntoView({
 behavior:"smooth",
 block:"center"
 });
-
 },300);
 
 }catch(err){
-
-alert(
-"Error: " + err.message
-);
-
-placeholder.style.display =
-"block";
-
+alert("Sistem Error: " + err.message);
+placeholder.style.display = "flex";
 }finally{
-
-loading.style.display =
-"none";
-
+loading.style.display = "none";
 }
-
 }
-
 </script>
 
 </body>
