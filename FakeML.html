@@ -129,6 +129,8 @@ padding:24px 20px;
 box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 30px rgba(0,0,0,.3);
 margin-bottom:25px;
 text-align:center;
+position:relative;
+overflow:hidden;
 }
 
 .title-hero{
@@ -248,11 +250,32 @@ display:none;
 
 .btn-download.show{
 display:flex;
+animation: pulseglow 2s infinite;
+}
+
+@keyframes pulseglow {
+0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+70% { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
 }
 
 .btn-download:hover{
 transform:translateY(-2px);
 box-shadow:0 12px 28px rgba(34,197,94,.5);
+}
+
+/* ANIMASI LOADING SHIMMER PREMIUM */
+.card-premium-anim.processing::after {
+content: "";
+position: absolute;
+top: 0; right: 0; bottom: 0; left: 0;
+transform: translateX(-100%);
+background: linear-gradient(90deg, transparent, rgba(91,124,250,0.15), transparent);
+animation: shimmer 1.6s infinite;
+}
+
+@keyframes shimmer {
+100% { transform: translateX(100%); }
 }
 
 /* STATE MESSAGING STATUS */
@@ -289,7 +312,7 @@ box-shadow:0 0 15px rgba(91,124,250,.2);
 100%{ transform:rotate(360deg); }
 }
 
-/* OUTPUT RESULT CANVAS */
+/* OUTPUT RESULT CANVAS WITH PREMIUM ENTRY ANIMATION */
 canvas{
 width:100%;
 max-width:100%;
@@ -299,6 +322,12 @@ border:1px solid rgba(124,147,255,.3);
 box-shadow:0 0 30px rgba(91,124,250,.2), 0 10px 30px rgba(0,0,0,.5);
 display:none;
 margin-top:15px;
+animation: premiumShow 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes premiumShow {
+from { opacity: 0; transform: scale(0.92) translateY(10px); }
+to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 /* FOOTER SYSTEMS */
@@ -334,7 +363,7 @@ line-height:1.6;
 <div class="container">
 
 <div class="header">
-<a href="index.html" class="back-btn">✕</a>
+<a href="index.html" class="back-btn">🔙</a>
 <div class="header-title">RafaXMods Tools</div>
 </div>
 
@@ -356,7 +385,7 @@ line-height:1.6;
 <button class="btn btn-primary" id="generateBtn">🚀 GENERATE PROFILE</button>
 </div>
 
-<div class="card" id="resultCard" style="display:none;">
+<div class="card card-premium-anim" id="resultCard" style="display:none;">
 <label class="label" style="text-align:center; margin-bottom:15px;">Hasil Output Canvas:</label>
 
 <canvas id="myCanvas"></canvas>
@@ -437,6 +466,7 @@ ctx.restore();
 
 generateBtn.onclick = async () => {
 resultCard.style.display = "block";
+resultCard.classList.add("processing"); // Tambah Animasi Shimmer Neon
 const file = imageFile.files[0];
 const url = imageUrl.value.trim();
 let imgSrc = "";
@@ -445,8 +475,10 @@ if(file){
 imgSrc = URL.createObjectURL(file);
 }else if(url){
 imgSrc = url;
-}else{\
+}else {
 alert("Masukkan gambar!");
+resultCard.style.display = "none";
+resultCard.classList.remove("processing");
 return;
 }
 
@@ -477,8 +509,9 @@ drawRounded(ctx, user, 235, 500, 236, 40);
 /* BORDER */
 ctx.drawImage(border, 195, 460, 320, 320);
 
-/* HIDE LOADING */
+/* HIDE LOADING & ANIMATION */
 loading.classList.remove("active");
+resultCard.classList.remove("processing");
 
 /* SHOW RESULT */
 canvas.style.display="block";
@@ -495,6 +528,7 @@ behavior: "smooth"
 
 }catch(err){
 loading.classList.remove("active");
+resultCard.classList.remove("processing");
 status.innerText = "Gagal membuat Fake ML ❌";
 alert("Terjadi kesalahan! Pastikan URL gambar benar dan mendukung CORS.");
 console.error(err);
