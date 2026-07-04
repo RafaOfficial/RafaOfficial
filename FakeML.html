@@ -4,859 +4,511 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6f4e37">
+<meta name="theme-color" content="#5b7cfa">
 
 <title>Fake ML RafaXMods</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght=500;600;700;800&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-
-/* ===================== */
-/* ROOT */
-/* ===================== */
-
-:root{
---bg1:#3b241b;
---bg2:#24130d;
---card:#9b7b6d;
---white:#fff8f0;
---shadow:#3d1f14;
---orange:#ff7b32;
---green:#4caf50;
-}
-
-/* ===================== */
-/* RESET */
-/* ===================== */
-
+/* RESET & BASE THEME */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Inter',sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
-/* ===================== */
-/* BODY */
-/* ===================== */
+h1,h2,.title-hero,.label,.btn,.status-text{
+font-family:'Poppins',sans-serif;
+}
 
 body{
-background:
-radial-gradient(
-circle at top,
-#7d5b4d 0%,
-#3b241b 45%,
-#1f120d 100%
-);
-
+background:#05060d;
 min-height:100vh;
-color:var(--white);
+color:#f4f6ff;
 overflow-x:hidden;
 padding:25px;
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
-/* ===================== */
-/* CONTAINER */
-/* ===================== */
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
+z-index:-1;
+}
 
+.circle1{
+position:fixed;
+width:380px;
+height:380px;
+border-radius:50%;
+background:rgba(91,124,250,.18);
+top:-120px;
+left:-120px;
+filter:blur(90px);
+z-index:-1;
+}
+
+.circle2{
+position:fixed;
+width:420px;
+height:420px;
+border-radius:50%;
+background:rgba(124,147,255,.16);
+bottom:-150px;
+right:-150px;
+filter:blur(100px);
+z-index:-1;
+}
+
+/* CONTAINER */
 .container{
+width:100%;
 max-width:430px;
 margin:auto;
-padding:22px;
-border-radius:40px;
-border:8px solid white;
-
-background:
-linear-gradient(
-135deg,
-rgba(255,255,255,0.05),
-rgba(0,0,0,0.1)
-);
-
-box-shadow:
-14px 14px 0 var(--shadow);
+padding:22px 0;
 }
 
-/* ===================== */
-/* HEADER */
-/* ===================== */
-
-.top{
+/* HEADER TOPBAR */
+.header{
 display:flex;
 align-items:center;
-gap:16px;
-margin-bottom:40px;
+gap:15px;
+margin-bottom:30px;
+width:100%;
 }
 
-/* BACK */
-
-.back{
-width:95px;
-height:95px;
-border:none;
-border-radius:30px;
-
-background:
-linear-gradient(
-135deg,
-#ffb168,
-#ff7b32
-);
-
-font-size:35px;
+.back-btn{
+width:54px;
+height:54px;
+border-radius:16px;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25), inset 0 1px 0 rgba(255,255,255,.05);
+display:flex;
+align-items:center;
+justify-content:center;
 cursor:pointer;
-border:6px solid white;
-color:white;
+transition:.3s;
+text-decoration:none;
+color:#f4f6ff;
 font-weight:bold;
-
-box-shadow:
-10px 10px 0 #b43f00;
-
-transition:0.2s;
+font-size:18px;
 }
 
-.back:active{
-transform:translateY(4px);
-box-shadow:
-5px 5px 0 #b43f00;
+.back-btn:hover{
+transform:translateY(-2px);
+border-color:rgba(124,147,255,.6);
+box-shadow:0 0 25px rgba(91,124,250,.4);
 }
 
-/* TITLE */
-
-.logo{
-font-size:38px;
-font-weight:900;
-
-text-shadow:
-6px 6px 0 rgba(0,0,0,0.45);
-}
-
-/* ===================== */
-/* TITLE */
-/* ===================== */
-
-.title{
-text-align:center;
-margin-bottom:35px;
-}
-
-.title h1{
-font-size:60px;
-font-weight:900;
-line-height:1;
-
-text-shadow:
-8px 8px 0 rgba(0,0,0,0.35);
-}
-
-.title p{
+.header-title{
 font-size:20px;
-margin-top:12px;
-color:#ffe0c9;
+font-weight:700;
+color:#f4f6ff;
+letter-spacing:.2px;
 }
 
-/* ===================== */
-/* CARD */
-/* ===================== */
-
+/* GLASS CARD STYLING */
 .card{
-background:var(--card);
-border-radius:35px;
-padding:24px;
-border:6px solid white;
-
-box-shadow:
-10px 10px 0 var(--shadow);
-
-margin-bottom:28px;
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+border-radius:24px;
+padding:24px 20px;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 30px rgba(0,0,0,.3);
+margin-bottom:25px;
+text-align:center;
 }
 
-/* ===================== */
-/* FILE UPLOAD */
-/* ===================== */
+.title-hero{
+font-size:24px;
+font-weight:700;
+margin-bottom:8px;
+background:linear-gradient(90deg,#5b7cfa,#a5b4ff);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
 
-.file-box{
-position:relative;
+.desc-hero{
+font-size:13.5px;
+color:#8b93b8;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.label{
+display:block;
+text-align:left;
+font-size:15px;
+font-weight:600;
+color:#f4f6ff;
+margin-bottom:10px;
+}
+
+/* INPUT TEXT / FILE SYSTEM */
+.input-field, .file-input-wrapper{
 margin-bottom:18px;
+width:100%;
 }
 
+.input{
+width:100%;
+height:54px;
+background:#070a18;
+border:1px solid rgba(124,147,255,.25);
+border-radius:16px;
+padding:0 18px;
+font-size:15px;
+color:#f4f6ff;
+outline:none;
+transition:.3s;
+}
+
+.input:focus{
+border-color:rgba(124,147,255,.6);
+box-shadow:0 0 15px rgba(91,124,250,.2);
+}
+
+.input::placeholder{
+color:#525a7f;
+}
+
+/* CUSTOM FILE INPUT */
 .file-label{
 display:flex;
 align-items:center;
 justify-content:center;
-height:68px;
-
-border-radius:22px;
-
-background:#fff5ee;
-
-color:#2c1b16;
-
-font-size:18px;
-font-weight:900;
-
-border:4px dashed #ff7b32;
-
+width:100%;
+height:54px;
+background:#070a18;
+border:1px dashed rgba(124,147,255,.4);
+border-radius:16px;
 cursor:pointer;
-
-overflow:hidden;
-text-align:center;
-padding:0 15px;
+transition:.3s;
+font-size:14.5px;
+font-weight:500;
+color:#8b93b8;
 }
 
-.file-label span{
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-width:100%;
+.file-label:hover{
+border-color:rgba(124,147,255,.7);
+color:#f4f6ff;
+background:rgba(91,124,250,.04);
 }
 
 .file-input{
-position:absolute;
-inset:0;
-opacity:0;
-cursor:pointer;
-}
-
-/* ===================== */
-/* INPUT */
-/* ===================== */
-
-input[type="text"]{
-width:100%;
-height:68px;
-border:none;
-outline:none;
-border-radius:22px;
-padding:0 20px;
-font-size:18px;
-margin-bottom:18px;
-background:#fff5ee;
-color:#2c1b16;
-font-weight:bold;
-}
-
-/* ===================== */
-/* BUTTON */
-/* ===================== */
-
-button.generate{
-width:100%;
-height:68px;
-border:none;
-border-radius:24px;
-
-background:
-linear-gradient(
-135deg,
-#ffb168,
-#ff7b32
-);
-
-color:white;
-font-size:20px;
-font-weight:900;
-cursor:pointer;
-
-border:5px solid white;
-
-box-shadow:
-0 8px 0 #b43f00;
-
-transition:0.2s;
-}
-
-button.generate:active{
-transform:translateY(4px);
-
-box-shadow:
-0 4px 0 #b43f00;
-}
-
-/* ===================== */
-/* LOADING */
-/* ===================== */
-
-.loading{
 display:none;
-margin-top:22px;
+}
+
+/* BUTTON MANAGEMENT */
+.btn{
+width:100%;
+height:54px;
+border:none;
+border-radius:16px;
+font-size:15px;
+font-weight:600;
+color:white;
+cursor:pointer;
+transition:.3s;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.btn-primary{
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 8px 24px rgba(91,124,250,.35);
+}
+
+.btn-primary:hover{
+transform:translateY(-2px);
+box-shadow:0 12px 28px rgba(91,124,250,.5);
+}
+
+.btn-download{
+background:linear-gradient(145deg,#22c55e,#15803d);
+box-shadow:0 8px 24px rgba(34,197,94,.35);
+margin-top:15px;
+display:none;
+}
+
+.btn-download.show{
+display:flex;
+}
+
+.btn-download:hover{
+transform:translateY(-2px);
+box-shadow:0 12px 28px rgba(34,197,94,.5);
+}
+
+/* STATE MESSAGING STATUS */
+.status-text{
+font-size:14px;
+font-weight:600;
+color:#8b93b8;
+margin-top:12px;
 text-align:center;
 }
 
-.loading.active{
+/* LOADER PROCESSING RING */
+.loading-box{
+display:none;
+margin:20px 0;
+}
+
+.loading-box.active{
 display:block;
 }
 
-.loader{
-width:70px;
-height:70px;
-margin:auto;
+.spinner{
+width:44px;
+height:44px;
+border:4px solid rgba(91,124,250,.15);
+border-top:4px solid #5b7cfa;
 border-radius:50%;
-border:8px solid rgba(255,255,255,0.25);
-border-top:8px solid #ffb168;
-
+margin:auto;
 animation:spin 1s linear infinite;
+box-shadow:0 0 15px rgba(91,124,250,.2);
 }
 
 @keyframes spin{
-100%{
-transform:rotate(360deg);
-}
+100%{ transform:rotate(360deg); }
 }
 
-.loading p{
-margin-top:15px;
-font-size:18px;
-font-weight:900;
-color:#fff5ee;
-text-shadow:2px 2px 0 rgba(0,0,0,0.3);
-}
-
-/* ===================== */
-/* STATUS */
-/* ===================== */
-
-.status{
-margin-top:15px;
-text-align:center;
-font-size:16px;
-color:#fff0df;
-font-weight:bold;
-}
-
-/* ===================== */
-/* CANVAS */
-/* ===================== */
-
+/* OUTPUT RESULT CANVAS */
 canvas{
 width:100%;
-margin-top:22px;
-border-radius:30px;
-border:6px solid white;
-background:black;
+max-width:100%;
+height:auto;
+border-radius:18px;
+border:1px solid rgba(124,147,255,.3);
+box-shadow:0 0 30px rgba(91,124,250,.2), 0 10px 30px rgba(0,0,0,.5);
 display:none;
+margin-top:15px;
 }
 
-/* ===================== */
-/* DOWNLOAD */
-/* ===================== */
-
-.download-btn{
-margin-top:20px;
+/* FOOTER SYSTEMS */
+.footer{
+margin-top:30px;
+padding:20px 0;
+text-align:center;
+border-top:1px solid rgba(255,255,255,.07);
 width:100%;
-height:65px;
-border:none;
-border-radius:22px;
-
-background:
-linear-gradient(
-135deg,
-#59d66f,
-#2fa34c
-);
-
-color:white;
-font-size:19px;
-font-weight:900;
-cursor:pointer;
-
-border:5px solid white;
-
-box-shadow:
-0 8px 0 #1f6d31;
-
-display:none;
-
-transition:0.2s;
 }
 
-.download-btn.show{
-display:block;
+.footer-brand{
+font-family:'Poppins',sans-serif;
+font-size:16px;
+font-weight:700;
+color:#f4f6ff;
+margin-bottom:6px;
 }
 
-.download-btn:active{
-transform:translateY(4px);
-
-box-shadow:
-0 4px 0 #1f6d31;
+.footer-text{
+font-size:12.5px;
+font-weight:500;
+color:#8b93b8;
+line-height:1.6;
 }
-
-/* ===================== */
-/* MOBILE */
-/* ===================== */
-
-@media(max-width:500px){
-
-body{
-padding:15px;
-}
-
-.container{
-padding:18px;
-border-radius:30px;
-}
-
-.title h1{
-font-size:48px;
-}
-
-.logo{
-font-size:30px;
-}
-
-.back{
-width:85px;
-height:85px;
-font-size:28px;
-}
-
-.card{
-padding:18px;
-}
-
-}
-
 </style>
 </head>
-
 <body>
+
+<div class="circle1"></div>
+<div class="circle2"></div>
 
 <div class="container">
 
-<!-- TOP -->
-
-<div class="top">
-
-<button
-class="back"
-onclick="window.location.href='index.html'">
-
-🔙
-
-</button>
-
-<div class="logo">
-RafaXMods
+<div class="header">
+<a href="index.html" class="back-btn">✕</a>
+<div class="header-title">RafaXMods Tools</div>
 </div>
-
-</div>
-
-<!-- TITLE -->
-
-<div class="title">
-
-<h1>
-FAKE ML
-</h1>
-
-<p>
-Dark Cartoon Brutalism
-</p>
-
-</div>
-
-<!-- CARD -->
 
 <div class="card">
+<h1 class="title-hero">Fake ML</h1>
+<p class="desc-hero">Buat gambar profil Mobile Legends kustom unik buatanmu sendiri secara instan dan gratis ✨</p>
 
-<!-- FILE -->
-
-<div class="file-box">
-
-<label class="file-label">
-
-<span id="file-name">
-UPLOAD FOTO
-</span>
-
-<input
-type="file"
-id="file"
-class="file-input"
-accept="image/*">
-
-</label>
-
+<div class="file-input-wrapper">
+<label class="label">Pilih Gambar Dari Galeri</label>
+<label for="imageFile" class="file-label" id="fileLabel">📁 Ketuk untuk upload gambar...</label>
+<input type="file" id="imageFile" class="file-input" accept="image/*">
 </div>
 
-<!-- URL -->
-
-<input
-type="text"
-id="url"
-placeholder="Paste link gambar...">
-
-<!-- BUTTON -->
-
-<button
-class="generate"
-onclick="generate()">
-
-GENERATE SEKARANG
-
-</button>
-
-<!-- STATUS -->
-
-<div class="status" id="status">
-
-Upload foto atau masukkan link gambar
-
+<div class="input-field">
+<label class="label">Atau Pakai URL Gambar</label>
+<input type="text" id="imageUrl" class="input" placeholder="https://example.com/image.png">
 </div>
 
-<!-- LOADING -->
-
-<div class="loading" id="loading">
-
-<div class="loader"></div>
-
-<p>
-GENERATING...
-</p>
-
+<button class="btn btn-primary" id="generateBtn">🚀 GENERATE PROFILE</button>
 </div>
 
-<!-- CANVAS -->
+<div class="card" id="resultCard" style="display:none;">
+<label class="label" style="text-align:center; margin-bottom:15px;">Hasil Output Canvas:</label>
 
-<canvas id="canvas"></canvas>
+<canvas id="myCanvas"></canvas>
 
-<!-- DOWNLOAD -->
+<div class="loading-box" id="loading">
+<div class="spinner"></div>
+</div>
 
-<button
-class="download-btn"
-id="downloadBtn"
-onclick="download()">
+<div class="status-text" id="status">Pilih gambar & klik tombol diatas</div>
 
-DOWNLOAD IMAGE
+<button class="btn btn-download" id="downloadBtn">⬇️ DOWNLOAD GAMBAR</button>
+</div>
 
-</button>
-
+<div class="footer">
+<div class="footer-brand">RafaXMods</div>
+<div class="footer-text">
+© 2026 RafaXMods — Dukung kami dengan join Saluran WhatsApp & Telegram
+</div>
 </div>
 
 </div>
 
 <script>
+const imageFile = document.getElementById("imageFile");
+const fileLabel = document.getElementById("fileLabel");
+const imageUrl = document.getElementById("imageUrl");
+const generateBtn = document.getElementById("generateBtn");
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+const loading = document.getElementById("loading");
+const status = document.getElementById("status");
+const downloadBtn = document.getElementById("downloadBtn");
+const resultCard = document.getElementById("resultCard");
 
-/* ===================== */
-/* FILE NAME */
-/* ===================== */
-
-const fileInput =
-document.getElementById("file");
-
-fileInput.addEventListener("change",()=>{
-
-const file =
-fileInput.files[0];
-
-if(file){
-
-document.getElementById(
-"file-name"
-).innerText = file.name;
-
-document.getElementById(
-"status"
-).innerText =
-"Foto berhasil dipilih ✅";
-
+imageFile.onchange = () => {
+if(imageFile.files.length > 0){
+fileLabel.innerText = "✅ " + imageFile.files[0].name;
+imageUrl.value = ""; 
+} else {
+fileLabel.innerText = "📁 Ketuk untuk upload gambar...";
 }
+};
 
-});
-
-/* ===================== */
-/* LOAD IMAGE */
-/* ===================== */
+imageUrl.oninput = () => {
+if(imageUrl.value.trim() !== ""){
+imageFile.value = "";
+fileLabel.innerText = "📁 Ketuk untuk upload gambar...";
+}
+};
 
 function loadImg(src){
-
-return new Promise((res,rej)=>{
-
+return new Promise((resolve, reject) => {
 let img = new Image();
-
-img.crossOrigin="anonymous";
-
+img.crossOrigin = "anonymous";
+img.onload = () => resolve(img);
+img.onerror = () => reject(new Error("Gagal memuat gambar: " + src));
 img.src = src;
-
-img.onload=()=>res(img);
-
-img.onerror=rej;
-
 });
-
 }
 
-/* ===================== */
-/* ROUNDED */
-/* ===================== */
-
-function drawRounded(
-ctx,
-img,
-x,
-y,
-size,
-radius
-){
-
+function drawRounded(ctx, img, x, y, size, radius) {
 ctx.save();
-
 ctx.beginPath();
-
-ctx.moveTo(x+radius,y);
-
-ctx.lineTo(x+size-radius,y);
-
-ctx.quadraticCurveTo(
-x+size,y,
-x+size,y+radius
-);
-
-ctx.lineTo(
-x+size,
-y+size-radius
-);
-
-ctx.quadraticCurveTo(
-x+size,
-y+size,
-x+size-radius,
-y+size
-);
-
-ctx.lineTo(
-x+radius,
-y+size
-);
-
-ctx.quadraticCurveTo(
-x,
-y+size,
-x,
-y+size-radius
-);
-
-ctx.lineTo(
-x,
-y+radius
-);
-
-ctx.quadraticCurveTo(
-x,y,
-x+radius,y
-);
-
+ctx.moveTo(x + radius, y);
+ctx.lineTo(x + size - radius, y);
+ctx.quadraticCurveTo(x + size, y, x + size, y + radius);
+ctx.lineTo(x + size, y + size - radius);
+ctx.quadraticCurveTo(x + size, y + size, x + size - radius, y + size);
+ctx.lineTo(x + radius, y + size);
+ctx.quadraticCurveTo(x, y + size, x, y + size - radius);
+ctx.lineTo(x, y + radius);
+ctx.quadraticCurveTo(x, y, x + radius, y);
 ctx.closePath();
-
 ctx.clip();
-
-ctx.drawImage(
-img,
-x,
-y,
-size,
-size
-);
-
+ctx.drawImage(img, x, y, size, size);
 ctx.restore();
-
 }
 
-/* ===================== */
-/* GENERATE */
-/* ===================== */
-
-async function generate(){
-
-const loading =
-document.getElementById(
-"loading"
-);
-
-const canvas =
-document.getElementById(
-"canvas"
-);
-
-const downloadBtn =
-document.getElementById(
-"downloadBtn"
-);
-
-const status =
-document.getElementById(
-"status"
-);
-
-let file =
-document.getElementById(
-"file"
-).files[0];
-
-let url =
-document.getElementById(
-"url"
-).value;
-
-let ctx =
-canvas.getContext("2d");
-
-let imgSrc;
+generateBtn.onclick = async () => {
+resultCard.style.display = "block";
+const file = imageFile.files[0];
+const url = imageUrl.value.trim();
+let imgSrc = "";
 
 if(file){
-
-imgSrc =
-URL.createObjectURL(file);
-
+imgSrc = URL.createObjectURL(file);
 }else if(url){
-
 imgSrc = url;
-
-}else{
-
+}else{\
 alert("Masukkan gambar!");
 return;
-
 }
-
-/* SHOW LOADING */
 
 loading.classList.add("active");
-
 canvas.style.display="none";
-
 downloadBtn.classList.remove("show");
-
-status.innerText =
-"Sedang membuat Fake ML...";
+status.innerText = "Sedang membuat Fake ML...";
 
 try{
+let bgUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775228325905.jpeg";
+let borderUrl = "https://uploader.zenzxz.dpdns.org/uploads/1775232236060.png";
 
-let bgUrl =
-"https://uploader.zenzxz.dpdns.org/uploads/1775228325905.jpeg";
-
-let borderUrl =
-"https://uploader.zenzxz.dpdns.org/uploads/1775232236060.png";
-
-let [bg,user,border] =
-await Promise.all([
-
+let [bg, user, border] = await Promise.all([
 loadImg(bgUrl),
-
 loadImg(imgSrc),
-
 loadImg(borderUrl)
-
 ]);
 
-canvas.width =
-bg.width;
-
-canvas.height =
-bg.height;
+canvas.width = bg.width;
+canvas.height = bg.height;
 
 /* BG */
-
-ctx.drawImage(
-bg,
-0,
-0
-);
+ctx.drawImage(bg, 0, 0);
 
 /* FOTO */
-
-drawRounded(
-ctx,
-user,
-235,
-500,
-236,
-40
-);
+drawRounded(ctx, user, 235, 500, 236, 40);
 
 /* BORDER */
-
-ctx.drawImage(
-border,
-195,
-460,
-320,
-320
-);
+ctx.drawImage(border, 195, 460, 320, 320);
 
 /* HIDE LOADING */
-
-loading.classList.remove(
-"active"
-);
+loading.classList.remove("active");
 
 /* SHOW RESULT */
-
 canvas.style.display="block";
-
-downloadBtn.classList.add(
-"show"
-);
-
-status.innerText =
-"Fake ML berhasil dibuat ✅";
+downloadBtn.classList.add("show");
+status.innerText = "Fake ML berhasil dibuat ✅";
 
 /* AUTO SCROLL */
-
 setTimeout(()=>{
-
 window.scrollTo({
-
-top:
-document.body.scrollHeight,
-
-behavior:"smooth"
-
+top: document.body.scrollHeight,
+behavior: "smooth"
 });
+}, 200);
 
-},500);
-
-}catch(e){
-
-loading.classList.remove(
-"active"
-);
-
-status.innerText =
-"Gagal load gambar ❌";
-
-alert(
-"Gagal load gambar!"
-);
-
+}catch(err){
+loading.classList.remove("active");
+status.innerText = "Gagal membuat Fake ML ❌";
+alert("Terjadi kesalahan! Pastikan URL gambar benar dan mendukung CORS.");
+console.error(err);
 }
+};
 
-}
-
-/* ===================== */
-/* DOWNLOAD */
-/* ===================== */
-
-function download(){
-
-let canvas =
-document.getElementById(
-"canvas"
-);
-
-let link =
-document.createElement("a");
-
-link.download =
-"fake-ml.png";
-
-link.href =
-canvas.toDataURL();
-
-link.click();
-
-}
-
+downloadBtn.onclick = () => {
+let a = document.createElement("a");
+a.href = canvas.toDataURL("image/jpeg", 0.9);
+a.download = "fakeml_" + Date.now() + ".jpg";
+document.body.appendChild(a);
+a.click();
+a.remove();
+};
 </script>
 
 </body>
