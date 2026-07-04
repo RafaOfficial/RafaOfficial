@@ -3,267 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6d4c41">
-<title>Fake Ustadz</title>
+<meta name="theme-color" content="#5b7cfa">
+<title>Fake Ustadz - RafaXMods</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght=500;600;700;800&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* RESET & BASE THEME */
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:'Inter',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+h1,h2,.title,.label,.btn,.credit{
+font-family:'Poppins',sans-serif;
 }
 
 body{
+background:#05060d;
 min-height:100vh;
+padding:22px;
+color:#f4f6ff;
+overflow-x:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
-background:
-radial-gradient(circle at bottom,#9c5f2e,#6d4c41,#3e2723);
-overflow-x:hidden;
 position:relative;
 }
 
 body::before{
-content:"";
+content:'';
 position:fixed;
 inset:0;
 background:
-repeating-linear-gradient(
-90deg,
-rgba(255,255,255,.02) 0px,
-rgba(255,255,255,.02) 2px,
-transparent 2px,
-transparent 24px
-);
-pointer-events:none;
+radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
+z-index:-1;
 }
 
+.circle1{
+position:fixed;
+width:380px;
+height:380px;
+border-radius:50%;
+background:rgba(91,124,250,.18);
+top:-120px;
+left:-120px;
+filter:blur(90px);
+z-index:-1;
+}
+
+.circle2{
+position:fixed;
+width:420px;
+height:420px;
+border-radius:50%;
+background:rgba(124,147,255,.16);
+bottom:-150px;
+right:-150px;
+filter:blur(100px);
+z-index:-1;
+}
+
+/* CONTAINER */
 .container{
 width:100%;
-max-width:650px;
-background:rgba(141,110,99,.28);
-backdrop-filter:blur(10px);
-border:8px solid #fff;
-border-radius:40px;
-padding:30px;
-box-shadow:
-18px 18px 0 rgba(0,0,0,.55);
-animation:show .5s ease;
+max-width:430px;
+margin:auto;
 }
 
-@keyframes show{
-from{
-transform:translateY(20px);
-opacity:0;
+/* HEADER TOPBAR */
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:30px;
+width:100%;
 }
-to{
-transform:translateY(0);
-opacity:1;
+
+.back-btn{
+width:54px;
+height:54px;
+border-radius:16px;
+background:linear-gradient(145deg,#1a2044,#0e1230);
+border:1px solid rgba(124,147,255,.35);
+box-shadow:0 0 20px rgba(91,124,250,.25), inset 0 1px 0 rgba(255,255,255,.05);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.3s;
+text-decoration:none;
+color:#f4f6ff;
+font-weight:bold;
+font-size:18px;
 }
+
+.back-btn:hover{
+transform:translateY(-2px);
+border-color:rgba(124,147,255,.6);
+box-shadow:0 0 25px rgba(91,124,250,.4);
+}
+
+.header-title{
+font-size:20px;
+font-weight:700;
+color:#f4f6ff;
+letter-spacing:.2px;
+}
+
+/* GLASS CARD STYLING */
+.card{
+background:linear-gradient(160deg,#10142c,#0a0d1f);
+border:1px solid rgba(255,255,255,.07);
+border-radius:24px;
+padding:24px 20px;
+box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 30px rgba(0,0,0,.3);
+margin-bottom:25px;
+text-align:center;
 }
 
 .title{
-text-align:center;
-font-size:58px;
-font-weight:900;
-color:#fff;
-text-shadow:
-6px 6px 0 rgba(0,0,0,.45);
+font-size:24px;
+font-weight:700;
+margin-bottom:8px;
+background:linear-gradient(90deg,#5b7cfa,#a5b4ff);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.desc{
+font-size:13.5px;
+color:#8b93b8;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+.label{
+display:block;
+text-align:left;
+font-size:15px;
+font-weight:600;
+color:#f4f6ff;
 margin-bottom:10px;
 }
 
-.desc{
-text-align:center;
-color:#ffe0b2;
-font-size:18px;
-line-height:1.7;
-margin-bottom:25px;
-}
-
-.input-box{
+/* INPUT TEXTAREA SYSTEM */
+.textarea{
 width:100%;
-padding:22px;
-font-size:20px;
-border:none;
+height:100px;
+background:#070a18;
+border:1px solid rgba(124,147,255,.25);
+border-radius:16px;
+padding:14px 18px;
+font-size:15px;
+color:#f4f6ff;
 outline:none;
-border-radius:35px;
-background:#efe5d4;
-border:6px solid #fff;
-color:#555;
-box-shadow:
-10px 10px 0 rgba(0,0,0,.15);
+margin-bottom:18px;
+resize:none;
+transition:.3s;
 }
 
+.textarea:focus{
+border-color:rgba(124,147,255,.6);
+box-shadow:0 0 15px rgba(91,124,250,.2);
+}
+
+.textarea::placeholder{
+color:#525a7f;
+}
+
+/* BUTTONS */
 .btn{
 width:100%;
-padding:22px;
-margin-top:18px;
-font-size:26px;
-font-weight:900;
+height:54px;
 border:none;
+border-radius:16px;
+font-size:15px;
+font-weight:600;
+color:white;
 cursor:pointer;
-border-radius:35px;
-border:6px solid #fff;
-transition:.2s;
-color:#fff;
+transition:.3s;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
 }
 
-.btn:hover{
-transform:translateY(-3px);
+.btn-primary{
+background:linear-gradient(145deg,#5b7cfa,#324adf);
+box-shadow:0 8px 24px rgba(91,124,250,.35);
 }
 
-.generate{
-background:
-linear-gradient(
-180deg,
-#9c27b0,
-#7b1fa2
-);
-box-shadow:
-10px 10px 0 #5e1696;
-}
-
-.back{
-background:
-linear-gradient(
-180deg,
-#ffb74d,
-#ff7043
-);
-box-shadow:
-10px 10px 0 #d84315;
+.btn-primary:hover{
+transform:translateY(-2px);
+box-shadow:0 12px 28px rgba(91,124,250,.5);
 }
 
 .download{
-background:
-linear-gradient(
-180deg,
-#4caf50,
-#2e7d32
-);
-box-shadow:
-10px 10px 0 #1b5e20;
+background:linear-gradient(145deg,#22c55e,#15803d);
+box-shadow:0 8px 24px rgba(34,197,94,.35);
+margin-top:15px;
 display:none;
 }
 
-.result{
-display:none;
-margin-top:25px;
-animation:fade .5s ease;
+.download:hover{
+transform:translateY(-2px);
+box-shadow:0 12px 28px rgba(34,197,94,.5);
 }
 
-@keyframes fade{
-from{
-opacity:0;
-transform:translateY(15px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-.result img{
-width:100%;
-border-radius:25px;
-border:6px solid #fff;
-box-shadow:
-12px 12px 0 rgba(0,0,0,.35);
-}
-
+/* LOADER / SPINNER */
 .loading{
 display:none;
-margin-top:20px;
-text-align:center;
-font-size:22px;
-font-weight:900;
-color:#fff;
-animation:pulse 1s infinite;
+margin:20px 0;
 }
 
-@keyframes pulse{
-50%{
-transform:scale(1.08);
-}
+.spinner{
+width:44px;
+height:44px;
+border:4px solid rgba(91,124,250,.15);
+border-top:4px solid #5b7cfa;
+border-radius:50%;
+margin:auto;
+animation:spin 1s linear infinite;
+box-shadow:0 0 15px rgba(91,124,250,.2);
 }
 
+@keyframes spin{
+100%{ transform:rotate(360deg); }
+}
+
+.loading p{
+margin-top:12px;
+font-size:14px;
+font-weight:600;
+color:#8b93b8;
+}
+
+/* RESULT VIEW */
+.result{
+display:none;
+animation:fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn{
+from{ opacity:0; transform:translateY(15px); }
+to{ opacity:1; transform:none; }
+}
+
+.preview-img{
+width:100%;
+border-radius:18px;
+border:1px solid rgba(124,147,255,.3);
+box-shadow:0 0 30px rgba(91,124,250,.2), 0 10px 30px rgba(0,0,0,.5);
+display:block;
+margin-bottom:12px;
+}
+
+/* FOOTER CREDIT SYSTEM */
 .credit{
-margin-top:20px;
+margin-top:30px;
+padding:20px 0;
 text-align:center;
-font-size:13px;
-color:#f5e6d3;
-}
-
-@media(max-width:600px){
-
-.container{
-padding:22px;
-border-radius:30px;
-}
-
-.title{
-font-size:42px;
-}
-
-.desc{
-font-size:16px;
-}
-
-.input-box{
-font-size:17px;
-padding:18px;
-}
-
-.btn{
-font-size:22px;
-padding:18px;
-}
-
+border-top:1px solid rgba(255,255,255,.07);
+font-size:12.5px;
+font-weight:500;
+color:#8b93b8;
+line-height:1.6;
 }
 </style>
 </head>
 <body>
 
+<div class="circle1"></div>
+<div class="circle2"></div>
+
 <div class="container">
 
-<div class="title">👳‍♂️ Fake Ustadz</div>
-
-<div class="desc">
-Buat fake pertanyaan Pak ustadz 
+<div class="header">
+<a href="index.html" class="back-btn">🔙</a>
+<div class="header-title">RafaXMods Tools</div>
 </div>
 
-<input
-type="text"
-id="question"
-class="input-box"
-placeholder="Contoh : apa hukum nikah bin"
-/>
+<div class="card">
+<h1 class="title">Fake Ustadz</h1>
+<p class="desc">Buat meme tulisan Tanya Ustadz lucu kustom kamu sendiri secara instan dan gratis ✨</p>
 
-<button class="btn generate" onclick="generateFake()">
-✨ Generate Fake
-</button>
+<label class="label">Masukkan Pertanyaan</label>
+<textarea id="question" class="textarea" placeholder="Contoh: ustadz apakah kodam lele bisa terbang?"></textarea>
 
-<button class="btn back" onclick="location.href='index.html'">
-🔙 Back
-</button>
-
-<div class="loading" id="loading">
-⏳ Sedang membuat fake ustadz...
+<button class="btn btn-primary" onclick="generateFake()">🚀 GENERATE MEME</button>
 </div>
 
-<div class="result" id="result">
-<img id="preview">
+<div id="loading" class="loading">
+<div class="spinner"></div>
+<p>Processing Meme...</p>
+</div>
 
-<button class="btn download" id="downloadBtn" onclick="downloadImage()">
-📥 Download Image
-</button>
+<div id="result" class="result">
+<div class="card">
+<label class="label" style="text-align:center; margin-bottom:15px;">Hasil Preview:</label>
+<img id="preview" class="preview-img" alt="Fake Ustadz Result">
+<button class="btn download" id="downloadBtn" onclick="downloadImage()">⬇️ DOWNLOAD GAMBAR</button>
+</div>
 </div>
 
 <div class="credit">
-Rafa Official • Fake Ustadz Generator
+Rafa Official • Fake Ustadz Generator<br>
+© 2026 RafaXMods — Dukung kami dengan join Saluran WhatsApp & Telegram
 </div>
 
 </div>
@@ -272,9 +326,7 @@ Rafa Official • Fake Ustadz Generator
 let imageURL = "";
 
 function generateFake(){
-
-const text =
-document.getElementById("question").value.trim();
+const text = document.getElementById("question").value.trim();
 
 if(!text){
 alert("Masukkan pertanyaan terlebih dahulu");
@@ -285,25 +337,17 @@ document.getElementById("loading").style.display="block";
 document.getElementById("result").style.display="none";
 document.getElementById("downloadBtn").style.display="none";
 
-const api =
-`https://api.azbry.com/api/maker/tanyaustadz?text=${encodeURIComponent(text)}`;
-
-const img =
-document.getElementById("preview");
+const api = `https://api.azbry.com/api/maker/tanyaustadz?text=${encodeURIComponent(text)}`;
+const img = document.getElementById("preview");
 
 img.onload = function(){
-
 document.getElementById("loading").style.display="none";
-
 document.getElementById("result").style.display="block";
-
 document.getElementById("downloadBtn").style.display="block";
 };
 
 img.onerror = function(){
-
 document.getElementById("loading").style.display="none";
-
 alert("Gagal membuat gambar");
 };
 
@@ -312,37 +356,22 @@ imageURL = api;
 }
 
 async function downloadImage() {
-
 if (!imageURL) return;
 
 try {
-
 const response = await fetch(imageURL);
-
 const blob = await response.blob();
-
 const url = window.URL.createObjectURL(blob);
-
 const a = document.createElement("a");
-
 a.href = url;
-
 a.download = `fakeustadz-${Date.now()}.jpg`;
-
 document.body.appendChild(a);
-
 a.click();
-
 a.remove();
-
 window.URL.revokeObjectURL(url);
-
-} catch(err) {
-
-window.open(imageURL, "_blank");
-
+} catch (error) {
+alert("Gagal mengunduh gambar, silakan coba lagi.");
 }
-
 }
 </script>
 
