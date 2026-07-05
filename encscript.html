@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#6d4c41">
+<meta name="theme-color" content="#5b7cfa">
 
 <title>ENC Custom Tool</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
 
@@ -17,57 +19,69 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+    font-family:'Inter',sans-serif;
+    scroll-behavior:smooth;
 }
 
-html{
-    scroll-behavior:smooth;
+.title h1,.info h3{
+    font-family:'Poppins',sans-serif;
 }
 
 body{
     min-height:100vh;
     overflow-x:hidden;
-    background:
-    radial-gradient(circle at top left,#b38867 0%,#8d6e63 20%,#6d4c41 45%,#2d1b16 100%);
+    background:#05060d;
     display:flex;
     justify-content:center;
     align-items:center;
     position:relative;
     padding:15px;
+    color:#f4f6ff;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(ellipse 60% 40% at 50% 0%,rgba(91,124,250,.28),transparent 60%),
+    radial-gradient(ellipse 70% 45% at 15% 55%,rgba(60,80,200,.16),transparent 60%),
+    radial-gradient(ellipse 70% 45% at 85% 90%,rgba(91,124,250,.20),transparent 60%);
+    z-index:-1;
 }
 
 /* BACKGROUND */
 
 .bg-circle1{
-    position:absolute;
-    width:220px;
-    height:220px;
-    background:#d7ccc8;
+    position:fixed;
+    width:380px;
+    height:380px;
     border-radius:50%;
-    top:-80px;
-    left:-80px;
-    opacity:.08;
-    filter:blur(10px);
+    background:rgba(91,124,250,.18);
+    top:-120px;
+    left:-120px;
+    filter:blur(90px);
+    z-index:-1;
 }
 
 .bg-circle2{
-    position:absolute;
-    width:180px;
-    height:180px;
-    background:#efebe9;
+    position:fixed;
+    width:420px;
+    height:420px;
     border-radius:50%;
-    bottom:-60px;
-    right:-60px;
-    opacity:.08;
-    filter:blur(10px);
+    background:rgba(124,147,255,.16);
+    bottom:-150px;
+    right:-150px;
+    filter:blur(100px);
+    z-index:-1;
 }
 
 /* FLOAT ICON */
 
 .float-icon{
     position:absolute;
-    color:#fff3e0;
-    opacity:.18;
+    color:#a5b4ff;
+    opacity:.3;
     font-size:20px;
     animation:float 4s ease-in-out infinite;
 }
@@ -117,53 +131,64 @@ body{
 /* CARD */
 
 .card{
-    background:#6d4c41;
-    border:3px solid #f5e0d3;
+    background:linear-gradient(160deg,#10142c,#0a0d1f);
+    border:1px solid rgba(255,255,255,.08);
     border-radius:28px;
-    padding:18px;
+    padding:20px;
     box-shadow:
-    7px 7px 0px #2d1b16,
-    0 0 20px rgba(0,0,0,.2);
+    0 20px 60px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.04);
     position:relative;
+    overflow:hidden;
+}
+
+.card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 30% 0%,rgba(91,124,250,.14),transparent 55%);
+    pointer-events:none;
 }
 
 /* BACK BUTTON */
 
 .back-wrap{
-    margin-bottom:12px;
+    margin-bottom:14px;
+    position:relative;
+    z-index:1;
 }
 
 .back-btn{
-    width:62px;
-    height:62px;
-    background:#f6a84d;
+    width:60px;
+    height:60px;
+    background:linear-gradient(145deg,#1a2044,#0e1230);
     border-radius:18px;
-    border:4px solid #f7f1eb;
-    box-shadow:
-    5px 5px 0 #c63f12;
+    border:1px solid rgba(124,147,255,.35);
+    box-shadow:0 0 20px rgba(91,124,250,.25);
     display:flex;
     justify-content:center;
     align-items:center;
     text-decoration:none;
-    transition:.2s;
+    transition:.3s;
 }
 
 .back-btn:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
+    box-shadow:0 10px 26px rgba(91,124,250,.4);
 }
 
 .back-inner{
     width:40px;
     height:40px;
-    background:#8fa6b2;
+    background:linear-gradient(145deg,#5b7cfa,#324adf);
     border-radius:12px;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     color:white;
-    font-weight:800;
-    border:2px solid #dbe3e8;
+    font-weight:700;
+    border:1px solid rgba(124,147,255,.4);
 }
 
 .back-inner span{
@@ -182,46 +207,88 @@ body{
     width:72px;
     height:72px;
     margin:auto;
-    background:#fff3e0;
+    background:linear-gradient(145deg,#5b7cfa,#324adf);
     border-radius:20px;
-    border:3px solid #3e2723;
+    border:1px solid rgba(124,147,255,.4);
     display:flex;
     justify-content:center;
     align-items:center;
     font-size:30px;
-    box-shadow:4px 4px 0 #3e2723;
-    margin-bottom:12px;
+    box-shadow:0 0 26px rgba(91,124,250,.55);
+    margin-bottom:14px;
+    position:relative;
+    z-index:1;
+    animation:float 3s ease-in-out infinite;
 }
 
 /* TITLE */
 
 .title{
     text-align:center;
+    position:relative;
+    z-index:1;
 }
 
 .title h1{
-    color:white;
+    background:linear-gradient(90deg,#f4f6ff,#a5b4ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
     font-size:24px;
     font-weight:800;
-    text-shadow:3px 3px 0px #3e2723;
+    letter-spacing:.3px;
 }
 
 .title p{
-    margin-top:5px;
-    color:#f8d7c8;
-    font-size:11px;
+    margin-top:6px;
+    color:#8b93b8;
+    font-size:11.5px;
+    font-weight:500;
+}
+
+.badge-row{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:12px;
+    flex-wrap:wrap;
+    position:relative;
+    z-index:1;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 12px;
+    border-radius:20px;
+    background:rgba(91,124,250,.1);
+    border:1px solid rgba(124,147,255,.3);
+    color:#a5b4ff;
+    font-size:10.5px;
+    font-weight:600;
+}
+
+.badge .dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#3ddc84;
+    box-shadow:0 0 8px #3ddc84;
 }
 
 /* INPUT GROUP */
 
 .input-group{
-    margin-top:15px;
+    margin-top:16px;
+    position:relative;
+    z-index:1;
 }
 
 .label{
-    color:#fff3e0;
-    font-weight:700;
-    margin-bottom:6px;
+    color:#c7d1ff;
+    font-weight:600;
+    margin-bottom:7px;
     display:block;
     font-size:12px;
 }
@@ -242,18 +309,24 @@ body{
 
 .custom-file{
     width:100%;
-    background:#fff3e0;
-    border:2px solid #3e2723;
-    box-shadow:4px 4px 0 #3e2723;
+    background:linear-gradient(160deg,#161c3c,#0d1128);
+    border:1px solid rgba(124,147,255,.3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
     border-radius:18px;
-    padding:13px;
-    color:#4e342e;
-    font-weight:700;
+    padding:14px;
+    color:#f4f6ff;
+    font-weight:600;
     display:flex;
     align-items:center;
     gap:10px;
     overflow:hidden;
     font-size:12px;
+    transition:.3s;
+}
+
+.file-box:hover .custom-file{
+    border-color:rgba(124,147,255,.55);
+    box-shadow:0 8px 20px rgba(91,124,250,.25);
 }
 
 .custom-file span{
@@ -266,69 +339,88 @@ body{
 
 .text-input{
     width:100%;
-    padding:13px;
+    padding:14px;
     border:none;
     outline:none;
     border-radius:18px;
-    background:#fff3e0;
-    color:#3e2723;
-    font-weight:700;
-    border:2px solid #3e2723;
-    box-shadow:4px 4px 0 #3e2723;
+    background:linear-gradient(160deg,#161c3c,#0d1128);
+    color:#f4f6ff;
+    font-weight:600;
+    border:1px solid rgba(124,147,255,.3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
     font-size:12px;
+    transition:.3s;
+}
+
+.text-input:focus{
+    border-color:rgba(124,147,255,.6);
+    box-shadow:0 0 0 3px rgba(91,124,250,.2);
 }
 
 .text-input::placeholder{
-    color:#8d6e63;
+    color:#5b6382;
 }
 
 /* BUTTON */
 
 .main-btn{
     width:100%;
-    padding:13px;
-    margin-top:15px;
+    padding:14px;
+    margin-top:16px;
     border:none;
     border-radius:18px;
     font-size:13px;
-    font-weight:800;
+    font-weight:700;
     cursor:pointer;
-    transition:.2s;
+    transition:.3s;
+    position:relative;
+    z-index:1;
 }
 
 .encrypt-btn{
-    background:#ffcc80;
-    color:#4e342e;
-    border:2px solid #4e342e;
-    box-shadow:4px 4px 0 #4e342e;
+    background:linear-gradient(145deg,#5b7cfa,#324adf);
+    color:#ffffff;
+    border:1px solid rgba(124,147,255,.4);
+    box-shadow:0 8px 24px rgba(91,124,250,.4);
+}
+
+.encrypt-btn:hover{
+    box-shadow:0 12px 28px rgba(91,124,250,.55);
 }
 
 .download-btn{
-    background:#c5e1a5;
-    color:#2e4630;
-    border:2px solid #2e4630;
-    box-shadow:4px 4px 0 #2e4630;
+    background:linear-gradient(145deg,#3ddc84,#1f9d5c);
+    color:#052013;
+    border:1px solid rgba(61,220,132,.4);
+    box-shadow:0 8px 24px rgba(61,220,132,.3);
+}
+
+.download-btn:hover{
+    box-shadow:0 12px 28px rgba(61,220,132,.45);
 }
 
 .main-btn:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
 /* OUTPUT */
 
 .output{
-    margin-top:15px;
-    background:#fff3e0;
-    color:#3e2723;
+    margin-top:16px;
+    background:linear-gradient(160deg,#0d1128,#070a18);
+    color:#c7d1ff;
     padding:14px;
     border-radius:18px;
-    border:2px solid #3e2723;
-    box-shadow:4px 4px 0 #3e2723;
+    border:1px solid rgba(124,147,255,.25);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
     max-height:180px;
     overflow:auto;
     font-size:11px;
     line-height:1.5;
     word-break:break-word;
+    font-family:'Courier New',monospace;
+    position:relative;
+    z-index:1;
 }
 
 .output::-webkit-scrollbar{
@@ -336,7 +428,7 @@ body{
 }
 
 .output::-webkit-scrollbar-thumb{
-    background:#6d4c41;
+    background:#5b7cfa;
     border-radius:20px;
 }
 
@@ -348,21 +440,22 @@ body{
     justify-content:center;
     align-items:center;
     padding:15px;
+    font-family:'Inter',sans-serif;
 }
 
 .loader{
     width:42px;
     height:42px;
-    border:5px solid #d7ccc8;
-    border-top:5px solid #6d4c41;
+    border:5px solid rgba(124,147,255,.2);
+    border-top:5px solid #5b7cfa;
     border-radius:50%;
     animation:spin 1s linear infinite;
     margin-bottom:12px;
 }
 
 .loading-text{
-    font-weight:700;
-    color:#4e342e;
+    font-weight:600;
+    color:#c7d1ff;
     text-align:center;
     font-size:12px;
 }
@@ -382,32 +475,55 @@ body{
 /* INFO */
 
 .info{
-    margin-top:15px;
-    background:#8d6e63;
-    border:2px solid #f5e0d3;
-    padding:12px;
+    margin-top:16px;
+    background:rgba(91,124,250,.1);
+    border:1px solid rgba(124,147,255,.3);
+    padding:14px;
     border-radius:18px;
+    position:relative;
+    z-index:1;
 }
 
 .info h3{
-    color:white;
-    margin-bottom:6px;
+    color:#a5b4ff;
+    margin-bottom:7px;
     font-size:13px;
+    font-weight:700;
 }
 
 .info p{
-    color:#f8d7c8;
+    color:#8b93b8;
     font-size:11px;
-    line-height:1.5;
+    line-height:1.6;
+}
+
+.info code{
+    background:rgba(91,124,250,.15);
+    color:#c7d1ff;
+    padding:2px 6px;
+    border-radius:6px;
+    font-family:'Courier New',monospace;
 }
 
 /* FOOTER */
 
 .footer{
     text-align:center;
-    margin-top:15px;
-    color:#f5d7c8;
-    font-size:10px;
+    margin-top:16px;
+    color:#8b93b8;
+    font-size:10.5px;
+    font-weight:500;
+    position:relative;
+    z-index:1;
+}
+
+.footer span{
+    color:#a5b4ff;
+    font-weight:700;
+}
+
+@media(max-width:400px){
+.title h1{font-size:21px;}
 }
 
 </style>
@@ -454,9 +570,14 @@ body{
 
 <div class="title">
 
-<h1>ENC CUSTOM</h1>
+<h1>ENC Custom Pro</h1>
 
-<p>Dark Cartoon Brutalism Milk Brown UI</p>
+<p>Lindungi source code JavaScript kamu secara instan</p>
+
+<div class="badge-row">
+<div class="badge"><span class="dot"></span> Encryption Aktif</div>
+<div class="badge">⚡ Proses Cepat</div>
+</div>
 
 </div>
 
@@ -534,24 +655,18 @@ onclick="download()">
 
 <p>
 
-Gunakan format:
-<br><br>
-
-text1|text2
+Gunakan format: <code>text1|text2</code>
 
 <br><br>
 
-Contoh:
-<br>
-
-rafa|official
+Contoh: <code>rafa|official</code>
 
 </p>
 
 </div>
 
 <div class="footer">
-© Rafa Official • Cartoon Brutalism UI
+© <span>Rafa Official</span> • Premium Encryption UI
 </div>
 
 </div>
