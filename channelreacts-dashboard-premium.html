@@ -496,9 +496,10 @@ function submitReactionOrder() {
   if (!url) { showToast("WhatsApp Post Link is required", "error"); return; }
   if (!reactions.trim()) { showToast("At least one reaction is required", "error"); return; }
   const id = "ORD-" + new Date().toISOString().slice(2,10).replace(/-/g,"") + "-" + String(state.orders.length + 1).padStart(3,"0");
+  const channelName = document.getElementById("soChannelName").value.trim() || "New Order";
   const reactionList = reactions.split(/[,\s]+/).filter(e => e.trim());
   const primaryReaction = reactionList[0].includes("\u2764") ? "heart" : reactionList[0].includes("\uD83D\uDD25") ? "fire" : reactionList[0].includes("\uD83D\uDE2E") ? "wow" : "like";
-  state.orders.unshift({ id, channel: "New Order", url, reaction: primaryReaction, qty: soQty, status: "pending", created: new Date().toISOString().slice(0,16).replace("T"," "), progress: 0 });
+  state.orders.unshift({ id, channel: channelName, url, reaction: primaryReaction, qty: soQty, status: "pending", created: new Date().toISOString().slice(0,16).replace("T"," "), progress: 0 });
   showToast(`Order submitted! Cost: ${soQty} credits`, "success");
   switchPage("orders");
 }
@@ -611,6 +612,10 @@ function renderSubmitOrder() {
           <div class="submit-order-group">
             <label>WhatsApp Post Link</label>
             <input type="text" class="submit-order-input" id="soUrl" placeholder="https://whatsapp.com/channel/..." />
+          </div>
+          <div class="submit-order-group">
+            <label>Channel Name <span style="font-size:11px;color:var(--text-quaternary);font-weight:500;">(optional)</span></label>
+            <input type="text" class="submit-order-input" id="soChannelName" placeholder="e.g. Tech Updates ID" />
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
             <div class="submit-order-group">
@@ -1015,7 +1020,7 @@ function submitOrder() {
   const url = document.getElementById("orderUrl").value;
   const reaction = document.getElementById("orderReaction").value;
   const qty = parseInt(document.getElementById("orderQty").value);
-  const channel = document.getElementById("orderChannel").value || "Untitled";
+  const channel = document.getElementById("orderChannel").value.trim() || "New Order";
   if (!url) { showToast("Channel URL is required", "error"); return; }
   const id = "ORD-" + new Date().toISOString().slice(2,10).replace(/-/g,"") + "-" + String(state.orders.length + 1).padStart(3,"0");
   state.orders.unshift({ id, channel, url, reaction, qty, status: "pending", created: new Date().toISOString().slice(0,16).replace("T"," "), progress: 0 });
