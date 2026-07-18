@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChannelReacts - Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Space Grotesk", var(--font-sans);
+  --font-mono: "SF Mono", "Fira Code", "JetBrains Mono", monospace;
+  --accent: #6366f1; --accent-light: #818cf8; --accent-dark: #4f46e5;
+  --danger: #ef4444; --danger-soft: #fee2e2;
+  --positive: #10b981; --positive-soft: #d1fae5;
+  --warning: #f59e0b; --warning-soft: #fef3c7;
+  --text-primary: #0f172a; --text-secondary: #475569; --text-tertiary: #64748b; --text-quaternary: #94a3b8;
+  --border: #e2e8f0; --bg-hover: #f1f5f9; --bg-active: #e2e8f0; --bg-canvas: #f8fafc; --bg-card: #ffffff;
+  --chart1: #6366f1; --chart2: #ec4899; --chart3: #10b981; --chart4: #8b5cf6; --chart5: #f59e0b;
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  --gradient-sidebar: linear-gradient(180deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%);
+  --gradient-card: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.04) 100%);
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15,23,42,0.06), 0 2px 4px -2px rgba(15,23,42,0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15,23,42,0.08), 0 4px 6px -4px rgba(15,23,42,0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(15,23,42,0.1), 0 8px 10px -6px rgba(15,23,42,0.04);
+  --shadow-glow: 0 0 20px rgba(99,102,241,0.15);
+  --t-fast: 150ms; --t-normal: 250ms; --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f8fafc; --text-secondary: #cbd5e1; --text-tertiary: #94a3b8; --text-quaternary: #64748b;
+    --border: #334155; --bg-hover: #1e293b; --bg-active: #334155; --bg-canvas: #0f172a; --bg-card: #1e293b;
+    --gradient-card: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(139,92,246,0.06) 100%);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); background: var(--bg-canvas); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font: inherit; }
+
+.cr-container { display: flex; min-height: 100vh; }
+
+/* SIDEBAR PREMIUM */
+.cr-sidebar {
+  width: 260px; border-right: 1px solid var(--border); display: flex; flex-direction: column;
+  padding: 20px 14px; gap: 4px; flex-shrink: 0;
+  background: linear-gradient(180deg, #1e1b4b 0%, #312e81 40%, #1e1b4b 100%);
+  position: sticky; top: 0; height: 100vh; overflow-y: auto; color: #e2e8f0;
+}
+.cr-brand { display: flex; align-items: center; gap: 12px; padding: 14px 12px; margin-bottom: 20px;
+  font-size: 18px; font-weight: 700; color: #fff; letter-spacing: -0.02em; font-family: var(--font-display); }
+.cr-brand svg { flex-shrink: 0; filter: drop-shadow(0 0 8px rgba(99,102,241,0.5)); }
+.cr-nav-section { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(148,163,184,0.7); padding: 20px 12px 8px; font-weight: 700; }
+.cr-nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; cursor: pointer;
+  font-size: 14px; color: rgba(226,232,240,0.7); transition: all var(--t-fast) var(--ease-out);
+  border: none; background: none; width: 100%; text-align: left; font-weight: 500; position: relative; overflow: hidden; }
+.cr-nav-item::before { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(99,102,241,0.2) 0%, rgba(139,92,246,0.1) 100%);
+  opacity: 0; transition: opacity var(--t-fast) var(--ease-out); border-radius: 12px; }
+.cr-nav-item:hover { color: #fff; transform: translateX(2px); }
+.cr-nav-item:hover::before { opacity: 1; }
+.cr-nav-item.active { background: linear-gradient(90deg, rgba(99,102,241,0.25) 0%, rgba(139,92,246,0.15) 100%);
+  color: #fff; font-weight: 600; box-shadow: 0 4px 15px rgba(99,102,241,0.2), inset 0 1px 0 rgba(255,255,255,0.1); border: 1px solid rgba(99,102,241,0.3); }
+.cr-nav-item svg { flex-shrink: 0; color: rgba(148,163,184,0.8); transition: color var(--t-fast); }
+.cr-nav-item:hover svg, .cr-nav-item.active svg { color: #818cf8; }
+.cr-nav-item span { position: relative; z-index: 1; }
+.cr-sidebar-footer { margin-top: auto; padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(226,232,240,0.8); }
+.cr-avatar { width: 36px; height: 36px; border-radius: 12px; background: var(--gradient-primary);
+  display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700;
+  flex-shrink: 0; box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+
+/* MAIN CONTENT */
+.cr-main { flex: 1; padding: 28px 32px; overflow-y: auto; min-width: 0; background: var(--bg-canvas); }
+.cr-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.cr-header h1 { font-size: 26px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.03em; font-family: var(--font-display); }
+.cr-header-actions { display: flex; gap: 10px; align-items: center; }
+
+/* BUTTONS PREMIUM */
+.cr-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 10px;
+  font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--bg-card);
+  color: var(--text-secondary); transition: all var(--t-fast) var(--ease-out); box-shadow: var(--shadow-sm); }
+.cr-btn:hover { background: var(--bg-hover); color: var(--text-primary); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.cr-btn-primary { background: var(--gradient-primary); color: white; border: none;
+  box-shadow: 0 4px 14px rgba(99,102,241,0.35), 0 0 0 1px rgba(99,102,241,0.2); position: relative; overflow: hidden; }
+.cr-btn-primary::before { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%); transition: transform 0.5s; }
+.cr-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.45), 0 0 0 1px rgba(99,102,241,0.3); }
+.cr-btn-primary:hover::before { transform: translateX(100%); }
+.cr-btn-danger { color: var(--danger); border-color: rgba(239,68,68,0.2); background: var(--danger-soft); }
+.cr-btn-danger:hover { background: rgba(239,68,68,0.1); box-shadow: 0 4px 12px rgba(239,68,68,0.15); }
+.cr-btn-sm { padding: 6px 12px; font-size: 12px; }
+.cr-btn-icon { padding: 8px; border-radius: 8px; }
+
+/* STATS GRID PREMIUM */
+.cr-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+.cr-stat-card { border: 1px solid var(--border); border-radius: 16px; padding: 22px;
+  transition: all var(--t-fast) var(--ease-out); background: var(--bg-card); position: relative; overflow: hidden; }
+.cr-stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--gradient-primary); opacity: 0; transition: opacity var(--t-fast); }
+.cr-stat-card:hover { border-color: var(--accent-light); box-shadow: var(--shadow-lg), var(--shadow-glow); transform: translateY(-2px); }
+.cr-stat-card:hover::before { opacity: 1; }
+.cr-stat-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px; font-size: 18px; }
+.cr-stat-icon.purple { background: rgba(99,102,241,0.1); color: var(--accent); }
+.cr-stat-icon.pink { background: rgba(236,72,153,0.1); color: var(--chart2); }
+.cr-stat-icon.green { background: rgba(16,185,129,0.1); color: var(--positive); }
+.cr-stat-icon.orange { background: rgba(245,158,11,0.1); color: var(--warning); }
+.cr-stat-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.cr-stat-value { font-size: 32px; font-weight: 700; color: var(--text-primary); font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1; line-height: 1.1; letter-spacing: -0.03em; font-family: var(--font-display); }
+.cr-stat-delta { font-size: 12px; margin-top: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 6px; }
+.cr-stat-delta.up { color: var(--positive); background: var(--positive-soft); }
+.cr-stat-delta.down { color: var(--danger); background: var(--danger-soft); }
+
+/* SECTIONS PREMIUM */
+.cr-section { border: 1px solid var(--border); border-radius: 16px; margin-bottom: 20px; overflow: hidden;
+  background: var(--bg-card); box-shadow: var(--shadow-sm); transition: box-shadow var(--t-fast); }
+.cr-section:hover { box-shadow: var(--shadow-md); }
+.cr-section-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px;
+  border-bottom: 1px solid var(--border); background: var(--gradient-card); }
+.cr-section-title { font-size: 15px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px;
+  letter-spacing: -0.01em; font-family: var(--font-display); }
+.cr-section-title svg { color: var(--accent); }
+.cr-section-body { padding: 0; }
+
+/* TABLE PREMIUM */
+.cr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cr-table th { text-align: left; padding: 14px 22px; font-size: 10px; font-weight: 700; color: var(--text-tertiary);
+  border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(241,245,249,0.5); }
+.cr-table td { padding: 14px 22px; color: var(--text-secondary); border-bottom: 1px solid var(--border); vertical-align: middle; transition: background var(--t-fast); }
+.cr-table tr:last-child td { border-bottom: none; }
+.cr-table tr:hover td { background: var(--bg-hover); }
+.cr-table .row-actions { display: flex; gap: 6px; opacity: 0; transition: opacity var(--t-fast) var(--ease-out); }
+.cr-table tr:hover .row-actions { opacity: 1; }
+
+/* BADGES PREMIUM */
+.cr-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+.cr-badge-success { background: var(--positive-soft); color: #059669; }
+.cr-badge-pending { background: var(--warning-soft); color: #d97706; }
+.cr-badge-danger { background: var(--danger-soft); color: #dc2626; }
+.cr-badge-neutral { background: rgba(148,163,184,0.15); color: var(--text-tertiary); }
+
+/* FORM PREMIUM */
+.cr-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 22px; }
+.cr-form-group { display: flex; flex-direction: column; gap: 8px; }
+.cr-form-group.full { grid-column: 1 / -1; }
+.cr-form-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.04em; }
+.cr-input, .cr-select, .cr-textarea { padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 14px;
+  color: var(--text-primary); background: var(--bg-card); outline: none; transition: all var(--t-fast) var(--ease-out); font-weight: 500; }
+.cr-input:focus, .cr-select:focus, .cr-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(99,102,241,0.1), 0 1px 2px rgba(99,102,241,0.1); }
+.cr-textarea { min-height: 100px; resize: vertical; font-family: inherit; }
+.cr-form-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; gap: 10px; padding-top: 8px; }
+
+/* SUBMIT ORDER PAGE (NEW) */
+.submit-order-container { max-width: 680px; margin: 0 auto; }
+.submit-order-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 32px;
+  box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+.submit-order-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-primary); }
+.submit-order-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.submit-order-header h2 { font-size: 22px; font-weight: 700; font-family: var(--font-display); letter-spacing: -0.02em; }
+.submit-order-header .icon-wrap { width: 44px; height: 44px; border-radius: 14px; background: var(--gradient-primary);
+  display: flex; align-items: center; justify-content: center; color: white; font-size: 20px;
+  box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+.submit-order-subtitle { color: var(--text-tertiary); font-size: 14px; margin-bottom: 28px; line-height: 1.5; }
+.submit-order-group { margin-bottom: 20px; }
+.submit-order-group label { display: block; font-size: 13px; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.submit-order-group .label-badge { background: var(--positive-soft); color: var(--positive); font-size: 10px;
+  padding: 2px 8px; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.submit-order-input { width: 100%; padding: 14px 18px; border: 2px solid var(--border); border-radius: 14px; font-size: 15px;
+  color: var(--text-primary); background: var(--bg-card); outline: none; transition: all var(--t-fast) var(--ease-out); font-weight: 500; }
+.submit-order-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+.submit-order-input::placeholder { color: var(--text-quaternary); }
+.reaction-preview-box { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border: 2px solid var(--border);
+  border-radius: 14px; background: var(--bg-hover); font-size: 22px; min-height: 56px; }
+.reaction-preview-box .emoji { animation: emojiPop 0.3s var(--ease-out); display: inline-block; }
+@keyframes emojiPop { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.reaction-info { font-size: 12px; color: var(--text-tertiary); margin-top: 8px; line-height: 1.6;
+  padding: 10px 14px; background: rgba(99,102,241,0.04); border-radius: 10px; border: 1px dashed rgba(99,102,241,0.15); }
+.reaction-info strong { color: var(--text-primary); }
+.cost-display { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-secondary); margin: 20px 0;
+  padding: 14px 18px; background: linear-gradient(90deg, rgba(99,102,241,0.06) 0%, rgba(139,92,246,0.04) 100%);
+  border-radius: 12px; border: 1px solid rgba(99,102,241,0.1); }
+.cost-display .cost-value { font-size: 18px; font-weight: 700; color: var(--accent); font-family: var(--font-display); }
+.submit-btn { width: 100%; padding: 16px; border-radius: 14px; border: none; background: var(--gradient-primary); color: white;
+  font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 8px 25px rgba(99,102,241,0.35); transition: all var(--t-fast) var(--ease-out); position: relative; overflow: hidden;
+  font-family: var(--font-display); letter-spacing: -0.01em; }
+.submit-btn::before { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%); transition: transform 0.6s; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(99,102,241,0.45); }
+.submit-btn:hover::before { transform: translateX(100%); }
+.submit-btn:active { transform: translateY(0); }
+.qty-selector { display: flex; align-items: center; gap: 12px; }
+.qty-selector button { width: 40px; height: 40px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg-card);
+  font-size: 18px; font-weight: 700; color: var(--text-primary); cursor: pointer; transition: all var(--t-fast);
+  display: flex; align-items: center; justify-content: center; }
+.qty-selector button:hover { border-color: var(--accent); color: var(--accent); background: rgba(99,102,241,0.05); }
+.qty-selector .qty-value { font-size: 18px; font-weight: 700; color: var(--text-primary); min-width: 80px; text-align: center; font-family: var(--font-display); }
+
+/* API KEY PREMIUM */
+.cr-apikey-box { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 2px dashed var(--border);
+  border-radius: 12px; font-family: var(--font-mono); font-size: 12px; background: var(--bg-hover); transition: all var(--t-fast); }
+.cr-apikey-box:hover { border-color: var(--accent-light); background: rgba(99,102,241,0.04); }
+.cr-apikey-box .key-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-secondary); }
+
+/* LEADERBOARD PREMIUM */
+.cr-leaderboard-item { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid var(--border); transition: all var(--t-fast) var(--ease-out); }
+.cr-leaderboard-item:last-child { border-bottom: none; }
+.cr-leaderboard-item:hover { background: var(--bg-hover); transform: translateX(4px); }
+.cr-rank { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; flex-shrink: 0; font-family: var(--font-display); }
+.cr-rank.gold { background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); color: #fff; box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+.cr-rank.silver { background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%); color: #fff; box-shadow: 0 4px 12px rgba(148,163,184,0.3); }
+.cr-rank.bronze { background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); color: #fff; box-shadow: 0 4px 12px rgba(234,88,12,0.3); }
+.cr-rank.normal { background: var(--bg-hover); color: var(--text-tertiary); }
+.cr-lb-info { flex: 1; min-width: 0; }
+.cr-lb-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+.cr-lb-meta { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+.cr-lb-score { font-size: 18px; font-weight: 700; color: var(--text-primary); font-variant-numeric: tabular-nums; font-family: var(--font-display); }
+
+/* CHART BARS PREMIUM */
+.cr-chart-row { display: flex; align-items: center; gap: 14px; padding: 12px 22px; }
+.cr-chart-label { width: 70px; font-size: 12px; color: var(--text-tertiary); text-align: right; flex-shrink: 0; font-weight: 600; }
+.cr-chart-bar-wrap { flex: 1; height: 10px; background: var(--bg-hover); border-radius: 5px; overflow: hidden; position: relative; }
+.cr-chart-bar { height: 100%; border-radius: 5px; transition: width 0.8s var(--ease-out); position: relative; }
+.cr-chart-bar::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 20px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3)); border-radius: 0 5px 5px 0; }
+.cr-chart-value { width: 55px; font-size: 12px; color: var(--text-secondary); font-variant-numeric: tabular-nums;
+  text-align: right; flex-shrink: 0; font-weight: 700; font-family: var(--font-display); }
+
+/* TOAST PREMIUM */
+.cr-toast-container { position: fixed; top: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px;
+  z-index: 1000; pointer-events: none; }
+.cr-toast { padding: 14px 20px; border-radius: 14px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow-xl);
+  animation: toastIn 0.35s var(--ease-out); pointer-events: auto; display: flex; align-items: center; gap: 10px; backdrop-filter: blur(10px); }
+.cr-toast.success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+.cr-toast.error { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: white; }
+.cr-toast.info { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: white; }
+@keyframes toastIn { from { opacity: 0; transform: translateY(-12px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* MODAL PREMIUM */
+.cr-modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.5); display: flex; align-items: center; justify-content: center;
+  z-index: 999; opacity: 0; pointer-events: none; transition: opacity var(--t-fast) var(--ease-out); backdrop-filter: blur(8px); }
+.cr-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.cr-modal { background: var(--bg-card); border-radius: 20px; width: 540px; max-width: 92vw; max-height: 88vh; overflow: hidden;
+  display: flex; flex-direction: column; transform: scale(0.95) translateY(12px); transition: transform var(--t-fast) var(--ease-out);
+  box-shadow: var(--shadow-xl); border: 1px solid var(--border); }
+.cr-modal-overlay.open .cr-modal { transform: scale(1) translateY(0); }
+.cr-modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--gradient-card); }
+.cr-modal-header h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; font-family: var(--font-display); }
+.cr-modal-body { padding: 24px; overflow-y: auto; }
+.cr-modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; background: var(--gradient-card); }
+
+/* TOGGLE PREMIUM */
+.cr-toggle { width: 44px; height: 24px; border-radius: 12px; background: var(--border); position: relative; cursor: pointer;
+  transition: all var(--t-fast) var(--ease-out); flex-shrink: 0; }
+.cr-toggle.on { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); box-shadow: 0 2px 8px rgba(16,185,129,0.3); }
+.cr-toggle::after { content: ''; position: absolute; width: 20px; height: 20px; border-radius: 50%; background: white;
+  top: 2px; left: 2px; transition: transform var(--t-fast) var(--ease-out); box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+.cr-toggle.on::after { transform: translateX(20px); }
+
+/* ANIMATIONS */
+.fade-in { animation: fadeIn 0.4s var(--ease-out); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.pulse-glow { animation: pulseGlow 2s infinite; }
+@keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.2); } 50% { box-shadow: 0 0 0 8px rgba(99,102,241,0); } }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-quaternary); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .cr-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .submit-order-container { max-width: 100%; }
+}
+@media (max-width: 768px) {
+  .cr-sidebar { width: 64px; padding: 16px 8px; }
+  .cr-brand span, .cr-nav-item span, .cr-nav-section, .cr-sidebar-footer .user-info { display: none; }
+  .cr-nav-item { justify-content: center; padding: 10px; }
+  .cr-main { padding: 16px; }
+  .cr-stats-grid { grid-template-columns: 1fr; }
+  .submit-order-card { padding: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="cr-container">
+  <aside class="cr-sidebar">
+    <div class="cr-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>ChannelReacts</span>
+    </div>
+    <div class="cr-nav-section">Menu</div>
+    <button class="cr-nav-item active" data-page="dashboard" onclick="switchPage('dashboard')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h7v7H4zM13 4h7v5h-7zM4 13h7v7H4zM13 10h7v10h-7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      <span>Dashboard</span>
+    </button>
+    <button class="cr-nav-item" data-page="submitorder" onclick="switchPage('submitorder')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Submit Order</span>
+    </button>
+    <button class="cr-nav-item" data-page="orders" onclick="switchPage('orders')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Orders</span>
+    </button>
+    <button class="cr-nav-item" data-page="leaderboard" onclick="switchPage('leaderboard')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Leaderboard</span>
+    </button>
+    <button class="cr-nav-item" data-page="apikeys" onclick="switchPage('apikeys')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 7a2 2 0 012 2v4l-1.5 1.5L13 11V9a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/></svg>
+      <span>API Keys</span>
+    </button>
+    <div class="cr-nav-section">System</div>
+    <button class="cr-nav-item" data-page="logs" onclick="switchPage('logs')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8v4l3 3M3 12a9 9 0 1118 0 9 9 0 01-18 0z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Logs</span>
+    </button>
+    <button class="cr-nav-item" data-page="admin" onclick="switchPage('admin')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Admin</span>
+    </button>
+    <div class="cr-sidebar-footer">
+      <div class="cr-avatar">JD</div>
+      <div class="user-info">
+        <div style="font-weight:700;color:#fff;font-size:13px;">John Doe</div>
+        <div style="font-size:11px;color:rgba(148,163,184,0.8);">Pro Plan</div>
+      </div>
+    </div>
+  </aside>
+  <main class="cr-main" id="mainContent"></main>
+</div>
+<div class="cr-toast-container" id="toastContainer"></div>
+<div class="cr-modal-overlay" id="modalOverlay">
+  <div class="cr-modal" id="modalContent"></div>
+</div>
+<script>
+const state = {
+  page: "dashboard",
+  orders: [
+    { id: "ORD-240718-001", channel: "Tech Updates ID", url: "https://whatsapp.com/channel/0029VahcFkK0AgW2tNSlYf3t/123", reaction: "heart", qty: 500, status: "completed", created: "2026-07-18 08:30", progress: 100 },
+    { id: "ORD-240718-002", channel: "Crypto Signals", url: "https://whatsapp.com/channel/xxxxx/456", reaction: "fire", qty: 1200, status: "running", created: "2026-07-18 09:15", progress: 67 },
+    { id: "ORD-240718-003", channel: "Design Daily", url: "https://whatsapp.com/channel/xxxxx/789", reaction: "like", qty: 300, status: "pending", created: "2026-07-18 09:45", progress: 0 },
+    { id: "ORD-240717-004", channel: "Dev Tips", url: "https://whatsapp.com/channel/xxxxx/321", reaction: "heart", qty: 800, status: "completed", created: "2026-07-17 14:20", progress: 100 },
+    { id: "ORD-240717-005", channel: "Startup News", url: "https://whatsapp.com/channel/xxxxx/654", reaction: "wow", qty: 1500, status: "failed", created: "2026-07-17 16:00", progress: 23 },
+  ],
+  apiKeys: [
+    { id: 1, name: "Production Key", key: "cr_live_51NqXyZ...xYz9", created: "2026-06-01", lastUsed: "2 min ago", active: true },
+    { id: 2, name: "Development", key: "cr_test_42MqWpL...aBc3", created: "2026-06-15", lastUsed: "3 days ago", active: true },
+    { id: 3, name: "Backup", key: "cr_live_88KjRtN...dEf7", created: "2026-07-01", lastUsed: "Never", active: false },
+  ],
+  logs: [
+    { id: 1, orderId: "ORD-240718-001", action: "reaction_sent", detail: "+50 reactions delivered", time: "08:35:12", status: "success" },
+    { id: 2, orderId: "ORD-240718-001", action: "reaction_sent", detail: "+50 reactions delivered", time: "08:40:22", status: "success" },
+    { id: 3, orderId: "ORD-240718-002", action: "reaction_sent", detail: "+50 reactions delivered", time: "09:20:05", status: "success" },
+    { id: 4, orderId: "ORD-240718-002", action: "rate_limit", detail: "Cooldown 30s applied", time: "09:25:18", status: "warning" },
+    { id: 5, orderId: "ORD-240717-005", action: "channel_error", detail: "Channel not found", time: "16:05:33", status: "error" },
+    { id: 6, orderId: "ORD-240718-003", action: "order_created", detail: "Order queued", time: "09:45:00", status: "info" },
+  ],
+  leaderboard: [
+    { rank: 1, name: "Alex Chen", email: "alex@example.com", refs: 342, reactions: 45200 },
+    { rank: 2, name: "Maria Garcia", email: "maria@example.com", refs: 298, reactions: 38100 },
+    { rank: 3, name: "Raju Patel", email: "raju@example.com", refs: 256, reactions: 32900 },
+    { rank: 4, name: "Sarah Kim", email: "sarah@example.com", refs: 201, reactions: 27500 },
+    { rank: 5, name: "Tom Wilson", email: "tom@example.com", refs: 187, reactions: 24100 },
+    { rank: 6, name: "Lisa Wong", email: "lisa@example.com", refs: 154, reactions: 19800 },
+    { rank: 7, name: "David Park", email: "david@example.com", refs: 132, reactions: 16500 },
+  ],
+  renewals: [
+    { id: 1, user: "Alex Chen", email: "alex@example.com", plan: "Pro Monthly", status: "pending", date: "2026-07-18" },
+    { id: 2, user: "Maria Garcia", email: "maria@example.com", plan: "Pro Yearly", status: "approved", date: "2026-07-17" },
+    { id: 3, user: "Raju Patel", email: "raju@example.com", plan: "Pro Monthly", status: "rejected", date: "2026-07-16" },
+  ],
+  stats: {
+    totalReactions: 186420, totalReactionsDelta: 12.5, activeOrders: 3, activeOrdersDelta: 0,
+    successRate: 94.2, successRateDelta: 2.1, coins: 2450, coinsDelta: -5,
+  },
+  reactionTypes: [
+    { name: "Heart", count: 54200, color: "var(--chart2)" },
+    { name: "Like", count: 38100, color: "var(--chart1)" },
+    { name: "Fire", count: 28900, color: "var(--chart3)" },
+    { name: "Wow", count: 21400, color: "var(--chart4)" },
+    { name: "Sad", count: 12800, color: "var(--chart5)" },
+  ]
+};
+
+const reactionIcons = { heart: "\u2764\uFE0F", fire: "\uD83D\uDD25", like: "\uD83D\uDC4D", wow: "\uD83D\uDE2E", sad: "\uD83D\uDE22" };
+let soQty = 500;
+
+function badge(status) {
+  const map = {
+    completed: `<span class="cr-badge cr-badge-success"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Completed</span>`,
+    running: `<span class="cr-badge cr-badge-pending"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Running</span>`,
+    pending: `<span class="cr-badge cr-badge-neutral"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Pending</span>`,
+    failed: `<span class="cr-badge cr-badge-danger"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Failed</span>`,
+    approved: `<span class="cr-badge cr-badge-success">Approved</span>`,
+    rejected: `<span class="cr-badge cr-badge-danger">Rejected</span>`,
+  };
+  return map[status] || `<span class="cr-badge cr-badge-neutral">${status}</span>`;
+}
+
+function logBadge(status) {
+  const map = { success: `<span class="cr-badge cr-badge-success">Success</span>`, error: `<span class="cr-badge cr-badge-danger">Error</span>`, warning: `<span class="cr-badge cr-badge-pending">Warning</span>`, info: `<span class="cr-badge cr-badge-neutral">Info</span>` };
+  return map[status] || status;
+}
+
+function switchPage(page) {
+  state.page = page;
+  document.querySelectorAll(".cr-nav-item").forEach(el => el.classList.toggle("active", el.dataset.page === page));
+  const main = document.getElementById("mainContent");
+  const renderers = { dashboard: renderDashboard, submitorder: renderSubmitOrder, orders: renderOrders, leaderboard: renderLeaderboard, apikeys: renderApiKeys, logs: renderLogs, admin: renderAdmin };
+  main.innerHTML = renderers[page] ? renderers[page]() : renderDashboard();
+}
+
+function showToast(message, type) {
+  const container = document.getElementById("toastContainer");
+  const toast = document.createElement("div");
+  toast.className = `cr-toast ${type}`;
+  toast.innerHTML = message;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => showToast("Copied to clipboard", "success"));
+}
+
+function deleteOrder(id) {
+  if (!confirm("Delete this order?")) return;
+  state.orders = state.orders.filter(o => o.id !== id);
+  switchPage("orders");
+  showToast("Order deleted", "success");
+}
+
+function refreshOrders() { showToast("Orders refreshed", "success"); }
+
+function toggleKey(id) {
+  const key = state.apiKeys.find(k => k.id === id);
+  if (key) { key.active = !key.active; switchPage("apikeys"); showToast(`Key ${key.active ? "activated" : "deactivated"}`, "success"); }
+}
+
+function deleteKey(id) {
+  if (!confirm("Delete this API key? This cannot be undone.")) return;
+  state.apiKeys = state.apiKeys.filter(k => k.id !== id);
+  switchPage("apikeys");
+  showToast("API key deleted", "success");
+}
+
+function approveRenewal(id) {
+  const r = state.renewals.find(x => x.id === id);
+  if (r) { r.status = "approved"; switchPage("admin"); showToast(`Renewal approved for ${r.user}`, "success"); }
+}
+
+function rejectRenewal(id) {
+  const r = state.renewals.find(x => x.id === id);
+  if (r) { r.status = "rejected"; switchPage("admin"); showToast(`Renewal rejected for ${r.user}`, "error"); }
+}
+
+function changeQty(delta) {
+  soQty = Math.max(50, Math.min(10000, soQty + delta));
+  const display = document.getElementById("soQtyDisplay");
+  const cost = document.getElementById("soCost");
+  if (display) display.textContent = soQty.toLocaleString();
+  if (cost) cost.textContent = soQty.toLocaleString();
+}
+
+function updateReactionPreview() {
+  const input = document.getElementById("soReactions");
+  const preview = document.getElementById("reactionPreview");
+  if (!input || !preview) return;
+  const emojis = input.value.split(/[,\s]+/).filter(e => e.trim());
+  preview.innerHTML = emojis.length > 0 
+    ? emojis.map(e => `<span class="emoji">${e}</span>`).join("")
+    : `<span style="color:var(--text-quaternary);font-size:14px;">No reactions selected</span>`;
+}
+
+function submitReactionOrder() {
+  const url = document.getElementById("soUrl").value;
+  const reactions = document.getElementById("soReactions").value;
+  if (!url) { showToast("WhatsApp Post Link is required", "error"); return; }
+  if (!reactions.trim()) { showToast("At least one reaction is required", "error"); return; }
+  const id = "ORD-" + new Date().toISOString().slice(2,10).replace(/-/g,"") + "-" + String(state.orders.length + 1).padStart(3,"0");
+  const reactionList = reactions.split(/[,\s]+/).filter(e => e.trim());
+  const primaryReaction = reactionList[0].includes("\u2764") ? "heart" : reactionList[0].includes("\uD83D\uDD25") ? "fire" : reactionList[0].includes("\uD83D\uDE2E") ? "wow" : "like";
+  state.orders.unshift({ id, channel: "New Order", url, reaction: primaryReaction, qty: soQty, status: "pending", created: new Date().toISOString().slice(0,16).replace("T"," "), progress: 0 });
+  showToast(`Order submitted! Cost: ${soQty} credits`, "success");
+  switchPage("orders");
+}
+
+function renderDashboard() {
+  const s = state.stats;
+  const maxCount = Math.max(...state.reactionTypes.map(r => r.count));
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Dashboard</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn cr-btn-primary pulse-glow" onclick="switchPage('submitorder')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            New order
+          </button>
+        </div>
+      </div>
+      <div class="cr-stats-grid">
+        <div class="cr-stat-card">
+          <div class="cr-stat-icon purple">&#x2764;&#xFE0F;</div>
+          <div class="cr-stat-label">Total reactions</div>
+          <div class="cr-stat-value">${s.totalReactions.toLocaleString()}</div>
+          <div class="cr-stat-delta up">+${s.totalReactionsDelta}% vs last week</div>
+        </div>
+        <div class="cr-stat-card">
+          <div class="cr-stat-icon pink">&#x26A1;</div>
+          <div class="cr-stat-label">Active orders</div>
+          <div class="cr-stat-value">${s.activeOrders}</div>
+          <div class="cr-stat-delta ${s.activeOrdersDelta >= 0 ? "up" : "down"}">${s.activeOrdersDelta >= 0 ? "+" : ""}${s.activeOrdersDelta} from yesterday</div>
+        </div>
+        <div class="cr-stat-card">
+          <div class="cr-stat-icon green">&#x2705;</div>
+          <div class="cr-stat-label">Success rate</div>
+          <div class="cr-stat-value">${s.successRate}%</div>
+          <div class="cr-stat-delta up">+${s.successRateDelta}% vs last week</div>
+        </div>
+        <div class="cr-stat-card">
+          <div class="cr-stat-icon orange">&#x1F48E;</div>
+          <div class="cr-stat-label">Coins balance</div>
+          <div class="cr-stat-value">${s.coins.toLocaleString()}</div>
+          <div class="cr-stat-delta ${s.coinsDelta >= 0 ? "up" : "down"}">${s.coinsDelta >= 0 ? "+" : ""}${s.coinsDelta} today</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="cr-section">
+          <div class="cr-section-header">
+            <div class="cr-section-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Reaction distribution
+            </div>
+          </div>
+          <div class="cr-section-body" style="padding:14px 0;">
+            ${state.reactionTypes.map(rt => `
+              <div class="cr-chart-row">
+                <div class="cr-chart-label">${rt.name}</div>
+                <div class="cr-chart-bar-wrap"><div class="cr-chart-bar" style="width:${(rt.count/maxCount*100).toFixed(1)}%;background:${rt.color};"></div></div>
+                <div class="cr-chart-value">${(rt.count/1000).toFixed(1)}k</div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+        <div class="cr-section">
+          <div class="cr-section-header">
+            <div class="cr-section-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 20h9M12 20V4m0 16l-7-7m7 7l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Recent orders
+            </div>
+            <button class="cr-btn cr-btn-sm" onclick="switchPage('orders')">View all</button>
+          </div>
+          <div class="cr-section-body">
+            <table class="cr-table">
+              <thead><tr><th>Order</th><th>Channel</th><th>Status</th></tr></thead>
+              <tbody>
+                ${state.orders.slice(0,4).map(o => `
+                  <tr>
+                    <td style="font-weight:700;color:var(--text-primary);font-family:var(--font-mono);font-size:12px;">${o.id}</td>
+                    <td>${o.channel}</td>
+                    <td>${badge(o.status)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderSubmitOrder() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Submit Order</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn" onclick="switchPage('orders')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            My Orders
+          </button>
+        </div>
+      </div>
+      <div class="submit-order-container">
+        <div class="submit-order-card">
+          <div class="submit-order-header">
+            <div class="icon-wrap">&#x26A1;</div>
+            <h2>Submit Reaction Order</h2>
+          </div>
+          <p class="submit-order-subtitle">Send your WhatsApp post link. Admin will approve & deliver. 1 reaction = 1 credit.</p>
+          <div class="submit-order-group">
+            <label>WhatsApp Post Link</label>
+            <input type="text" class="submit-order-input" id="soUrl" placeholder="https://whatsapp.com/channel/..." />
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+            <div class="submit-order-group">
+              <label>Reactions <span class="label-badge">DEFAULT &middot; 1 credit/reaction</span></label>
+              <input type="text" class="submit-order-input" id="soReactions" placeholder="&#x2764;&#xFE0F;, &#x1F44D;, &#x1F525;" value="&#x2764;&#xFE0F;, &#x1F44D;, &#x1F525;" oninput="updateReactionPreview()" />
+              <div class="reaction-info">
+                Default (free tier): <strong>&#x2764;&#xFE0F; &#x1F44D; &#x1F525;</strong> = 1 credit. Any other emoji = custom (needs 2+ credits, 2 per reaction).
+              </div>
+            </div>
+            <div class="submit-order-group">
+              <label>Reactions</label>
+              <div class="qty-selector">
+                <button onclick="changeQty(-50)">&minus;</button>
+                <div class="qty-value" id="soQtyDisplay">500</div>
+                <button onclick="changeQty(50)">+</button>
+              </div>
+              <div style="font-size:12px;color:var(--text-tertiary);margin-top:8px;text-align:center;">500 &ndash; 1,000 Reacts</div>
+            </div>
+          </div>
+          <div class="submit-order-group">
+            <label>Preview</label>
+            <div class="reaction-preview-box" id="reactionPreview">
+              <span class="emoji">&#x2764;&#xFE0F;</span>
+              <span class="emoji">&#x1F44D;</span>
+              <span class="emoji">&#x1F525;</span>
+            </div>
+          </div>
+          <div class="cost-display">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span>Cost:</span>
+            <span class="cost-value" id="soCost">500</span>
+            <span>credits</span>
+          </div>
+          <button class="submit-btn" onclick="submitReactionOrder()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Submit Order
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderOrders() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Reaction orders</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn" onclick="refreshOrders()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Refresh
+          </button>
+          <button class="cr-btn cr-btn-primary" onclick="switchPage('submitorder')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            New order
+          </button>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-section-body">
+          <table class="cr-table">
+            <thead>
+              <tr><th>Order ID</th><th>Channel</th><th>Reaction</th><th>Qty</th><th>Progress</th><th>Status</th><th>Created</th><th></th></tr>
+            </thead>
+            <tbody>
+              ${state.orders.map(o => `
+                <tr>
+                  <td style="font-weight:700;color:var(--text-primary);font-family:var(--font-mono);font-size:12px;">${o.id}</td>
+                  <td><div style="font-weight:700;color:var(--text-primary);">${o.channel}</div><div style="font-size:11px;color:var(--text-quaternary);overflow:hidden;text-overflow:ellipsis;max-width:220px;white-space:nowrap;">${o.url}</div></td>
+                  <td><span style="font-size:18px;">${reactionIcons[o.reaction] || "&#x1F44D;"}</span> <span style="font-size:12px;text-transform:capitalize;color:var(--text-secondary);">${o.reaction}</span></td>
+                  <td style="font-variant-numeric:tabular-nums;font-weight:700;">${o.qty.toLocaleString()}</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div style="flex:1;height:8px;background:var(--bg-hover);border-radius:4px;overflow:hidden;">
+                        <div style="width:${o.progress}%;height:100%;background:${o.status === "failed" ? "var(--danger)" : o.status === "completed" ? "var(--positive)" : "var(--chart1)"};border-radius:4px;transition:width 0.5s;"></div>
+                      </div>
+                      <span style="font-size:11px;color:var(--text-tertiary);width:32px;text-align:right;font-weight:700;">${o.progress}%</span>
+                    </div>
+                  </td>
+                  <td>${badge(o.status)}</td>
+                  <td style="font-size:12px;color:var(--text-tertiary);white-space:nowrap;">${o.created}</td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="cr-btn cr-btn-icon cr-btn-sm" onclick="showToast('Order details viewed','info')" aria-label="View">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                      </button>
+                      <button class="cr-btn cr-btn-icon cr-btn-sm" onclick="deleteOrder('${o.id}')" aria-label="Delete">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLeaderboard() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Leaderboard</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn" onclick="showToast('Leaderboard refreshed','success')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-section-header">
+          <div class="cr-section-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0V4z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Top referrers
+          </div>
+        </div>
+        <div class="cr-section-body">
+          ${state.leaderboard.map(u => {
+            const rankClass = u.rank === 1 ? "gold" : u.rank === 2 ? "silver" : u.rank === 3 ? "bronze" : "normal";
+            const colors = ["var(--chart1)","var(--chart2)","var(--chart3)","var(--chart4)","var(--chart5)"];
+            return `
+              <div class="cr-leaderboard-item">
+                <div class="cr-rank ${rankClass}">${u.rank}</div>
+                <div class="cr-avatar" style="background:${colors[(u.rank-1)%5]};width:38px;height:38px;font-size:14px;">${u.name.split(" ").map(n=>n[0]).join("")}</div>
+                <div class="cr-lb-info"><div class="cr-lb-name">${u.name}</div><div class="cr-lb-meta">${u.email} &middot; ${u.refs} referrals</div></div>
+                <div class="cr-lb-score">${u.reactions.toLocaleString()}</div>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderApiKeys() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>API keys</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn cr-btn-primary" onclick="openNewKeyModal()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Generate key
+          </button>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-section-header">
+          <div class="cr-section-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 7a2 2 0 012 2v4l-1.5 1.5L13 11V9a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.8"/></svg>
+            Your API keys
+          </div>
+        </div>
+        <div class="cr-section-body">
+          <table class="cr-table">
+            <thead><tr><th>Name</th><th>Key</th><th>Created</th><th>Last used</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              ${state.apiKeys.map(k => `
+                <tr>
+                  <td style="font-weight:700;color:var(--text-primary);">${k.name}</td>
+                  <td>
+                    <div class="cr-apikey-box">
+                      <span class="key-text">${k.key}</span>
+                      <button class="cr-btn cr-btn-icon cr-btn-sm" onclick="copyToClipboard('${k.key}')" aria-label="Copy">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                  <td style="font-size:12px;color:var(--text-tertiary);">${k.created}</td>
+                  <td style="font-size:12px;color:var(--text-tertiary);">${k.lastUsed}</td>
+                  <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                      <div class="cr-toggle ${k.active ? "on" : ""}" onclick="toggleKey(${k.id})"></div>
+                      <span style="font-size:12px;color:var(--text-tertiary);font-weight:600;">${k.active ? "Active" : "Inactive"}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="row-actions">
+                      <button class="cr-btn cr-btn-icon cr-btn-sm cr-btn-danger" onclick="deleteKey(${k.id})" aria-label="Delete">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="cr-section" style="margin-top:16px;">
+        <div class="cr-section-header">
+          <div class="cr-section-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            API endpoint
+          </div>
+        </div>
+        <div class="cr-section-body" style="padding:18px;">
+          <div class="cr-apikey-box" style="margin-bottom:14px;">
+            <span class="key-text">https://lxgwsdjwdeimnoickixx.supabase.co/functions/v1/public-api</span>
+            <button class="cr-btn cr-btn-icon cr-btn-sm" onclick="copyToClipboard('https://lxgwsdjwdeimnoickixx.supabase.co/functions/v1/public-api')" aria-label="Copy">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <div style="font-size:12px;color:var(--text-tertiary);line-height:1.7;">
+            Include your API key in the <code style="font-family:var(--font-mono);background:var(--bg-hover);padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;">Authorization: Bearer &lt;key&gt;</code> header.<br>
+            Rate limit: <strong style="color:var(--text-primary);">100 requests/minute</strong> per key.
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+
+function renderLogs() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Activity logs</h1>
+        <div class="cr-header-actions">
+          <button class="cr-btn" onclick="showToast('Logs exported','success')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Export
+          </button>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-section-body">
+          <table class="cr-table">
+            <thead><tr><th>Time</th><th>Order</th><th>Action</th><th>Detail</th><th>Status</th></tr></thead>
+            <tbody>
+              ${state.logs.map(l => `
+                <tr>
+                  <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-tertiary);white-space:nowrap;">${l.time}</td>
+                  <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-primary);font-weight:700;">${l.orderId}</td>
+                  <td style="font-weight:700;color:var(--text-primary);font-size:12px;">${l.action}</td>
+                  <td style="font-size:12px;color:var(--text-secondary);">${l.detail}</td>
+                  <td>${logBadge(l.status)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAdmin() {
+  return `
+    <div class="fade-in">
+      <div class="cr-header">
+        <h1>Admin panel</h1>
+        <div class="cr-header-actions">
+          <span class="cr-badge cr-badge-success" style="font-size:12px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Admin access
+          </span>
+        </div>
+      </div>
+      <div class="cr-section">
+        <div class="cr-section-header">
+          <div class="cr-section-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 20h9M12 20V4m0 16l-7-7m7 7l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Renewal requests
+          </div>
+        </div>
+        <div class="cr-section-body">
+          <table class="cr-table">
+            <thead><tr><th>User</th><th>Plan</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              ${state.renewals.map(r => `
+                <tr>
+                  <td><div style="font-weight:700;color:var(--text-primary);">${r.user}</div><div style="font-size:11px;color:var(--text-quaternary);">${r.email}</div></td>
+                  <td style="font-weight:600;">${r.plan}</td>
+                  <td style="font-size:12px;color:var(--text-tertiary);">${r.date}</td>
+                  <td>${badge(r.status)}</td>
+                  <td>
+                    ${r.status === "pending" ? `
+                      <div style="display:flex;gap:8px;">
+                        <button class="cr-btn cr-btn-sm" style="color:var(--positive);border-color:rgba(16,185,129,0.2);background:var(--positive-soft);" onclick="approveRenewal(${r.id})">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          Approve
+                        </button>
+                        <button class="cr-btn cr-btn-sm cr-btn-danger" onclick="rejectRenewal(${r.id})">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          Reject
+                        </button>
+                      </div>
+                    ` : `<span style="font-size:12px;color:var(--text-quaternary);">No actions</span>`}
+                  </td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+        <div class="cr-section">
+          <div class="cr-section-header">
+            <div class="cr-section-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 118 0 4 4 0 01-8 0z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              User roles
+            </div>
+          </div>
+          <div class="cr-section-body" style="padding:18px;">
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text-primary);font-weight:600;">John Doe</span><span class="cr-badge cr-badge-success">admin</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text-primary);font-weight:600;">Alex Chen</span><span class="cr-badge cr-badge-neutral">user</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;"><span style="font-size:13px;color:var(--text-primary);font-weight:600;">Maria Garcia</span><span class="cr-badge cr-badge-neutral">user</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cr-section">
+          <div class="cr-section-header">
+            <div class="cr-section-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Broadcast
+            </div>
+          </div>
+          <div class="cr-section-body" style="padding:18px;">
+            <div class="cr-form-group full" style="margin-bottom:14px;">
+              <label class="cr-form-label">Message</label>
+              <textarea class="cr-textarea" placeholder="Type broadcast message to all users..."></textarea>
+            </div>
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="cr-btn cr-btn-primary" onclick="showToast('Broadcast sent to all users','success')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Send broadcast
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ===================== MODALS =====================
+function openModal(html) {
+  document.getElementById("modalContent").innerHTML = html;
+  document.getElementById("modalOverlay").classList.add("open");
+}
+function closeModal() { document.getElementById("modalOverlay").classList.remove("open"); }
+
+document.getElementById("modalOverlay").addEventListener("click", e => { if (e.target === document.getElementById("modalOverlay")) closeModal(); });
+
+function openNewOrderModal() {
+  openModal(`
+    <div class="cr-modal-header">
+      <h3>New reaction order</h3>
+      <button class="cr-btn cr-btn-icon" onclick="closeModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="cr-modal-body">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="cr-form-group full">
+          <label class="cr-form-label">WhatsApp channel URL</label>
+          <input class="cr-input" id="orderUrl" placeholder="https://whatsapp.com/channel/..." />
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div class="cr-form-group">
+            <label class="cr-form-label">Reaction type</label>
+            <select class="cr-select" id="orderReaction"><option value="heart">Heart</option><option value="like">Like</option><option value="fire">Fire</option><option value="wow">Wow</option><option value="sad">Sad</option></select>
+          </div>
+          <div class="cr-form-group">
+            <label class="cr-form-label">Quantity</label>
+            <input class="cr-input" id="orderQty" type="number" value="500" min="50" max="10000" />
+          </div>
+        </div>
+        <div class="cr-form-group full">
+          <label class="cr-form-label">Channel name (optional)</label>
+          <input class="cr-input" id="orderChannel" placeholder="My Channel" />
+        </div>
+        <div style="padding:14px;border-radius:12px;background:var(--bg-hover);font-size:13px;color:var(--text-tertiary);line-height:1.6;border:1px dashed var(--border);">
+          Cost: <strong id="orderCost" style="color:var(--accent);font-size:16px;">50</strong> coins &middot; Estimated time: <strong style="color:var(--text-primary);">~12 min</strong>
+        </div>
+      </div>
+    </div>
+    <div class="cr-modal-footer">
+      <button class="cr-btn" onclick="closeModal()">Cancel</button>
+      <button class="cr-btn cr-btn-primary" onclick="submitOrder()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Create order
+      </button>
+    </div>
+  `);
+  setTimeout(() => {
+    const el = document.getElementById("orderQty");
+    if (el) el.addEventListener("input", function() { const c = document.getElementById("orderCost"); if (c) c.textContent = Math.ceil(this.value / 10); });
+  }, 0);
+}
+
+function submitOrder() {
+  const url = document.getElementById("orderUrl").value;
+  const reaction = document.getElementById("orderReaction").value;
+  const qty = parseInt(document.getElementById("orderQty").value);
+  const channel = document.getElementById("orderChannel").value || "Untitled";
+  if (!url) { showToast("Channel URL is required", "error"); return; }
+  const id = "ORD-" + new Date().toISOString().slice(2,10).replace(/-/g,"") + "-" + String(state.orders.length + 1).padStart(3,"0");
+  state.orders.unshift({ id, channel, url, reaction, qty, status: "pending", created: new Date().toISOString().slice(0,16).replace("T"," "), progress: 0 });
+  closeModal();
+  switchPage("orders");
+  showToast("Order created successfully", "success");
+}
+
+function openNewKeyModal() {
+  openModal(`
+    <div class="cr-modal-header">
+      <h3>Generate API key</h3>
+      <button class="cr-btn cr-btn-icon" onclick="closeModal()" aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="cr-modal-body">
+      <div class="cr-form-group full">
+        <label class="cr-form-label">Key name</label>
+        <input class="cr-input" id="keyName" placeholder="e.g. Production Key" />
+      </div>
+      <div style="padding:14px;border-radius:12px;background:rgba(245,158,11,0.06);border:1px dashed rgba(245,158,11,0.2);font-size:12px;color:var(--text-tertiary);line-height:1.6;margin-top:10px;">
+        <strong style="color:var(--warning);">&#x26A0;</strong> Keep this key secure. It will only be shown once.
+      </div>
+    </div>
+    <div class="cr-modal-footer">
+      <button class="cr-btn" onclick="closeModal()">Cancel</button>
+      <button class="cr-btn cr-btn-primary" onclick="generateKey()">Generate</button>
+    </div>
+  `);
+}
+
+function generateKey() {
+  const name = document.getElementById("keyName").value || "New Key";
+  const key = "cr_live_" + Math.random().toString(36).substring(2, 14).toUpperCase() + "..." + Math.random().toString(36).substring(2, 6);
+  state.apiKeys.push({ id: Date.now(), name, key, created: new Date().toISOString().slice(0,10), lastUsed: "Never", active: true });
+  closeModal();
+  switchPage("apikeys");
+  showToast("New API key generated", "success");
+}
+
+// ===================== INIT =====================
+switchPage("dashboard");
+</script>
+
+</body>
+</html>
