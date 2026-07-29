@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#5b7cfa">
 
 <title>Play Spotify - RafaXMods</title>
@@ -136,6 +136,21 @@ body{
     font-weight:700;
     color:#f4f6ff;
     letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.spotify-logo-icon{
+    font-size:24px;
+    color:#1ed760;
+    filter:drop-shadow(0 0 10px rgba(30,215,96,.6));
+    animation:spotifyPulse 3s ease-in-out infinite;
+}
+
+@keyframes spotifyPulse{
+    0%,100%{filter:drop-shadow(0 0 8px rgba(30,215,96,.5));}
+    50%{filter:drop-shadow(0 0 16px rgba(30,215,96,.9));}
 }
 
 /* ========== GLASS CARD PREMIUM ========== */
@@ -147,7 +162,6 @@ body{
     box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 30px rgba(0,0,0,.3);
     margin-bottom:22px;
     position:relative;
-    overflow:hidden;
     backdrop-filter:blur(12px);
     transform-style:preserve-3d;
     transition:transform .3s ease, box-shadow .3s ease;
@@ -160,8 +174,9 @@ body{
 .card::before{
     content:"";
     position:absolute;
-    top:-1px;left:-1px;right:-1px;
+    top:-1px;left:16px;right:16px;
     height:1px;
+    border-radius:24px 24px 0 0;
     background:linear-gradient(90deg,transparent,rgba(165,180,255,.9),transparent);
 }
 
@@ -205,17 +220,24 @@ body{
 /* ========== INPUT COMPONENTS ========== */
 .input-group{
     display:flex;
-    gap:10px;
+    gap:8px;
+    align-items:center;
+    width:100%;
+    position:relative;
+    z-index:5;
+    flex-wrap:nowrap;
 }
 
 .input{
-    flex:1;
+    flex:1 1 auto;
+    min-width:0;
+    width:100%;
     height:54px;
     background:rgba(7,10,24,.8);
     border:1px solid rgba(124,147,255,.25);
     border-radius:16px;
     padding:0 18px;
-    font-size:15px;
+    font-size:16px;
     color:#f4f6ff;
     outline:none;
     transition:.3s;
@@ -250,10 +272,14 @@ body{
 
 .btn-search{
     width:54px;
+    min-width:54px;
+    max-width:54px;
+    flex-shrink:0;
+    flex-grow:0;
     background:linear-gradient(145deg,#5b7cfa,#324adf);
     box-shadow:0 6px 18px rgba(91,124,250,.3);
-    flex-shrink:0;
     position:relative;
+    z-index:6;
     overflow:hidden;
 }
 
@@ -790,6 +816,193 @@ body{
     transform:scale(1.1);
 }
 
+/* ========== RIWAYAT PENCARIAN ========== */
+.results-title-flex{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:6px 10px 12px;
+}
+
+.results-title-flex .results-title{
+    padding:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.close-history-btn{
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    color:#8b93b8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    cursor:pointer;
+    transition:.25s;
+    flex-shrink:0;
+}
+
+.close-history-btn:hover{
+    background:rgba(239,68,68,.15);
+    border-color:rgba(239,68,68,.4);
+    color:#ef4444;
+    transform:rotate(90deg);
+}
+
+.history-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.history-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#070a18;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:999px;
+    padding:8px 8px 8px 14px;
+    font-size:13px;
+    color:#c7ceee;
+    cursor:pointer;
+    transition:.25s;
+    max-width:100%;
+}
+
+.history-chip:hover{
+    border-color:rgba(124,147,255,.5);
+    background:rgba(91,124,250,.1);
+    color:#f4f6ff;
+}
+
+.history-chip span{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:180px;
+}
+
+.history-chip i.fa-clock-rotate-left{
+    color:#5b7cfa;
+    font-size:11px;
+}
+
+.history-chip-remove{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:9px;
+    color:#8b93b8;
+    flex-shrink:0;
+    transition:.2s;
+}
+
+.history-chip-remove:hover{
+    background:rgba(239,68,68,.25);
+    color:#ff8484;
+}
+
+.history-empty{
+    font-size:13px;
+    color:#525a7f;
+    padding:6px 10px;
+}
+
+/* ========== LAGU SEDANG POPULER ========== */
+.trending-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px;
+    border-radius:16px;
+    background:#070a18;
+    border:1px solid rgba(255,255,255,.05);
+    cursor:pointer;
+    transition:.25s;
+    position:relative;
+}
+
+.trending-item:hover{
+    border-color:rgba(30,215,96,.45);
+    background:rgba(30,215,96,.06);
+    transform:translateY(-1px);
+}
+
+.trending-rank{
+    flex-shrink:0;
+    width:30px;
+    height:30px;
+    border-radius:10px;
+    background:linear-gradient(145deg,#1a2044,#0e1230);
+    border:1px solid rgba(124,147,255,.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12.5px;
+    font-weight:800;
+    color:#a5b4ff;
+}
+
+.trending-item-info{
+    flex:1;
+    min-width:0;
+}
+
+.trending-item-title{
+    font-size:14px;
+    font-weight:600;
+    color:#f4f6ff;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.trending-item-artist{
+    font-size:12.5px;
+    color:#8b93b8;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:2px;
+}
+
+.trending-item-play{
+    flex-shrink:0;
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#1ed760,#12a750);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#05060d;
+    font-size:12px;
+    transition:transform .2s;
+}
+
+.trending-item:hover .trending-item-play{
+    transform:scale(1.1);
+}
+
+.trending-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#ff9f43;
+    font-size:11px;
+    font-weight:700;
+}
+
 /* ========== AUDIO PLAYER ========== */
 .audio-player{
     display:none;
@@ -1017,12 +1230,12 @@ body{
 
     <div class="header reveal">
         <a href="index.html" class="back-btn-top" id="backBtn">✕</a>
-        <div class="header-title">Play Spotify</div>
+        <div class="header-title"><i class="fa-brands fa-spotify spotify-logo-icon"></i> Play Spotify</div>
     </div>
 
     <div class="card tilt-card reveal" id="searchCard">
         <div class="premium-badge"><i class="fa-solid fa-crown"></i> Premium Downloader</div>
-        <h1 class="title-hero">Play Spotify</h1>
+        <h1 class="title-hero"><i class="fa-brands fa-spotify" style="color:#1ed760;font-size:.9em;margin-right:8px;"></i>Play Spotify</h1>
         <p class="desc-hero">Cari, putar otomatis, dan download trek audio favoritmu dari Spotify secara instan ✨</p>
 
         <label class="label">Masukkan Judul Lagu / Link</label>
@@ -1030,6 +1243,23 @@ body{
             <input type="text" id="query" class="input" placeholder="Ex: eńau - Sesi Potret" onkeypress="if(event.key==='Enter') searchSpotify()">
             <button class="btn btn-search" onclick="searchSpotify()" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
+    </div>
+
+    <!-- Riwayat Pencarian -->
+    <div class="card reveal" id="historyCard" style="display:none">
+        <div class="results-title-flex">
+            <div class="results-title"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat Pencarian</div>
+            <div class="close-history-btn" id="closeHistoryBtn" title="Tutup Riwayat"><i class="fa-solid fa-xmark"></i></div>
+        </div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+    <!-- Lagu Sedang Populer -->
+    <div class="card reveal" id="trendingCard">
+        <div class="results-title-flex">
+            <div class="results-title"><span class="trending-badge"><i class="fa-solid fa-fire"></i> Sedang Populer</span></div>
+        </div>
+        <div class="results-list" id="trendingList"></div>
     </div>
 
     <div class="card loading-box" id="loadingBox">
@@ -1109,6 +1339,10 @@ body{
         </div>
     </div>
 
+    <button class="back-button reveal" onclick="showTrendingAgain()" id="showTrendingBtn" style="display:none;margin-top:16px;">
+        <i class="fa-solid fa-fire" style="color:#ff9f43;margin-right:8px;"></i> Tampilkan Lagu Populer
+    </button>
+
     <button class="back-button reveal" onclick="location.href='index.html'">Kembali Ke Dashboard</button>
 
     <div class="credit reveal">
@@ -1121,6 +1355,115 @@ body{
 <script>
 let currentTracks = [];
 let activeIndex = -1;
+
+// ========== LAGU SEDANG POPULER ==========
+function showTrendingAgain(){
+    const trendingCard = document.getElementById("trendingCard");
+    const showTrendingBtn = document.getElementById("showTrendingBtn");
+    if(trendingCard) trendingCard.style.display = "block";
+    if(showTrendingBtn) showTrendingBtn.style.display = "none";
+    trendingCard.scrollIntoView({ behavior: "smooth" });
+}
+
+const trendingSongs = [
+    { title: "Cinta Tak Harus Memiliki", artist: "ST12" },
+    { title: "Tak Ingin Usai", artist: "Keisya Levronka" },
+    { title: "Sial", artist: "Mahalini" },
+    { title: "Tak Segampang Itu", artist: "Anggi Marito" },
+    { title: "Lathi", artist: "Weird Genius ft. Sara Fajira" },
+    { title: "Bengawan Solo", artist: "Nella Kharisma" },
+    { title: "Sampai Jadi Debu", artist: "Ghea Indrawari" },
+    { title: "Hilang", artist: "Rizky Febian" }
+];
+
+function renderTrending(){
+    const trendingList = document.getElementById("trendingList");
+    if(!trendingList) return;
+    trendingList.innerHTML = "";
+
+    trendingSongs.forEach((song, i)=>{
+        const item = document.createElement("div");
+        item.className = "trending-item";
+        item.onclick = ()=>{
+            document.getElementById("query").value = song.title + " - " + song.artist;
+            searchSpotify();
+        };
+
+        item.innerHTML =
+            '<div class="trending-rank">' + (i+1) + '</div>' +
+            '<div class="trending-item-info">' +
+                '<div class="trending-item-title">' + song.title + '</div>' +
+                '<div class="trending-item-artist">' + song.artist + '</div>' +
+            '</div>' +
+            '<div class="trending-item-play"><i class="fa-solid fa-play"></i></div>';
+
+        trendingList.appendChild(item);
+    });
+}
+
+// ========== RIWAYAT PENCARIAN ==========
+let searchHistory = [];
+let historyClosed = false;
+const MAX_HISTORY = 10;
+
+function addToHistory(query){
+    if(!query) return;
+    searchHistory = searchHistory.filter(h => h.toLowerCase() !== query.toLowerCase());
+    searchHistory.unshift(query);
+    if(searchHistory.length > MAX_HISTORY) searchHistory = searchHistory.slice(0, MAX_HISTORY);
+    historyClosed = false;
+    renderHistory();
+}
+
+function removeHistoryItem(query, e){
+    if(e) e.stopPropagation();
+    searchHistory = searchHistory.filter(h => h !== query);
+    renderHistory();
+}
+
+function renderHistory(){
+    const historyCard = document.getElementById("historyCard");
+    const historyList = document.getElementById("historyList");
+    if(!historyCard || !historyList) return;
+
+    if(searchHistory.length === 0 || historyClosed){
+        historyCard.style.display = "none";
+        return;
+    }
+
+    historyCard.style.display = "block";
+    historyList.innerHTML = "";
+
+    searchHistory.forEach(query=>{
+        const chip = document.createElement("div");
+        chip.className = "history-chip";
+        chip.onclick = ()=>{
+            document.getElementById("query").value = query;
+            searchSpotify();
+        };
+        chip.innerHTML =
+            '<i class="fa-solid fa-clock-rotate-left"></i>' +
+            '<span>' + query + '</span>' +
+            '<div class="history-chip-remove"><i class="fa-solid fa-xmark"></i></div>';
+
+        chip.querySelector(".history-chip-remove").onclick = (e)=>removeHistoryItem(query, e);
+        historyList.appendChild(chip);
+    });
+}
+
+// Tombol close/tutup riwayat (bisa ditutup sendiri oleh pengguna)
+document.addEventListener("DOMContentLoaded", ()=>{
+    const closeBtn = document.getElementById("closeHistoryBtn");
+    if(closeBtn){
+        closeBtn.addEventListener("click", ()=>{
+            historyClosed = true;
+            document.getElementById("historyCard").style.display = "none";
+            showToast("Riwayat pencarian ditutup","info");
+        });
+    }
+    renderTrending();
+    renderHistory();
+});
 
 // ========== FLOATING PARTICLES ==========
 function createParticles(){
@@ -1237,6 +1580,13 @@ async function searchSpotify(){
         return;
     }
 
+    addToHistory(queryInput);
+
+    const trendingCard = document.getElementById("trendingCard");
+    const showTrendingBtn = document.getElementById("showTrendingBtn");
+    if(trendingCard) trendingCard.style.display = "none";
+    if(showTrendingBtn) showTrendingBtn.style.display = "flex";
+
     loadingBox.style.display = "block";
     skeletonCard.style.display = "none";
     resultsCard.style.display = "none";
@@ -1285,6 +1635,7 @@ async function searchSpotify(){
                 renderResultsList(tracks);
                 resultsCard.style.display = "block";
                 resultsCard.scrollIntoView({ behavior: "smooth" });
+                selectTrack(0);
             },200);
         } else {
             loadingBox.style.display = "none";
