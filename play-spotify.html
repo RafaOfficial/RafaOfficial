@@ -1402,22 +1402,42 @@ function renderTrending(){
 }
 
 // ========== RIWAYAT PENCARIAN ==========
-let searchHistory = [];
-let historyClosed = false;
+const HISTORY_KEY = "spotifySearchHistory";
+const HISTORY_HIDDEN_KEY = "spotifySearchHistoryHidden";
 const MAX_HISTORY = 10;
+const HISTORY_TTL = 24 * 60 * 60 * 1000; // 24 jam
+
+function getHistory(){
+    try{
+        const raw = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+        const now = Date.now();
+        const valid = raw.filter(h => (now - h.time) < HISTORY_TTL);
+        if(valid.length !== raw.length) saveHistory(valid);
+        return valid;
+    }catch(e){
+        return [];
+    }
+}
+
+function saveHistory(history){
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+}
 
 function addToHistory(query){
     if(!query) return;
-    searchHistory = searchHistory.filter(h => h.toLowerCase() !== query.toLowerCase());
-    searchHistory.unshift(query);
-    if(searchHistory.length > MAX_HISTORY) searchHistory = searchHistory.slice(0, MAX_HISTORY);
-    historyClosed = false;
+    let history = getHistory();
+    history = history.filter(h => h.query.toLowerCase() !== query.toLowerCase());
+    history.unshift({ query: query, time: Date.now() });
+    if(history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
+    saveHistory(history);
+    localStorage.removeItem(HISTORY_HIDDEN_KEY);
     renderHistory();
 }
 
 function removeHistoryItem(query, e){
     if(e) e.stopPropagation();
-    searchHistory = searchHistory.filter(h => h !== query);
+    let history = getHistory().filter(h => h.query !== query);
+    saveHistory(history);
     renderHistory();
 }
 
@@ -1426,7 +1446,10 @@ function renderHistory(){
     const historyList = document.getElementById("historyList");
     if(!historyCard || !historyList) return;
 
-    if(searchHistory.length === 0 || historyClosed){
+    const history = getHistory();
+    const isHidden = localStorage.getItem(HISTORY_HIDDEN_KEY) === "1";
+
+    if(history.length === 0 || isHidden){
         historyCard.style.display = "none";
         return;
     }
@@ -1434,7 +1457,8 @@ function renderHistory(){
     historyCard.style.display = "block";
     historyList.innerHTML = "";
 
-    searchHistory.forEach(query=>{
+    history.forEach(h=>{
+        const query = h.query;
         const chip = document.createElement("div");
         chip.className = "history-chip";
         chip.onclick = ()=>{
@@ -1451,12 +1475,12 @@ function renderHistory(){
     });
 }
 
-// Tombol close/tutup riwayat (bisa ditutup sendiri oleh pengguna)
+// Tombol close/tutup riwayat (hanya hilang saat kita tutup sendiri)
 document.addEventListener("DOMContentLoaded", ()=>{
     const closeBtn = document.getElementById("closeHistoryBtn");
     if(closeBtn){
         closeBtn.addEventListener("click", ()=>{
-            historyClosed = true;
+            localStorage.setItem(HISTORY_HIDDEN_KEY, "1");
             document.getElementById("historyCard").style.display = "none";
             showToast("Riwayat pencarian ditutup","info");
         });
