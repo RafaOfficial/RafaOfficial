@@ -1003,6 +1003,141 @@ body{
     font-weight:700;
 }
 
+.fav-btn{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#8b93b8;
+    font-size:15px;
+    cursor:pointer;
+    transition:.25s;
+    flex-shrink:0;
+}
+
+.fav-btn:hover{
+    border-color:rgba(255,71,133,.5);
+    color:#ff4785;
+    transform:scale(1.1);
+}
+
+.fav-btn.active{
+    background:rgba(255,71,133,.15);
+    border-color:rgba(255,71,133,.5);
+    color:#ff4785;
+}
+
+.fav-btn.active i{
+    animation:favPop .35s ease;
+}
+
+@keyframes favPop{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.4);}
+    100%{transform:scale(1);}
+}
+
+.fav-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:10px;
+    border-radius:16px;
+    background:#070a18;
+    border:1px solid rgba(255,71,133,.15);
+    cursor:pointer;
+    transition:.25s;
+    position:relative;
+}
+
+.fav-item:hover{
+    border-color:rgba(255,71,133,.4);
+    background:rgba(255,71,133,.06);
+    transform:translateY(-1px);
+}
+
+.fav-item.now-playing{
+    border-color:rgba(30,215,96,.5);
+    background:rgba(30,215,96,.07);
+}
+
+.fav-item-rank{
+    flex-shrink:0;
+    width:30px;
+    height:30px;
+    border-radius:10px;
+    background:linear-gradient(145deg,#3a1030,#20081c);
+    border:1px solid rgba(255,71,133,.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12.5px;
+    font-weight:800;
+    color:#ff9dc0;
+}
+
+.fav-item-info{
+    flex:1;
+    min-width:0;
+}
+
+.fav-item-title{
+    font-size:14px;
+    font-weight:600;
+    color:#f4f6ff;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.fav-item-artist{
+    font-size:12.5px;
+    color:#8b93b8;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-top:2px;
+}
+
+.fav-item-remove{
+    flex-shrink:0;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#8b93b8;
+    font-size:12px;
+    transition:.2s;
+}
+
+.fav-item-remove:hover{
+    background:rgba(239,68,68,.25);
+    color:#ff8484;
+}
+
+.fav-count-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#ff4785;
+    font-size:11px;
+    font-weight:700;
+}
+
+.fav-empty{
+    font-size:13px;
+    color:#525a7f;
+    padding:14px 10px;
+    text-align:center;
+}
+
 /* ========== AUDIO PLAYER ========== */
 .audio-player{
     display:none;
@@ -1262,6 +1397,14 @@ body{
         <div class="results-list" id="trendingList"></div>
     </div>
 
+    <!-- Lagu Favorit -->
+    <div class="card reveal" id="favoriteCard" style="display:none">
+        <div class="results-title-flex">
+            <div class="results-title"><span class="fav-count-badge"><i class="fa-solid fa-heart"></i> Favorit Saya (<span id="favCount">0</span>)</span></div>
+        </div>
+        <div class="results-list" id="favoriteList"></div>
+    </div>
+
     <div class="card loading-box" id="loadingBox">
         <div class="progress-text" id="loadingText">Loading 0%</div>
         <div class="progress-bg">
@@ -1290,6 +1433,9 @@ body{
             </div>
             <div id="trackTitle" class="song-title">-</div>
             <div id="trackArtist" class="song-artist">-</div>
+            <div style="display:flex;justify-content:center;margin:10px 0 4px;">
+                <div class="fav-btn" id="favToggleBtn" title="Tambah ke Favorit"><i class="fa-solid fa-heart"></i></div>
+            </div>
 
             <!-- Waveform Visualizer -->
             <div class="waveform-container" id="waveform">
@@ -1356,6 +1502,202 @@ body{
 let currentTracks = [];
 let activeIndex = -1;
 
+// ========== LAGU FAVORIT ==========
+const FAV_KEY = "spotifyFavoriteTracks";
+let favPlayIndex = -1; // index sedang diputar di dalam list favorit (-1 = tidak sedang mode favorit)
+
+function getFavorites(){
+    try{
+        return JSON.parse(localStorage.getItem(FAV_KEY)) || [];
+    }catch(e){
+        return [];
+    }
+}
+
+function saveFavorites(list){
+    localStorage.setItem(FAV_KEY, JSON.stringify(list));
+}
+
+function isFavorite(track){
+    if(!track) return false;
+    const favs = getFavorites();
+    return favs.some(f => f.title === track.title && f.artist === track.artist);
+}
+
+function toggleFavorite(track){
+    if(!track) return;
+    let favs = getFavorites();
+    const idx = favs.findIndex(f => f.title === track.title && f.artist === track.artist);
+
+    if(idx > -1){
+        favs.splice(idx, 1);
+        saveFavorites(favs);
+        showToast("Dihapus dari Favorit","info");
+    } else {
+        favs.push(track);
+        saveFavorites(favs);
+        showToast("Ditambahkan ke Favorit ❤️","success");
+    }
+
+    renderFavorites();
+    updateFavButtonState(track);
+}
+
+function updateFavButtonState(track){
+    const favBtn = document.getElementById("favToggleBtn");
+    if(!favBtn) return;
+    if(isFavorite(track)){
+        favBtn.classList.add("active");
+    } else {
+        favBtn.classList.remove("active");
+    }
+}
+
+function renderFavorites(){
+    const favoriteCard = document.getElementById("favoriteCard");
+    const favoriteList = document.getElementById("favoriteList");
+    const favCount = document.getElementById("favCount");
+    if(!favoriteCard || !favoriteList) return;
+
+    const favs = getFavorites();
+    favCount.innerText = favs.length;
+
+    if(favs.length === 0){
+        favoriteCard.style.display = "none";
+        return;
+    }
+
+    favoriteCard.style.display = "block";
+    favoriteList.innerHTML = "";
+
+    favs.forEach((track, i)=>{
+        const item = document.createElement("div");
+        item.className = "fav-item" + (favPlayIndex === i ? " now-playing" : "");
+        item.onclick = ()=>playFavoriteAt(i);
+
+        item.innerHTML =
+            '<div class="fav-item-rank">' + (i+1) + '</div>' +
+            '<div class="fav-item-info">' +
+                '<div class="fav-item-title">' + (track.title || "-") + '</div>' +
+                '<div class="fav-item-artist">' + (track.artist || "-") + '</div>' +
+            '</div>' +
+            '<div class="fav-item-remove" title="Hapus dari Favorit"><i class="fa-solid fa-trash"></i></div>';
+
+        item.querySelector(".fav-item-remove").onclick = (e)=>{
+            e.stopPropagation();
+            let favs2 = getFavorites();
+            favs2 = favs2.filter((f,fi)=> !(f.title === track.title && f.artist === track.artist));
+            saveFavorites(favs2);
+            if(favPlayIndex === i) favPlayIndex = -1;
+            renderFavorites();
+            updateFavButtonState(currentTracks[activeIndex]);
+        };
+
+        favoriteList.appendChild(item);
+    });
+}
+
+function playFavoriteAt(i){
+    const favs = getFavorites();
+    const track = favs[i];
+    if(!track) return;
+    favPlayIndex = i;
+    playTrackObject(track);
+    renderFavorites();
+}
+
+function playNextFavorite(){
+    const favs = getFavorites();
+    if(favs.length === 0 || favPlayIndex === -1) return false;
+    const nextIndex = favPlayIndex + 1;
+    if(nextIndex >= favs.length){
+        favPlayIndex = -1;
+        renderFavorites();
+        return false;
+    }
+    playFavoriteAt(nextIndex);
+    return true;
+}
+
+// Memutar objek track secara langsung (dipakai favorit) memakai UI player yang sama
+function playTrackObject(track){
+    if(!track) return;
+
+    const result = document.getElementById("result");
+    const trackThumb = document.getElementById("trackThumb");
+    const thumbWrapper = document.getElementById("thumbWrapper");
+    const trackTitle = document.getElementById("trackTitle");
+    const trackArtist = document.getElementById("trackArtist");
+    const trackAlbum = document.getElementById("trackAlbum");
+    const trackDuration = document.getElementById("trackDuration");
+    const trackRelease = document.getElementById("trackRelease");
+    const trackPopularity = document.getElementById("trackPopularity");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const waveform = document.getElementById("waveform");
+    const audioEl = document.getElementById("audioEl");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const autoplayNote = document.getElementById("autoplayNote");
+    const playIcon = document.getElementById("playIcon");
+
+    audioEl.pause();
+    thumbWrapper.classList.remove("playing");
+    waveform.classList.remove("active");
+    autoplayNote.style.display = "none";
+
+    trackThumb.src = track.thumbnail || "https://i.ibb.co/thubmnail-placeholder.jpg";
+    trackTitle.innerText = track.title || "-";
+    trackArtist.innerText = track.artist || "-";
+    trackAlbum.innerText = track.album || "-";
+    trackDuration.innerText = track.duration || "-";
+    trackRelease.innerText = track.release_at || "-";
+    trackPopularity.innerText = track.popularity ? (track.popularity + "%🔥") : "-";
+    downloadBtn.href = track.download_url || "#";
+
+    const audioSrc = track.preview_url || track.download_url || "";
+    audioEl.src = audioSrc;
+
+    result.style.display = "block";
+    result.scrollIntoView({ behavior: "smooth", block: "center" });
+    updateFavButtonState(track);
+
+    if(audioSrc){
+        audioPlayer.style.display = "flex";
+        audioEl.play().then(()=>{
+            thumbWrapper.classList.add("playing");
+            waveform.classList.add("active");
+            playIcon.classList.remove("fa-play");
+            playIcon.classList.add("fa-pause");
+        }).catch(()=>{
+            autoplayNote.style.display = "block";
+            playIcon.classList.remove("fa-pause");
+            playIcon.classList.add("fa-play");
+        });
+    } else {
+        audioPlayer.style.display = "none";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    const favBtn = document.getElementById("favToggleBtn");
+    if(favBtn){
+        favBtn.addEventListener("click", ()=>{
+            const track = (favPlayIndex > -1) ? getFavorites()[favPlayIndex] : currentTracks[activeIndex];
+            toggleFavorite(track);
+        });
+    }
+    renderFavorites();
+
+    // Lanjutkan otomatis ke favorit berikutnya kalau lagu favorit yang sedang jalan selesai
+    const audioEl = document.getElementById("audioEl");
+    if(audioEl){
+        audioEl.addEventListener("ended", ()=>{
+            if(favPlayIndex > -1){
+                playNextFavorite();
+            }
+        });
+    }
+});
+
 // ========== LAGU SEDANG POPULER ==========
 function showTrendingAgain(){
     const trendingCard = document.getElementById("trendingCard");
@@ -1404,16 +1746,11 @@ function renderTrending(){
 // ========== RIWAYAT PENCARIAN ==========
 const HISTORY_KEY = "spotifySearchHistory";
 const HISTORY_HIDDEN_KEY = "spotifySearchHistoryHidden";
-const MAX_HISTORY = 10;
-const HISTORY_TTL = 24 * 60 * 60 * 1000; // 24 jam
+const MAX_HISTORY = 50;
 
 function getHistory(){
     try{
-        const raw = JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
-        const now = Date.now();
-        const valid = raw.filter(h => (now - h.time) < HISTORY_TTL);
-        if(valid.length !== raw.length) saveHistory(valid);
-        return valid;
+        return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
     }catch(e){
         return [];
     }
@@ -1703,6 +2040,7 @@ function selectTrack(i){
     const track = currentTracks[i];
     if(!track) return;
     activeIndex = i;
+    favPlayIndex = -1;
 
     document.querySelectorAll(".result-item").forEach(el=>el.classList.remove("active"));
     const activeEl = document.querySelector('.result-item[data-index="' + i + '"]');
@@ -1744,6 +2082,7 @@ function selectTrack(i){
 
     result.style.display = "block";
     result.scrollIntoView({ behavior: "smooth", block: "center" });
+    updateFavButtonState(track);
 
     if(audioSrc){
         audioPlayer.style.display = "flex";
