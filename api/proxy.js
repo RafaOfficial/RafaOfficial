@@ -1,7 +1,7 @@
 exports.handler = async (event, context) => {
   const targetUrl = event.queryStringParameters.url;
   if (!targetUrl) {
-    return { statusCode: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Parameter ?url= https://tools-premium.netlify.app' }) };
+    return { statusCode: 400, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ error: 'Parameter ?url=https://tools-premium.netlify.app' }) };
   }
   try {
     const response = await fetch(targetUrl, {
