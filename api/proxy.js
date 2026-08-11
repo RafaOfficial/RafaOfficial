@@ -1,8 +1,12 @@
-export default async function handler(req, res) {
-  const targetUrl = req.query.url;
+exports.handler = async (event, context) => {
+  const targetUrl = event.queryStringParameters.url;
 
   if (!targetUrl) {
-    return res.status(400).json({ error: 'Parameter ?url= wajib diisi' });
+    return {
+      statusCode: 400,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Parameter ?url= wajib diisi' }),
+    };
   }
 
   try {
@@ -17,18 +21,28 @@ export default async function handler(req, res) {
     const contentType = response.headers.get('content-type') || 'application/octet-stream';
     const buffer = await response.arrayBuffer();
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-
-    if (targetUrl.includes('.m3u8') || targetUrl.includes('.ts')) {
-      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    }
-
-    res.status(response.status);
-    res.setHeader('Content-Type', contentType);
-    res.send(Buffer.from(buffer));
+    return {
+      statusCode: response.status,
+      headers: {
+        'Content-Type': contentType,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': '*',
+        'Cache-Control': targetUrl.includes('.m3u8') || targetUrl.includes('.ts')
+          ? 'no-cache, no-store, must-revalidate'
+          : 'public, max-age=3600',
+      },
+      body: Buffer.from(buffer).toString('base64'),
+      isBase64Encoded: true,
+    };
   } catch (err) {
-    res.status(502).json({ error: err.message });
+    return {
+      statusCode: 502,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ error: err.message }),
+    };
   }
-}
+};
