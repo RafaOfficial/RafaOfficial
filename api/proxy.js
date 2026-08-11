@@ -1,29 +1,37 @@
+// api/proxy.js — Vercel Serverless Function (bypass CORS Pinterest)
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,X-Session-Id,User-Agent')
+  const targetUrl = req.query.url;
 
-  if (req.method === 'OPTIONS') return res.status(200).end()
-
-  const { path } = req.query
-  if (!path) return res.status(400).json({ message: 'path query required' })
-
-  const target = `https://react-channelwa.vercel.app/api/${path}`
+  if (!targetUrl) {
+    return res.status(400).json({ error: 'Parameter ?url= wajib diisi' });
+  }
 
   try {
-    const response = await fetch(target, {
-      method: req.method,
+    const response = await fetch(targetUrl, {
       headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Mozilla/5.0',
-        ...(req.headers['x-session-id'] && { 'X-Session-Id': req.headers['x-session-id'] })
+        'Referer': 'https://www.pinterest.com/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'Accept': '*/*',
       },
-      body: req.method !== 'GET' ? JSON.stringify(req.body) : undefined
-    })
+    });
 
-    const data = await response.json()
-    res.status(response.status).json(data)
+    const contentType = response.headers.get('content-type') || 'application/octet-stream';
+    const buffer = await response.arrayBuffer();
+
+    // CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    
+    // Jangan cache m3u8/ts supaya selalu fresh
+    if (targetUrl.includes('.m3u8') || targetUrl.includes('.ts')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    }
+
+    res.status(response.status);
+    res.setHeader('Content-Type', contentType);
+    res.send(Buffer.from(buffer));
   } catch (err) {
-    res.status(500).json({ message: err.message || 'Proxy error' })
+    res.status(502).json({ error: err.message });
   }
 }
