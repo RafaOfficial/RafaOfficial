@@ -530,9 +530,9 @@ body::before{
 
         <!-- Proxy Settings -->
         <div class="proxy-panel">
-            <span class="proxy-label">&#128279; Proxy URL:</span>
+            <span class="proxy-label">&#128279; Proxy:</span>
             <input type="text" id="proxyInput" class="proxy-input"
-                placeholder="https://proxy-kamu.workers.dev/?url="
+                placeholder="/api/proxy?url="
                 value=""
                 oninput="updateProxyStatus()">
             <span class="proxy-status off" id="proxyStatus">OFF</span>
@@ -618,6 +618,7 @@ body::before{
 // Contoh: "https://pinterest-proxy-kamu.workers.dev/?url="
 // Biarkan kosong kalau belum punya proxy (akan pakai fallback langsung)
 const DEFAULT_PROXY = "/api/proxy?url=";
+const PROXY_PATTERN = /^\/api\/proxy\?url=$/;
 
 let PROXY_URL = localStorage.getItem("pinterest_proxy") || DEFAULT_PROXY;
 
@@ -632,7 +633,14 @@ let loadTimeout = null;
 function updateProxyStatus() {
     const input = document.getElementById("proxyInput");
     const status = document.getElementById("proxyStatus");
-    PROXY_URL = input.value.trim();
+    let val = input.value.trim();
+    
+    // Validate: must end with ?url= or ?url
+    if (val && !val.endsWith("?url=") && !val.endsWith("?url")) {
+        val = "";
+    }
+    
+    PROXY_URL = val;
     if (PROXY_URL) {
         localStorage.setItem("pinterest_proxy", PROXY_URL);
         status.textContent = "ON";
@@ -736,7 +744,7 @@ async function searchPinterest() {
         } else { throw new Error("Tidak ada hasil ditemukan."); }
     } catch (error) {
         console.log("API Error:", error);
-        alert("Server mengalami kendala CORS. Menampilkan data demo sebagai referensi tampilan.\n\nUntuk penggunaan nyata, deploy file ini ke server atau gunakan proxy CORS.");
+        console.log("[CORS] API search blocked, using demo data");
         renderResults(demoData);
     }
     loading.style.display = "none";
@@ -932,9 +940,18 @@ function copyModalUrl() {
 
 // ===================== INIT =====================
 window.addEventListener("DOMContentLoaded", () => {
-    // Load proxy dari localStorage
+    // Load & validate proxy dari localStorage
     const proxyInput = document.getElementById("proxyInput");
-    if (proxyInput && PROXY_URL) {
+    let stored = localStorage.getItem("pinterest_proxy");
+    
+    // Reset kalau stored value tidak valid
+    if (stored && (!stored.endsWith("?url=") && !stored.endsWith("?url"))) {
+        localStorage.removeItem("pinterest_proxy");
+        stored = DEFAULT_PROXY;
+    }
+    
+    PROXY_URL = stored || DEFAULT_PROXY;
+    if (proxyInput) {
         proxyInput.value = PROXY_URL;
         updateProxyStatus();
     }
