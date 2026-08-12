@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#5b7cfa">
+    <title>TikTok Photo Search - RafaXMods</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: #03040a; min-height: 100vh; color: #ffffff; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(91,124,250,0.15), transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16,185,129,0.08), transparent 50%), radial-gradient(ellipse 50% 50% at 20% 60%, rgba(91,124,250,0.06), transparent 50%); z-index: -1; pointer-events: none; }
+        .app-header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 20px; }
+        .header-inner { max-width: 600px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+        .brand { display: flex; align-items: center; gap: 10px; }
+        .brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #1a1a2e, #0f0f1a); border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(91,124,250,0.3); }
+        .brand-icon i { font-size: 20px; color: white; }
+        .brand-text h1 { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 700; background: linear-gradient(90deg, #fff, #7c97ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .brand-text span { font-size: 11px; color: #666; font-weight: 500; }
+        .search-section { max-width: 600px; margin: 0 auto; padding: 25px 20px 15px; }
+        .search-box { position: relative; display: flex; gap: 10px; }
+        .search-input-wrap { flex: 1; position: relative; }
+        .search-input { width: 100%; height: 52px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 0 50px 0 18px; color: #fff; font-size: 15px; transition: all 0.3s ease; }
+        .search-input:focus { outline: none; border-color: rgba(91,124,250,0.5); box-shadow: 0 0 20px rgba(91,124,250,0.15); background: rgba(255,255,255,0.08); }
+        .search-input::placeholder { color: #555; }
+        .search-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: #555; font-size: 16px; }
+        .search-btn { width: 52px; height: 52px; background: linear-gradient(135deg, #5b7cfa, #7c97ff); border: none; border-radius: 16px; color: white; font-size: 18px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(91,124,250,0.35); }
+        .search-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(91,124,250,0.5); }
+        .search-btn:active { transform: scale(0.95); }
+        .search-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .loader-container { display: none; text-align: center; padding: 40px 20px; }
+        .loader-ring { width: 50px; height: 50px; border: 3px solid rgba(91,124,250,0.15); border-top: 3px solid #5b7cfa; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text { color: #888; font-size: 14px; font-weight: 500; }
+        .results-container { max-width: 600px; margin: 0 auto; padding: 0 20px 30px; }
+        .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-top: 10px; }
+        .results-count { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; color: #888; }
+        .results-count span { color: #5b7cfa; }
+        .photo-card { background: linear-gradient(160deg, #10142c, #0b0e1f); border: 1px solid rgba(255,255,255,0.06); border-radius: 24px; overflow: hidden; margin-bottom: 20px; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); animation: cardEnter 0.5s ease forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes cardEnter { to { opacity: 1; transform: translateY(0); } }
+        .photo-card:hover { border-color: rgba(91,124,250,0.25); box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 30px rgba(91,124,250,0.08); transform: translateY(-3px); }
+        .image-gallery { position: relative; width: 100%; aspect-ratio: 1; background: #000; overflow: hidden; }
+        .gallery-track { display: flex; transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); height: 100%; }
+        .gallery-image { min-width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+        .gallery-nav { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 10; }
+        .gallery-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
+        .gallery-dot.active { width: 20px; border-radius: 3px; background: #5b7cfa; }
+        .image-counter { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: #fff; z-index: 10; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: none; border-radius: 50%; color: white; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; z-index: 10; opacity: 0; }
+        .image-gallery:hover .nav-arrow { opacity: 1; }
+        .nav-arrow:hover { background: rgba(91,124,250,0.8); }
+        .nav-arrow.prev { left: 10px; }
+        .nav-arrow.next { right: 10px; }
+        .card-content { padding: 18px; }
+        .author-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .author-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(91,124,250,0.3); box-shadow: 0 0 15px rgba(91,124,250,0.15); }
+        .author-info { flex: 1; min-width: 0; }
+        .author-name { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .author-handle { font-size: 12px; color: #666; font-weight: 500; }
+        .region-badge { background: rgba(91,124,250,0.15); color: #5b7cfa; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; }
+        .caption { font-size: 14px; color: #ddd; line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+        .stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 14px; padding: 10px 6px; text-align: center; transition: all 0.3s; }
+        .stat-box:hover { background: rgba(91,124,250,0.08); border-color: rgba(91,124,250,0.2); }
+        .stat-icon { font-size: 14px; margin-bottom: 4px; }
+        .stat-value { font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 700; color: #fff; }
+        .stat-label { font-size: 10px; color: #555; font-weight: 500; margin-top: 2px; }
+        .stat-box.views .stat-icon { color: #3b82f6; }
+        .stat-box.likes .stat-icon { color: #5b7cfa; }
+        .stat-box.comments .stat-icon { color: #22c55e; }
+        .stat-box.shares .stat-icon { color: #a855f7; }
+        .music-bar { display: flex; align-items: center; gap: 10px; background: linear-gradient(90deg, rgba(91,124,250,0.1), rgba(16,185,129,0.05)); border: 1px solid rgba(91,124,250,0.15); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; }
+        .music-icon { width: 36px; height: 36px; background: rgba(91,124,250,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #5b7cfa; font-size: 14px; flex-shrink: 0; }
+        .music-details { flex: 1; min-width: 0; }
+        .music-title { font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .music-artist { font-size: 11px; color: #777; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .music-duration { font-size: 11px; color: #5b7cfa; font-weight: 600; flex-shrink: 0; }
+        .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .action-btn { height: 44px; border-radius: 14px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; text-decoration: none; }
+        .btn-primary { background: linear-gradient(135deg, #5b7cfa, #7c97ff); color: white; box-shadow: 0 4px 15px rgba(91,124,250,0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(91,124,250,0.45); }
+        .btn-secondary { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); z-index: 1000; flex-direction: column; animation: fadeIn 0.3s ease; }
+        .lightbox.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .lightbox-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .lightbox-title { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 600; }
+        .lightbox-close { width: 40px; height: 40px; background: rgba(255,255,255,0.1); border: none; border-radius: 12px; color: white; font-size: 18px; cursor: pointer; transition: all 0.3s; }
+        .lightbox-close:hover { background: rgba(91,124,250,0.3); }
+        .lightbox-body { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
+        .lightbox-img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .lightbox-footer { padding: 16px 20px; display: flex; gap: 10px; border-top: 1px solid rgba(255,255,255,0.08); }
+        .lightbox-footer .action-btn { flex: 1; }
+        .empty-state { text-align: center; padding: 60px 20px; display: none; }
+        .empty-state.active { display: block; }
+        .empty-icon { width: 80px; height: 80px; background: rgba(91,124,250,0.1); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px; color: #5b7cfa; }
+        .empty-title { font-family: 'Poppins', sans-serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .empty-desc { color: #666; font-size: 14px; }
+        .toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px); background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; padding: 14px 24px; border-radius: 16px; font-weight: 600; font-size: 14px; z-index: 9999; opacity: 0; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(220,38,38,0.3); text-align: center; max-width: 90%; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .app-footer { text-align: center; padding: 30px 20px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px; }
+        .app-footer p { color: #444; font-size: 12px; font-weight: 500; }
+        .app-footer .highlight { color: #5b7cfa; font-weight: 600; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+        @media (max-width: 480px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 448 512" width="22" height="22" xmlns="http://www.w3.org/2000/svg" aria-label="TikTok">
+                        <path fill="#25f4ee" transform="translate(-10,-10)" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        <path fill="#fe2c55" transform="translate(10,10)" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                        <path fill="#ffffff" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h1>Photo Search</h1>
+                    <span>by RafaXMods</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="search-section">
+        <div class="search-box">
+            <div class="search-input-wrap">
+                <input type="text" id="searchInput" class="search-input" placeholder="Cari foto TikTok... (contoh: cewek, aesthetic, dll)" autocomplete="off">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <button id="searchBtn" class="search-btn"><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
+    <div id="loader" class="loader-container">
+        <div class="loader-ring"></div>
+        <div class="loader-text">Mencari foto TikTok...</div>
+    </div>
+    <div id="resultsContainer" class="results-container">
+        <div class="results-header">
+            <div class="results-count">Hasil pencarian: <span id="resultCount">0</span> foto</div>
+        </div>
+        <div id="resultsGrid"></div>
+    </div>
+    <div id="emptyState" class="empty-state active">
+        <div class="empty-icon"><i class="fas fa-images"></i></div>
+        <div class="empty-title">Mulai Pencarian</div>
+        <div class="empty-desc">Ketik kata kunci untuk mencari foto TikTok</div>
+    </div>
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-header">
+            <div class="lightbox-title">Pratinjau Foto</div>
+            <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="lightbox-body">
+            <img id="lightboxImg" class="lightbox-img" src="" alt="Preview">
+        </div>
+        <div class="lightbox-footer">
+            <a id="lightboxDownload" href="#" target="_blank" class="action-btn btn-primary"><i class="fas fa-download"></i> Download</a>
+            <button class="action-btn btn-secondary" onclick="closeLightbox()"><i class="fas fa-times"></i> Tutup</button>
+        </div>
+    </div>
+    <div id="toast" class="toast"></div>
+    <footer class="app-footer">
+        <p>Powered by <span class="highlight">Premium API</span> &bull; RafaXMods 2026</p>
+    </footer>
+
+<script>
+// ===== DATA DUMMY (dari JSON yang diberikan) =====
+const dummyData = {
+    "status": true,
+    "author": "@nexray - ElrayyXml",
+    "result": [
+        {
+            "title": "Hayohhhh bisa apa loh😜😂  #trend #fyp #icha_gemoy #cewekpuber",
+            "taken_at": "12/03/2026 17:24:25",
+            "region": "ID",
+            "id": "7616312987661405461",
+            "duration": "0 seconds",
+            "cover": "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/f1f005778ab54893a6e1f4f6e206438c~tplv-photomode-image-cover:640:0:q70.webp?biz_tag=mt_photo.photo_tab_cover&dr=12229&idc=useast5&ps=d5b8ac02&refresh_token=de0295cb&s=SEARCH&sc=cover&shcp=c1333099&shp=d05b14bd&t=5897f7ec&x-expires=1787767200&x-signature=DlDWlqSb79bg06lC%2BRqxroPiqN4%3D",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/f1f005778ab54893a6e1f4f6e206438c~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=cf9ed235&x-expires=1787767200&x-signature=PlIgkF%2FuUzEnC%2Fou3QpRxZq9UOc%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/55375f3257394017ab8f524d385ff436~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=1db5106d&x-expires=1787767200&x-signature=DpPP98ZFdoi1Xzv%2FwACpjyPzm9s%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/1fd7afefaf294bb4ba8f289f1238b7fc~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=a336f6cf&x-expires=1787767200&x-signature=VMI8NC7iBQOy3bJzd51way5Jb2U%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": {
+                "title": "original sound - random_gz",
+                "author": "20-10-2025💍💍",
+                "duration": "17 seconds"
+            },
+            "stats": { "views": "34.6M", "likes": "1.9M", "comment": "9.6K", "share": "440.4K", "download": "740" },
+            "author": { "nickname": "namanyajuag", "fullname": "CALLMEJUAG✨", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/155ddc0960d0c0309dd410e4ce9281cb~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=c2ea7450&x-expires=1786557600&x-signature=Li%2FI0A4vD1vxOtUjH12aik5SNN4%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&sc=avatar&s=SEARCH" }
+        },
+        {
+            "title": "😜♥️🔥#masukberanda #cewekcantiktiktok #pfy ",
+            "taken_at": "25/11/2024 01:25:46",
+            "region": "ID",
+            "id": "7440913751093693704",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/80a9edcff8c5406aa38ac30f10cd2df5~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=d2f7231c&x-expires=1787767200&x-signature=oK2LyNNhDRZEoca1h5XdfmWNz1M%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/3cf517ea77d0479f919e8909f8272d06~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=598bf40d&x-expires=1787767200&x-signature=hcUcRrrbXxK%2FKE4LLI%2F6hu4PwXo%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/5e6bbf4581184dac8d5c302c63cd9d5a~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=a9f3381f&x-expires=1787767200&x-signature=ApZPOq8Qo11yHMl8Kzcoek8swT4%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": { "title": "Dj Karna Kamu Cantik Jedag Jedug", "author": "Bram Toni", "duration": "216 seconds" },
+            "stats": { "views": "116K", "likes": "879", "comment": "0", "share": "204", "download": "2" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=4415135e&x-expires=1786557600&x-signature=h27wfVS5VYia%2FEMZnpZqzksQNO8%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=avatar" }
+        },
+        {
+            "title": "😘😜🔥♥️#cewekidaman #masukberanda #cewekcantiktiktok #pfy ",
+            "taken_at": "23/11/2024 13:20:21",
+            "region": "ID",
+            "id": "7440355747440889106",
+            "images": [
+                "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/1cae18e99d0844a2b04326d6cc0ee414~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=ea1351fe&x-expires=1787767200&x-signature=xkNcCQrmmwxvlBI7Fhy%2FQ8CkM%2FM%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=image&biz_tag=tt_photomode",
+                "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/be20dc31560a4423b0e524b8672ecc48~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=3f8945ce&x-expires=1787767200&x-signature=3VEB%2FzHtvnVzMGLc3CjMVBJpCLs%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/ab24637569f047afb38714fdb06348e0~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=f2cfa9a0&x-expires=1787767200&x-signature=fRtKOoqURUxg%2BqdbN11r1ICIS6g%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/06662090ca4e48cf861b742194434eaf~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=f17a231b&x-expires=1787767200&x-signature=%2Fk6I7butafWIbj8%2FBPxYgrYtVJ0%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=image&biz_tag=tt_photomode",
+                "https://p19-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/83a4590fdfac4fc4bd162bf9e5b1eea3~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=e07eac4d&x-expires=1787767200&x-signature=%2BSaayPUbnXYbj4gOLBlixY7IZFo%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": { "title": "Santai Aja Cuy", "author": "Happy Asmara", "duration": "61 seconds" },
+            "stats": { "views": "120.5K", "likes": "287", "comment": "0", "share": "61", "download": "4" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=4415135e&x-expires=1786557600&x-signature=h27wfVS5VYia%2FEMZnpZqzksQNO8%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=avatar" }
+        },
+        {
+            "title": "♥️✨#cewekcantiktiktok #pfy ",
+            "taken_at": "02/12/2024 22:23:26",
+            "region": "ID",
+            "id": "7443835464999570696",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/78fcbe9c911d4e96a275be6323ea6340~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=e0764623&x-expires=1787767200&x-signature=%2FA1q1wZP1eIyvkK38YrOMVTxGpE%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/30c3f8b7df5342e7ad545114b68c8f7f~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=da163814&x-expires=1787767200&x-signature=x9U6UYcI08u6sWffaTbv1iAoZQ8%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/2399228560f3477cbbf78751ca810ee9~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=faf8c904&x-expires=1787767200&x-signature=bh7B6K%2B0yExyaOvigWoFbz%2BXsPI%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": { "title": "Dj Gak Pake Lama", "author": "DJ Buncit", "duration": "40 seconds" },
+            "stats": { "views": "73.6K", "likes": "793", "comment": "0", "share": "80", "download": "1" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=4415135e&x-expires=1786557600&x-signature=h27wfVS5VYia%2FEMZnpZqzksQNO8%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=avatar&s=SEARCH" }
+        },
+        {
+            "title": "♥️✨#cewekcantiktiktok #pfy ",
+            "taken_at": "25/11/2024 19:53:23",
+            "region": "ID",
+            "id": "7441199203776318728",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/892c0f9b67cd4b219d5f00c5d9bdff5c~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=9f0230bd&x-expires=1787767200&x-signature=kehohFsM2uAuqTIsEati3banyK8%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/7448964b9453497fa6df5f2c8fa37b1f~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=22b43452&x-expires=1787767200&x-signature=m2WzSc6MAnzm8ITC8ypWL1cW%2FeU%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=image&biz_tag=tt_photomode"
+            ],
+            "music_info": { "title": "Dj Gak Pake Lama", "author": "DJ Buncit", "duration": "40 seconds" },
+            "stats": { "views": "38.3K", "likes": "376", "comment": "0", "share": "18", "download": "1" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=957b2b73&x-expires=1786557600&x-signature=i%2BEXR1VlFrSNiWR9yXrRM9r3KHI%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&sc=avatar&s=SEARCH" }
+        },
+        {
+            "title": "😜♥️✨💦#masukberanda #cewekidaman #cewekgemoy #cewekcantiktiktok #pfy ",
+            "taken_at": "14/09/2024 22:24:55",
+            "region": "ID",
+            "id": "7414520097139657989",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-i-photomode-us/f0e9dd3d82724e8fa9e4d49e7b141bfc~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=8af576f7&x-expires=1787767200&x-signature=DtCML6U4MDJADcXFcgPvKIk5aBs%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-i-photomode-us/d9a14d7aedd149feb7d80b37ed528c81~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=faed818c&x-expires=1787767200&x-signature=GbkVLe5TCQ2%2FKfk5l5DJ5CSLjc4%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=image&biz_tag=tt_photomode",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-i-photomode-us/dac2958b2ddb4293942a61dc0871a736~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=3d72059c&x-expires=1787767200&x-signature=GBfju3%2Fo9XjM%2BTLgoWPmZ%2BXCZs8%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-maliva-i-photomode-us/4afaab55f0bc4b13bc436f6850ec7a2f~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=38cf0762&x-expires=1787767200&x-signature=ydJADn6ieQDl4evcZ4SbG1rYl04%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": { "title": "Kamu Kemana Yang", "author": "Khl Fvnky", "duration": "15 seconds" },
+            "stats": { "views": "314.1K", "likes": "1.3K", "comment": "0", "share": "317", "download": "9" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=4415135e&x-expires=1786557600&x-signature=h27wfVS5VYia%2FEMZnpZqzksQNO8%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=avatar" }
+        },
+        {
+            "title": "😜♥️✨#cewekcantiktiktok #cewekgemoy #pfy ",
+            "taken_at": "02/12/2024 22:17:03",
+            "region": "ID",
+            "id": "7443833820530363656",
+            "images": [
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/90dfd629808e4aea8670b12cba2879a7~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=a9539111&x-expires=1787767200&x-signature=t4Bpyxp2nvNZ63ZUZ%2Bu9T2wVgIg%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/dca1787eb8b8476680f9c7b0f2c89c5f~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=df296db9&x-expires=1787767200&x-signature=9Uu3XteBj1taoC5x61gvWpqHtgU%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/15d26101c7124a3484ad5c98dae7d383~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=06b1e7d8&x-expires=1787767200&x-signature=CsGH3khqv8beWwGFFzU58E1wJiY%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/72c96a13e58f46df989f1a73200028c3~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=a8dc4417&x-expires=1787767200&x-signature=isyIIHSW86%2FowBusFp4SmQoZTAg%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image",
+                "https://p16-common-sign.tiktokcdn-us.com/tos-alisg-i-photomode-sg/132e505ee99d4cc4a4502b6e1e755766~tplv-photomode-image-v1:q70.jpeg?dr=8793&refresh_token=324afae4&x-expires=1787767200&x-signature=ATtzf28sxrIQsyNTwJzPJKsBCls%3D&t=5897f7ec&ps=b40d0ec8&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&biz_tag=tt_photomode&sc=image"
+            ],
+            "music_info": { "title": "Dj Gak Pake Lama", "author": "DJ Buncit", "duration": "40 seconds" },
+            "stats": { "views": "38.3K", "likes": "376", "comment": "0", "share": "18", "download": "1" },
+            "author": { "nickname": "kesegaran_harian", "fullname": "Kesegaran Harian", "avatar": "https://p19-common-sign.tiktokcdn-us.com/tos-maliva-avt-0068/a95a7c7db8fdee6b14ae32672f053d8a~tplv-tiktokx-cropcenter-q:300:300:q70.jpeg?dr=8834&refresh_token=4415135e&x-expires=1786557600&x-signature=h27wfVS5VYia%2FEMZnpZqzksQNO8%3D&t=223449c4&ps=87d6e48a&shp=d05b14bd&shcp=c1333099&idc=useast5&s=SEARCH&sc=avatar" }
+        }
+    ]
+};
+
+// ===== DOM ELEMENTS =====
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const loader = document.getElementById('loader');
+const resultsContainer = document.getElementById('resultsContainer');
+const resultsGrid = document.getElementById('resultsGrid');
+const resultCount = document.getElementById('resultCount');
+const emptyState = document.getElementById('emptyState');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxDownload = document.getElementById('lightboxDownload');
+const toast = document.getElementById('toast');
+
+// ===== FUNCTIONS =====
+function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function openLightbox(url) {
+    lightboxImg.src = url;
+    lightboxDownload.href = url;
+    lightboxDownload.setAttribute('download', 'tiktok_photo.jpg');
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { lightboxImg.src = ''; }, 300);
+}
+
+// Gallery navigation
+galleryStates = {};
+
+function initGallery(cardId, totalImages) {
+    galleryStates[cardId] = { current: 0, total: totalImages };
+}
+
+function goToSlide(cardId, index) {
+    const state = galleryStates[cardId];
+    if (!state || index < 0 || index >= state.total) return;
+    state.current = index;
+    const track = document.getElementById(`track-${cardId}`);
+    const dots = document.querySelectorAll(`[data-dot="${cardId}"]`);
+    if (track) track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    const counter = document.getElementById(`counter-${cardId}`);
+    if (counter) counter.textContent = `${index + 1}/${state.total}`;
+}
+
+function nextSlide(cardId) {
+    const state = galleryStates[cardId];
+    if (state) goToSlide(cardId, (state.current + 1) % state.total);
+}
+
+function prevSlide(cardId) {
+    const state = galleryStates[cardId];
+    if (state) goToSlide(cardId, (state.current - 1 + state.total) % state.total);
+}
+
+function renderResults(data) {
+    resultsGrid.innerHTML = '';
+    if (!data.result || data.result.length === 0) {
+        emptyState.classList.add('active');
+        resultsContainer.style.display = 'none';
+        return;
+    }
+    emptyState.classList.remove('active');
+    resultsContainer.style.display = 'block';
+    resultCount.textContent = data.result.length;
+    data.result.forEach((item, idx) => {
+        const images = item.images || [];
+        const stats = item.stats || {};
+        const author = item.author || {};
+        const music = item.music_info || {};
+        const cardId = `card-${idx}`;
+        const totalImgs = images.length;
+        const dotsHtml = images.map((_, i) => `<div class="gallery-dot ${i===0?'active':''}" data-dot="${cardId}" onclick="goToSlide('${cardId}', ${i})"></div>`).join('');
+        const imgsHtml = images.map(url => `<img class="gallery-image" src="${url}" alt="TikTok Photo" onclick="openLightbox('${url}')" loading="lazy">`).join('');
+        const card = document.createElement('div');
+        card.className = 'photo-card';
+        card.style.animationDelay = `${idx * 0.08}s`;
+        card.innerHTML = `
+            <div class="image-gallery" id="gallery-${cardId}">
+                <div class="gallery-track" id="track-${cardId}">${imgsHtml}</div>
+                <div class="image-counter" id="counter-${cardId}">1/${totalImgs}</div>
+                ${totalImgs > 1 ? `<button class="nav-arrow prev" onclick="prevSlide('${cardId}')"><i class="fas fa-chevron-left"></i></button><button class="nav-arrow next" onclick="nextSlide('${cardId}')"><i class="fas fa-chevron-right"></i></button><div class="gallery-nav">${dotsHtml}</div>` : ''}
+            </div>
+            <div class="card-content">
+                <div class="author-row">
+                    <img class="author-avatar" src="${author.avatar || ''}" alt="avatar" loading="lazy" onerror="this.src='https://via.placeholder.com/42'">
+                    <div class="author-info">
+                        <div class="author-name">${author.fullname || 'Unknown'}</div>
+                        <div class="author-handle">@${author.nickname || 'unknown'}</div>
+                    </div>
+                    <div class="region-badge">${item.region || 'ID'}</div>
+                </div>
+                <div class="caption">${item.title || ''}</div>
+                <div class="stats-grid">
+                    <div class="stat-box views"><div class="stat-icon"><i class="fas fa-eye"></i></div><div class="stat-value">${stats.views || '0'}</div><div class="stat-label">Views</div></div>
+                    <div class="stat-box likes"><div class="stat-icon"><i class="fas fa-heart"></i></div><div class="stat-value">${stats.likes || '0'}</div><div class="stat-label">Likes</div></div>
+                    <div class="stat-box comments"><div class="stat-icon"><i class="fas fa-comment"></i></div><div class="stat-value">${stats.comment || '0'}</div><div class="stat-label">Comments</div></div>
+                    <div class="stat-box shares"><div class="stat-icon"><i class="fas fa-share"></i></div><div class="stat-value">${stats.share || '0'}</div><div class="stat-label">Shares</div></div>
+                </div>
+                <div class="music-bar">
+                    <div class="music-icon"><i class="fas fa-music"></i></div>
+                    <div class="music-details">
+                        <div class="music-title">${music.title || 'Unknown'}</div>
+                        <div class="music-artist">${music.author || 'Unknown'}</div>
+                    </div>
+                    <div class="music-duration">${music.duration || ''}</div>
+                </div>
+                <div class="action-row">
+                    <a href="${images[0] || '#'})" target="_blank" class="action-btn btn-primary" download="tiktok_photo.jpg"><i class="fas fa-download"></i> Download</a>
+                    <button class="action-btn btn-secondary" onclick="copyLink('${images[0] || ''}')"><i class="fas fa-link"></i> Copy Link</button>
+                </div>
+            </div>
+        `;
+        resultsGrid.appendChild(card);
+        initGallery(cardId, totalImgs);
+    });
+}
+
+function copyLink(url) {
+    if (!url) return;
+    navigator.clipboard.writeText(url).then(() => showToast('Link berhasil disalin! ✅')).catch(() => showToast('Gagal menyalin link'));
+}
+
+async function doSearch(query) {
+    if (!query.trim()) { showToast('Masukkan kata kunci pencarian!'); return; }
+    loader.style.display = 'block';
+    resultsContainer.style.display = 'none';
+    emptyState.classList.remove('active');
+    searchBtn.disabled = true;
+    searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    try {
+        // Coba fetch dari API
+        const response = await fetch(`https://api.nexray.eu.cc/search/tiktokphoto?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        if (data.status && data.result && data.result.length > 0) {
+            renderResults(data);
+            showToast(`Ditemukan ${data.result.length} hasil! ✅`);
+        } else {
+            // Fallback ke dummy data untuk demo
+            renderResults(dummyData);
+            showToast('Menampilkan data demo (API limit)');
+        }
+    } catch (err) {
+        console.error(err);
+        renderResults(dummyData);
+        showToast('Menampilkan data demo (API error)');
+    } finally {
+        loader.style.display = 'none';
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = '<i class="fas fa-arrow-right"></i>';
+    }
+}
+
+// ===== EVENT LISTENERS =====
+searchBtn.addEventListener('click', () => doSearch(searchInput.value));
+searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') doSearch(searchInput.value); });
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+// Load demo on start
+window.addEventListener('DOMContentLoaded', () => {
+    searchInput.value = 'cewek';
+    doSearch('cewek');
+});
+</script>
+</body>
+</html>
